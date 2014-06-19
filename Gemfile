@@ -46,6 +46,8 @@ gem 'debugger'
 #gem 'spree_social', github: 'spree/spree_social', branch: 'master'
 gem "spree_social", :git => "git://github.com/spree/spree_social.git", branch: '2-2-stable'
 
+gem 'rails_12factor', group: :production
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
