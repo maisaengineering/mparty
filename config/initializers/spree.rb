@@ -12,3 +12,4 @@ Spree.config do |config|
 end
 
 Spree.user_class = "Spree::LegacyUser"
+Spree::SocialConfig[:path_prefix] = ''

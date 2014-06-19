@@ -39,6 +39,13 @@ gem 'money', '6.0.1'
 # authentication
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '2-2-stable'
 
+# For debugging application
+gem 'debugger'
+
+#Social networking login
+#gem 'spree_social', github: 'spree/spree_social', branch: 'master'
+gem "spree_social", :git => "git://github.com/spree/spree_social.git", branch: '2-2-stable'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
