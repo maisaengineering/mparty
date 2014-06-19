@@ -6,9 +6,11 @@
 # In order to initialize a setting do:
 # config.setting_name = 'new value'
 Spree.config do |config|
-  # Example:
-  # Uncomment to override the default site name.
-  # config.site_name = "Spree Demo Site"
+	# Example:
+	# Uncomment to override the default site name.
+	config.site_name = "Mparty Event Management"
+	config.logo = 'maisa.jpg'
+
 end
 
 Spree.user_class = "Spree::LegacyUser"
