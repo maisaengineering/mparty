@@ -1,23 +1,26 @@
-development:
-  adapter: mysql2
+ development:
+  adapter: postgresql
+  encoding: unicode
   database: invitation_dev
   host: localhost
   pool: 5
-  username: root
-  password: root123
+  username: maisa
+  password: maisa
 
 test:
-  adapter: mysql2
+  adapter: postgresql
+  encoding: unicode
   database: invitation_test
   host: localhost
   pool: 5
-  username: root
-  password: root123
+  username: maisa
+  password: maisa
 
 production:
-  adapter: mysql2
+  adapter: postgresql
+  encoding: unicode
   database: invitation_prod
   host: localhost
   pool: 5
-  username: root
-  password: root123
+  username: postgres
+  password: maisa
