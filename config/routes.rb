@@ -64,4 +64,10 @@ Invitation::Application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :events, only: [:new, :create, :show, :index]
+
+
+  resources :invites, only: [:create, :destroy]
+  
 end

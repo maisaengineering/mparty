@@ -3,8 +3,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.4'
 
-# Use sqlite3 as the database for Active Record
+# Use postgres as the database for Active Record
 gem 'pg'
+
+# Use Mysql as the database for Active Record
+#gem 'mysql2'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -42,9 +45,13 @@ gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '2-2-stable'
 # For debugging application
 gem 'debugger'
 
-#Social networking login
+#Spree extension for Social networking login
 #gem 'spree_social', github: 'spree/spree_social', branch: 'master'
 gem "spree_social", :git => "git://github.com/spree/spree_social.git", branch: '2-2-stable'
+
+#Spree Extension for create wishlist and send it to friends
+gem 'spree_wishlist', github: 'spree/spree_wishlist', branch: '2-2-stable'
+gem 'spree_email_to_friend', github: 'spree/spree_email_to_friend', branch: '2-2-stable'
 
 gem 'rails_12factor', group: :production
 

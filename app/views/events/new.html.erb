@@ -1,0 +1,18 @@
+<h1>Create Event</h1>
+
+<%= form_for(@event) do |f| %>
+	<%= label_tag 'title'%>
+  <%= f.text_field :title %> <br/>
+
+  <%= label_tag 'location'%>
+  <%= f.text_field :location %> <br/>
+
+  <%= label_tag 'description'%>
+  <%= f.text_area :description %> <br/>
+
+  <%= label_tag 'date'%>
+  <%= f.date_field :date%> <br/>
+  
+  <%= f.submit "Create Event",  class: "btn btn-lg btn-primary"  %>
+<% end %>
+<br>

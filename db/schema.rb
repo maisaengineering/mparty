@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140618123401) do
+ActiveRecord::Schema.define(version: 20140623113255) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  create_table "events", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.string   "location"
+    t.date     "date"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "events", ["creator_id"], name: "index_events_on_creator_id", using: :btree
+
+  create_table "invites", force: true do |t|
+    t.integer  "attendee_id"
+    t.integer  "attended_event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invites", ["attended_event_id"], name: "index_invites_on_attended_event_id", using: :btree
+  add_index "invites", ["attendee_id", "attended_event_id"], name: "index_invites_on_attendee_id_and_attended_event_id", unique: true, using: :btree
+  add_index "invites", ["attendee_id"], name: "index_invites_on_attendee_id", using: :btree
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
@@ -748,8 +768,8 @@ ActiveRecord::Schema.define(version: 20140618123401) do
     t.boolean  "is_master",                               default: false
     t.integer  "product_id"
     t.decimal  "cost_price",      precision: 8, scale: 2
-    t.integer  "position"
     t.string   "cost_currency"
+    t.integer  "position"
     t.boolean  "track_inventory",                         default: true
     t.integer  "tax_category_id"
     t.datetime "updated_at"
@@ -758,6 +778,27 @@ ActiveRecord::Schema.define(version: 20140618123401) do
   add_index "spree_variants", ["product_id"], name: "index_spree_variants_on_product_id", using: :btree
   add_index "spree_variants", ["sku"], name: "index_spree_variants_on_sku", using: :btree
   add_index "spree_variants", ["tax_category_id"], name: "index_spree_variants_on_tax_category_id", using: :btree
+
+  create_table "spree_wished_products", force: true do |t|
+    t.integer  "variant_id"
+    t.integer  "wishlist_id"
+    t.text     "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_wishlists", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "access_hash"
+    t.boolean  "is_private",  default: true,  null: false
+    t.boolean  "is_default",  default: false, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "spree_wishlists", ["user_id", "is_default"], name: "index_spree_wishlists_on_user_id_and_is_default", using: :btree
+  add_index "spree_wishlists", ["user_id"], name: "index_spree_wishlists_on_user_id", using: :btree
 
   create_table "spree_zone_members", force: true do |t|
     t.integer  "zoneable_id"
