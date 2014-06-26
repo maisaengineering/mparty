@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 
 # Use postgres as the database for Active Record
-gem 'pg'
+gem 'pg', group: :production
 
-# Use Mysql as the database for Active Record
-#gem 'mysql2'
+#Use Mysql as the database for Active Record
+gem 'mysql2', group: :development
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'

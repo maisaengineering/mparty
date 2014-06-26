@@ -173,6 +173,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.3.16)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     oa-core (0.3.2)
@@ -350,6 +351,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   money (= 6.0.1)
+  mysql2
   pg
   rails (= 4.0.4)
   rails_12factor
