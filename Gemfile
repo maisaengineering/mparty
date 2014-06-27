@@ -53,6 +53,11 @@ gem "spree_social", :git => "git://github.com/spree/spree_social.git", branch: '
 gem 'spree_wishlist', github: 'spree/spree_wishlist', branch: '2-2-stable'
 gem 'spree_email_to_friend', github: 'spree/spree_email_to_friend', branch: '2-2-stable'
 
+
+#Brainteree Payment Gateway for spree
+#gem 'spree_braintree', :path => "../spree-braintree" #:git => 'git://github.com/rortechie/spree-braintree.git' 
+gem 'braintree', '~> 2.30.2'
+
 gem 'rails_12factor', group: :production
 
 # Use ActiveModel has_secure_password
