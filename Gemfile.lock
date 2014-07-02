@@ -271,6 +271,8 @@ GEM
       spree_core (= 2.2.1)
       spree_frontend (= 2.2.1)
       spree_sample (= 2.2.1)
+    spree_admin_roles_and_access (1.2.1)
+      spree_core (~> 2.2)
     spree_api (2.2.1)
       rabl (= 0.9.3)
       spree_core (= 2.2.1)
@@ -361,6 +363,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.2)
   sdoc
   spree (= 2.2.1)
+  spree_admin_roles_and_access (~> 1.2.1)
   spree_auth_devise!
   spree_email_to_friend!
   spree_gateway!

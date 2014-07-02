@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140623113255) do
+ActiveRecord::Schema.define(version: 20140628100058) do
 
   create_table "events", force: true do |t|
     t.string   "title"
@@ -327,6 +327,17 @@ ActiveRecord::Schema.define(version: 20140623113255) do
   add_index "spree_payments", ["order_id"], name: "index_spree_payments_on_order_id", using: :btree
   add_index "spree_payments", ["payment_method_id"], name: "index_spree_payments_on_payment_method_id", using: :btree
 
+  create_table "spree_permissions", force: true do |t|
+    t.string   "title",                     null: false
+    t.integer  "priority",   default: 0
+    t.boolean  "visible",    default: true
+    t.boolean  "boolean",    default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "spree_permissions", ["visible"], name: "index_spree_permissions_on_visible", using: :btree
+
   create_table "spree_preferences", force: true do |t|
     t.text     "value"
     t.string   "key"
@@ -485,8 +496,22 @@ ActiveRecord::Schema.define(version: 20140623113255) do
   end
 
   create_table "spree_roles", force: true do |t|
-    t.string "name"
+    t.string  "name"
+    t.boolean "editable",   default: true
+    t.boolean "is_default", default: false
   end
+
+  add_index "spree_roles", ["editable"], name: "index_spree_roles_on_editable", using: :btree
+  add_index "spree_roles", ["is_default"], name: "index_spree_roles_on_is_default", using: :btree
+  add_index "spree_roles", ["name"], name: "index_spree_roles_on_name", using: :btree
+
+  create_table "spree_roles_permissions", id: false, force: true do |t|
+    t.integer "role_id",       null: false
+    t.integer "permission_id", null: false
+  end
+
+  add_index "spree_roles_permissions", ["permission_id"], name: "index_spree_roles_permissions_on_permission_id", using: :btree
+  add_index "spree_roles_permissions", ["role_id"], name: "index_spree_roles_permissions_on_role_id", using: :btree
 
   create_table "spree_roles_users", id: false, force: true do |t|
     t.integer "role_id"

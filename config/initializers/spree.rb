@@ -14,6 +14,8 @@ Spree.config do |config|
 
 end
 
+Spree::Ability.register_ability(CsrAbility)
+
 Spree.user_class = "Spree::LegacyUser"
 Spree::SocialConfig[:path_prefix] = ''
 
