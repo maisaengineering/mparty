@@ -1,0 +1,8 @@
+%h1.row= Spree.t(:wishlists)
+= content_tag :ul do
+  - @wishlists.each do |wishlist|
+    = content_tag :li do
+      = link_to(wishlist.name, wishlist)
+      \- #{wishlist.is_private ? Spree.t(:private) : Spree.t(:public)}
+%div
+  = link_to "Create New Wishlist", "/wishlists/new"

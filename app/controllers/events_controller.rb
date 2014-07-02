@@ -25,7 +25,15 @@ class EventsController < ApplicationController
 
 	def title
 	 title = "Event Creation"
-	end
+  end
+
+  def send_invitation
+    emails = params[:friend_emails]
+    e = emails.split(',')
+    e.each do |email|
+      Notifier.invite_friend(email).deliver
+    end
+  end
 
 	private
 		def event_params

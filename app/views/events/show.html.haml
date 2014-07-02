@@ -1,0 +1,31 @@
+%h1= @event.title
+- if signed_in?
+  .text-center= render 'attend_form'
+%p
+  %b Location:
+  = @event.location
+%p
+  %b Host:
+  = @event.creator.login
+%p= @event.description
+%b Who's Going:
+%ol
+  - @event.attendees.each do |attendee|
+    %li= attendee.login
+
+
+%b Invite friends
+
+= form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do
+  = text_field_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"
+.inviteButtons
+  .inviteButton.ibInvite
+    %a{:href => "#"} Invite
+
+
+:javascript
+  $('.ibInvite').unbind('click').click(function(e){
+      e.preventDefault();
+      $('form#invite-friend').submit();
+
+  });

@@ -11,3 +11,50 @@
  *= require spree/frontend/spree_social
  *= require spree/frontend/spree_wishlist
 */
+
+
+.nav-bar {
+    background-color: #fff;
+    border: 1px solid #dedede;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.055);
+    color: #888;
+    display: block;
+    overflow: hidden;
+    width: 960px;
+}
+
+.nav-bar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar ul li {
+    display: inline-block;
+    list-style-type: none;
+    width: 24.76%;
+    font-size: 20px;
+    text-align: center;
+
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.nav-bar > ul > li > a {
+    color: #aaa;
+    display: block;
+    line-height: 56px;
+    padding: 0 24px;
+    text-decoration: none;
+}
+
+.nav-bar > ul > li:hover {
+    background-color: rgb( 40, 44, 47 );
+}
+
+.nav-bar > ul > li:hover > a {
+    color: rgb( 255, 255, 255 );
+}

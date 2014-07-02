@@ -1,0 +1,29 @@
+.nav-bar
+  %ul
+    %li
+      = link_to "Home", signed_in? ? "/" : login_path
+    %li
+      = link_to "Events", signed_in? ? "/events" : login_path
+    %li
+      = link_to "Wishlist", signed_in? ? "/wishlists/" : login_path
+    %li
+      = link_to "Cart", signed_in? ? "/cart" : login_path
+
+
+.jumbotron
+  %h1 Plan an Event
+  %p.lead
+    Keep track of events with your friends.  This is a simple app to organize your event planning.
+  %p= link_to "Create an Event", signed_in? ? "/events/new" : login_path, class: "btn btn-lg btn-success"
+- @events_upcoming = Event.upcoming
+- @events_past = Event.past
+%h2 Upcoming Events
+- if @events_upcoming.size > 0
+  = render 'shared/table', object: @events_upcoming
+- else
+  %p No Upcomming Events
+  %h2 Past Events
+  - if @events_past.size > 0
+    = render 'shared/table', object: @events_past
+  - else
+    %p No Past Events
