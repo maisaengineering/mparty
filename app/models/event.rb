@@ -1,9 +1,17 @@
 class Event < ActiveRecord::Base
-	belongs_to :creator, :class_name => "Spree::User"
 
-  has_many :invites, :foreign_key => "attended_event_id"
-  has_many :attendees, :through => :invites
+  # Fields ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  field :name
+  field :address
+  field :starts_at,type: DateTime
+  field :ends_at,type: DateTime
+  field :end_time,type: DateTime
+  field :attendees_count ,type: Integer,default: 0 # counter cache column for attendees count(no of rsvps)
 
-  scope :upcoming, -> { where("Date >= ?", Date.today).order('Date ASC') }
-  scope :past, -> { where("Date < ?", Date.today).order('Date DESC') }
+  # Associations ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  belongs_to :user
+  belongs_to :owner, foreign_key: "user_id", class_name: "Spree::User" # event created user
+  has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
+  has_many :invites,dependent: :destroy
+
 end

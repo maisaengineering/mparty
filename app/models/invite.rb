@@ -1,7 +1,5 @@
 class Invite < ActiveRecord::Base
-	belongs_to :attendee, class_name: "Spree::User"
-  belongs_to :attended_event, class_name: "Event"
-
-  validates :attendee_id, presence: true
-  validates :attended_event_id, presence: true
+  belongs_to :event
+  belongs_to :user
+  belongs_to :invited_by, foreign_key: "invited_user_id", class_name: "Spree::User"
 end
