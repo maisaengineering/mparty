@@ -31,7 +31,8 @@ class EventsController < ApplicationController
     emails = params[:friend_emails]
     e = emails.split(',')
     e.each do |email|
-      Notifier.invite_friend(email).deliver
+      token = SecureRandom.urlsafe_base64
+      Notifier.invite_friend(email, token).deliver
     end
   end
 

@@ -13,19 +13,18 @@
   - @event.attendees.each do |attendee|
     %li= attendee.login
 
+- if spree_current_user.login.eql?(@event.creator.login)
+  %b Invite friends
 
-%b Invite friends
-
-= form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do
-  = text_field_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"
-.inviteButtons
-  .inviteButton.ibInvite
-    %a{:href => "#"} Invite
+  = form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do
+    = text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"
+  .inviteButtons
+    .inviteButton.ibInvite
+      %a{:href => "#"} Invite
 
 
 :javascript
   $('.ibInvite').unbind('click').click(function(e){
       e.preventDefault();
       $('form#invite-friend').submit();
-
   });

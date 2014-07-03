@@ -11,7 +11,7 @@ Spree.config do |config|
 	config.site_name = "Mparty Event Management"
 	config.logo = 'maisa_logo.png'
 	config.admin_interface_logo = 'maisa_logo.png'
-
+  config.layout='spree_application'
 end
 
 Spree::Ability.register_ability(CsrAbility)
