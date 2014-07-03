@@ -1,7 +1,7 @@
 class Rsvp < ActiveRecord::Base
   # Associations ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  belongs_to :user
-  belongs_to :event,counter_cache: :attendees_count
+  belongs_to :user, foreign_key: "user_id", class_name: "Spree::User"
+  belongs_to :event, counter_cache: :attendees_count
 
   # Callbacks :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   after_create :invite_joined

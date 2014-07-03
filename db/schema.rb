@@ -11,30 +11,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140628100058) do
+ActiveRecord::Schema.define(version: 20140703131037) do
 
   create_table "events", force: true do |t|
-    t.string   "title"
+    t.string   "name"
     t.string   "description"
     t.string   "location"
-    t.date     "date"
-    t.integer  "creator_id"
+    t.date     "starts_at"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "ends_at"
+    t.integer  "attendees_count", default: 0
   end
 
-  add_index "events", ["creator_id"], name: "index_events_on_creator_id", using: :btree
+  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "invites", force: true do |t|
-    t.integer  "attendee_id"
-    t.integer  "attended_event_id"
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "invited_user_id"
+    t.boolean  "joined"
+  end
+
+  add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree
+  add_index "invites", ["user_id", "event_id"], name: "index_invites_on_user_id_and_event_id", unique: true, using: :btree
+  add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
+
+  create_table "rsvps", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "invites", ["attended_event_id"], name: "index_invites_on_attended_event_id", using: :btree
-  add_index "invites", ["attendee_id", "attended_event_id"], name: "index_invites_on_attendee_id_and_attended_event_id", unique: true, using: :btree
-  add_index "invites", ["attendee_id"], name: "index_invites_on_attendee_id", using: :btree
 
   create_table "spree_addresses", force: true do |t|
     t.string   "firstname"
