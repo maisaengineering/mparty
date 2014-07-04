@@ -1,19 +1,19 @@
-%h1= @event.title
-- if signed_in?
+%h1= @event.name
+- if signed_in? && current_spree_user.id != @event.user_id
   .text-center= render 'attend_form'
 %p
   %b Location:
   = @event.location
 %p
   %b Host:
-  = @event.creator.login
+  = @event.owner.login
 %p= @event.description
 %b Who's Going:
 %ol
-  - @event.attendees.each do |attendee|
-    %li= attendee.login
+  - @event.rsvps.each do |rsvp|
+    %li= rsvp.user.login
 
-- if spree_current_user.login.eql?(@event.creator.login)
+- if spree_current_user.login.eql?(@event.owner.login)
   %b Invite friends
 
   = form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do

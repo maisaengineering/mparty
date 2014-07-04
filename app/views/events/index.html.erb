@@ -1,9 +1,6 @@
-<h1>Browse All Events</h1>
-
-<h2>Upcoming</h2>
-<%= render 'shared/table', object: @events_upcoming %>
-<%#= will_paginate @events_upcoming, :param_name => "upcoming" %>
-
-<h2>Past</h2>
-<%= render 'shared/table', object: @events_past %>
-<%#= will_paginate @events_past, :param_name => "past" %>
+<h1>Browse All Your Events</h1>
+<% if @events.present? %>
+	<%= render 'shared/table', object: @events %>
+<% else %>
+	<h2>You don't have any Events</h2> <%= link_to 'Create Event', new_event_path %>
+<% end %>

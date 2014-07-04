@@ -1,4 +1,8 @@
 class EventsController < ApplicationController
+
+	def index
+		@events = current_spree_user.events 
+	end
 	
 	def new
 		@event = current_spree_user.events.build
@@ -18,11 +22,6 @@ class EventsController < ApplicationController
 		@event = Event.find(params[:id])
 	end
 
-	def index
-		@events_upcoming = Event.upcoming 
-		@events_past = Event.past 
-	end
-
 	def title
 	 title = "Event Creation"
   end
@@ -34,10 +33,11 @@ class EventsController < ApplicationController
       token = SecureRandom.urlsafe_base64
       Notifier.invite_friend(email, token).deliver
     end
+    redirect_to '/index'
   end
 
 	private
 		def event_params
-			params.require(:event).permit(:title, :location, :description, :date)
+			params.require(:event).permit(:name, :location, :description, :starts_at, :ends_at)
 		end
 end

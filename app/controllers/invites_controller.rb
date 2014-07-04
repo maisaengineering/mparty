@@ -1,6 +1,6 @@
 class InvitesController < ApplicationController
 	  def create
-    @event = Event.find(params[:invite][:attended_event_id])
+    @event = Event.find(params[:invite][:event_id])
     current_spree_user.attend!(@event)
     redirect_to @event
   end
