@@ -6,7 +6,6 @@ Spree::UserRegistrationsController.class_eval do
       sign_in(:spree_user, @user)
       session[:spree_user_signup] = true
       associate_user
-      Notifier.welcome_email(current_spree_user).deliver
       respond_with resource, location: after_sign_up_path_for(resource)
     else
       clean_up_passwords(resource)
