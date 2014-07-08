@@ -9,9 +9,9 @@
     %li
       = link_to "Cart", signed_in? ? "/cart" : login_path
 
-
-.jumbotron
-  %h1 Plan an Event
-  %p.lead
-    Keep track of events with your friends.  This is a simple app to organize your event planning.
+-if !signed_in?
+  .jumbotron
+    %h1 Plan an Event
+    %p.lead
+      Keep track of events with your friends.  This is a simple app to organize your event planning.
   

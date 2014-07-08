@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140703131037) do
+ActiveRecord::Schema.define(version: 20140708092022) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -33,7 +33,9 @@ ActiveRecord::Schema.define(version: 20140703131037) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "invited_user_id"
-    t.boolean  "joined"
+    t.integer  "joined",          default: 0, null: false
+    t.string   "recipient_email"
+    t.string   "token"
   end
 
   add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree

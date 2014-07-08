@@ -12,7 +12,7 @@
   <% object.each do |event| %>
   <tr>
     <td><%= event.starts_at %></td>
-    <td><%= event.name %></td>
+    <td><%= link_to event.name, event_path(event.id) %></td>
     <td><%= event.location %></td>
     <td><%= event.owner.email%></td>
     <td class="text-center"><%= event.attendees_count %></td>
@@ -20,3 +20,4 @@
   <% end %>   
 </table>
 
+<%= link_to 'Create Event', new_event_path %> 

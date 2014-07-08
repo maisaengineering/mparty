@@ -1,5 +1,11 @@
 class InvitesController < ApplicationController
-	  def create
+  #before_filter :validate_invite, :only => [:update_invitaion]
+  
+  def update_invitaion
+    render :text => params.inspect
+  end  
+	
+=begin  def create
     @event = Event.find(params[:invite][:event_id])
     current_spree_user.attend!(@event)
     redirect_to @event
@@ -10,4 +16,17 @@ class InvitesController < ApplicationController
     current_spree_user.cancel!(@event)
     redirect_to @event
   end
+=end
+  private
+
+  def validate_invite
+    email = params[:invite_email]
+    existing_user = Spree::User.find_by_email(email)
+    if existing_user.present?
+      true
+    else
+      redirect_to spree.signup_path(:invite_email => email)
+    end  
+  end
+
 end

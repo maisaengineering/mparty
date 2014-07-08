@@ -5,18 +5,18 @@ class Rsvp < ActiveRecord::Base
 
   # Callbacks :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   after_create :invite_joined
-  after_destroy :invite_unjoined
+  after_destroy :invite_rejected
   # Scopes ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   # update status of invite to true(joined) if invited to this event
   def invite_joined
     invite = Invite.where(event_id: event_id,user_id: user_id).first
-    invite.update_attribute(:joined,true) if invite
+    invite.update_attribute(:joined,1) if invite
   end
   # update status of invite to false(un-joined) if invited to this event
-  def invite_unjoined
+  def invite_rejected
     invite = Invite.where(event_id: event_id,user_id: user_id).first
-    invite.update_attribute(:joined,false) if invite
+    invite.update_attribute(:joined, 2) if invite
   end
 
 end

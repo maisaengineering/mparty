@@ -20,6 +20,8 @@
 
     <%= render :partial => 'spree/shared/sidebar' if content_for? :sidebar %>
 
+    <%= render :partial => 'spree/home/homepage_events' %>
+
     <div id="content" class="columns <%= !content_for?(:sidebar) ? "sixteen" : "sixteen" %>" data-hook>
       <%= flash_messages %>
       <%= yield %>

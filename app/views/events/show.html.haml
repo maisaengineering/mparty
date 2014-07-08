@@ -1,23 +1,37 @@
 %h1= @event.name
 - if signed_in? && current_spree_user.id != @event.user_id
   .text-center= render 'attend_form'
+- if current_spree_user.id == @event.user_id
+  %p
+    %b You are hosting this event
+%p
 %p
   %b Location:
   = @event.location
 %p
   %b Host:
   = @event.owner.login
-%p= @event.description
+%p
+  %b Description:
+  = @event.description
 %b Who's Going:
 %ol
   - @event.rsvps.each do |rsvp|
     %li= rsvp.user.login
 
 - if spree_current_user.login.eql?(@event.owner.login)
+  %p
+    %b Your Wish lists:
+    - if @wish_lists.size > 0
+      - @wish_lists.each do |wl|
+        %li= wl.name
+
   %b Invite friends
 
   = form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do
+    = hidden_field_tag 'event_id', @event.id
     = text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"
+
   .inviteButtons
     .inviteButton.ibInvite
       %a{:href => "#"} Invite
