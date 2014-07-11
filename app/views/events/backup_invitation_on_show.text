@@ -1,0 +1,23 @@
+- if spree_current_user.login.eql?(@event.owner.login)
+  %p
+    %b Your Wish lists:
+    - if @wish_lists.size > 0
+      - @wish_lists.each do |wl|
+        %li= wl.name
+
+  %b Invite friends
+
+  = form_tag 'invite-friends', remote:true, autocomplete: "off", id:'invite-friend', authenticity_token: true do
+    = hidden_field_tag 'event_id', @event.id
+    = text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"
+
+  .inviteButtons
+    .inviteButton.ibInvite
+      %a{:href => "#"} Invite
+
+
+:javascript
+  $('.ibInvite').unbind('click').click(function(e){
+      e.preventDefault();
+      $('form#invite-friend').submit();
+  });

@@ -12,22 +12,24 @@
 <h1>Create Event</h1>
 
 <%= form_for(@event) do |f| %>
-	<%= label_tag 'Name'%>
+	<%= label_tag 'Name*'%>
   <%= f.text_field :name %> <br/>
 
-  <%= label_tag 'location'%>
+  <%= label_tag 'location*'%>
   <%= f.text_field :location %> <br/>
 
   <%= label_tag 'description'%>
   <%= f.text_area :description %> <br/>
 
-  <%= label_tag 'Start date'%>
+  <%= label_tag 'Start date*'%>
   <%= f.date_field :starts_at%> <br/>
 
   <%= label_tag 'End date'%>
-  <%= f.date_field :ends_at%>
+  <%= f.date_field :ends_at%> <br/> <br/>
   
-  <%= f.submit "Create Event",  class: "btn btn-lg btn-primary"  %>
+  <%= f.submit "Create",  class: "btn btn-lg btn-primary"  %>
+  <%= f.submit "Create & Invite", class: "btn btn-lg btn-primary" %>
+  <%= f.submit "Cancel", class: "btn btn-lg btn-primary" %>
   
 <% end %>
 <br>

@@ -6,6 +6,6 @@ class Event < ActiveRecord::Base
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
 
-  validates :name, :starts_at, presence: true
+  validates :name, :location, :starts_at, presence: true
 
 end

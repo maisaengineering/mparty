@@ -1,0 +1,12 @@
+<h2>Add Guests</h2>
+
+<% if flash[:notice] %>
+ <%= flash[:notice] %>
+<% end %>
+
+<%= form_tag(send_invitation_path, method: "post") do %>
+<%= text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"%>
+<%= hidden_field_tag(:event_id, @event.id) %>
+<%= submit_tag("Invite") %>
+<%= submit_tag("Cancel") %>
+<% end %>

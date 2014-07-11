@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+	before_filter :check_for_cancel, :only => [:create, :send_invitation]
+
 layout 'spree_application'
 	def index
 		@events = current_spree_user.events 
@@ -11,12 +13,15 @@ layout 'spree_application'
 
 	def create
 		@event = current_spree_user.events.build(event_params)
-		if @event.save
-			redirect_to event_path(@event)
-		else
-			render 'new'
-		end
-
+			if @event.save
+				if params[:commit] == "Create"
+					redirect_to events_path
+				else
+					render 'add_guests'
+				end	
+			else
+				render 'new'
+			end
 	end
 
 	def show
@@ -33,22 +38,34 @@ layout 'spree_application'
 	end	
 
   def send_invitation
-    emails = params[:friend_emails]
-    e = emails.split(',')
     @event = Event.find(params[:event_id])
-    e.each do |email|
-    	@invite = Invite.create do |inv|
+    if params[:friend_emails].present?
+    	e = params[:friend_emails].split(',')
+    	e.each do |email|
+    		@invite = Invite.create do |inv|
       		inv.event_id = @event.id
       		inv.invited_user_id = @event.user_id
       		inv.joined = 0
       		inv.recipient_email = email
-      end
-      Notifier.invite_friend(email, @invite).deliver
-    end
+      	end
+      	Notifier.invite_friend(email, @invite).deliver
+    	end
+    	flash[:notice] = "Successfully sent Invitation mail."
+    	redirect_to events_path
+    else
+    	flash[:notice] = "Atleast one email is required to Invite."
+    	render 'add_guests'
+    end	
   end
 
 	private
 		def event_params
 			params.require(:event).permit(:name, :location, :description, :starts_at, :ends_at)
+		end
+
+		def check_for_cancel
+  		if params[:commit] == "Cancel"
+    		redirect_to events_path
+  		end
 		end
 end
