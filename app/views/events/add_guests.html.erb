@@ -1,11 +1,33 @@
+<script type="text/javascript">
+
+ $(function() {
+    $("[name=share_wishlist]").click(function(){
+      $('div.wishlist').toggle();
+    });
+ });
+
+</script>
 <h2>Add Guests</h2>
 
 <% if flash[:notice] %>
  <%= flash[:notice] %>
 <% end %>
 
+<p> Do you want to send wish list? </p><%= radio_button_tag(:share_wishlist, "yes") %>Yes<%= radio_button_tag(:share_wishlist, "no", true) %>No
+
+<div class="wishlist" style="display:none;" >
+<% if @wish_lists.size > 0 %>
+	<p>Your Wish lists:</p>
+	<% @wish_lists.each do |wl| %>
+     <%= wl.name %>
+  <% end %>   
+<% else %>
+  <p> You Don't have any wish list items please <%= link_to 'create', spree.new_wishlist_path %> one</p>
+<% end %>
+</div>
+
 <%= form_tag(send_invitation_path, method: "post") do %>
-<%= text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"%>
+<%= text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"%><br/>
 <%= hidden_field_tag(:event_id, @event.id) %>
 <%= submit_tag("Invite") %>
 <%= submit_tag("Cancel") %>

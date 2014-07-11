@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140708092022) do
+ActiveRecord::Schema.define(version: 20140711141221) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -833,6 +833,7 @@ ActiveRecord::Schema.define(version: 20140708092022) do
     t.boolean  "is_default",  default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
   end
 
   add_index "spree_wishlists", ["user_id", "is_default"], name: "index_spree_wishlists_on_user_id_and_is_default", using: :btree

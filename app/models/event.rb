@@ -5,6 +5,7 @@ class Event < ActiveRecord::Base
   belongs_to :owner, foreign_key: "user_id", class_name: "Spree::User" # event created user
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
+  has_one :wishlist , class_name: "Spree::Wishlist"
 
   validates :name, :location, :starts_at, presence: true
 

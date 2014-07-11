@@ -17,7 +17,7 @@
     <td><%= event.location %></td>
     <td><%= event.owner.email%></td>
     <td class="text-center"><%= event.attendees_count %></td>
-    <td class="text-center">Add Guests</td>
+    <td class="text-center"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></td>
   </tr>
   <% end %>   
 </table>

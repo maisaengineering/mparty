@@ -2,6 +2,7 @@ class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
 
 layout 'spree_application'
+
 	def index
 		@events = current_spree_user.events 
 		@invited_events = []
@@ -17,6 +18,7 @@ layout 'spree_application'
 				if params[:commit] == "Create"
 					redirect_to events_path
 				else
+					@wish_lists = current_spree_user.wishlists.where(:is_private => 0)
 					render 'add_guests'
 				end	
 			else
@@ -57,6 +59,10 @@ layout 'spree_application'
     	render 'add_guests'
     end	
   end
+
+  def add_guests
+  	@event = Event.find(params[:event_id])
+  end	
 
 	private
 		def event_params
