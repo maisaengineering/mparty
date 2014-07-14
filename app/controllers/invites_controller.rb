@@ -1,9 +1,5 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
-  
-  def update_invitaion
-    render :text => params.inspect
-  end  
 	
 =begin  def create
     @event = Event.find(params[:invite][:event_id])

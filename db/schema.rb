@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20140711141221) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "invited_user_id"
-    t.integer  "joined",          default: 0, null: false
+    t.integer  "joined"
     t.string   "recipient_email"
     t.string   "token"
   end

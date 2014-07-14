@@ -1,13 +1,13 @@
 .nav-bar
   %ul
     %li
-      = link_to "Home", signed_in? ? "/" : login_path
+      = link_to "Home",  "/"
     %li
-      = link_to "Events", signed_in? ? "/events" : login_path
+      = link_to "Events",  "/events"
     %li
-      = link_to "Wishlist", signed_in? ? "/wishlists/" : login_path
+      = link_to "Wishlist", "/wishlists/"
     %li
-      = link_to "Cart", signed_in? ? "/cart" : login_path
+      = link_to "Cart", "/cart"
 
 -if !signed_in?
   .jumbotron

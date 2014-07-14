@@ -1,4 +1,5 @@
 Spree::UserRegistrationsController.class_eval do
+  skip_before_filter :auth_user
   def create
     @user = build_resource(spree_user_params)
     if resource.save

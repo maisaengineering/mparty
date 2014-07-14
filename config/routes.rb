@@ -75,6 +75,10 @@ Invitation::Application.routes.draw do
 
   resources :invites, only: [:create, :destroy]
   
-  get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
+  # get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
+
+  resources :rsvps, only: [:create, :destroy]
+
+  get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create
 
 end

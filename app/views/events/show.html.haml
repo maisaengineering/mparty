@@ -1,9 +1,10 @@
 %h1= @event.name
-- if signed_in? && current_spree_user.id != @event.user_id
-  .text-center= render 'attend_form'
-- if current_spree_user.id == @event.user_id
-  %p
-    %b You are hosting this event
+- if current_spree_user
+  - if signed_in? && current_spree_user.id != @event.user_id
+    .text-center= render 'attend_form'
+  - if current_spree_user.id == @event.user_id
+    %p
+      %b You are hosting this event
 %p
   %b Name:
   = @event.name
@@ -19,5 +20,5 @@
 %b Who's Going:
 %ol
   - @event.rsvps.each do |rsvp|
-    %li= rsvp.user.login
+    %li= rsvp.user.login if rsvp.user
 

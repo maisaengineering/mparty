@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
-
-layout 'spree_application'
+  before_filter :auth_user, except: [:view_invitation, :show]
+  layout 'spree_application'
 
 	def index
-		@events = current_spree_user.events 
+		@events = current_spree_user.events
 		@invited_events = []
 	end
 	
@@ -28,7 +28,7 @@ layout 'spree_application'
 
 	def show
 		@event = Event.find(params[:id])
-		@wish_lists = current_spree_user.wishlists.where(:is_private => 0)
+		@wish_lists = @event.wishlist
 	end
 
 	def view_invitation
@@ -36,7 +36,7 @@ layout 'spree_application'
 		@event = invitation.event
 		@invite_email = invitation.recipient_email
 		@token = invitation.token
-		render :layout => false
+		# render :layout => false
 	end	
 
   def send_invitation
