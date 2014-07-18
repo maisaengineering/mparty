@@ -1,6 +1,12 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
-	
+
+  def update_invitaion
+    inv = Invite.where(token: params[:token]).first
+    inv.update_attributes(joined: params[:status])
+    redirect_to spree.root_url
+  end
+
 =begin  def create
     @event = Event.find(params[:invite][:event_id])
     current_spree_user.attend!(@event)

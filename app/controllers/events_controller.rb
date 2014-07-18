@@ -62,7 +62,11 @@ class EventsController < ApplicationController
 
   def add_guests
   	@event = Event.find(params[:event_id])
-  end	
+  end
+
+  def event_wishlist
+    @wishlist = Spree::Wishlist.where(event_id: params[:event_id]).first
+  end
 
 	private
 		def event_params

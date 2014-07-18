@@ -18,4 +18,12 @@ Spree::User.class_eval do
     Notifier.welcome_email(email).deliver
   end
 
+  def wishlist
+    default_wishlist = self.wishlists.where(is_default: true).first
+    default_wishlist ||= self.wishlists.first
+    default_wishlist ||= self.wishlists.create(:name => Spree.t(:default_wishlist_name), :is_default => true)
+    default_wishlist.update_attribute(:is_default, true) unless default_wishlist.is_default?
+    default_wishlist
+  end
+
 end

@@ -9,4 +9,15 @@ class Event < ActiveRecord::Base
 
   validates :name, :location, :starts_at, presence: true
 
+  def attendees(status)
+    if status.eql?('pending')
+      self.invites.where(joined: 0).count
+    elsif status.eql?('accepted')
+      self.invites.where(joined: 1).count
+    elsif status.eql?('maybe')
+      self.invites.where(joined: 3).count
+    elsif status.eql?('rejected')
+      self.invites.where(joined: 2).count
+    end
+  end
 end

@@ -16,13 +16,15 @@
 <p> Do you want to send wish list? </p><%= radio_button_tag(:share_wishlist, "yes") %>Yes<%= radio_button_tag(:share_wishlist, "no", true) %>No
 
 <div class="wishlist" style="display:none;" >
-<% if @wish_lists.size > 0 %>
-	<p>Your Wish lists:</p>
-	<% @wish_lists.each do |wl| %>
-     <%= wl.name %>
-  <% end %>   
-<% else %>
-  <p> You Don't have any wish list items please <%= link_to 'create', spree.new_wishlist_path %> one</p>
+<% if !@wish_lists.nil? %>
+    <% if @wish_lists.size > 0 %>
+	    <p>Your Wish lists:</p>
+	    <% @wish_lists.each do |wl| %>
+            <%= wl.name %>
+        <% end %>
+    <% else %>
+      <p> You Don't have any wish list items please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
+    <% end %>
 <% end %>
 </div>
 

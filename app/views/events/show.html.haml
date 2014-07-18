@@ -17,8 +17,11 @@
 %p
   %b Description:
   = @event.description
+%p
+  = link_to "View your wishlist for this event", event_wishlist_path(@event.id)
+
 %b Who's Going:
 %ol
-  - @event.rsvps.each do |rsvp|
-    %li= rsvp.user.login if rsvp.user
+  - @event.invites.each do |invite|
+    %li= invite.recipient_email if invite.recipient_email
 

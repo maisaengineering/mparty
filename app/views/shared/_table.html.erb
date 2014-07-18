@@ -5,8 +5,12 @@
       <td class="col-sm-4 text-center">Name</td>
       <td class="col-sm-3 text-center">Location</td>
       <td class="col-sm-2 text-center">Host</td>
-      <td class="col-sm-1 text-center">Attendees</td>
+      <td class="col-sm-3 text-center">Pending</td>
+      <td class="col-sm-2 text-center">Accepted</td>
+      <td class="col-sm-4 text-center">Maybe</td>
+      <td class="col-sm-2 text-center">Rejected</td>
       <td class="col-sm-1 text-center">Action</td>
+      <td class="col-sm-1 text-center">Wishlist</td>
     </tr>
   </thead>
 
@@ -16,8 +20,12 @@
     <td><%= link_to event.name, event_path(event.id) %></td>
     <td><%= event.location %></td>
     <td><%= event.owner.email%></td>
-    <td class="text-center"><%= event.attendees_count %></td>
+    <td class="text-center"><%= event.attendees('pending') %></td>
+    <td class="text-center"><%= event.attendees('accepted') %></td>
+    <td class="text-center"><%= event.attendees('maybe') %></td>
+    <td class="text-center"><%= event.attendees('rejected') %></td>
     <td class="text-center"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></td>
+    <td class="text-center"><%= link_to 'View Wishlist', event_wishlist_path(:event_id => event.id) %></td>
   </tr>
   <% end %>   
 </table>

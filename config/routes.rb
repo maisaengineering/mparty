@@ -70,15 +70,16 @@ Invitation::Application.routes.draw do
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests
+  get '/events/:event_id/event_wishlist/'=>"events#event_wishlist", as: :event_wishlist
 
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
 
   resources :invites, only: [:create, :destroy]
   
-  # get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
+  get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
 
-  resources :rsvps, only: [:create, :destroy]
-
-  get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create
+  # resources :rsvps, only: [:create, :destroy]
+  #
+  # get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create
 
 end
