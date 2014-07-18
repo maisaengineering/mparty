@@ -3,6 +3,8 @@ class EventsController < ApplicationController
   before_filter :auth_user, except: [:view_invitation, :show]
   layout 'spree_application'
 
+  helper 'spree/taxons'
+
 	def index
 		@events = current_spree_user.events
 		@invited_events = []
@@ -18,7 +20,6 @@ class EventsController < ApplicationController
 				if params[:commit] == "Create"
 					redirect_to events_path
 				else
-					@wish_lists = current_spree_user.wishlists.where(:is_private => 0)
 					render 'add_guests'
 				end	
 			else
@@ -62,11 +63,13 @@ class EventsController < ApplicationController
 
   def add_guests
   	@event = Event.find(params[:event_id])
-  end
+  	@wish_list = Spree::Wishlist.find_by_event_id(@event.id)
+  end	
 
-  def event_wishlist
-    @wishlist = Spree::Wishlist.where(event_id: params[:event_id]).first
-  end
+  def add_products
+  	@products = Spree::Product.all
+  	@taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
+  end	
 
 	private
 		def event_params

@@ -10,10 +10,15 @@ Spree::WishlistsController.class_eval do
   def create
     @wishlist = Spree::Wishlist.new wishlist_attributes
     @wishlist.user = spree_current_user
-    @wishlist.event = Event.find(params[:wishlist][:event_id]) if params[:wishlist][:event_id]
+    @wishlist.event_id = params[:wishlist][:event_id] if params[:wishlist][:event_id]
 
-    @wishlist.save
-    respond_with(@wishlist)
+    if @wishlist.save
+      if params[:wishlist][:event_id]
+        redirect_to "/events/#{params[:wishlist][:event_id]}/add_products"
+      else  
+        respond_with(@wishlist)
+      end  
+    end  
   end
 
   def show

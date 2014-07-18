@@ -1,16 +1,16 @@
 <table class="table table-condensed">   
   <thead>
     <tr>
-      <td class="col-sm-2 text-center">Date</td>
-      <td class="col-sm-4 text-center">Name</td>
-      <td class="col-sm-3 text-center">Location</td>
-      <td class="col-sm-2 text-center">Host</td>
-      <td class="col-sm-3 text-center">Pending</td>
-      <td class="col-sm-2 text-center">Accepted</td>
-      <td class="col-sm-4 text-center">Maybe</td>
-      <td class="col-sm-2 text-center">Rejected</td>
-      <td class="col-sm-1 text-center">Action</td>
-      <td class="col-sm-1 text-center">Wishlist</td>
+      <td class="col-sm-2 text-center" width="10%">Date</td>
+      <td class="col-sm-4 text-center" width="10%">Name</td>
+      <td class="col-sm-3 text-center" width="10%">Location</td>
+      <td class="col-sm-2 text-center" width="10%">Host</td>
+      <td class="col-sm-1 text-center" width="10%">Pending</td>
+      <td class="col-sm-1 text-center" width="10%">Accepted</td>
+      <td class="col-sm-1 text-center" width="10%">Maybe</td>
+      <td class="col-sm-1 text-center" width="10%">Rejected</td>
+      <td class="col-sm-1 text-center" width="10%">Action</td>
+      <!--<td class="col-sm-1 text-center">Wishlist</td>-->
     </tr>
   </thead>
 
@@ -25,7 +25,7 @@
     <td class="text-center"><%= event.attendees('maybe') %></td>
     <td class="text-center"><%= event.attendees('rejected') %></td>
     <td class="text-center"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></td>
-    <td class="text-center"><%= link_to 'View Wishlist', event_wishlist_path(:event_id => event.id) %></td>
+    <!--<td class="text-center"><%#= link_to 'View Wishlist', event_wishlist_path(:event_id => event.id) %></td>-->
   </tr>
   <% end %>   
 </table>
