@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711141221) do
+ActiveRecord::Schema.define(version: 20140719062602) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20140711141221) do
     t.datetime "updated_at"
     t.datetime "ends_at"
     t.integer  "attendees_count", default: 0
+    t.boolean  "has_wishlist",    default: false
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20140711141221) do
     t.integer  "joined"
     t.string   "recipient_email"
     t.string   "token"
+    t.boolean  "has_wishlist",    default: false
   end
 
   add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree

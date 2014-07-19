@@ -1,12 +1,8 @@
 
 <h2>Add Guests</h2> </br>
 
-<% if flash[:notice] %>
- <%= flash[:notice] %>
-<% end %>
-
 <% if @wish_list %>
-<p> Whish List </p>
+<p> <%= @wish_list.name%> </p>
 	<%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
 <% else %>	
 	<p> Do you want to send wish list? please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
@@ -14,6 +10,9 @@
 </br>
 
 <%= form_tag(send_invitation_path, method: "post") do %>
+<% if @wish_list %>
+	<p>Add Wishlist <%= check_box_tag 'add_wishlist' %> </p>
+<% end %>	
 <%= text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"%><br/>
 <%= hidden_field_tag(:event_id, @event.id) %>
 <%= submit_tag("Invite") %>

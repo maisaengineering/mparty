@@ -2,25 +2,18 @@ class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
 
   def update_invitaion
-    inv = Invite.where(token: params[:token]).first
-    inv.update_attributes(joined: params[:status])
-    @event = Event.find(inv.event_id)
-    redirect_to event_wishlist_path(:event_id => @event.id)
+    @invitaion = Invite.where(token: params[:token]).first
+    @invitaion.update_attributes(joined: params[:status])
+    @event = @invitaion.event
+    if @invitaion.has_wishlist == true 
+      @wishlist = @event.wishlist
+      render "/events/wishlist_cart"
+    else  
+      redirect_to spree.root_url
+    end  
   end
 
-=begin  def create
-    @event = Event.find(params[:invite][:event_id])
-    current_spree_user.attend!(@event)
-    redirect_to @event
-  end
-
-  def destroy
-    @event = Invite.find(params[:id]).attended_event
-    current_spree_user.cancel!(@event)
-    redirect_to @event
-  end
-=end
-  private
+=begin  private
 
   def validate_invite
     email = params[:invite_email]
@@ -31,5 +24,5 @@ class InvitesController < ApplicationController
       redirect_to spree.signup_path(:invite_email => email)
     end  
   end
-
+=end
 end
