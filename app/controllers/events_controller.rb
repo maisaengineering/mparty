@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
-  before_filter :auth_user, except: [:view_invitation, :show]
+  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   layout 'spree_application'
 
 	def index
@@ -20,7 +20,7 @@ class EventsController < ApplicationController
 				else
 					@wish_lists = current_spree_user.wishlists.where(:is_private => 0)
 					render 'add_guests'
-				end	
+				end
 			else
 				render 'new'
 			end
