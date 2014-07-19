@@ -70,7 +70,6 @@ Invitation::Application.routes.draw do
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests
-  get '/events/:event_id/event_wishlist/'=>"events#event_wishlist", as: :event_wishlist
   get '/events/:event_id/add_products/'=>"events#add_products", as: :add_products
 
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation

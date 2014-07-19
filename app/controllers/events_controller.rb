@@ -37,12 +37,13 @@ class EventsController < ApplicationController
 		@event = invitation.event
 		@invite_email = invitation.recipient_email
 		@token = invitation.token
-		# render :layout => false
 	end	
 
   def send_invitation
     @event = Event.find(params[:event_id])
+    @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
     if params[:friend_emails].present?
+
     	e = params[:friend_emails].split(',')
     	e.each do |email|
     		@invite = Invite.create do |inv|
@@ -50,6 +51,7 @@ class EventsController < ApplicationController
       		inv.invited_user_id = @event.user_id
       		inv.joined = 0
       		inv.recipient_email = email
+      		inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
       	end
       	Notifier.invite_friend(email, @invite).deliver
     	end
@@ -57,7 +59,7 @@ class EventsController < ApplicationController
     	redirect_to events_path
     else
     	flash[:notice] = "Atleast one email is required to Invite."
-    	render 'add_guests'
+    	redirect_to "/events/add_guests/#{@event.id}"
     end	
   end
 
@@ -68,6 +70,7 @@ class EventsController < ApplicationController
 
   def add_products
   	@products = Spree::Product.all
+  	session[:wishlist_id] = Spree::Wishlist.find_by_event_id(params[:event_id]).id
   	@taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
   end	
 
