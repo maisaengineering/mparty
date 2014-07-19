@@ -72,6 +72,7 @@ Invitation::Application.routes.draw do
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests
   get '/events/:event_id/event_wishlist/'=>"events#event_wishlist", as: :event_wishlist
   get '/events/:event_id/add_products/'=>"events#add_products", as: :add_products
+  get '/calendar/'=>"events#calendar", as: :calendar
 
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
 

@@ -62,7 +62,7 @@ gem 'rails_12factor', group: :production
 
 gem 'spree_admin_roles_and_access', '~> 1.2.1'
 gem 'haml-rails'
-
+gem 'fullcalendar-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

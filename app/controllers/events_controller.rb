@@ -69,7 +69,11 @@ class EventsController < ApplicationController
   def add_products
   	@products = Spree::Product.all
   	@taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
-  end	
+  end
+
+  def calendar
+
+  end
 
 	private
 		def event_params
