@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
-  before_filter :auth_user, except: [:view_invitation, :show]
+  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   layout 'spree_application'
 
   helper 'spree/taxons'
@@ -21,7 +21,7 @@ class EventsController < ApplicationController
 					redirect_to events_path
 				else
 					render 'add_guests'
-				end	
+				end
 			else
 				render 'new'
 			end
