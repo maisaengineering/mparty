@@ -5,6 +5,7 @@
         <th><%= Spree.t(:item_description) %></th>
         <th><%= Spree.t(:availability) %></th>
         <th><%= Spree.t(:price) %></th>
+        <th>Action</th>
       </tr>
       </thead>
       <tbody id="line_items">
@@ -31,6 +32,9 @@
                 </td>
                 <td>
                   <%= number_to_currency(variant.price) %>
+                </td>
+                <td>
+                  <%= link_to "Remove From Wishlist", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?"%>
                 </td>
               </tr>
           <% end -%>

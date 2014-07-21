@@ -78,6 +78,12 @@ class EventsController < ApplicationController
 
   end
 
+  def remove_product_from_wishlist
+    @wished_product = Spree::WishedProduct.find(params[:product_id])
+    @wished_product.destroy
+    redirect_to "/events/add_guests/#{@wished_product.wishlist.event_id}"
+  end  
+
 	private
 		def event_params
 			params.require(:event).permit(:name, :location, :description, :starts_at, :ends_at)
