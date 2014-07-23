@@ -18,6 +18,10 @@
   %b Description:
   = @event.description
 
+%p
+  %b Location:
+  = @event.name
+
 %b Who's Going:
 %ol
   - @event.invites.each do |invite|

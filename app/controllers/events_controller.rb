@@ -43,24 +43,34 @@ class EventsController < ApplicationController
     @event = Event.find(params[:event_id])
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
     if params[:friend_emails].present?
+      
+       e = params[:friend_emails].split(',')
+       invitations = []
+       e.each do |email|
+        invite = Invite.create do |inv|
+          inv.event_id = @event.id
+          inv.invited_user_id = @event.user_id
+          inv.joined = 0
+          inv.recipient_email = email
+          inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
+        end
+        invitations << invite
+       end
 
-    	e = params[:friend_emails].split(',')
-    	e.each do |email|
-    		@invite = Invite.create do |inv|
-      		inv.event_id = @event.id
-      		inv.invited_user_id = @event.user_id
-      		inv.joined = 0
-      		inv.recipient_email = email
-      		inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
-      	end
-      	Notifier.invite_friend(email, @invite).deliver
-    	end
-    	flash[:notice] = "Successfully sent Invitation mail."
-    	redirect_to events_path
+      if params[:add_wishlist]== "1" && !@event.ship_address.present?
+       flash[:notice] = "Please provide Shipping Address for your Wishlist." 
+       render "/events/shipping_address"
+      else 
+        send_invitation_emails(invitations)
+       flash[:notice] = "Successfully sent Invitation mail."
+       redirect_to events_path
+      end 
+
     else
     	flash[:notice] = "Atleast one email is required to Invite."
     	redirect_to "/events/add_guests/#{@event.id}"
     end	
+
   end
 
   def add_guests
@@ -82,7 +92,33 @@ class EventsController < ApplicationController
     @wished_product = Spree::WishedProduct.find(params[:product_id])
     @wished_product.destroy
     redirect_to "/events/add_guests/#{@wished_product.wishlist.event_id}"
-  end  
+  end
+
+  def add_ship_address
+    @event = Event.find(params[:event_id])
+    ship_address = Spree::Address.new do |sa|
+        sa.firstname = params[:ship_address][:firstname]
+        sa.lastname = params[:ship_address][:lastname]
+        sa.address1 = params[:ship_address][:address1]
+        sa.address2 = params[:ship_address][:address2]
+        sa.city = params[:ship_address][:city]
+        sa.zipcode = params[:ship_address][:zipcode]
+        sa.phone = params[:ship_address][:phone]
+        sa.country_id = params[:ship_address][:country_id]
+        sa.state_id = params[:ship_address][:state_id]
+      end
+    if ship_address.save
+      @event.shipping_address_id = ship_address.id
+      @event.save
+      invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
+      send_invitation_emails(invitations)
+      flash[:notice] = "Shipping Address added successfully"
+      redirect_to events_path
+    else
+      flash[:notice] = "Invalid Shipping Address" #ship_address.errors.messages
+      render "/events/shipping_address"
+    end  
+  end 
 
 	private
 		def event_params
@@ -94,4 +130,14 @@ class EventsController < ApplicationController
     		redirect_to events_path
   		end
 		end
+
+    def send_invitation_emails(invitations)
+      invitations.each do |inv|
+       if Notifier.invite_friend(inv.recipient_email, inv).deliver
+        inv.mail_sent = true
+        inv.save
+       end 
+      end  
+    end
+      
 end
