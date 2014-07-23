@@ -13,8 +13,3 @@ Deface::Override.new(
 	:virtual_path =>"spree/shared/_main_nav_bar",
 	:name => "remove_main-nav-bar",
 	:remove => "ul#main-nav-bar")
-
-Deface::Override.new(:virtual_path  => "spree/home/index",
-	:remove => "[data-hook='homepage_products']",
-	:name => "homepage_products")
-	
