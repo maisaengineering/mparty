@@ -1,0 +1,13 @@
+<%= form_tag(add_ship_address_path, method: 'post') do %>
+	
+	<%= hidden_field_tag(:event_id, @event.id) %>
+
+  <fieldset id="shipping" data-hook>
+    <legend align="center"><%= Spree.t(:shipping_address) %></legend>
+    <%= fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form| %>
+    <% ship_form.object ||= Spree::Address.new(country: Spree::Country.new) %>
+      <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => Spree::Address.default(@event, "ship") } %>
+    <% end %>
+  </fieldset>
+  <%= submit_tag("Add Address",  class: "btn btn-lg btn-primary")  %>
+<% end %>

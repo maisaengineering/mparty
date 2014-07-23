@@ -18,7 +18,8 @@
   %b Description:
   = @event.description
 %p
-  = link_to "View your wishlist for this event", event_wishlist_path(@event.id)
+  %b Location:
+  = @event.name
 
 %b Who's Going:
 %ol

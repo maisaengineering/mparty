@@ -9,27 +9,41 @@
     </ul>
   </div>
 <% end %>
-<h1>Create Event</h1>
 
 <%= form_for(@event) do |f| %>
-	<%= label_tag 'Name*'%>
-  <%= f.text_field :name %> <br/>
+<div class="inner" >
+<fieldset id="shipping" data-hook>
+<legend align="center">Create Event</legend>
+  <p class="field">
+	<%= label_tag 'Name'%><span class="required">*</span>
+  <%= f.text_field :name, :class => 'required' %> <br/>
+  </p>
 
-  <%= label_tag 'location*'%>
-  <%= f.text_field :location %> <br/>
+  <p class="field">
+  <%= label_tag 'location'%><span class="required">*</span>
+  <%= f.text_field :location, :class => 'required' %> <br/>
+  </p>
 
+  <p class="field">
   <%= label_tag 'description'%>
-  <%= f.text_area :description %> <br/>
+  <%= f.text_area :description, :class => 'required' %> <br/>
+  </p>
 
-  <%= label_tag 'Start date*'%>
-  <%= f.date_field :starts_at%> <br/>
+  <p class="field">
+  <%= label_tag 'Start date'%><span class="required">*</span>
+  <%= f.date_field :starts_at,:class => 'required'%> <br/>
+  </p>
 
+  <p class="field">
   <%= label_tag 'End date'%>
-  <%= f.date_field :ends_at%> <br/> <br/>
-  
+  <%= f.date_field :ends_at,:class => 'required'%> <br/> <br/>
+  </p>
+
+<br/>  
   <%= f.submit "Create",  class: "btn btn-lg btn-primary"  %>
   <%= f.submit "Create & Invite", class: "btn btn-lg btn-primary" %>
   <%= f.submit "Cancel", class: "btn btn-lg btn-primary" %>
-  
+ </fieldset> 
+ </div>
 <% end %>
-<br>
+<br/>
