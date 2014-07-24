@@ -6,6 +6,7 @@ class InvitesController < ApplicationController
     @invitaion = Invite.where(token: params[:token]).first
     @invitaion.update_attributes(joined: params[:status])
     @event = @invitaion.event
+    session[:event_id] = @event.id
     if @invitaion.has_wishlist == true 
       @wishlist = @event.wishlist
       render "/events/wishlist_cart"
