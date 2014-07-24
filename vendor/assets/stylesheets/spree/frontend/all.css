@@ -20,6 +20,11 @@ body{
     font-family: "museo-sans",sans-serif;
 }
 
+ul li{
+    text-decoration: none;
+    list-style: none;
+}
+
 .mainContainer{
     width: 100%;
 }
@@ -130,4 +135,59 @@ body{
     text-align: center;
     min-width: 1020px;
     height: 150px;
+}
+
+
+/* Events list */
+
+.upComingEventContainer{
+    width:100%;
+}
+
+.EventListBox li.event {
+    min-height: 30px;
+    height: auto !important;
+    margin: 0;
+    position: relative;
+    padding: 17px 0 18px 129px;
+    border-bottom: 1px solid #e3e3e3;
+    clear: both;
+}
+
+.EventListBox li.event .title {
+    padding-left: 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    width: 241px;
+    margin: 0;
+}
+
+.EventListBox li.event .title a {
+    color: #000;
+}
+
+.EventListBox li.event .title a:hover {
+    color: #000;
+}
+
+.EventListBox li.event .date {
+    position: absolute;
+    top: 16px;
+    left: 5px;
+    width: 80px;
+    font-size: 12px;
+    line-height: 22px;
+    color: #999999;
+    text-align: left;
+}
+
+
+.clearfix:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: " ";
+    clear: both;
+    height: 0;
 }

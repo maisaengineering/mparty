@@ -1,14 +1,36 @@
-<h1>All Your Events</h1>
-<% if @events.present? %>
-	<%= render 'shared/table', object: @events %>
-<% else %>
-	<h2>You don't have any Events</h2> <%= link_to 'Create Event', new_event_path %>
-<% end %>
-<hr/>
-<h1>Invitations</h1>
-<% if @invited_events.present? %>
-	<%= render 'shared/table', object: @events %>
-<% else %>
-	<p>You don't have any invitations</p> 
-<% end %>
+<h3>Upcoming Events</h3>
+<div class="upComingEventContainer">
+    <div class="upComingEventList">
+      <% @upcoming_all_events.each do |event| %>
+          <div class="EventListBox">
+            <ul class="clearfix">
+              <li class="event">
+                <div class="date"> <%= event.starts_at %></div>
+                <div class="title"><%= link_to event.name, event_path(event.id) %></div>
+                <%= event.owner.email%>
+                <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+              </li>
+            </ul>
+          </div>
+      <% end %>
+    </div>
+</div>
 
+<h3>Past Events</h3>
+
+<div class="pastEventContainer">
+  <div class="pastEventList">
+    <% @previous_all_events.each do |event| %>
+        <div class="EventListBox">
+          <ul class="clearfix">
+            <li class="event">
+              <div class="date"> <%= event.starts_at %></div>
+              <div class="title"><%= link_to event.name, event_path(event.id) %></div>
+              <%= event.owner.email%>
+              <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+            </li>
+          </ul>
+        </div>
+    <% end %>
+  </div>
+</div>
