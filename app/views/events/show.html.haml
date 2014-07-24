@@ -22,8 +22,12 @@
   %b Location:
   = @event.name
 
-%b Who's Going:
-%ol
-  - @event.invites.each do |invite|
-    %li= invite.recipient_email if invite.recipient_email
-
+%h3 Who's Coming?
+%h5 Pending
+= @event.attendees('pending')
+%h5 Accepted
+= @event.attendees('accepted')
+%h5 Maybe
+= @event.attendees('maybe')
+%h5 rejected
+= @event.attendees('rejected')

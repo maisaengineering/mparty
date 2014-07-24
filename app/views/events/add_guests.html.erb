@@ -13,7 +13,7 @@
 <% if @wish_list && @wish_list.wished_products.size > 0 %>
 	<p>Add Wishlist <%= check_box_tag 'add_wishlist' %> </p>
 <% end %>	
-<%= text_area_tag "friend_emails" , nil, placeholder: "friend's email with comma separated", class:"inviteEmail required"%><br/><br/>
+<%= text_area_tag "friend_emails" , nil, placeholder: "Enter friend's email with comma separated", class:"inviteEmail multiple-email required"%><br/><br/>
 <%= hidden_field_tag(:event_id, @event.id) %>
 <%= submit_tag("Invite") %>
 <%= submit_tag("Cancel") %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140723102206) do
+ActiveRecord::Schema.define(version: 20140724151803) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -827,6 +827,7 @@ ActiveRecord::Schema.define(version: 20140723102206) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_purchased", default: false
   end
 
   create_table "spree_wishlists", force: true do |t|
