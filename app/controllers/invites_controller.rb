@@ -1,5 +1,6 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
+  layout 'spree_application'
 
   def update_invitaion
     @invitaion = Invite.where(token: params[:token]).first
