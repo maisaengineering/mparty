@@ -9,7 +9,7 @@
 </div>
 
 <div class="columns omega six" data-hook="shipping_fieldset_wrapper">
-  <fieldset id="shipping" data-hook>
+  <fieldset id="shipping" data-hook disabled>
     <%= form.fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form| %>
         <legend align="center"><%= Spree.t(:shipping_address) %></legend>
         <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => @order.ship_address } %>
