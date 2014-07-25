@@ -2,22 +2,28 @@
   <div class="topHeader">
     <div class="headerLogo">
       <a href="/" class="logo" id="logo_top">
-        <img src="/assets/maisa_logo.png">
+        <img src="/assets/logo_web.jpg" height="60px" >
       </a>
     </div>
     <div class="headerMenuRight">
       <%- if signed_in? %>
           <div class="headerTabs">
-            <%= link_to 'Cart', spree.cart_path %>
+            <%= link_to 'Cart', '/cart' %>
           </div>
           <div class="headerTabs">
-            <%= link_to 'My Account', spree.edit_account_path %>
+            <%= link_to 'My Account', '/account' %>
           </div>
           <div class="headerTabs">
-            <%= link_to "Log Out", spree.destroy_spree_user_session_path, method: :delete %>
+            <%= link_to "Log Out", '/logout' %>
           </div>
       <% else %>
-          <%= link_to "Login", login_path %>
+          <div class="headerTabs">
+            <%= link_to "Signup", '/signup' %>
+          </div>
+          <div class="headerTabs">
+            <%= link_to "Login", '/login' %>
+          </div>
+
       <% end %>
     </div>
   </div>
@@ -32,3 +38,14 @@
     </nav>
   </div>
 </div>
+
+
+<script>
+    $(window).scroll(function(){
+        var sticky = $('.mainMenubar'),
+                scroll = $(window).scrollTop();
+
+        if (scroll >= 70) sticky.addClass('fixed');
+        else sticky.removeClass('fixed');
+    });
+</script>

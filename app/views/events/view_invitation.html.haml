@@ -4,8 +4,8 @@
 %h2 Location : #{@event.location}
 %h2 Date : #{@event.starts_at.to_date}
 
-%p= link_to "Attend",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}"
+%p= link_to "Attend",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}", class: "UserResponseButtons Green"
 
-%p= link_to "Reject",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}"
+%p= link_to "Reject",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}", class: "UserResponseButtons Red"
 
-%p= link_to "May be",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}"
+%p= link_to "May be",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}", class: "UserResponseButtons Yellow"

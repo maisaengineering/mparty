@@ -22,12 +22,11 @@
   %b Location:
   = @event.name
 
+%p
+  =link_to "View wishlist", '#', class: "UserResponseButtons"
+
 %h3 Who's Coming?
-%h5 Pending
-= @event.attendees('pending')
-%h5 Accepted
-= @event.attendees('accepted')
-%h5 Maybe
-= @event.attendees('maybe')
-%h5 rejected
-= @event.attendees('rejected')
+%h5.ResponseButtons.Green Accepted - #{@event.attendees('accepted')}
+%h5.ResponseButtons.Yellow Maybe - #{@event.attendees('maybe')}
+%h5.ResponseButtons.Gray Pending - #{@event.attendees('pending')}
+%h5.ResponseButtons.Red rejected - #{@event.attendees('rejected')}

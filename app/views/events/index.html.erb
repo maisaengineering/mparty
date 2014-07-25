@@ -1,3 +1,4 @@
+<%= link_to "Create Event", new_event_path, class: "createEventbtn" %>
 <h3>Upcoming Events</h3>
 <div class="upComingEventContainer">
     <div class="upComingEventList">
@@ -5,7 +6,13 @@
           <div class="EventListBox">
             <ul class="clearfix">
               <li class="event">
-                <div class="date"> <%= event.starts_at %></div>
+                <div class="date">
+                  <% if event.starts_at == Date.today %>
+                    Today
+                  <% else %>
+                    <%= event.starts_at %>
+                  <% end %>
+                </div>
                 <div class="title"><%= link_to event.name, event_path(event.id) %></div>
                 <%= event.owner.email%>
                 <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>

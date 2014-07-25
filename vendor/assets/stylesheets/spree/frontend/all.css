@@ -44,7 +44,7 @@ ul li{
 .headerLogo{
     width: 300px;
     float: left;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .headerMenuRight{
@@ -126,6 +126,7 @@ ul li{
 .mainBodyContainer{
     width:1000px;
     margin:0 auto;
+    min-height: 450px;
 }
 
 /* Footer */
@@ -194,6 +195,80 @@ textarea.multiple-email {
     border: 1px solid #cccccc;
     margin: 0;
     text-indent: 5px;
+}
+
+.createEventbtn {
+    width: 126px;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    color: #ffffff;
+    font-size: 20px;
+    background: #3498db;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    float: right;
+    display: block;
+    clear: both;
+}
+
+.createEventbtn:hover {
+    background: #3cb0fd;
+    color:gray;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+}
+
+.UserResponseButtons{
+    width: 126px;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    color: #ffffff;
+    font-size: 20px;
+    background: #3498db;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.ResponseButtons{
+    width: 126px;
+    -webkit-border-radius: 28;
+    -moz-border-radius: 28;
+    border-radius: 28px;
+    color: #ffffff;
+    font-size: 20px;
+
+    margin-bottom: 10px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.Gray{
+    background: gray;
+}
+.Green{
+    background: green;
+}
+.Yellow{
+    background: #ffff00;
+}
+.Red{
+     background: red;
+ }
+
+.fixed {
+    position: fixed;
+    top:0; left:0;
+    width: 100%;
+}
+
+a:hover {
+    color: gray;
 }
 
 .clearfix:after {

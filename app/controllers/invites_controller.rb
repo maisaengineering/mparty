@@ -1,5 +1,6 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
+  skip_before_filter :auth_user
   layout 'spree_application'
 
   def update_invitaion
@@ -11,7 +12,7 @@ class InvitesController < ApplicationController
       @wishlist = @event.wishlist
       render "/events/wishlist_cart"
     else  
-      redirect_to spree.root_url
+      redirect_to event_path(id: @event.id)
     end  
   end
 
