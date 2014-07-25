@@ -24,9 +24,11 @@
 
 %p
   =link_to "View wishlist", '#', class: "UserResponseButtons"
+  = link_to 'Add Guests', add_guests_path(:event_id => @event.id), class: "UserResponseButtons"
 
 %h3 Who's Coming?
-%h5.ResponseButtons.Green Accepted - #{@event.attendees('accepted')}
-%h5.ResponseButtons.Yellow Maybe - #{@event.attendees('maybe')}
-%h5.ResponseButtons.Gray Pending - #{@event.attendees('pending')}
-%h5.ResponseButtons.Red rejected - #{@event.attendees('rejected')}
+%p
+  = link_to "Accepted - #{@event.attendees('accepted')}", '#', class: "ResponseButtons Green"
+  = link_to "Maybe - #{@event.attendees('maybe')}", '#',class: "ResponseButtons Yellow"
+  = link_to "Pending - #{@event.attendees('pending')}", '#',class: "ResponseButtons Gray"
+  = link_to "rejected - #{@event.attendees('rejected')}",'#', class: "ResponseButtons Red"
