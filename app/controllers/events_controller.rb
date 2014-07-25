@@ -11,8 +11,8 @@ class EventsController < ApplicationController
     @previous = @events.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
 
     @all_events= Event.where("user_id = #{current_spree_user.id} OR id IN (#{Invite.where(recipient_email:current_spree_user.email).map(&:event_id).join(", ")})")
-    @upcoming_all_events = @all_events.find(:all, :order => "starts_at asc", :conditions => ['starts_at >= ?', Date.today])
-    @previous_all_events = @all_events.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
+    @upcoming_all_events = @all_events.where('starts_at >= ?', Date.today).order("starts_at asc").all
+    @previous_all_events = @all_events.where('starts_at < ?', Date.today).order("starts_at desc").all
 
     invited = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
     @invited_upcoming = invited.find(:all, :order => "starts_at asc", :conditions => ['starts_at >= ?', Date.today])
