@@ -15,7 +15,11 @@
                 </div>
                 <div class="title"><%= link_to event.name, event_path(event.id) %></div>
                 <%= event.owner.email%>
-                <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+                <% if event.owner.email == current_spree_user.email %>
+                    <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+                <% else %>
+                    <div class="options"><%= link_to 'View event', event_path(event.id) %></div>
+                <% end %>
               </li>
             </ul>
           </div>
@@ -34,7 +38,11 @@
               <div class="date"> <%= event.starts_at %></div>
               <div class="title"><%= link_to event.name, event_path(event.id) %></div>
               <%= event.owner.email%>
-              <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+              <% if signed_in? and event.owner.email == current_spree_user.email %>
+                  <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
+              <% else %>
+                  <div class="options"><%= link_to 'View event', event_path(event.id) %></div>
+              <% end %>
             </li>
           </ul>
         </div>

@@ -1,10 +1,4 @@
 %h1= @event.name
-- if current_spree_user
-  - if signed_in? && current_spree_user.id != @event.user_id
-    .text-center= render 'attend_form'
-  - if current_spree_user.id == @event.user_id
-    %p
-      %b You are hosting this event
 %p
   %b Name:
   = @event.name
@@ -24,7 +18,8 @@
 
 %p
   =link_to "View wishlist", '#', class: "UserResponseButtons"
-  = link_to 'Add Guests', add_guests_path(:event_id => @event.id), class: "UserResponseButtons"
+  - if signed_in? and @event.owner.email == current_spree_user.email
+    = link_to 'Add Guests', add_guests_path(:event_id => @event.id), class: "UserResponseButtons"
 
 %h3 Who's Coming?
 %p
