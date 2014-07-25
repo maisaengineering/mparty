@@ -56,14 +56,17 @@ class EventsController < ApplicationController
        e = params[:friend_emails].split(',')
        invitations = []
        e.each do |email|
-        invite = Invite.create do |inv|
-          inv.event_id = @event.id
-          inv.invited_user_id = @event.user_id
-          inv.joined = 0
-          inv.recipient_email = email
-          inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
-        end
-        invitations << invite
+          event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
+          if event_invitation.nil?
+            invite = Invite.create do |inv|
+              inv.event_id = @event.id
+              inv.invited_user_id = @event.user_id
+              inv.joined = 0
+              inv.recipient_email = email
+              inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
+            end
+            invitations << invite
+          end
        end
 
       if params[:add_wishlist]== "1" && !@event.ship_address.present?
