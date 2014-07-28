@@ -20,7 +20,9 @@ Spree::UserRegistrationsController.class_eval do
       orders = Spree::Order.where(email: user.email)
       if orders.size > 0
         orders.each do |order|
-          order.created_by_id = user.created_by_idorder.save
+          order.created_by_id = user.id
+          order.user_id = user.id
+          order.save
         end
       end  
     end  
