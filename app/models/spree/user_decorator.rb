@@ -14,6 +14,14 @@ Spree::User.class_eval do
     end	
   end
 
+  # adding fb_token column to spree user authentication table
+  def apply_omniauth(omniauth)
+    if ["facebook", 'google_oauth2'].include? omniauth['provider']
+      self.email = omniauth['info']['email'] if email.blank?
+    end
+    user_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :fb_token => omniauth['credentials']['token'])
+  end
+
   def send_email
     Notifier.welcome_email(email).deliver
   end
