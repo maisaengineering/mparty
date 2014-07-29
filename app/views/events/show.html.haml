@@ -14,7 +14,11 @@
 
 %p
   %b Location:
-  = @event.name
+  = @event.location
+
+%p
+  %b Is Private:
+  = @event.is_private 
 
 %p
   =link_to "View wishlist", '#', class: "UserResponseButtons"

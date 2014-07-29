@@ -31,12 +31,16 @@
 
   <p class="field">
   <%= label_tag 'Start date'%><span class="required">*</span>
-  <%= f.date_field :starts_at,:class => 'required'%> <br/>
+  <%= f.date_field :starts_at, min: Date.today, :class => 'required'%> <br/>
   </p>
 
   <p class="field">
   <%= label_tag 'End date'%>
-  <%= f.date_field :ends_at,:class => 'required'%> <br/> <br/>
+  <%= f.date_field :ends_at, min: Date.today, :class => 'required'%> <br/> <br/>
+  </p>
+
+  <p class="field">
+  <%= f.check_box :is_private %>&nbsp;<%= f.label :is_private, "Is Private" %>
   </p>
 
 <br/>  

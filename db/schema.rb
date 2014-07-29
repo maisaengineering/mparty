@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140728113605) do
+ActiveRecord::Schema.define(version: 20140729055203) do
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20140728113605) do
     t.integer  "attendees_count",     default: 0
     t.boolean  "has_wishlist",        default: false
     t.integer  "shipping_address_id"
+    t.boolean  "is_private",          default: true
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree

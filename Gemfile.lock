@@ -90,6 +90,7 @@ GEM
       tzinfo (~> 0.3.37)
     acts_as_list (0.3.0)
       activerecord (>= 3.0)
+    addressable (2.3.6)
     arel (4.0.2)
     awesome_nested_set (3.0.0.rc.5)
       activerecord (>= 4.0.0, < 5)
@@ -170,6 +171,10 @@ GEM
     kaminari (0.15.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    koala (1.8.0)
+      addressable
+      faraday
+      multi_json
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -365,6 +370,7 @@ DEPENDENCIES
   haml-rails
   jbuilder (~> 1.2)
   jquery-rails
+  koala (~> 1.8.0rc1)
   money (= 6.0.1)
   mysql2
   pg

@@ -2,6 +2,7 @@
 <h3>Upcoming Events</h3>
 <div class="upComingEventContainer">
     <div class="upComingEventList">
+    <% if @upcoming_all_events.present? %>
       <% @upcoming_all_events.each do |event| %>
           <div class="EventListBox">
             <ul class="clearfix">
@@ -24,6 +25,9 @@
             </ul>
           </div>
       <% end %>
+    <% else %>
+      <p>You don't Have any UpComing Events</p>
+    <% end %>  
     </div>
 </div>
 
@@ -31,6 +35,7 @@
 
 <div class="pastEventContainer">
   <div class="pastEventList">
+  <% if @previous_all_events.present? %>
     <% @previous_all_events.each do |event| %>
         <div class="EventListBox">
           <ul class="clearfix">
@@ -47,5 +52,32 @@
           </ul>
         </div>
     <% end %>
+   <% else %>
+      <p>You don't Have any Past Events</p>
+    <% end %>  
+  </div>
+</div>
+
+<h3>Public Events</h3>
+
+<div class="publicEventContainer">
+  <div class="publicEventList">
+  <% if @public_events.present? %>
+    <% @public_events.each do |event| %>
+        <div class="EventListBox">
+          <ul class="clearfix">
+            <li class="event">
+              <div class="date"> <%= event.starts_at %></div>
+              <div class="title"><%= link_to event.name, "#" %></div>
+              
+                  <div class="options"><%= link_to 'Join', "#" %></div>
+             
+            </li>
+          </ul>
+        </div>
+    <% end %>
+   <% else %>
+      <p>There is No Public Events</p>
+    <% end %>  
   </div>
 </div>
