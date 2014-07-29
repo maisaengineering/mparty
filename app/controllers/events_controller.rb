@@ -10,8 +10,8 @@ class EventsController < ApplicationController
 		#@upcoming = @events #.find(:all, :order => "starts_at asc", :conditions => ['starts_at >= ?', Date.today])
 		#@previous = @events #.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
 
-		@upcoming_all_events = @events.where("starts_at >= ?", Date.today).order(starts_at: :asc)
-		@previous_all_events = @events.where("starts_at < ?", Date.today).order(starts_at: :desc) 
+		@upcoming_all_events = @events.where("starts_at >= ? AND is_private = ?", Date.today, true).order(starts_at: :asc)
+		@previous_all_events = @events.where("starts_at < ? AND is_private = ?", Date.today, true).order(starts_at: :desc) 
 
 		@public_events = Event.where(is_private: false)
 		#invited = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
@@ -53,9 +53,9 @@ class EventsController < ApplicationController
 		@wish_list = Spree::Wishlist.find_by_event_id(@event.id)
 		if params[:friend_emails].present?
 			
-			 e = params[:friend_emails].split(',')
-			 invitations = []
-			 e.each do |email|
+			e = params[:friend_emails].split(',')
+			invitations = []
+			e.each do |email|
 					event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
 					if event_invitation.nil?
 						invite = Invite.create do |inv|
@@ -67,16 +67,16 @@ class EventsController < ApplicationController
 						end
 						invitations << invite
 					end
-			 end
+			end
 
 			if params[:add_wishlist]== "1" && !@event.ship_address.present?
-			 flash[:notice] = "Please provide Shipping Address for your Wishlist." 
-			 render "/events/shipping_address"
-			else 
+				flash[:notice] = "Please provide Shipping Address for your Wishlist." 
+				render "/events/shipping_address"
+			else
 				send_invitation_emails(invitations)
-			 flash[:notice] = "Successfully sent Invitation mail."
-			 redirect_to events_path
-			end 
+				flash[:notice] = "Successfully sent Invitation mail."
+				redirect_to events_path
+			end
 
 		else
 			flash[:notice] = "Atleast one email is required to Invite."
@@ -129,8 +129,8 @@ class EventsController < ApplicationController
 		else
 			flash[:notice] = "Invalid Shipping Address" #ship_address.errors.messages
 			render "/events/shipping_address"
-		end  
-	end 
+		end
+	end
 
 	private
 		def event_params
@@ -145,11 +145,11 @@ class EventsController < ApplicationController
 
 		def send_invitation_emails(invitations)
 			invitations.each do |inv|
-			 if Notifier.invite_friend(inv.recipient_email, inv).deliver
-				inv.mail_sent = true
-				inv.save
-			 end 
-			end  
+				if Notifier.invite_friend(inv.recipient_email, inv).deliver
+					inv.mail_sent = true
+					inv.save
+				end
+			end
 		end
 			
 end

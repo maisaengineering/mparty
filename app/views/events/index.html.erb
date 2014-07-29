@@ -17,9 +17,7 @@
                 <div class="title"><%= link_to event.name, event_path(event.id) %></div>
                 <%= event.owner.email%>
                 <% if event.owner.email == current_spree_user.email %>
-                    <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
-                <% else %>
-                    <div class="options"><%= link_to 'View event', event_path(event.id) %></div>
+                  <div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
                 <% end %>
               </li>
             </ul>
