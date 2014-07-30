@@ -66,6 +66,8 @@ gem 'fullcalendar-rails'
 
 gem 'koala', "~> 1.8.0rc1"
 
+gem 'jquery-ui-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -1,7 +1,7 @@
 Spree::User.class_eval do
   has_many :events
   has_many :rsvps
-  has_many :invites
+  has_many :invites , foreign_key: "invited_user_id", class_name: "Invite"
 
   after_create :send_email
 
@@ -21,6 +21,22 @@ Spree::User.class_eval do
     end
     user_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :fb_token => omniauth['credentials']['token'])
   end
+
+  def fb_authentication
+    self.user_authentications.where(:provider => "facebook").first
+  end 
+
+  def get_friend_emails
+    facebook_auth = fb_authentication
+    friends = []
+    if facebook_auth.present?
+      graph = Koala::Facebook::API.new(facebook_auth.fb_token)
+      friends = graph.get_connections("me", "friends").collect{|us| us['name']}
+    else
+      friends = self.invites.group("recipient_email").collect{|u| u.recipient_email}
+    end 
+    friends
+  end 
 
   def send_email
     Notifier.welcome_email(email).deliver

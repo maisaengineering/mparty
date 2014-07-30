@@ -1,0 +1,9 @@
+var ready;
+ready = (function() {
+  $("#friend_emails").autocomplete({
+    source: '/events/fetch_friends.json',
+  });
+});
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

@@ -65,7 +65,9 @@ Invitation::Application.routes.draw do
   #     resources :products
   #   end
 
-  resources :events, only: [:new, :create, :show, :index]
+  get '/events/fetch_friends'=>"events#fetch_friends"
+
+  resources :events #, only: [:new, :create, :show, :index]
 
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 

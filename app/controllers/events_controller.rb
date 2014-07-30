@@ -132,6 +132,20 @@ class EventsController < ApplicationController
 		end
 	end
 
+# Need to work on get friends email of fb user
+# And Autopopulate for multiple emails for normal user.
+	def fetch_friends
+
+		@invitations = current_spree_user.invites.where("recipient_email LIKE ?", "%#{params[:term]}%").group("recipient_email").map(&:recipient_email)
+
+    respond_to do |format|
+      format.html
+      format.json { 
+        render json: @invitations
+      }
+    end
+	end	
+
 	private
 		def event_params
 			params.require(:event).permit(:name, :location, :description, :starts_at, :ends_at, :is_private)
@@ -151,5 +165,9 @@ class EventsController < ApplicationController
 				end
 			end
 		end
+
+		def get_friends
+			current_spree_user.get_friend_emails
+		end	
 			
 end
