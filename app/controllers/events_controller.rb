@@ -14,8 +14,8 @@ class EventsController < ApplicationController
 		@previous_all_events = @events.where("starts_at < ? AND is_private = ?", Date.today, true).order(starts_at: :desc) 
 
 		@public_events = Event.where(is_private: false)
-		#invited = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
-		#@invited_upcoming = invited.find(:all, :order => "starts_at asc", :conditions => ['starts_at >= ?', Date.today])
+		invitations = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
+		@invited_events = invitations
 		#@invited_previous = invited.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
 	end
 	
@@ -55,6 +55,7 @@ class EventsController < ApplicationController
 			
 			e = params[:friend_emails].split(',')
 			invitations = []
+			failed_emails = []
 			e.each do |email|
 					event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
 					if event_invitation.nil?
@@ -66,6 +67,8 @@ class EventsController < ApplicationController
 							inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
 						end
 						invitations << invite
+					else
+						failed_emails << email	
 					end
 			end
 
@@ -73,8 +76,14 @@ class EventsController < ApplicationController
 				flash[:notice] = "Please provide Shipping Address for your Wishlist." 
 				render "/events/shipping_address"
 			else
-				send_invitation_emails(invitations)
-				flash[:notice] = "Successfully sent Invitation mail."
+				if invitations.size > 0
+					send_invitation_emails(invitations)
+					flash[:notice] = "Successfully sent Invitation mail."
+				else
+					flash[:notice] = "You have already sent Invitaion for this friends #{ failed_emails.join(',') }"	
+				end	
+
+				
 				redirect_to events_path
 			end
 

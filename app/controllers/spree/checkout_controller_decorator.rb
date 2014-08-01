@@ -33,4 +33,20 @@ Spree::CheckoutController.class_eval do
       render :edit
     end
   end
+
+  # Skip setting ship address if order doesn't have a delivery checkout step
+      # to avoid triggering validations on shipping address
+      def before_address
+        @order.bill_address ||= Spree::Address.default(try_spree_current_user, "bill")
+
+        if @order.checkout_steps.include? "delivery"
+          if session[:event_id].present?
+            event = Event.find(session[:event_id])
+            ship_address = event.shipping_address
+            @order.ship_address = ship_address
+          else  
+            @order.ship_address ||= Spree::Address.default(try_spree_current_user, "ship")
+          end
+        end
+      end
 end
