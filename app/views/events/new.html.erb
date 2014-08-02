@@ -1,78 +1,86 @@
 <% if @event.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+	<div id="error_explanation">
+		<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
  
-    <ul>
-    <% @event.errors.full_messages.each do |msg| %>
-      <li><%= msg %></li>
-    <% end %>
-    </ul>
-  </div>
+		<ul>
+		<% @event.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+		<% end %>
+		</ul>
+	</div>
 <% end %>
 
-<%= form_for(@event) do |f| %>
+<%= form_for(@event, :html => {:multipart => true}) do |f| %>
 <div class="inner" >
 <fieldset id="shipping" data-hook>
 <legend align="center">Create Event</legend>
-  <p class="field">
+	<p class="field">
 	<%= label_tag 'Name'%><span class="required">*</span>
-  <%= f.text_field :name, :class => 'required' %> <br/>
-  </p>
+	<%= f.text_field :name, :class => 'required' %> <br/>
+	</p>
 
-  <p class="field">
-    <%= label_tag 'Event Type'%><span class="required">*</span>
-    <%= f.select :event_category_id, event_categories.map{|wl| [wl.name, wl.id]} %>
-  </p>
+	<p class="field">
+		<%= label_tag 'Event Type'%><span class="required">*</span>
+		<%= f.select :event_category_id, event_categories.map{|wl| [wl.name, wl.id]} %>
+	</p>
 
-  <p class="field">
-    <%= label_tag 'Host'%><span class="required">*</span>
-    <%= f.text_field :host_name, :class => 'required' %> <br/>
-  </p>
+	<p class="field">
+		<%= label_tag 'Host'%><span class="required">*</span>
+		<%= f.text_field :host_name, :class => 'required' %> <br/>
+	</p>
 
-  <p class="field">
-    <%= label_tag 'Host Phone'%><span class="required">*</span>
-    <%= f.text_field :host_phone, :class => 'required' %> <br/>
-  </p>
+	<p class="field">
+		<%= label_tag 'Host Phone'%><span class="required">*</span>
+		<%= f.text_field :host_phone, :class => 'required' %> <br/>
+	</p>
 
 
-  <p class="field">
-  <%= label_tag 'location'%><span class="required">*</span>
-  <%= f.text_field :location, :class => 'required' %> <br/>
-  </p>
+	<p class="field">
+	<%= label_tag 'location'%><span class="required">*</span>
+	<%= f.text_field :location, :class => 'required' %> <br/>
+	</p>
 
-  <p class="field">
-  <%= label_tag 'description'%>
-  <%= f.text_area :description, :class => 'required' %> <br/>
-  </p>
+	<p class="field">
+	<%= label_tag 'description'%>
+	<%= f.text_area :description, :class => 'required' %> <br/>
+	</p>
 
-  <p class="field">
-  <%= label_tag 'Start date'%><span class="required">*</span>
-  <%= f.date_field :starts_at, min: Date.today, :class => 'required'%> <br/>
-  </p>
+	<p class="field">
+	<%= label_tag 'Start date'%><span class="required">*</span>
+	<%= f.date_field :starts_at, min: Date.today, :class => 'required'%> <br/>
+	</p>
 
-  <p class="field">
-    <%= label_tag 'Start time'%><span class="required">*</span>
-    <%= f.time_select :start_time, :class => 'required'%> <br/>
-  </p>
+	<p class="field">
+		<%= label_tag 'Start time'%><span class="required">*</span>
+		<%= f.time_select :start_time, :class => 'required'%> <br/>
+	</p>
 
-  <p class="field">
-  <%= label_tag 'End date'%>
-  <%= f.date_field :ends_at, min: Date.today, :class => 'required'%> <br/> <br/>
-  </p>
+	<p class="field">
+	<%= label_tag 'End date'%>
+	<%= f.date_field :ends_at, min: Date.today, :class => 'required'%> <br/> <br/>
+	</p>
 
-  <p class="field">
-    <%= label_tag 'End time'%><span class="required">*</span>
-    <%= f.time_select :end_time, :class => 'required'%> <br/>
-  </p>
+	<p class="field">
+		<%= label_tag 'End time'%><span class="required">*</span>
+		<%= f.time_select :end_time, :class => 'required'%> <br/>
+	</p>
 
-  <p class="field">
-  <%= f.check_box :is_private %>&nbsp;<%= f.label :is_private, "Is Private" %>
-  </p>
+	<p class="field">
+		<% f.fields_for :imageable do |event_picture| %>
+			<%= label_tag 'Upload Image' %>
+			<%= event_picture.file_field :image, :class => 'required'%> <br/>
+		<% end %>	
+	</p>
+
+
+	<p class="field">
+	<%= f.check_box :is_private %>&nbsp;<%= f.label :is_private, "Is Private" %>
+	</p>
 
 <br/>  
-  <%= f.submit "Create",  class: "btn btn-lg btn-primary"  %>
-  <%= f.submit "Create & Invite", class: "btn btn-lg btn-primary" %>
-  <%= f.submit "Cancel", class: "btn btn-lg btn-primary" %>
+	<%= f.submit "Create",  class: "btn btn-lg btn-primary"  %>
+	<%= f.submit "Create & Invite", class: "btn btn-lg btn-primary" %>
+	<%= f.submit "Cancel", class: "btn btn-lg btn-primary" %>
  </fieldset> 
  </div>
 <% end %>

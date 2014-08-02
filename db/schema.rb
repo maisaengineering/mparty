@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140731192345) do
+ActiveRecord::Schema.define(version: 20140802113159) do
 
   create_table "event_categories", force: true do |t|
     t.string   "name"
@@ -58,6 +58,15 @@ ActiveRecord::Schema.define(version: 20140731192345) do
   add_index "invites", ["event_id"], name: "index_invites_on_event_id", using: :btree
   add_index "invites", ["user_id", "event_id"], name: "index_invites_on_user_id_and_event_id", unique: true, using: :btree
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
+
+  create_table "pictures", force: true do |t|
+    t.string   "name"
+    t.string   "image"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "rsvps", force: true do |t|
     t.integer  "user_id"

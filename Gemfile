@@ -68,6 +68,14 @@ gem 'koala', "~> 1.8.0rc1"
 
 gem 'jquery-ui-rails'
 
+# For Image upload
+gem 'carrierwave'
+
+# For Image resizing
+# Pls run this if you get issues whil installing rmagick on Ubuntu
+# sudo apt-get install libmagickwand-dev
+gem "rmagick"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

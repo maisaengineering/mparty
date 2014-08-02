@@ -8,6 +8,8 @@ class Event < ActiveRecord::Base
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
+  has_many :pictures, as: :imageable
+  accepts_nested_attributes_for :pictures
 
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
