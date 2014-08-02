@@ -10,6 +10,7 @@ class InvitesController < ApplicationController
     session[:event_id] = @event.id
     if @invitaion.has_wishlist == true 
       @wishlist = @event.wishlist
+      flash[:notice] = "Your friend likes following gifts."
       render "/events/wishlist_cart"
     else  
       redirect_to event_path(id: @event.id)

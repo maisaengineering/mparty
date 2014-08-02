@@ -7,16 +7,11 @@ class EventsController < ApplicationController
 
 	def index
 		@events = current_spree_user.events
-		#@upcoming = @events #.find(:all, :order => "starts_at asc", :conditions => ['starts_at >= ?', Date.today])
-		#@previous = @events #.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
-
 		@upcoming_all_events = @events.where("starts_at >= ? AND is_private = ?", Date.today, true).order(starts_at: :asc)
 		@previous_all_events = @events.where("starts_at < ? AND is_private = ?", Date.today, true).order(starts_at: :desc) 
 
 		@public_events = Event.where(is_private: false)
-		invitations = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
-		@invited_events = invitations
-		#@invited_previous = invited.find(:all, :order => "starts_at desc", :conditions => ['starts_at < ?', Date.today])
+		@invited_events = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
 	end
 	
 	def new
@@ -63,6 +58,10 @@ class EventsController < ApplicationController
 							inv.event_id = @event.id
 							inv.invited_user_id = @event.user_id
 							inv.joined = 0
+							existing_user = Spree::User.find_by_email(email)
+							if existing_user.present?
+								inv.user_id = existing_user.id
+							end	
 							inv.recipient_email = email
 							inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
 						end

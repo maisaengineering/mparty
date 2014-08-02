@@ -4,7 +4,7 @@ Spree::UserRegistrationsController.class_eval do
     @user = build_resource(spree_user_params)
     if resource.save
       set_flash_message(:notice, :signed_up)
-      update_orders(@user)
+      update_orders_and_invitations(@user)
       sign_in(:spree_user, @user)
       session[:spree_user_signup] = true
       associate_user
@@ -18,12 +18,23 @@ Spree::UserRegistrationsController.class_eval do
   private
     def update_orders(user)
       orders = Spree::Order.where(email: user.email)
+      invitations = Invite.where(recipient_email: user.email)
+     
+      # Update purcahsed orders 
       if orders.size > 0
         orders.each do |order|
           order.created_by_id = user.id
           order.user_id = user.id
           order.save
         end
+      end
+
+      # Update Invitations
+      if invitations.size > 0
+        invitations.each do |invite|
+          invite.user_id = user.id  
+        end
       end  
+
     end  
 end
