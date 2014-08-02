@@ -8,6 +8,7 @@ class InvitesController < ApplicationController
     @invitaion.update_attributes(joined: params[:status])
     @event = @invitaion.event
     session[:event_id] = @event.id
+    session[:invitaion_id] = @invitaion.id
     if @invitaion.has_wishlist == true 
       @wishlist = @event.wishlist
       flash[:notice] = "Your friend likes following gifts."

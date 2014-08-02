@@ -9,6 +9,8 @@ Spree::CheckoutController.class_eval do
 
       if @order.completed?
         if session[:event_id]
+          invitation = Invite.find(session[:invitaion_id])
+          existing_user = Spree::User.find_by_email(invitation.recipient_email)
           wishlist = Spree::Wishlist.find_by(event_id: session[:event_id])
           @order.variants.each do |variant|
             wp = Spree::WishedProduct.where(variant_id: variant.id, wishlist_id: wishlist.id).first
@@ -16,10 +18,21 @@ Spree::CheckoutController.class_eval do
             wp.save
           end
 
-          flash[:notice] = "Order has been placed successfully. If you want to track this order please signup."
           @event = wishlist.event
           session[:event_id] = nil
-          redirect_to  spree.signup_path(:invite_email => @order.email)
+          session[:invitaion_id] = nil
+
+          if existing_user.present?
+            @order.created_by_id = existing_user.id
+            @rder.user_id = existing_user.id
+            @order.save
+            flash[:notice] = "Order has been placed successfully. If you want to track this order please signin."
+            redirect_to  spree.login_path
+          else
+            flash[:notice] = "Order has been placed successfully. If you want to track this order please signup."
+            redirect_to  spree.signup_path(:invite_email => @order.email)
+          end  
+         
         else
           session[:order_id] = nil
           flash.notice = Spree.t(:order_processed_successfully)
