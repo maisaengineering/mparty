@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @event_category.name
+
+= link_to 'Edit', spree.edit_admin_event_category_path(@event_category)
+\|
+= link_to 'Back', spree.admin_event_categories_path

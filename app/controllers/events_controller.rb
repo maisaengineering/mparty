@@ -148,7 +148,7 @@ class EventsController < ApplicationController
 
 	private
 		def event_params
-			params.require(:event).permit(:name, :location, :description, :starts_at, :ends_at, :is_private)
+			params.require(:event).permit(:name, :event_category_id, :host_name, :host_phone, :location, :description, :starts_at, :start_time, :ends_at, :end_time, :is_private)
 		end
 
 		def check_for_cancel

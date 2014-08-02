@@ -20,6 +20,22 @@
   </p>
 
   <p class="field">
+    <%= label_tag 'Event Type'%><span class="required">*</span>
+    <%= f.select :event_category_id, event_categories.map{|wl| [wl.name, wl.id]} %>
+  </p>
+
+  <p class="field">
+    <%= label_tag 'Host'%><span class="required">*</span>
+    <%= f.text_field :host_name, :class => 'required' %> <br/>
+  </p>
+
+  <p class="field">
+    <%= label_tag 'Host Phone'%><span class="required">*</span>
+    <%= f.text_field :host_phone, :class => 'required' %> <br/>
+  </p>
+
+
+  <p class="field">
   <%= label_tag 'location'%><span class="required">*</span>
   <%= f.text_field :location, :class => 'required' %> <br/>
   </p>
@@ -35,8 +51,18 @@
   </p>
 
   <p class="field">
+    <%= label_tag 'Start time'%><span class="required">*</span>
+    <%= f.time_select :start_time, :class => 'required'%> <br/>
+  </p>
+
+  <p class="field">
   <%= label_tag 'End date'%>
   <%= f.date_field :ends_at, min: Date.today, :class => 'required'%> <br/> <br/>
+  </p>
+
+  <p class="field">
+    <%= label_tag 'End time'%><span class="required">*</span>
+    <%= f.time_select :end_time, :class => 'required'%> <br/>
   </p>
 
   <p class="field">

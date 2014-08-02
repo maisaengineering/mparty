@@ -1,0 +1,19 @@
+%h1 Listing event_categories
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @event_categories.each do |event_category|
+    %tr
+      %td= event_category.name
+      %td= link_to 'Show', event_category
+      %td= link_to 'Edit', spree.edit_admin_event_category_path(event_category)
+      %td= link_to 'Destroy', event_category, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Event category', spree.new_admin_event_category_path

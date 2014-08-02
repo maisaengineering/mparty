@@ -4,6 +4,7 @@ class Event < ActiveRecord::Base
   belongs_to :user, foreign_key: "user_id", class_name: "Spree::User"
   belongs_to :owner, foreign_key: "user_id", class_name: "Spree::User" # event created user
   belongs_to :ship_address, foreign_key: "shipping_address_id", class_name: "Spree::Address", validate: true
+  belongs_to :event_category, foreign_key: "event_category_id"
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
