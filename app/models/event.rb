@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
   has_many :invites,dependent: :destroy
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
   has_many :pictures, as: :imageable
+  has_many :comments, as: :commentable
   accepts_nested_attributes_for :pictures
 
   alias_attribute :shipping_address, :ship_address

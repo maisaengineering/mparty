@@ -2,6 +2,7 @@ Spree::User.class_eval do
   has_many :events
   has_many :rsvps
   has_many :invites , foreign_key: "invited_user_id", class_name: "Invite"
+  has_many :comments
 
   after_create :send_email
 

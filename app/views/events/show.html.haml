@@ -31,3 +31,8 @@
   = link_to "Maybe - #{@event.attendees('maybe')}", '#',class: "ResponseButtons Yellow"
   = link_to "Pending - #{@event.attendees('pending')}", '#',class: "ResponseButtons Gray"
   = link_to "rejected - #{@event.attendees('rejected')}",'#', class: "ResponseButtons Red"
+
+
+%h2 Comments
+= render "comments/comments"
+= render "comments/form"

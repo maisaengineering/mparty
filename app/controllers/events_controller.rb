@@ -34,6 +34,9 @@ class EventsController < ApplicationController
 	def show
 		@event = Event.find(params[:id])
 		@wish_lists = @event.wishlist
+    @commentable = @event
+    @comments = @commentable.comments
+    @comment = Comment.new
 	end
 
 	def view_invitation
