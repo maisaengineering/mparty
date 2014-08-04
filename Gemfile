@@ -76,6 +76,8 @@ gem 'carrierwave'
 # sudo apt-get install libmagickwand-dev
 gem "rmagick"
 
+gem 'handlebars'
+gem "cocoon"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

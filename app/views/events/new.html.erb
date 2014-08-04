@@ -19,10 +19,6 @@
 	<%= f.text_field :name, :class => 'required' %> <br/>
 	</p>
 
-	<p class="field">
-		<%= label_tag 'Event Type'%><span class="required">*</span>
-		<%= f.select :event_category_id, event_categories.map{|wl| [wl.name, wl.id]} %>
-	</p>
 
 	<p class="field">
 		<%= label_tag 'Host'%><span class="required">*</span>

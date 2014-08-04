@@ -25,8 +25,4 @@ module ApplicationHelper
 			false
 		end	
   end
-
-  def event_categories
-    Spree::Admin::EventCategory.all
-  end
 end

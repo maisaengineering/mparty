@@ -24,12 +24,6 @@ ActiveRecord::Schema.define(version: 20140804053033) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
 
-  create_table "event_categories", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "events", force: true do |t|
     t.string   "name"
     t.string   "description"
@@ -43,14 +37,12 @@ ActiveRecord::Schema.define(version: 20140804053033) do
     t.boolean  "has_wishlist",        default: false
     t.integer  "shipping_address_id"
     t.boolean  "is_private",          default: true
-    t.integer  "event_category_id"
     t.string   "host_name"
     t.string   "host_phone"
     t.time     "start_time"
     t.time     "end_time"
   end
 
-  add_index "events", ["event_category_id"], name: "index_events_on_event_category_id", using: :btree
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
 
   create_table "invites", force: true do |t|
@@ -891,12 +883,6 @@ ActiveRecord::Schema.define(version: 20140804053033) do
     t.string   "description"
     t.boolean  "default_tax",        default: false
     t.integer  "zone_members_count", default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "templates", force: true do |t|
-    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
