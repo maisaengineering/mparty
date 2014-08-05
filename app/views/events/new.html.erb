@@ -66,10 +66,10 @@
 	</p>
 
 	<p class="field">
-		<% f.fields_for :imageable do |event_picture| %>
-			<%= label_tag 'Upload Image' %>
-			<%= event_picture.file_field :image, :class => 'required'%> <br/>
-		<% end %>	
+		<%= f.fields_for :pictures, @event.pictures.build do |pct| %>
+			<%= label_tag 'Picture'%>
+		  <%= pct.file_field :image, :class => 'required'%> <br/>
+		<% end %>
 	</p>
 
 

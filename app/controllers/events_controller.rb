@@ -15,11 +15,15 @@ class EventsController < ApplicationController
 	end
 	
 	def new
-		@event = current_spree_user.events.build
+		@event = current_spree_user.events.new
+		@imageable = Event.new
+    #@pictures = @imageable.pictures
+    @picture = Picture.new
 	end
 
 	def create
-		@event = current_spree_user.events.build(event_params)
+		@event = current_spree_user.events.new(event_params)
+
 			if @event.save
 				if params[:commit] == "Create"
 					redirect_to events_path
@@ -161,8 +165,7 @@ class EventsController < ApplicationController
 		def event_params
 			params.require(:event).permit(:name, :event_category_id, :host_name, 
 																		:host_phone, :location, :description, :starts_at, 
-																		:start_time, :ends_at, :end_time, :is_private,
-																		:image)
+																		:start_time, :ends_at, :end_time, :is_private, pictures_attributes: [:image])
 		end
 
 		def check_for_cancel

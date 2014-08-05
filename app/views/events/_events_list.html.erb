@@ -21,6 +21,9 @@
 										<div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
 									<% end %>
 								<% end %>	
+								<% if event.pictures.size > 0 %>
+									<%= image_tag event.pictures.first.image_url(:thumb).to_s %>
+								<% end %>	
 							</li>
 						</ul>
 					</div>

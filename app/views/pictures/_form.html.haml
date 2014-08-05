@@ -1,0 +1,12 @@
+%h1 Add Picture
+= form_for [@imageable, @picture] do |f|
+  - if @picture.errors.any?
+    .error_messages
+      %h2 Please correct the following errors.
+      %ul
+        - @picture.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.file_field :image
+  .actions
+    = f.submit

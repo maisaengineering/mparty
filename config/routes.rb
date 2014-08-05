@@ -1,5 +1,6 @@
 Invitation::Application.routes.draw do
 
+
   # resources :event_categories
 
   # This line mounts Spree's routes at the root of your application.
@@ -73,6 +74,7 @@ Invitation::Application.routes.draw do
 
   resources :events do #, only: [:new, :create, :show, :index]
     resources :comments
+    resources :pictures
   end
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
