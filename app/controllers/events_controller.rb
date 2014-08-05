@@ -17,8 +17,8 @@ class EventsController < ApplicationController
 	def new
 		@event = current_spree_user.events.new
 		@imageable = Event.new
-    #@pictures = @imageable.pictures
-    @picture = Picture.new
+		#@pictures = @imageable.pictures
+		@picture = Picture.new
 	end
 
 	def create
@@ -38,9 +38,9 @@ class EventsController < ApplicationController
 	def show
 		@event = Event.find(params[:id])
 		@wish_lists = @event.wishlist
-    @commentable = @event
-    @comments = @commentable.comments
-    @comment = Comment.new
+		@commentable = @event
+		@comments = @commentable.comments
+		@comment = Comment.new
 	end
 
 	def view_invitation
@@ -153,12 +153,12 @@ class EventsController < ApplicationController
 
 		@invitations = current_spree_user.invites.where("recipient_email LIKE ?", "%#{params[:term]}%").group("recipient_email").map(&:recipient_email)
 
-    respond_to do |format|
-      format.html
-      format.json { 
-        render json: @invitations
-      }
-    end
+		respond_to do |format|
+			format.html
+			format.json { 
+				render json: @invitations
+			}
+		end
 	end	
 
 	private

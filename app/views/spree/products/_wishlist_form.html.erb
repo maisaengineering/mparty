@@ -1,0 +1,12 @@
+<% if spree_current_user %>
+  <div id="wishlist-form">
+    <%= form_for Spree::WishedProduct.new do |f| %>
+      <%= f.hidden_field :variant_id, :value => @product.master.id %>
+      <% max_quantity = 10 %>
+      <p>How many Do you want?</p><%= f.number_field :quantity , in: 1..max_quantity %>
+      <button type="submit" class="large primary">
+        <%= Spree.t(:add_to_wishlist) %>
+      </button>
+    <% end %>
+  </div>
+<% end %>
