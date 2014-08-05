@@ -16,7 +16,7 @@ Spree::UserRegistrationsController.class_eval do
   end
 
   private
-    def update_orders(user)
+    def update_orders_and_invitations(user)
       orders = Spree::Order.where(email: user.email)
       invitations = Invite.where(recipient_email: user.email)
      
