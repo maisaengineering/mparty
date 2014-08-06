@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140805152033) do
+ActiveRecord::Schema.define(version: 20140806065137) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -861,8 +861,9 @@ ActiveRecord::Schema.define(version: 20140805152033) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_purchased", default: false
-    t.integer  "quantity",     default: 1
+    t.boolean  "is_purchased",       default: false
+    t.integer  "quantity",           default: 1
+    t.integer  "quantity_purchased", default: 0
   end
 
   create_table "spree_wishlists", force: true do |t|

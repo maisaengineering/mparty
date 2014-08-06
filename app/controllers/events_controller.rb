@@ -37,17 +37,22 @@ class EventsController < ApplicationController
 
 	def show
 		@event = Event.find(params[:id])
-		@wish_lists = @event.wishlist
+		@wish_list = @event.wishlist
 		@commentable = @event
 		@comments = @commentable.comments
 		@comment = Comment.new
 	end
 
 	def view_invitation
-		invitation = Invite.find_by_token(params[:invitation_code])
-		@event = invitation.event
-		@invite_email = invitation.recipient_email
-		@token = invitation.token
+		@invitation = Invite.find_by_token(params[:invitation_code])
+		if @invitation.present?
+			@event = @invitation.event
+			@invite_email = @invitation.recipient_email
+			@token = @invitation.token
+		else
+			flash[:error] = "We are sorry Invitation not found."
+			render
+		end	
 	end	
 
 	def send_invitation

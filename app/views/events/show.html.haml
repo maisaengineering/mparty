@@ -11,19 +11,14 @@
 %p
   %b Description:
   = @event.description
-
-%p
-  %b Location:
-  = @event.location
-
 %p
   %b Is Private:
   = @event.is_private 
 
 %p
-  =link_to "View wishlist", '#', class: "UserResponseButtons"
-  - if signed_in? and @event.owner.email == current_spree_user.email
-    = link_to 'Add Guests', add_guests_path(:event_id => @event.id), class: "UserResponseButtons"
+  %b Your wishlist
+  - if @wish_list
+    = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
 
 %h3 Who's Coming?
 %p

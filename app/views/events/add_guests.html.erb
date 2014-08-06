@@ -4,6 +4,8 @@
 <% if @wish_list %>
 <p> <%= @wish_list.name%> </p>
 	<%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
+	<%= link_to "Add Products to #{@wish_list.name} wishlist", "/events/#{@wish_list.event_id}/add_products" %><br/>	
+
 <% else %>	
 	<p> Do you want to send wish list? please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
 <% end %>	

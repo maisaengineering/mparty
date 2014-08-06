@@ -14,7 +14,10 @@ Spree::CheckoutController.class_eval do
           wishlist = Spree::Wishlist.find_by(event_id: session[:event_id])
           @order.variants.each do |variant|
             wp = Spree::WishedProduct.where(variant_id: variant.id, wishlist_id: wishlist.id).first
-            wp.is_purchased= true
+            wp.quantity_purchased = @order.line_items.first.quantity
+            if wp.quantity - @order.line_items.first.quantity == 0
+              wp.is_purchased = true
+            end  
             wp.save
           end
 
@@ -24,7 +27,7 @@ Spree::CheckoutController.class_eval do
 
           if existing_user.present?
             @order.created_by_id = existing_user.id
-            @rder.user_id = existing_user.id
+            @order.user_id = existing_user.id
             @order.save
             flash[:notice] = "Order has been placed successfully. If you want to track this order please signin."
             redirect_to  spree.login_path
