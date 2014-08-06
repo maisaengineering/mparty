@@ -14,7 +14,7 @@ Spree::CheckoutController.class_eval do
           wishlist = Spree::Wishlist.find_by(event_id: session[:event_id])
           @order.variants.each do |variant|
             wp = Spree::WishedProduct.where(variant_id: variant.id, wishlist_id: wishlist.id).first
-            wp.quantity_purchased = @order.line_items.first.quantity
+            wp.quantity_purchased = wp.quantity_purchased + @order.line_items.first.quantity
             if wp.quantity - @order.line_items.first.quantity == 0
               wp.is_purchased = true
             end  

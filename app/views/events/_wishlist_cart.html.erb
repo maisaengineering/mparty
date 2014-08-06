@@ -25,7 +25,7 @@
                 <td>
                   <%= form_for :order, :url => "/orders/populate" do |f| %>
                       <%= hidden_field_tag "variant_id", variant.id %>
-                      <% if wish.quantity > 1 %>
+                      <% if !wish.is_purchased %>
                        <p> Select Quantity </p>
                         <%= number_field_tag "quantity", 1, in:1..wish.quantity-wish.quantity_purchased %>
                       <% else %>
@@ -34,7 +34,7 @@
                         <%- if !wish.is_purchased %>
                             <%= link_to Spree.t(:add_to_cart), '#', :onclick => "$(this).parent().submit(); return false;", :class => "button" %>
                         <% else %>
-                            <p>Already purchased by someone</p>
+                            <p>Already purchased</p>
                         <% end %>
                       <% end %>
                   

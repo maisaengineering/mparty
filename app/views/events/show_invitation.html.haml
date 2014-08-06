@@ -1,0 +1,41 @@
+%h1= @event.name
+%p
+  %b Name:
+  = @event.name
+%p
+  %b Location:
+  = @event.location
+%p
+  %b Host:
+  = @event.owner.login
+%p
+  %b Description:
+  = @event.description
+%p
+  %b Is Private:
+  = @event.is_private 
+
+%p
+  %b Event wishlist
+  - if @wishlist
+    = render :partial => "wishlist_cart"
+
+%h3 Who's Coming?
+%p
+  = link_to "Accepted - #{@event.attendees('accepted')}", '#', class: "ResponseButtons Green"
+  = link_to "Maybe - #{@event.attendees('maybe')}", '#',class: "ResponseButtons Yellow"
+  = link_to "Pending - #{@event.attendees('pending')}", '#',class: "ResponseButtons Gray"
+  = link_to "rejected - #{@event.attendees('rejected')}",'#', class: "ResponseButtons Red"
+
+%h3 Update Status
+%p
+  = link_to "Attend",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}", class: "UserResponseButtons Green"
+
+  = link_to "Reject",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}", class: "UserResponseButtons Red"
+
+  = link_to "May be",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}", class: "UserResponseButtons Yellow"  
+
+
+%h2 Comments
+= render "comments/comments"
+= render "comments/form"

@@ -53,7 +53,23 @@ class EventsController < ApplicationController
 			flash[:error] = "We are sorry Invitation not found."
 			render
 		end	
-	end	
+	end
+
+	def show_invitation
+		@invitation = Invite.find_by_event_id_and_recipient_email(params[:event_id],current_spree_user.email)
+		if @invitation.present?
+			@event = @invitation.event
+			@invite_email = @invitation.recipient_email
+			@token = @invitation.token
+		else
+			flash[:error] = "We are sorry Invitation not found."
+			render
+		end	
+		@wishlist = @event.wishlist
+		@commentable = @event
+		@comments = @commentable.comments
+		@comment = Comment.new
+	end		
 
 	def send_invitation
 		@event = Event.find(params[:event_id])
@@ -91,7 +107,7 @@ class EventsController < ApplicationController
 					send_invitation_emails(invitations)
 					flash[:notice] = "Successfully sent Invitation mail."
 				else
-					flash[:notice] = "You have already sent Invitaion for this friends #{ failed_emails.join(',') }"	
+					flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"	
 				end	
 
 				

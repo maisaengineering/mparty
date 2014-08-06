@@ -9,13 +9,21 @@ class InvitesController < ApplicationController
     @event = @invitaion.event
     session[:event_id] = @event.id
     session[:invitaion_id] = @invitaion.id
-    if @invitaion.has_wishlist == true 
-      @wishlist = @event.wishlist
-      flash[:notice] = "Your friend likes following gifts."
-      render "/events/wishlist_cart"
+    if signed_in?
+      if @invitaion.recipient_email == current_spree_user.email
+        redirect_to show_invitation_path(@event.id)
+      else
+        redirect_to event_path(id: @event.id)
+      end  
     else  
-      redirect_to event_path(id: @event.id)
-    end  
+      if @invitaion.has_wishlist == true 
+        @wishlist = @event.wishlist
+        flash[:notice] = "Your friend likes following gifts."
+        render "/events/_wishlist_cart"
+      else  
+        redirect_to event_path(id: @event.id)
+      end 
+    end 
   end
 
 =begin  private

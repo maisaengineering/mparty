@@ -12,7 +12,11 @@
 										<%= event.starts_at %>
 									<% end %>
 								</div>
-								<div class="title"><%= link_to event.name, event_path(event.id) %></div>
+								<% if event.owner.email == current_spree_user.email || event_type == "Public"%>
+									<div class="title"><%= link_to event.name, event_path(event.id) %></div>
+								<% else %>
+									<div class="title"><%= link_to event.name, show_invitation_path(event.id) %></div>
+								<% end %>
 								<%= event.owner.email%>
 								<% if event_type == "Public" %>
 									<div class="options"><%= link_to 'Join', "#" %></div>
