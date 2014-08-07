@@ -41,6 +41,9 @@ class EventsController < ApplicationController
 		@commentable = @event
 		@comments = @commentable.comments
 		@comment = Comment.new
+		@imageable = @event
+		@pictures = @imageable.pictures
+		@picture = Picture.new
 	end
 
 	def view_invitation
@@ -69,6 +72,9 @@ class EventsController < ApplicationController
 		@commentable = @event
 		@comments = @commentable.comments
 		@comment = Comment.new
+		@imageable = @event
+		@pictures = @imageable.pictures
+		@picture = Picture.new
 	end		
 
 	def send_invitation

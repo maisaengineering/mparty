@@ -1,4 +1,4 @@
 #pictures
-  - @picturess.each do |picture|
+  - @pictures.each do |picture|
     .picture
-      = picture.image
+      = image_tag picture.image_url(:thumb).to_s

@@ -20,13 +20,16 @@
 								<%= event.owner.email%>
 								<% if event_type == "Public" %>
 									<div class="options"><%= link_to 'Join', "#" %></div>
+									
 								<% else %>
 									<% if event.owner.email == current_spree_user.email %>
 										<div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
 									<% end %>
 								<% end %>	
 								<% if event.pictures.size > 0 %>
-									<%= image_tag event.pictures.first.image_url(:thumb).to_s %>
+									<% event.pictures.each do |picture|%>
+										<%= image_tag picture.image_url(:thumb).to_s %>
+									<% end %>	
 								<% end %>	
 							</li>
 						</ul>

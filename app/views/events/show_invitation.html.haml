@@ -15,6 +15,11 @@
   %b Is Private:
   = @event.is_private 
 
+- if @event.pictures.size > 0 
+  %p
+    %b Pictures
+    = render "pictures/pictures" 
+
 %p
   %b Event wishlist
   - if @wishlist

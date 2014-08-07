@@ -93,6 +93,8 @@ Invitation::Application.routes.draw do
 
   get '/events/show_invitation/:event_id'=>"events#show_invitation", as: :show_invitation
 
+  get '/invites/join_public_event/:event_id'=>"invites#join_public_event", as: :join_public_event
+
   # resources :rsvps, only: [:create, :destroy]
   #
   # get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create
