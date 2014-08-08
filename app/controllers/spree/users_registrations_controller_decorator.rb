@@ -2,6 +2,7 @@ Spree::UserRegistrationsController.class_eval do
   skip_before_filter :auth_user
   def create
     @user = build_resource(spree_user_params)
+    #@user.first_name = params[:spree_user][:email].split('@')[0]
     if resource.save
       set_flash_message(:notice, :signed_up)
       update_orders_and_invitations(@user)
@@ -37,4 +38,8 @@ Spree::UserRegistrationsController.class_eval do
       end  
 
     end  
+
+    def spree_user_params
+      params.require(:spree_user).permit(Spree::PermittedAttributes.user_attributes, :first_name, :last_name, :phone)
+    end
 end

@@ -86,6 +86,7 @@ class EventsController < ApplicationController
 			invitations = []
 			failed_emails = []
 			e.each do |email|
+					email.strip!
 					event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
 					if event_invitation.nil?
 						invite = Invite.create do |inv|

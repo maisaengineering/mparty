@@ -6,6 +6,10 @@ Spree::User.class_eval do
 
   after_create :send_email
 
+  validates :first_name, :last_name, :phone, presence: true
+
+  validates :phone, uniqueness: true
+
   def attending?(event)
   	rsvp = self.rsvps.where(:event_id => event.id).first
     if !rsvp.nil? && rsvp.joined == true
