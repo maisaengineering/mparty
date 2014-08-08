@@ -1,4 +1,4 @@
-<%= form_tag(add_ship_address_path, method: 'post') do %>
+<%= form_tag("/events/add_ship_address", method: 'post') do %>
 	
 	<%= hidden_field_tag(:event_id, @event.id) %>
 

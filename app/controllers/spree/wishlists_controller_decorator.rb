@@ -3,7 +3,14 @@ Spree::WishlistsController.class_eval do
 
 
   def new
-    @wishlist = Spree::Wishlist.new(event_id: params[:event_id])
+    if params[:event_id].present?
+      @event = Event.find(params[:event_id])
+      @wishlist = Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id)
+      flash[:notice] = "Please provide Shipping Address for your Wishlist #{@wishlist.name}." 
+      render "/events/shipping_address" and return
+    else
+      @wishlist = Spree::Wishlist.new
+    end  
     respond_with(@wishlist)
   end
 

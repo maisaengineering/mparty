@@ -72,6 +72,9 @@ Invitation::Application.routes.draw do
 
   get '/events/fetch_friends'=>"events#fetch_friends"
 
+  post '/events/add_ship_address'=>"events#add_ship_address", as: :add_ship_address
+
+
   resources :events do #, only: [:new, :create, :show, :index]
     resources :comments
     resources :pictures
@@ -83,7 +86,6 @@ Invitation::Application.routes.draw do
   get '/events/:event_id/add_products/'=>"events#add_products", as: :add_products
   get '/calendar/'=>"events#calendar", as: :calendar
 
-  post '/events/add_ship_address'=>"events#add_ship_address", as: :add_ship_address
 
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
 

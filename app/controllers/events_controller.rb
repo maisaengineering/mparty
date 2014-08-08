@@ -106,10 +106,10 @@ class EventsController < ApplicationController
 					end
 			end
 
-			if params[:add_wishlist]== "1" && !@event.ship_address.present?
-				flash[:notice] = "Please provide Shipping Address for your Wishlist." 
-				render "/events/shipping_address"
-			else
+			#if params[:add_wishlist]== "1" && !@event.ship_address.present?
+			#	flash[:notice] = "Please provide Shipping Address for your Wishlist." 
+			#	render "/events/shipping_address"
+			#else
 				if invitations.size > 0
 					send_invitation_emails(invitations)
 					flash[:notice] = "Successfully sent Invitation mail."
@@ -119,7 +119,7 @@ class EventsController < ApplicationController
 
 				
 				redirect_to events_path
-			end
+			#end
 
 		else
 			flash[:notice] = "Atleast one email is required to Invite."
@@ -165,10 +165,11 @@ class EventsController < ApplicationController
 		if ship_address.save
 			@event.shipping_address_id = ship_address.id
 			@event.save
-			invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
-			send_invitation_emails(invitations)
+			#invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
+			#send_invitation_emails(invitations)
 			flash[:notice] = "Shipping Address added successfully"
-			redirect_to events_path
+			redirect_to "/events/#{@event.id}/add_products"
+			#redirect_to events_path
 		else
 			flash[:notice] = "Invalid Shipping Address" #ship_address.errors.messages
 			render "/events/shipping_address"
