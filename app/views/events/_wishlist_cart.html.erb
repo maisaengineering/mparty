@@ -5,13 +5,13 @@
   <thead>
   <tr>
     <% if @wishlist.user == spree_current_user %>
-        <th><%= Spree.t(:wishlist_actions) %></th>
+      <th><%= Spree.t(:wishlist_actions) %></th>
     <% end -%>
     <th><%= Spree.t(:item_view) %></th>
     <th><%= Spree.t(:item_description) %></th>
     <th></th>
-    <th><%= Spree.t(:availability) %></th>
-    <th><%= Spree.t(:date_added) %></th>
+    <th>Requested Quantity</th>
+    <th>Purchased Quantity</th>
     <th><%= Spree.t(:price) %></th>
   </tr>
   </thead>
@@ -22,24 +22,27 @@
         variant = wish.variant
         product = variant.product %>
           <tr class="<%= cycle('', 'alt') %>">
-                <td>
-                  <%= form_for :order, :url => "/orders/populate" do |f| %>
-                      <%= hidden_field_tag "variant_id", variant.id %>
-                      <%= hidden_field_tag "quantity", 1 %>
-                        <%- if !wish.is_purchased %>
-                            <%= link_to Spree.t(:add_to_cart), '#', :onclick => "$(this).parent().submit(); return false;", :class => "button" %>
-                        <% else %>
-                            <p>Already purchased by someone</p>
-                        <% end %>
-                      <% end %>
-                  
-                  <br />
-                </td>
+            <td>
+              <%= form_for :order, :url => "/orders/populate" do |f| %>
+                <%= hidden_field_tag "variant_id", variant.id %>
+                <% if !wish.is_purchased %>
+                  <p> Select Quantity </p>
+                  <%= number_field_tag "quantity", 0, in:1..wish.quantity-wish.quantity_purchased %>
+                <% else %>
+                  <%= hidden_field_tag "quantity", 1 %>
+                <% end %>  
+                  <%- if !wish.is_purchased %>
+                    <%= link_to Spree.t(:add_to_cart), '#', :onclick => "$(this).parent().submit(); return false;", :class => "button" %>
+                  <% else %>
+                    <p>Already purchased</p>
+                  <% end %>
+              <% end %><br />
+            </td>
             <td>
               <% if variant.images.length == 0 %>
-                  <%= small_image(variant.product) %>
+                <%= small_image(variant.product) %>
               <% else %>
-                  <%= image_tag variant.images.first.attachment.url(:small) %>
+                <%= image_tag variant.images.first.attachment.url(:small) %>
               <% end %>
             </td>
             <td>
@@ -48,10 +51,10 @@
               <%= truncate(product.description, :length => 100, :omission => "...") %>
             </td>
             <td>
-              <%= variant.can_supply? ? Spree.t(:in_stock) : Spree.t(:out_of_stock) %>
+              <%= wish.quantity %>
             </td>
             <td>
-              <%= wish.created_at.strftime "%m/%d/%Y" %>
+              <%= wish.quantity_purchased %>
             </td>
             <td>
               <%= number_to_currency(variant.price) %>

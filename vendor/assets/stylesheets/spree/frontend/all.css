@@ -232,7 +232,7 @@ textarea.multiple-email {
     -moz-border-radius: 28;
     border-radius: 28px;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 10px;
     background: #3498db;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
@@ -244,7 +244,7 @@ textarea.multiple-email {
     -moz-border-radius: 28;
     border-radius: 28px;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 10px;
 
     margin-bottom: 10px;
     padding: 10px 20px 10px 20px;
@@ -258,7 +258,7 @@ textarea.multiple-email {
     background: green;
 }
 .Yellow{
-    background: #ffff00;
+    background: #FFA300;
 }
 .Red{
      background: red;

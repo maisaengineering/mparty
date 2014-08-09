@@ -12,7 +12,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20140805064612) do
-
   create_table "comments", force: true do |t|
     t.text     "content"
     t.integer  "commentable_id"
@@ -836,6 +835,9 @@ ActiveRecord::Schema.define(version: 20140805064612) do
     t.datetime "updated_at"
     t.string   "spree_api_key",          limit: 48
     t.datetime "remember_created_at"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "phone"
   end
 
   add_index "spree_users", ["email"], name: "email_idx_unique", unique: true, using: :btree
@@ -868,7 +870,9 @@ ActiveRecord::Schema.define(version: 20140805064612) do
     t.text     "remark"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_purchased", default: false
+    t.boolean  "is_purchased",       default: false
+    t.integer  "quantity",           default: 1
+    t.integer  "quantity_purchased", default: 0
   end
 
   create_table "spree_wishlists", force: true do |t|

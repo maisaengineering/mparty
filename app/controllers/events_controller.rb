@@ -16,7 +16,10 @@ class EventsController < ApplicationController
 	end
 	
 	def new
-		@event = current_spree_user.events.build
+    @event = current_spree_user.events.new
+    @imageable = Event.new
+    #@pictures = @imageable.pictures
+    @picture = Picture.new
     @event_templates = Spree::Admin::Template.select(:id,:name)
   end
 
@@ -25,7 +28,8 @@ class EventsController < ApplicationController
   end
 
 	def create
-		@event = current_spree_user.events.build(event_params)
+		@event = current_spree_user.events.new(event_params)
+
 			if @event.save
 				if params[:commit] == "Create"
 					redirect_to events_path
@@ -39,20 +43,47 @@ class EventsController < ApplicationController
 
 	def show
 		@event = Event.find(params[:id])
-		@wish_lists = @event.wishlist
-    @commentable = @event
-    @comments = @commentable.comments
-    @comment = Comment.new
+		@wish_list = @event.wishlist
+		@commentable = @event
+		@comments = @commentable.comments
+		@comment = Comment.new
+		@imageable = @event
+		@pictures = @imageable.pictures
+		@picture = Picture.new
     event_template = Spree::Admin::Template.find(@event.template_id)
     @event_design = event_template.designs.find(@event.design_id)
 	end
 
 	def view_invitation
-		invitation = Invite.find_by_token(params[:invitation_code])
-		@event = invitation.event
-		@invite_email = invitation.recipient_email
-		@token = invitation.token
-	end	
+		@invitation = Invite.find_by_token(params[:invitation_code])
+		if @invitation.present?
+			@event = @invitation.event
+			@invite_email = @invitation.recipient_email
+			@token = @invitation.token
+		else
+			flash[:error] = "We are sorry Invitation not found."
+			render
+		end	
+	end
+
+	def show_invitation
+		@invitation = Invite.find_by_event_id_and_recipient_email(params[:event_id],current_spree_user.email)
+		if @invitation.present?
+			@event = @invitation.event
+			@invite_email = @invitation.recipient_email
+			@token = @invitation.token
+		else
+			flash[:error] = "We are sorry Invitation not found."
+			render
+		end	
+		@wishlist = @event.wishlist
+		@commentable = @event
+		@comments = @commentable.comments
+		@comment = Comment.new
+		@imageable = @event
+		@pictures = @imageable.pictures
+		@picture = Picture.new
+	end		
 
 	def send_invitation
 		@event = Event.find(params[:event_id])
@@ -63,6 +94,7 @@ class EventsController < ApplicationController
 			invitations = []
 			failed_emails = []
 			e.each do |email|
+					email.strip!
 					event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
 					if event_invitation.nil?
 						invite = Invite.create do |inv|
@@ -82,20 +114,20 @@ class EventsController < ApplicationController
 					end
 			end
 
-			if params[:add_wishlist]== "1" && !@event.ship_address.present?
-				flash[:notice] = "Please provide Shipping Address for your Wishlist." 
-				render "/events/shipping_address"
-			else
+			#if params[:add_wishlist]== "1" && !@event.ship_address.present?
+			#	flash[:notice] = "Please provide Shipping Address for your Wishlist." 
+			#	render "/events/shipping_address"
+			#else
 				if invitations.size > 0
 					send_invitation_emails(invitations)
 					flash[:notice] = "Successfully sent Invitation mail."
 				else
-					flash[:notice] = "You have already sent Invitaion for this friends #{ failed_emails.join(',') }"	
+					flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"	
 				end	
 
 				
 				redirect_to events_path
-			end
+			#end
 
 		else
 			flash[:notice] = "Atleast one email is required to Invite."
@@ -141,10 +173,11 @@ class EventsController < ApplicationController
 		if ship_address.save
 			@event.shipping_address_id = ship_address.id
 			@event.save
-			invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
-			send_invitation_emails(invitations)
+			#invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
+			#send_invitation_emails(invitations)
 			flash[:notice] = "Shipping Address added successfully"
-			redirect_to events_path
+			redirect_to "/events/#{@event.id}/add_products"
+			#redirect_to events_path
 		else
 			flash[:notice] = "Invalid Shipping Address" #ship_address.errors.messages
 			render "/events/shipping_address"
@@ -157,20 +190,20 @@ class EventsController < ApplicationController
 
 		@invitations = current_spree_user.invites.where("recipient_email LIKE ?", "%#{params[:term]}%").group("recipient_email").map(&:recipient_email)
 
-    respond_to do |format|
-      format.html
-      format.json { 
-        render json: @invitations
-      }
-    end
+		respond_to do |format|
+			format.html
+			format.json { 
+				render json: @invitations
+			}
+		end
 	end	
 
 	private
 		def event_params
 			params.require(:event).permit(:name, :host_name,
-																		:host_phone, :location, :description, :starts_at, 
+																		:host_phone, :location, :description, :starts_at,
 																		:start_time, :ends_at, :end_time, :is_private,
-																		:image, :template_id, :design_id)
+																		:image, :template_id, :design_id, pictures_attributes: [:image])
 		end
 
 		def check_for_cancel

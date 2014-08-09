@@ -61,9 +61,9 @@
         = f.time_select :end_time, :class => 'required'
         %br/
       %p.field
-        - f.fields_for :imageable do |event_picture|
-          = label_tag 'Upload Image'
-          = event_picture.file_field :image, :class => 'required'
+        - f.fields_for :pictures, @event.pictures.build do |pct|
+          = label_tag 'Picture'
+          = pct.file_field :image, :class => 'required'
           %br/
       %p.field
         = f.check_box :is_private

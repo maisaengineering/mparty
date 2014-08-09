@@ -1,7 +1,3 @@
-.milestoneThumbnailBox
-  - e_design = @handlebars.compile(@event_design.content)
-  = e_design.call(MPARTY: event_data_points(@event)).html_safe
-
 %h1= @event.name
 %p
   %b Name:
@@ -22,14 +18,12 @@
 - if @event.pictures.size > 0 
   %p
     %b Pictures
-    = render "pictures/pictures"
-    = render "pictures/form"
-
+    = render "pictures/pictures" 
 
 %p
-  %b Your wishlist
-  - if @wish_list
-    = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
+  %b Event wishlist
+  - if @wishlist
+    = render :partial => "wishlist_cart"
 
 %h3 Who's Coming?
 %p
@@ -37,6 +31,14 @@
   = link_to "Maybe - #{@event.attendees('maybe')}", '#',class: "ResponseButtons Yellow"
   = link_to "Pending - #{@event.attendees('pending')}", '#',class: "ResponseButtons Gray"
   = link_to "rejected - #{@event.attendees('rejected')}",'#', class: "ResponseButtons Red"
+
+%h3 Update Status
+%p
+  = link_to "Attend",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}", class: "UserResponseButtons Green"
+
+  = link_to "Reject",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}", class: "UserResponseButtons Red"
+
+  = link_to "May be",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}", class: "UserResponseButtons Yellow"  
 
 
 %h2 Comments

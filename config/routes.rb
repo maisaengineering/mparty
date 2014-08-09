@@ -10,8 +10,6 @@ Invitation::Application.routes.draw do
 
 
 
-  #resources :event_categories
-
   # This line mounts Spree's routes at the root of your application.
   # This means, any requests to URLs such as /products, will go to Spree::ProductsController.
   # If you would like to change where this engine is mounted, simply change the :at option to something different.
@@ -79,11 +77,15 @@ Invitation::Application.routes.draw do
 
   get '/events/fetch_friends'=>"events#fetch_friends"
 
+  post '/events/add_ship_address'=>"events#add_ship_address", as: :add_ship_address
+
+
   resources :events do #, only: [:new, :create, :show, :index]
     collection do
       get 'update_designs'
     end
     resources :comments
+    resources :pictures
   end
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
@@ -92,13 +94,16 @@ Invitation::Application.routes.draw do
   get '/events/:event_id/add_products/'=>"events#add_products", as: :add_products
   get '/calendar/'=>"events#calendar", as: :calendar
 
-  post '/events/add_ship_address'=>"events#add_ship_address", as: :add_ship_address
 
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
 
   resources :invites, only: [:create, :destroy]
   
   get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
+
+  get '/events/show_invitation/:event_id'=>"events#show_invitation", as: :show_invitation
+
+  get '/invites/join_public_event/:event_id'=>"invites#join_public_event", as: :join_public_event
 
   # resources :rsvps, only: [:create, :destroy]
   #
