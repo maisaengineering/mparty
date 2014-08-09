@@ -1,5 +1,15 @@
 Invitation::Application.routes.draw do
 
+  Spree::Core::Engine.routes.prepend do
+    namespace :admin do
+      resources :templates
+    end
+  end
+
+  resources :templates
+
+
+
   #resources :event_categories
 
   # This line mounts Spree's routes at the root of your application.
@@ -8,12 +18,6 @@ Invitation::Application.routes.draw do
   #
   # We ask that you don't use the :as option here, as Spree relies on it being the default of "spree"
   mount Spree::Core::Engine, :at => "/"
-
-  Spree::Core::Engine.routes.prepend do
-    namespace :admin do
-      resources :event_categories
-    end
-  end
 
   #Spree::Core::Engine.routes.prepend do
     #root :to => 'user_sessions#new'
@@ -76,6 +80,9 @@ Invitation::Application.routes.draw do
   get '/events/fetch_friends'=>"events#fetch_friends"
 
   resources :events do #, only: [:new, :create, :show, :index]
+    collection do
+      get 'update_designs'
+    end
     resources :comments
   end
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation

@@ -1,0 +1,7 @@
+- @designs.each do |design|
+  .milestoneThumbnailBox{data:{'design-id'=> design.id}}
+    - c_design = @handlebars.compile(design.content)
+    = c_design.call(MPARTY: event_data_points(@event)).html_safe
+
+
+

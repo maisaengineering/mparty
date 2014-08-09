@@ -1,87 +1,131 @@
-<% if @event.errors.any? %>
-	<div id="error_explanation">
-		<h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
- 
-		<ul>
-		<% @event.errors.full_messages.each do |msg| %>
-			<li><%= msg %></li>
-		<% end %>
-		</ul>
-	</div>
-<% end %>
+- if @event.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(@event.errors.count, "error")
+      prohibited this event from being saved:
+    %ul
+      - @event.errors.full_messages.each do |msg|
+        %li= msg
+= form_for(@event, :html => {:multipart => true}) do |f|
+  .inner
+    %fieldset#shipping{"data-hook" => ""}
+      %legend{:align => "center"} Create Event
+      #DesignsBox{:style=>"disply:none;"}
+      %p.field
+        = label_tag 'Name'
+        %span.required *
+        = f.text_field :name, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'Event Type'
+        %span.required *
+        = f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'}
+      = f.hidden_field :design_id
+      %p.field
+        = label_tag 'Host'
+        %span.required *
+        = f.text_field :host_name, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'Host Phone'
+        %span.required *
+        = f.text_field :host_phone, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'location'
+        %span.required *
+        = f.text_field :location, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'description'
+        = f.text_area :description, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'Start date'
+        %span.required *
+        = f.date_field :starts_at, min: Date.today, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'Start time'
+        %span.required *
+        = f.time_select :start_time, :class => 'required'
+        %br/
+      %p.field
+        = label_tag 'End date'
+        = f.date_field :ends_at, min: Date.today, :class => 'required'
+        %br/
+        %br/
+      %p.field
+        = label_tag 'End time'
+        %span.required *
+        = f.time_select :end_time, :class => 'required'
+        %br/
+      %p.field
+        - f.fields_for :imageable do |event_picture|
+          = label_tag 'Upload Image'
+          = event_picture.file_field :image, :class => 'required'
+          %br/
+      %p.field
+        = f.check_box :is_private
+        \&nbsp;#{f.label :is_private, "Is Private"}
+      %br/
+      = f.submit "Create",  class: "btn btn-lg btn-primary"
+      = f.submit "Create & Invite", class: "btn btn-lg btn-primary"
+      = f.submit "Cancel", class: "btn btn-lg btn-primary"
+%br/
 
-<%= form_for(@event, :html => {:multipart => true}) do |f| %>
-<div class="inner" >
-<fieldset id="shipping" data-hook>
-<legend align="center">Create Event</legend>
-	<p class="field">
-	<%= label_tag 'Name'%><span class="required">*</span>
-	<%= f.text_field :name, :class => 'required' %> <br/>
-	</p>
+:javascript
 
-      <p class="field">
-        <%= label_tag 'Event Type'%><span class="required">*</span>
-        <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'} %>
-      </p>
+  $("#event_template_id").change(function(e){
+    event.preventDefault();
+    var template_id = $(this).val();
+    $.ajax({
+      url: "/events/update_designs",
+      type: "GET",
+      data: {"template_id" : template_id},
+      success: function(data) {
+        design_selection();
+        manual_keyup();
+      }
+    });
+  });
 
-	<p class="field">
-		<%= label_tag 'Host'%><span class="required">*</span>
-		<%= f.text_field :host_name, :class => 'required' %> <br/>
-	</p>
+  design_selection = function(){
+    $(".milestoneThumbnailBox").click(function(e){
+      e.preventDefault();
+      $('#event_design_id').val($(this).attr('data-design-id'));
+    });
+  }
 
-	<p class="field">
-		<%= label_tag 'Host Phone'%><span class="required">*</span>
-		<%= f.text_field :host_phone, :class => 'required' %> <br/>
-	</p>
+  manual_keyup = function(){
+     $('#event_name').keyup();
+     $('#event_host_name').keyup();
+     $('#event_host_phone').keyup();
+     $('#event_starts_at').keyup();
+     $('#event_location').keyup();
+  }
 
+  $('#event_name').keyup(function() {
+      var keyed = $(this).val().replace(/\n/g, '<br/>');
+      $(".eventName").html(keyed);
+  });
 
-	<p class="field">
-	<%= label_tag 'location'%><span class="required">*</span>
-	<%= f.text_field :location, :class => 'required' %> <br/>
-	</p>
+  $('#event_host_name').keyup(function() {
+      var keyed = $(this).val().replace(/\n/g, '<br/>');
+      $(".eventHost").html(keyed);
+  });
 
-	<p class="field">
-	<%= label_tag 'description'%>
-	<%= f.text_area :description, :class => 'required' %> <br/>
-	</p>
+  $('#event_host_phone').keyup(function() {
+      var keyed = $(this).val().replace(/\n/g, '<br/>');
+      $(".eventHost").html(keyed);
+  });
 
-	<p class="field">
-	<%= label_tag 'Start date'%><span class="required">*</span>
-	<%= f.date_field :starts_at, min: Date.today, :class => 'required'%> <br/>
-	</p>
+  $('#event_starts_at').keyup(function() {
+      var keyed = $(this).val().replace(/\n/g, '<br/>');
+      $(".eventTime").html(keyed);
+  });
 
-	<p class="field">
-		<%= label_tag 'Start time'%><span class="required">*</span>
-		<%= f.time_select :start_time, :class => 'required'%> <br/>
-	</p>
-
-	<p class="field">
-	<%= label_tag 'End date'%>
-	<%= f.date_field :ends_at, min: Date.today, :class => 'required'%> <br/> <br/>
-	</p>
-
-	<p class="field">
-		<%= label_tag 'End time'%><span class="required">*</span>
-		<%= f.time_select :end_time, :class => 'required'%> <br/>
-	</p>
-
-	<p class="field">
-		<% f.fields_for :imageable do |event_picture| %>
-			<%= label_tag 'Upload Image' %>
-			<%= event_picture.file_field :image, :class => 'required'%> <br/>
-		<% end %>	
-	</p>
-
-
-	<p class="field">
-	<%= f.check_box :is_private %>&nbsp;<%= f.label :is_private, "Is Private" %>
-	</p>
-
-<br/>  
-	<%= f.submit "Create",  class: "btn btn-lg btn-primary"  %>
-	<%= f.submit "Create & Invite", class: "btn btn-lg btn-primary" %>
-	<%= f.submit "Cancel", class: "btn btn-lg btn-primary" %>
- </fieldset> 
- </div>
-<% end %>
-<br/>
+  $('#event_location').keyup(function() {
+        var keyed = $(this).val().replace(/\n/g, '<br/>');
+        $(".eventLocation").html(keyed);
+    });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140804053033) do
+ActiveRecord::Schema.define(version: 20140805064612) do
 
   create_table "comments", force: true do |t|
     t.text     "content"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20140804053033) do
     t.string   "host_phone"
     t.time     "start_time"
     t.time     "end_time"
+    t.integer  "template_id"
+    t.integer  "design_id"
   end
 
   add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
@@ -116,6 +118,19 @@ ActiveRecord::Schema.define(version: 20140804053033) do
 
   add_index "spree_adjustments", ["adjustable_id"], name: "index_adjustments_on_order_id", using: :btree
   add_index "spree_adjustments", ["source_type", "source_id"], name: "index_spree_adjustments_on_source_type_and_source_id", using: :btree
+
+  create_table "spree_admin_designs", force: true do |t|
+    t.text     "content"
+    t.integer  "template_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spree_admin_templates", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "spree_assets", force: true do |t|
     t.integer  "viewable_id"

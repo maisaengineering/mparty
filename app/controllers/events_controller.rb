@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
 	before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
+  before_filter :register_handlebars
 	layout 'spree_application'
 
 	helper 'spree/taxons'
@@ -16,7 +17,12 @@ class EventsController < ApplicationController
 	
 	def new
 		@event = current_spree_user.events.build
-	end
+    @event_templates = Spree::Admin::Template.select(:id,:name)
+  end
+
+  def update_designs
+    @designs = Spree::Admin::Template.find(params[:template_id]).designs
+  end
 
 	def create
 		@event = current_spree_user.events.build(event_params)
@@ -37,6 +43,8 @@ class EventsController < ApplicationController
     @commentable = @event
     @comments = @commentable.comments
     @comment = Comment.new
+    event_template = Spree::Admin::Template.find(@event.template_id)
+    @event_design = event_template.designs.find(@event.design_id)
 	end
 
 	def view_invitation
@@ -159,10 +167,10 @@ class EventsController < ApplicationController
 
 	private
 		def event_params
-			params.require(:event).permit(:name, :event_category_id, :host_name, 
+			params.require(:event).permit(:name, :host_name,
 																		:host_phone, :location, :description, :starts_at, 
 																		:start_time, :ends_at, :end_time, :is_private,
-																		:image)
+																		:image, :template_id, :design_id)
 		end
 
 		def check_for_cancel

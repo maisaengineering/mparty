@@ -38,13 +38,15 @@ ul li{
 
 .topHeader{
     width:1000px;
-    height:70px;
+    height:90px;
     margin:0 auto;
 }
 .headerLogo{
     width: 300px;
     float: left;
     margin-top: 5px;
+    z-index: 1;
+    position: relative;
 }
 
 .headerMenuRight{
@@ -64,12 +66,13 @@ ul li{
 }
 
 #gallery-nav {
-    background-color: #f6f6f6;
+    background-color: #C52128;
     color: #999999;
     width: 100%;
     padding: 25px 0 0px;
     margin: 0 auto;
     height: 50px;
+    clear: both;
 }
 #gallery-nav > ul {
     display: block;
@@ -110,7 +113,7 @@ ul li{
     opacity: 0.9;
 }
 #gallery-nav a {
-    color: #999999;
+    color: #fff;
     text-decoration: none;
 }
 
@@ -118,7 +121,7 @@ ul li{
 /* Body */
 .mainBody{
     min-height: 100px;
-    margin-top: 50px;
+    margin-top: 70px;
     background: #fff;
     display: block;
 }
@@ -278,4 +281,35 @@ a:hover {
     content: " ";
     clear: both;
     height: 0;
+}
+
+
+/* - Dash milestones - */
+
+
+.milestoneThumbnailContainer {
+    width: 125px;
+    padding-top: 11px;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    float: left;
+    position: relative;
+    z-index: 20;
+}
+
+
+.milestoneThumbnailBox {
+    border: solid #fff 2px;
+    box-shadow: 4px 4px 7px #777;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    width: 165px;
+    height: 107px;
+    text-align: center;
+    display: inline-block;
+    border-radius: 2px;
+    cursor: pointer;
+    color: #fff;
 }

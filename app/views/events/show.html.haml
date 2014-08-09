@@ -1,3 +1,7 @@
+.milestoneThumbnailBox
+  - e_design = @handlebars.compile(@event_design.content)
+  = e_design.call(MPARTY: event_data_points(@event)).html_safe
+
 %h1= @event.name
 %p
   %b Name:
