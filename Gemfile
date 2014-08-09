@@ -77,7 +77,7 @@ gem 'carrierwave'
 gem "rmagick"
 
 gem 'handlebars'
-gem "cocoon"
+gem "nested_form"
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

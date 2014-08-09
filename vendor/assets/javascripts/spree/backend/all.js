@@ -8,5 +8,5 @@
 //= require jquery_ujs
 
 //= require spree/backend
-
+//= require jquery_nested_form
 //= require_tree .
