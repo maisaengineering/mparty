@@ -9,3 +9,31 @@
  *= require_self
  *= require_tree .
 */
+
+
+#designs textarea {
+    width: 100%;
+    height: 300px;
+    border: solid 1px #ccc;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+
+.customButton {
+    background-color: #fab138;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px #777;
+    font-size: 1.3em;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+    padding: 5px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-transform: lowercase;
+    cursor: pointer;
+}

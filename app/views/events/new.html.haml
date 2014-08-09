@@ -19,6 +19,10 @@
 	<%= f.text_field :name, :class => 'required' %> <br/>
 	</p>
 
+      <p class="field">
+        <%= label_tag 'Event Type'%><span class="required">*</span>
+        <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'} %>
+      </p>
 
 	<p class="field">
 		<%= label_tag 'Host'%><span class="required">*</span>

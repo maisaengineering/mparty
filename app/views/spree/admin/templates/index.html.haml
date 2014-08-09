@@ -1,0 +1,19 @@
+%h1 Listing spree_admin_templates
+
+%table
+  %tr
+    %th Name
+    %th
+    %th
+    %th
+
+  - @spree_admin_templates.each do |spree_admin_template|
+    %tr
+      %td= spree_admin_template.name
+      %td= link_to 'Show', spree_admin_template
+      %td= link_to 'Edit', edit_admin_template_path(spree_admin_template)
+      %td= link_to 'Destroy', spree_admin_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Template', new_admin_template_path

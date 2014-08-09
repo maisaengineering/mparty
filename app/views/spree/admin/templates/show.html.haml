@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @spree_admin_template.name
+
+= link_to 'Edit', spree.edit_admin_template_path(@spree_admin_template)
+\|
+= link_to 'Back', spree.admin_templates_path
