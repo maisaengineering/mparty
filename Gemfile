@@ -43,7 +43,7 @@ gem 'money', '6.0.1'
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '2-2-stable'
 
 # For debugging application
-gem 'debugger'
+gem 'byebug'
 
 #Spree extension for Social networking login
 #gem 'spree_social', github: 'spree/spree_social', branch: 'master'
