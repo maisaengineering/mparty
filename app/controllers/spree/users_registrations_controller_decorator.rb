@@ -40,6 +40,6 @@ Spree::UserRegistrationsController.class_eval do
     end  
 
     def spree_user_params
-      params.require(:spree_user).permit(Spree::PermittedAttributes.user_attributes, :first_name, :last_name, :phone)
+      params.require(:spree_user).permit(Spree::PermittedAttributes.user_attributes, :first_name, :last_name, :phone,:address)
     end
 end

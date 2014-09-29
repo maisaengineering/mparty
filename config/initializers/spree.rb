@@ -22,6 +22,7 @@ Spree::SocialConfig[:path_prefix] = ''
 Spree::PermittedAttributes.user_attributes << :first_name
 Spree::PermittedAttributes.user_attributes << :last_name
 Spree::PermittedAttributes.user_attributes << :phone
+Spree::PermittedAttributes.user_attributes << :address
 
 #spree email to friend mailer override
 Spree::ToFriendMailer.class_eval do

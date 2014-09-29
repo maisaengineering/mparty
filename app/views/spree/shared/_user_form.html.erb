@@ -34,4 +34,38 @@
  <%= f.text_field :phone,:class => 'title' %><br />
 </p>
 
+<p>
+  <%= f.label :address, "Address" %><br />
+  <%= f.text_field :address,:class => 'title' %><br />
+</p>
+
 <div data-hook="signup_below_password_fields"></div>
+<script src='http://maps.googleapis.com/maps/api/js?sensor=true&libraries=places,geometry' type='text/javascript'></script>
+
+<script type="text/javascript">
+    //TODO move javascript to separate file and add to spree asset pipline
+    var getUserPosition = function() {
+        var options = { frequency: 5000, maximumAge: 20000, timeout: 20000, enableHighAccuracy: true };
+        navigator.geolocation.getCurrentPosition(posSuccess, positionFail, options);
+    };
+    var posSuccess = function(position) {
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        setAddress(lat,long)
+    }
+    var positionFail = function(error) {
+        // console.log("Error getting geolocation: code=" + error.code + " message=" + error.message);
+    };
+    function setAddress(lat,lon){
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': new google.maps.LatLng(lat,lon) }, function(results, status){
+            //  results[0].address_components[0].long_name;
+            $('#spree_user_address').val(results[0].formatted_address);
+        });
+    }
+    getUserPosition();
+    // Address Autocomplete
+    var input = document.getElementById("spree_user_address");
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+</script>
