@@ -13,7 +13,7 @@ Spree.config do |config|
 	config.admin_interface_logo = 'logo_jb.jpg'
   config.layout='spree_application'
 end
-
+Spree::Config[:layout]='application'
 Spree::Ability.register_ability(CsrAbility)
 
 Spree.user_class = "Spree::LegacyUser"

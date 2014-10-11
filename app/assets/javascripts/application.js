@@ -13,4 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require bootstrap.min
+
+
+// Visit pages via turbolinks
+$(document).on('click', '.viaTurbo',function (e) {
+    e.preventDefault()
+    Turbolinks.visit($(this).attr('data-url'));
+});

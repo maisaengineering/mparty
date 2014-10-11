@@ -1,5 +1,5 @@
 .container-fluide
-.main_wrapper
-%img{:src => "img/2.jpg", :width => "100%"}/
-.btn_createvent
-%a{:href => "events.html"} Create Event
+  .main_wrapper
+    = image_tag 'landing.jpg',width: "100%"
+    .btn_createvent
+      = link_to "Create Event", '/events/new'
