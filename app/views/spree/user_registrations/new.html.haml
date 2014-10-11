@@ -1,0 +1,29 @@
+.container-fluid
+  %br/
+  %br/
+  %h1{:style => "text-align:center;font-weight: bold;"} Create Your New Account
+  %br/
+  .create_user
+    = render :partial => 'spree/shared/error_messages', :locals => { :target => @user }
+    = form_for resource, :as => :spree_user, :url => spree.registration_path(@user) ,html: {style: "margin:45px;"} do |f|
+      .form-group
+        %label First Name*
+        = f.text_field :first_name ,placeholder: 'First Name' ,class: 'form-control', required: true
+      .form-group
+        %label Last Name*
+        = f.text_field :last_name ,placeholder: 'Last Name' ,class: 'form-control', required: true
+      .form-group
+        %label Email address*
+        = f.email_field :email ,placeholder: 'Enter emai' ,class: 'form-control', required: true
+      .form-group
+        %label Password*
+        = f.password_field :password ,placeholder: 'Password' ,class: 'form-control', required: true
+      .form-group
+        %label Password Confirmation*
+        = f.password_field :password_confirmation ,placeholder: 'Password Confirmation' ,class: 'form-control', required: true
+      .form-group
+        %label Phone Number*
+        = f.text_field :phone ,placeholder: 'Phone Number' ,class: 'form-control', required: true
+      %button.btn_l.btn_l-login{:on => "", :type => "submit"}
+        Create
+  %br/
