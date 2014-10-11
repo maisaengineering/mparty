@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 
 # Use postgres as the database for Active Record
-gem 'pg', group: :production
+gem 'pg'#, group: :production
 
 #Use Mysql as the database for Active Record
-gem 'mysql2', group: :development
+#gem 'mysql2', group: :development
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -29,6 +29,7 @@ gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
+gem 'thin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
