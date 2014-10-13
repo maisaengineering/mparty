@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
 	before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars
-	layout 'spree_application'
+	layout 'spree_application',except: [:new,:create]
 
 	helper 'spree/taxons'
 
@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
 	def create
 		@event = current_spree_user.events.new(event_params)
-
+    @event_templates = Spree::Admin::Template.select(:id,:name)
 			if @event.save
 				if params[:commit] == "Create"
 					redirect_to events_path

@@ -1,85 +1,157 @@
-- if @event.errors.any?
-  #error_explanation
-    %h2
-      = pluralize(@event.errors.count, "error")
-      prohibited this event from being saved:
-    %ul
-      - @event.errors.full_messages.each do |msg|
-        %li= msg
-= form_for(@event, :html => {:multipart => true}) do |f|
-  .inner
-    %fieldset#shipping{"data-hook" => ""}
-      %legend{:align => "center"} Create Event
-      #DesignsBox{:style=>"disply:none;"}
-
-      #designPreview
-      %p.field
-        = label_tag 'Name'
-        %span.required *
-        = f.text_field :name, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'Event Type'
-        %span.required *
-        = f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'}
-      = f.hidden_field :design_id
-      %p.field
-        = label_tag 'Host'
-        %span.required *
-        = f.text_field :host_name, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'Host Phone'
-        %span.required *
-        = f.text_field :host_phone, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'location'
-        %span.required *
-        = f.text_field :location, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'description'
-        = f.text_area :description, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'Start date'
-        %span.required *
-        = f.date_field :starts_at, min: Date.today, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'Start time'
-        %span.required *
-        = f.time_select :start_time, :class => 'required'
-        %br/
-      %p.field
-        = label_tag 'End date'
-        = f.date_field :ends_at, min: Date.today, :class => 'required'
-        %br/
-        %br/
-      %p.field
-        = label_tag 'End time'
-        %span.required *
-        = f.time_select :end_time, :class => 'required'
-        %br/
-      %p.field
-        - f.fields_for :pictures, @event.pictures.build do |pct|
-          = label_tag 'Picture'
-          = pct.file_field :image, :class => 'required'
-          %br/
-      %p.field
-        = f.check_box :is_private
-        \&nbsp;#{f.label :is_private, "Is Private"}
-      %br/
-      = f.submit "Create",  class: "btn btn-lg btn-primary"
-      = f.submit "Create & Invite", class: "btn btn-lg btn-primary"
-      = f.submit "Cancel", class: "btn btn-lg btn-primary"
+.container-fluide
+  = image_tag 'event-design.png',width: '100%'
+  %br/
+  #sliderFrame
 %br/
+.container
+  %br/
+  - if @event.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@event.errors.count, "error")
+        prohibited this event from being saved:
+      %ul
+        - @event.errors.full_messages.each do |msg|
+          %li= msg
+  .create_event
+    .row
+      %h2.event_details Enter Details
+      / <button class="btn_cs btn_cs_change" onclick="populateSlider()"> Change Design</button>
+      %button.btn_cs.btn_cs_change Change Design
+    = form_for(@event, :html => {:multipart => true,class: 'form_margin'}) do |f|
+      .row
+        .form_ce_left
+          %label Event Name*
+          = f.text_field :name, class: 'form-control',placeholder: 'Event Name',required: true
+        .form_ce_right
+          %label Event Type*
+          = f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'} ,class: 'form-control'
+          = f.hidden_field :design_id
+      .row
+        .form_ce_left
+          %label Host Name*
+          = f.text_field :host_name, class: 'form-control',placeholder: 'Host Name',required: true
+        .form_ce_right
+          %label Host Phone*
+          = f.text_field :host_phone, class: 'form-control',placeholder: 'Host Phone',required: true
+      .row
+        .form_ce_loc
+          %label Location*
+          = f.text_field :location, class: 'form-control form_ce_loc_ctrl',placeholder: 'Location',required: true
+      .row
+        .form_ce_loc
+          %label Description*
+          = f.text_area :description, class: 'form-control form_ce_loc_ctrl',required: true
+      .row
+        .start_event
+          .form_ce_left.start_event_lw
+            %label Start Date*
+            = f.date_field :starts_at, min: Date.today, class: 'form-control glyphicon glyphicon-calendar',:style => "width:230px"
+          .form_ce_right.start_event_rw
+            %label Start Time*
+            -#%input#exampleInputEmail1.form-control.glyphicon.glyphicon-time{:required => "", :style => "width:120px", :type => "time"}/
+            = f.time_field :start_time, :class => 'form-control glyphicon glyphicon-time', :style => "width:120px"
+        .end_event
+          .form_ce_left.start_event_lw
+            %label End Date*
+            = f.date_field :ends_at, min: Date.today, class: 'form-control glyphicon glyphicon-calendar',:style => "width:230px"
+          .form_ce_right.start_event_rw
+            %label End Time
+            = f.time_field :end_time, :class => 'form-control glyphicon glyphicon-time', :style => "width:120px"
+      .form_ce_left
+        = f.check_box :is_private
+        %label Is Private
+      .checkbox.form_ce_right
+        %button.btn_l.btn_l-login{:on => "", :type => "submit"} Create
+
+
+-#- if @event.errors.any?
+-#  #error_explanation
+-#    %h2
+-#      = pluralize(@event.errors.count, "error")
+-#      prohibited this event from being saved:
+-#    %ul
+-#      - @event.errors.full_messages.each do |msg|
+-#        %li= msg
+-#= form_for(@event, :html => {:multipart => true}) do |f|
+-#  .inner
+-#    %fieldset#shipping{"data-hook" => ""}
+-#      %legend{:align => "center"} Create Event
+-#      #DesignsBox{:style=>"disply:none;"}
+-#
+-#      #designPreview
+-#      %p.field
+-#        = label_tag 'Name'
+-#        %span.required *
+-#        = f.text_field :name, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'Event Type'
+-#        %span.required *
+-#        = f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'}
+-#      = f.hidden_field :design_id
+-#      %p.field
+-#        = label_tag 'Host'
+-#        %span.required *
+-#        = f.text_field :host_name, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'Host Phone'
+-#        %span.required *
+-#        = f.text_field :host_phone, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'Host Alternate Phone'
+-#        %span.required
+-#        = f.text_field :host_alt_phone
+-#        %br/
+-#      %p.field
+-#        = label_tag 'location'
+-#        %span.required *
+-#        = f.text_field :location, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'description'
+-#        = f.text_area :description, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'Start date'
+-#        %span.required *
+-#        = f.date_field :starts_at, min: Date.today, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'Start time'
+-#        %span.required *
+-#        = f.time_select :start_time, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        = label_tag 'End date'
+-#        = f.date_field :ends_at, min: Date.today, :class => 'required'
+-#        %br/
+-#        %br/
+-#      %p.field
+-#        = label_tag 'End time'
+-#        %span.required *
+-#        = f.time_select :end_time, :class => 'required'
+-#        %br/
+-#      %p.field
+-#        - f.fields_for :pictures, @event.pictures.build do |pct|
+-#          = label_tag 'Picture'
+-#          = pct.file_field :image, :class => 'required'
+-#          %br/
+-#      %p.field
+-#        = f.check_box :is_private
+-#        \&nbsp;#{f.label :is_private, "Is Private"}
+-#      %br/
+-#      = f.submit "Create",  class: "btn btn-lg btn-primary"
+-#      = f.submit "Create & Invite", class: "btn btn-lg btn-primary"
+-#      = f.submit "Cancel", class: "btn btn-lg btn-primary"
+-#%br/
 
 :javascript
 
   $("#event_template_id").change(function(e){
-    event.preventDefault();
+    e.preventDefault();
     var template_id = $(this).val();
     $.ajax({
       url: "/events/update_designs",

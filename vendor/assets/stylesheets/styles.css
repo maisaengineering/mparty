@@ -250,6 +250,16 @@ border-radius: 4px;
 .btn_pe-pe-clr{
 	color: #ffffff;
 	background-color: #00aeef;
+	margin-right: 200px;
+}
+.btn_pe-pe-clr a{
+	text-decoration: none;
+	color: #ffffff;
+}
+.btn_pe-cancel{
+	background-color: #c52128;
+	color: #ffffff;
+	margin-right: 20px;
 }
 
 /*########################################create event invitation end##################################################################*/
@@ -274,9 +284,10 @@ padding: 6px;
 	color: #ffffff;
 }
 /*########################################index end##################################################################*/
+/*########################################Wishlist##################################################################*/
 .wishlist{
 width: 799px;
-height: 215px;
+height: 170px;
 background-color: white;
 border: 1px solid #c1c1c1;
 border-radius: 6px;
@@ -292,9 +303,65 @@ border-radius: 6px 6px 0px 0px;
 	width: 100%;
 	color:#ffffff;
 	font-size: 18px;
-	text-align: center;
+	text-align: right;
 }
 
 #large-image img{
 	width: 100%;
+}
+
+.wlist{
+	width: 144px;
+	margin-top: 14px;
+}
+.wlist_id{
+	width: 144px;
+	margin-top: 44px;
+	text-align: left;
+	font-size: 15px;
+color: #585858;
+font-weight: bold;
+}
+.wlist_p{
+	width: 144px;
+	margin-top: 44px;
+	text-align: center;
+	font-size: 15px;
+color: #585858;
+font-weight: bold;
+}
+.wlist_rq{
+	width: 144px;
+	margin-top: 44px;
+	text-align: center;
+	font-size: 15px;
+color: #585858;
+font-weight: bold;
+}
+.wlist_pq{
+	width: 168px;
+	margin-top: 44px;
+	text-align: right;
+	font-size: 15px;
+color: #585858;
+font-weight: bold;
+}
+.wlist_rmv_btn{
+	width: 94px;
+height: 24px;
+float: right;
+margin: 28px;
+background-color: #c52128;
+color:#ffffff;
+text-align: center;
+font-size: 14px;
+}
+.wlist_check{
+width: 150px;
+float: left;
+
+}
+/*########################################wishlist end##################################################################*/
+.form_margin{
+	margin: 45px;
 }
