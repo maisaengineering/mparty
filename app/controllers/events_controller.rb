@@ -51,7 +51,7 @@ class EventsController < ApplicationController
 		@pictures = @imageable.pictures
 		@picture = Picture.new
     event_template = Spree::Admin::Template.find(@event.template_id)
-    @event_design = event_template.designs.find(@event.design_id)
+    @event_design = event_template.designs.where(id: @event.design_id).first
 	end
 
 	def view_invitation
