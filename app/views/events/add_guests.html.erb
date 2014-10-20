@@ -1,23 +1,41 @@
+<div class="container-fluide">
+  <%= image_tag 'event-design.png' ,width: '100%'%>
+  <br>
+</div>
+<br>
+<div class="container">
+  <br>
+  <div class="create_event">
+    <% if @wish_list %>
+        <div class="row">
+          <h2 class="event_details">Wishlist</h2>
+        </div>
+        <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
+    <% else %>
+        <div class="row">
+          <h2 class="event_details">Invitations</h2>
+        </div>
+    <% end %>
 
-<h2>Add Guests</h2> </br>
+    <%= form_tag(send_invitation_path, class: 'form_margin') do %>
+        <div class="row">
+          <div class="form_ce_loc">
+            <label>Invitations*</label>
+            <%= text_area_tag "friend_emails" , nil, placeholder: "Enter friend's email with comma separated", class:"form-control form_ce_loc_ctrl" ,rows: 8%>
+            <%= hidden_field_tag(:event_id, @event.id) %>
+          </div>
+        </div>
+        <%= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
+        <%= submit_tag("Invite",class: 'btn_pe btn_pe-pe') %>
+        <%= link_to 'Cancel', event_path(@event.id) ,class: "btn_pe btn_pe-cancel"%>
 
-<% if @wish_list %>
-	<p> <%= @wish_list.name%> </p>
-	<%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
-	<%= link_to "Add Products to #{@wish_list.name} wishlist", "/events/#{@wish_list.event_id}/add_products" %><br/>	
+        <% if @wish_list %>
+            <%= link_to "Add Products", "/events/#{@wish_list.event_id}/add_products" ,class: 'btn_pe btn_pe-pe btn_pe-pe-clr'%><br/>
+            <% else %>
+            <!--<p> Do you want to send wish list? please <%#= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>-->
+            <%= link_to 'Add Wishlist', spree.new_wishlist_path(event_id: @event.id),class: 'btn_pe btn_pe-pe btn_pe-pe-clr' %>
+        <% end %>
 
-<% else %>	
-	<p> Do you want to send wish list? please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
-<% end %>	
-
-</br>
-
-<%= form_tag(send_invitation_path, method: "post") do %>
-	<% if @wish_list && @wish_list.wished_products.size > 0 %>
-		<p>Add Wishlist <%= check_box_tag 'add_wishlist' %> </p>
-	<% end %>	
-	<%= text_area_tag "friend_emails" , nil, placeholder: "Enter friend's email with comma separated", class:"inviteEmail multiple-email required"%><br/><br/>
-	<%= hidden_field_tag(:event_id, @event.id) %>
-	<%= submit_tag("Invite") %>
-	<%= submit_tag("Cancel") %>
-<% end %>
+    <% end %>
+  </div>
+</div>

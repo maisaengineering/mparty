@@ -127,7 +127,7 @@ border-radius: 4px;
 /*########################################create event##################################################################*/
 .create_event{
 	width: 874px;
-	height: 752px;
+	height: auto;
 	background-color: #f9fafa;
 	border: 2px solid #ecece4;
 	border-radius:10px; 
@@ -285,7 +285,8 @@ padding: 6px;
 }
 /*########################################index end##################################################################*/
 /*########################################Wishlist##################################################################*/
-.wishlist{
+
+.wishlist,.wishlist_mai{
 width: 799px;
 height: 170px;
 background-color: white;
@@ -364,4 +365,71 @@ float: left;
 /*########################################wishlist end##################################################################*/
 .form_margin{
 	margin: 45px;
+}
+
+.event_pre{
+	width: 600px;
+	float:left;
+height: 752px;
+background-color: #f9fafa;
+border: 2px solid #ecece4;
+border-radius: 10px;
+}
+.event_pre_guest{
+	width: 270px;
+	float:right;
+height: 752px;
+background-color: #f9fafa;
+border: 2px solid #ecece4;
+border-radius: 10px;
+}
+.event_pre_bg{
+	border:none;
+	background-color:#ffffff;
+}
+.wlist_cart{
+	width:266px;
+	height: 300px;
+	margin: 12px;
+}
+.wlist_cart img {
+	width: 200px;
+	margin-left: 12px;
+}
+.wlist_cart :hover {
+	width:200px;
+	border: 1px solid #c1c1c1;
+}
+.wlist_cart_item{
+	width: 200px;
+text-align: center;
+color: #585858;
+font-size: 14px;
+font-weight: bold;
+margin-top: 10px;
+margin-left:12px 
+}
+.qty_width{
+	width: 130px;
+}
+.item_view_block{
+	border: 1px solid #c1c1c1;
+}
+.item_view_block img{
+	width: 300px;
+	margin:28px;
+	margin-left: 130px;
+}
+.item_view_btn{
+	width: 188px;
+height: 40px;
+background-color: #7ab55c;
+color: #ffffff;
+font-size: 20px;
+margin: 0 auto;
+margin-top: 28px;
+border-radius: 2px;
+text-align: center;
+padding: 6px;
+margin-left: 16px;
 }

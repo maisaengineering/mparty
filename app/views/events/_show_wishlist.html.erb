@@ -1,53 +1,39 @@
 <% if wishlist.wished_products.size > 0 %>
-<table id="wishlist">
-			<thead>
-			<tr>
-				<th><%= Spree.t(:item_view) %></th>
-				<th><%= Spree.t(:item_description) %></th>
-				<th><%= Spree.t(:price) %></th>
-				<th>Requested Quantity</th>
-    		<th>Purchased Quantity</th>
-				<th></th>
-			</tr>
-			</thead>
-			<tbody id="line_items">
-					<% wishlist.wished_products.each do |wish|
-						variant = wish.variant
-						product = variant.product %>
-							<tr class="<%= cycle('', 'alt') %>">
-
-								<td>
-									<% if variant.images.length == 0 %>
-											<%= small_image(variant.product) %>
-									<% else %>
-											<%= image_tag variant.images.first.attachment.url(:small) %>
-									<% end %>
-								</td>
-								<td>
-									<h4><%= product.name %></h4>
-									<p><%= variant_options variant %></p>
-									<%= truncate(product.description, :length => 100, :omission => "...") %>
-								</td>
-								<td>
-									<%= number_to_currency(variant.price) %>
-								</td>
-								<td>
-              		<%= wish.quantity %>
-            		</td>
-            		<td>
-              		<%= wish.quantity_purchased %>
-            		</td>
-								<% if current_spree_user.id == @event.owner.id && wish.quantity_purchased == 0 %>
-								<td>
-								
-									<%= link_to "Remove From Wishlist", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?"%>
-								
-								</td>
-								<% end %>	
-							</tr>
-					<% end -%>
-			</tbody>
-		</table>
+    <div class="form_margin">
+      <div class="row">
+        <div class="wishlist_main">
+          <div class="wishlist_header"><table width="100%">
+            <tr>
+              <td>View</td>
+              <td>Item Description</td>
+              <td>Price</td>
+              <td>Requested Qty.</td>
+              <td>Purchased Qty.</td>
+            </tr>
+          </table></div>
+          <% wishlist.wished_products.each do |wish| %>
+              <%  variant = wish.variant  %>
+              <% product = variant.product %>
+              <div class="wishlist">
+                <div class="col-md-1 wlist">
+                  <% if variant.images.length == 0 %>
+                      <%= small_image(variant.product) %>
+                  <% else %>
+                      <%= image_tag variant.images.first.attachment.url(:small) %>
+                  <% end %>
+                </div>
+                <div class="col-md-1 wlist_id"><%= product.name %></div>
+                <div class="col-md-1 wlist_p"> <%= number_to_currency(variant.price) %></div>
+                <div class="col-md-1 wlist_rq"> <%= wish.quantity %></div>
+                <div class="col-md-1 wlist_pq"><%= wish.quantity_purchased %></div>
+                <% if current_spree_user.id == @event.owner.id && wish.quantity_purchased == 0 %>
+                      <%= link_to "Remove", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?",class: 'wlist_rmv_btn' %>
+                <% end %>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
 <% else -%>
-	<p><%= Spree.t(:your_wishlist_is_empty) %></p>
-<% end -%>
+    <p style="margin-left: 40px;"><%= Spree.t(:your_wishlist_is_empty) %></p>
+<% end %>
