@@ -1,20 +1,24 @@
-<% if @products.any? %>
-<p>Select products to add wishlist</p>
-<ul id="products" class="inline product-listing" data-hook>
-  <% @products.each do |product| %>
-    <% url = spree.product_url(product, :taxon_id => @taxon.try(:id)) %>
-    <li id="product_<%= product.id %>" class="columns three <%= cycle("alpha", "secondary", "", "omega secondary", :name => "classes") %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
-     
-        <div class="product-image">
-          <%= link_to small_image(product, :itemprop => "image"), url, :itemprop => 'url' %>
-        </div>
-        <%= link_to truncate(product.name, :length => 50), url, :class => 'info', :itemprop => "name", :title => product.name %>
-        <span class="price selling" itemprop="price"><%= number_to_currency(product.price) %></span>
-
-    </li>
+<div class="container">
+  <% if @products.any? %>
+      <%= image_tag 'shopping_banner.jpg' ,width: '100%' %>
+      <h3>Add Products to Wishlist</h3>
+      <% @products.in_groups_of(4, false) do |row_products| %>
+          <div class="row">
+            <% for product in row_products %>
+                <% url = spree.product_url(product, :taxon_id => @taxon.try(:id)) %>
+                <a href="<%= url %>" id="product_<%= product.id %>" data-hook="products_list_item" itemscope itemtype="http://schema.org/Product">
+                  <div class="col-md-1 wlist_cart">
+                    <%=  large_image(product, :itemprop => "image")  %>
+                    <br/>
+                    <div class="col-md-1 wlist_cart_item">
+                      <%= truncate(product.name, :length => 50) %>
+                      <br><%= number_to_currency(product.price) %></div>
+                  </div>
+                </a>
+            <% end %>
+          </div>
+      <% end %>
+  <% else %>
+      <p><strong>No products found</strong></p>
   <% end %>
-  <% reset_cycle("classes") %>
-</ul>
-<% else %>
- <p>No products found</p>
-<% end %>
+</div>
