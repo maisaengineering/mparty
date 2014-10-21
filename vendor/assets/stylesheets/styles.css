@@ -219,6 +219,10 @@ border-radius: 4px;
 	background-color: #e94040;
 
 }
+.btn_int-int a{
+	text-decoration: none;
+	color: #ffffff;
+}
 .btn_pe
 {
 
@@ -363,6 +367,7 @@ float: left;
 
 }
 /*########################################wishlist end##################################################################*/
+/*########################################Event preview##################################################################*/
 .form_margin{
 	margin: 45px;
 }
@@ -370,22 +375,62 @@ float: left;
 .event_pre{
 	width: 600px;
 	float:left;
-height: 752px;
+height: auto;
 background-color: #f9fafa;
 border: 2px solid #ecece4;
 border-radius: 10px;
+}
+.event_pre label{
+	font-size: 16px;
+padding-left: 12px;
+color: #585858;
+font-weight: bold
 }
 .event_pre_guest{
 	width: 270px;
 	float:right;
-height: 752px;
+height: 587px;
 background-color: #f9fafa;
 border: 2px solid #ecece4;
 border-radius: 10px;
 }
+.event_pre_guest label{
+	margin-top: 10px;
+color: #ffffff;
+}
+.event_pre_guest span{
+	float: right;
+margin-top: 10px;
+color: #ffffff;
+}
+.event_pre_guest h3{
+	font-size: 20px;
+font-weight: bold;
+color: #585858;
+padding-left: 12px;
+}
 .event_pre_bg{
 	border:none;
 	background-color:#ffffff;
+}
+.who_cuming{
+	width: 250px;
+margin: 23px;
+background: red;
+height: 40px;
+border-radius: 6px;
+}
+.accepted_invt{
+	background-color: #669900;
+}
+.maybe_invt{
+	background-color: #FFCF79;
+}
+.pending_invt{
+	background-color: #666666;
+}
+.rejected_invt{
+	background-color: #FF3333;
 }
 .wlist_cart{
 	width:266px;
@@ -432,4 +477,54 @@ border-radius: 2px;
 text-align: center;
 padding: 6px;
 margin-left: 16px;
+}
+.comment_box{
+	background: #ffffff;
+height: 100px;
+width: 775px;
+border-radius: 6px;
+}
+.comment_img{
+	width: 85px;
+height: 100px;
+margin: 6px;
+}
+.comment_box textarea{
+	width: 758px;
+border: 1px solid #c1c1c1;
+height: 98px;
+border-radius: 6px;
+margin-right: 5px;
+}
+.comment_btn{
+	float: right;
+	width: 150px;
+	text-align: center;
+	height: 30px;
+	background-color: #00aeef;
+	margin-right: 30px;
+	margin-top: 10px;
+}
+.comment_btn p {
+	margin-top: 4px;
+font-size: 14px;
+font-weight: bold;
+color: #ffffff;
+}
+.comment_btn a {
+	text-decoration: none;
+}
+.comment_block{
+	width: 874px;
+	margin: 0 auto;
+	background-color: #F9FAFA;
+}
+.heading_h4{
+	margin-left: 20px;
+font-weight: bold;
+color: #585858;
+}
+/*########################################event preview end##################################################################*/
+.event_btn_top{
+	margin-top: 200px;
 }
