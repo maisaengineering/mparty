@@ -15,6 +15,7 @@
         <div class="row">
           <h2 class="event_details">Invitations</h2>
         </div>
+        <p style="margin-left: 40px;"> Do you want to send wish list? please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
     <% end %>
 
     <%= form_tag(send_invitation_path, class: 'form_margin') do %>
@@ -25,22 +26,21 @@
             <%= hidden_field_tag(:event_id, @event.id) %>
           </div>
         </div>
-
-        <% if @wish_list && @wish_list.wished_products.size > 0 %>
-        <div class="wlist_check">
-          <%= check_box_tag 'add_wishlist' %><label> Add Wishlist</label>
-        </div>
-        <% end %>
-        <%= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
         <%= submit_tag("Invite",class: 'btn_pe btn_pe-pe') %>
         <%= link_to 'Cancel', event_path(@event.id) ,class: "btn_pe btn_pe-cancel"%>
 
-        <% if @wish_list %>
-            <%= link_to "Add Products", "/events/#{@wish_list.event_id}/add_products" ,class: 'btn_pe btn_pe-pe btn_pe-pe-clr'%><br/>
-            <% else %>
+        <% if @wish_list && @wish_list.wished_products.size > 0 %>
+            <div class="wlist_check">
+              <%= check_box_tag 'add_wishlist' %><label> Add Wishlist</label>
+            </div>
+            <%= link_to "Add Products", "/events/#{@wish_list.event_id}/add_products" ,class: 'btn_pe btn_pe-pe btn_pe-pe-clr'%>
+        <% else %>
             <!--<p> Do you want to send wish list? please <%#= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>-->
             <%= link_to 'Add Wishlist', spree.new_wishlist_path(event_id: @event.id),class: 'btn_pe btn_pe-pe btn_pe-pe-clr' %>
         <% end %>
+        <%#= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
+
+
 
     <% end %>
   </div>

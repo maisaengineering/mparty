@@ -11,8 +11,17 @@ class InvitesController < ApplicationController
     session[:invitaion_id] = @invitaion.id
     if signed_in?
       if @invitaion.recipient_email == current_spree_user.email
-        redirect_to show_invitation_path(@event.id)
+        #redirect_to show_invitation_path(@event.id)
+        #TODO change has_wishlist in invitation table if user adds wishlist later
+        if @invitaion.has_wishlist == true
+          @wishlist = @event.wishlist
+          flash[:notice] = "Your friend likes following gifts."
+          render "/events/_wishlist_cart"
+        else
+          redirect_to event_path(id: @event.id)
+        end
       else
+        flash[:notice] = "Access denied.You are not invited to this event"
         redirect_to event_path(id: @event.id)
       end  
     else  
