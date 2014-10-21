@@ -66,92 +66,9 @@
       .checkbox.form_ce_right
         %button.btn_l.btn_l-login{:on => "", :type => "submit"} Create
 
-
--#- if @event.errors.any?
--#  #error_explanation
--#    %h2
--#      = pluralize(@event.errors.count, "error")
--#      prohibited this event from being saved:
--#    %ul
--#      - @event.errors.full_messages.each do |msg|
--#        %li= msg
--#= form_for(@event, :html => {:multipart => true}) do |f|
--#  .inner
--#    %fieldset#shipping{"data-hook" => ""}
--#      %legend{:align => "center"} Create Event
--#      #DesignsBox{:style=>"disply:none;"}
--#
--#      #designPreview
--#      %p.field
--#        = label_tag 'Name'
--#        %span.required *
--#        = f.text_field :name, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'Event Type'
--#        %span.required *
--#        = f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select event type'}
--#      = f.hidden_field :design_id
--#      %p.field
--#        = label_tag 'Host'
--#        %span.required *
--#        = f.text_field :host_name, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'Host Phone'
--#        %span.required *
--#        = f.text_field :host_phone, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'Host Alternate Phone'
--#        %span.required
--#        = f.text_field :host_alt_phone
--#        %br/
--#      %p.field
--#        = label_tag 'location'
--#        %span.required *
--#        = f.text_field :location, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'description'
--#        = f.text_area :description, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'Start date'
--#        %span.required *
--#        = f.date_field :starts_at, min: Date.today, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'Start time'
--#        %span.required *
--#        = f.time_select :start_time, :class => 'required'
--#        %br/
--#      %p.field
--#        = label_tag 'End date'
--#        = f.date_field :ends_at, min: Date.today, :class => 'required'
--#        %br/
--#        %br/
--#      %p.field
--#        = label_tag 'End time'
--#        %span.required *
--#        = f.time_select :end_time, :class => 'required'
--#        %br/
--#      %p.field
--#        - f.fields_for :pictures, @event.pictures.build do |pct|
--#          = label_tag 'Picture'
--#          = pct.file_field :image, :class => 'required'
--#          %br/
--#      %p.field
--#        = f.check_box :is_private
--#        \&nbsp;#{f.label :is_private, "Is Private"}
--#      %br/
--#      = f.submit "Create",  class: "btn btn-lg btn-primary"
--#      = f.submit "Create & Invite", class: "btn btn-lg btn-primary"
--#      = f.submit "Cancel", class: "btn btn-lg btn-primary"
--#%br/
+%script{:src => "https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places", :type => "text/javascript"}
 
 :javascript
-
   $("#event_template_id").change(function(e){
     e.preventDefault();
     var template_id = $(this).val();
@@ -204,4 +121,8 @@
   $('#event_location').keyup(function() {
         var keyed = $(this).val().replace(/\n/g, '<br/>');
         $(".eventLocation").html(keyed);
-    });
+  });
+
+  // Location Autocomplete
+  var input = document.getElementById("event_location");
+  var autocomplete = new google.maps.places.Autocomplete(input);
