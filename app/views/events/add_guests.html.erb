@@ -25,6 +25,12 @@
             <%= hidden_field_tag(:event_id, @event.id) %>
           </div>
         </div>
+
+        <% if @wish_list && @wish_list.wished_products.size > 0 %>
+        <div class="wlist_check">
+          <%= check_box_tag 'add_wishlist' %><label> Add Wishlist</label>
+        </div>
+        <% end %>
         <%= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
         <%= submit_tag("Invite",class: 'btn_pe btn_pe-pe') %>
         <%= link_to 'Cancel', event_path(@event.id) ,class: "btn_pe btn_pe-cancel"%>
