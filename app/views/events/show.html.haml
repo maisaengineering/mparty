@@ -1,45 +1,83 @@
-- if @event_design
+-#- if @event_design
   .milestoneThumbnailBox
     - e_design = @handlebars.compile(@event_design.content)
     = e_design.call(MPARTY: event_data_points(@event)).html_safe
 
-%h1= @event.name
-%p
-  %b Name:
-  = @event.name
-%p
-  %b Location:
-  = @event.location
-%p
-  %b Host:
-  = @event.owner.login
-%p
-  %b Description:
-  = @event.description
-%p
-  %b Is Private:
-  = @event.is_private 
-
-- if @event.pictures.size > 0 
-  %p
-    %b Pictures
-    = render "pictures/pictures"
-    = render "pictures/form"
-
-
-%p
-  %b Your wishlist
-  - if @wish_list
-    = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
-
-%h3 Who's Coming?
-%p
-  = link_to "Accepted - #{@event.attendees('accepted')}", '#', class: "ResponseButtons Green"
-  = link_to "Maybe - #{@event.attendees('maybe')}", '#',class: "ResponseButtons Yellow"
-  = link_to "Pending - #{@event.attendees('pending')}", '#',class: "ResponseButtons Gray"
-  = link_to "rejected - #{@event.attendees('rejected')}",'#', class: "ResponseButtons Red"
-
-
-%h2 Comments
-= render "comments/comments"
-= render "comments/form"
+.container
+  = image_tag 'event-preview.png',width: '100%'
+  %br/
+%br/
+.container
+  %br/
+  .create_event.event_pre_bg
+    .event_pre
+      %br/
+      .row
+        .col-md-6
+          %label Name
+        .col-md-6= @event.name
+      .row
+        .col-md-6
+          %label Host
+        .col-md-6=@event.host_name
+      .row
+        .col-md-6
+          %label Host Phone
+        .col-md-6=@event.host_phone
+      .row
+        .col-md-6
+          %label Description
+        .col-md-6= @event.description.html_safe
+      .row
+        .col-md-6
+          %label Is Private
+        .col-md-6= @event.is_private
+      .row
+        .col-md-6
+          %label Location
+        .col-md-6=@event.location
+      .row
+        %iframe{frameborder: 0, height: 250, src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{@event.location}",
+                style: "border:0;margin-left:38px", width: 550}
+    .event_pre_guest
+      %h3 Who's Coming
+      .row
+        .col-md-6.who_cuming.accepted_invt
+          %label Accepted
+          %span= @event.attendees('accepted')
+      .row
+        .col-md-6.who_cuming.maybe_invt
+          %label Maybe
+          %span= @event.attendees('maybe')
+      .row
+        .col-md-6.who_cuming.pending_invt
+          %label Pending
+          %span= @event.attendees('pending')
+      .row
+        .col-md-6.who_cuming.rejected_invt
+          %label Rejected
+          %span= @event.attendees('rejected')
+  .create_event
+    .row
+    %h4.heading_h4 Wishlist
+    - if @wish_list
+      = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
+  %br/
+  -# TODO add comments dynamic via ajax
+  .comment_block
+    .row
+    %h4.heading_h4 Comments
+    .row
+      .col-xs-6.col-md-4.comment_img
+        = image_tag 'avatar.jpg',width: '80px'
+      .col-xs-12.col-md-8.comment_box
+        %span Now's the time for a birthday party
+        %p sat 16th 2014, 2 hours ago
+    .row
+      .col-xs-6.col-md-4.comment_img
+        = image_tag 'avatar.jpg',width: '80px'
+      .col-xs-12.col-md-8.comment_box
+        %textarea
+      .col-xs-6.col-md-4.comment_btn
+        %a{:href => "#"}
+          %p Create Comment
