@@ -34,5 +34,9 @@ module Invitation
 		# The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
 		# config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
 		# config.i18n.default_locale = :de
-	end
+  end
+
+  #TODO change below with maisa/mparty gmail account and enable 'Google Maps Embed API' in developer console services tab
+  #
+  ENV['GOOGLE_API_KEY'] = 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
 end
