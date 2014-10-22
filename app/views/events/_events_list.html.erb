@@ -1,42 +1,40 @@
-<div class="upComingEventContainer">
-		<div class="upComingEventList">
-		<% if events.present? %>
-			<% events.each do |event| %>
-					<div class="EventListBox">
-						<ul class="clearfix">
-							<li class="event">
-								<div class="date">
-									<% if event.starts_at == Date.today %>
-										Today
-									<% else %>
-										<%= event.starts_at %>
-									<% end %>
-								</div>
-								<% if event.owner.email == current_spree_user.email || event_type == "Public"%>
-									<div class="title"><%= link_to event.name, event_path(event.id) %></div>
-								<% else %>
-									<div class="title"><%= link_to event.name, show_invitation_path(event.id) %></div>
-								<% end %>
-								<%= event.owner.email%>
-								<% if event_type == "Public" %>
-									<div class="options"><%= link_to 'Join', "#" %></div>
-									
-								<% else %>
-									<% if event.owner.email == current_spree_user.email %>
-										<div class="options"><%= link_to 'Add Guests', add_guests_path(:event_id => event.id) %></div>
-									<% end %>
-								<% end %>	
-								<% if event.pictures.size > 0 %>
-									<% event.pictures.each do |picture|%>
-										<%= image_tag picture.image_url(:thumb).to_s %>
-									<% end %>	
-								<% end %>	
-							</li>
-						</ul>
-					</div>
-			<% end %>
-		<% else %>
-			<p>You don't Have any <%= event_type %> Events</p>
-		<% end %>  
-		</div>
-</div>
+<% if events.present? %>
+    <% events.each do |event| %>
+        <div class="row">
+          <%# if event.pictures.size > 0 %>
+          <%# event.pictures.each do |picture|%>
+          <%#= image_tag picture.image_url(:thumb).to_s %>
+          <%# end %>
+
+          <div class="col-md-4" style="width:120px"><img src="<%= asset_path('event1.png') %>" width="100px" height="90px"></div>
+          <div class="col-md-8 event_dtl_text">
+            <h4>
+              <% if event.owner.email == current_spree_user.email || event_type == "Public"%>
+                  <%= link_to event.name, event_path(event.id) %>
+              <% else %>
+                  <%= link_to event.name, show_invitation_path(event.id) %>
+              <% end %>
+            </h4>
+            <p>
+              <% if event.starts_at == Date.today %>
+                  Today
+              <% else %>
+                  <%= event.starts_at.strftime('%d-%m-%Y')  %>
+              <% end %>
+            </p>
+            <span> <%= event.owner.email%></span>
+
+            <% if event_type == "Public" %>
+                <%= link_to 'Join', "#" ,class: 'add_guest_btn'%>
+            <% else %>
+                <% if event.owner.email == current_spree_user.email %>
+                     <%= link_to 'Add Guests', add_guests_path(:event_id => event.id),class: 'add_guest_btn' %>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+<% else %>
+    <p style="margin-left: 15px;">You don't Have any <%= event_type %> Events</p>
+<% end %>
+

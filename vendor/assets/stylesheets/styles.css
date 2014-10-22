@@ -479,20 +479,25 @@ padding: 6px;
 margin-left: 16px;
 }
 .comment_box{
-	background: #ffffff;
-height: 100px;
+	
+height: auto;
 width: 775px;
 border-radius: 6px;
+padding-bottom: 8px;
+}
+.comment_box_bg{
+	background:#ECECE4;
+	margin-left: 15px;
+	width: 758px; 
 }
 .comment_img{
 	width: 85px;
 height: 100px;
-margin: 6px;
 }
 .comment_box textarea{
 	width: 758px;
 border: 1px solid #c1c1c1;
-height: 98px;
+height: auto;
 border-radius: 6px;
 margin-right: 5px;
 }
@@ -502,7 +507,7 @@ margin-right: 5px;
 	text-align: center;
 	height: 30px;
 	background-color: #00aeef;
-	margin-right: 30px;
+	margin-right: 45px;
 	margin-top: 10px;
 }
 .comment_btn p {
@@ -518,6 +523,16 @@ color: #ffffff;
 	width: 874px;
 	margin: 0 auto;
 	background-color: #F9FAFA;
+}
+.comment_box h4{
+	float: right;
+}
+.comment_box p {
+	float: right;
+	font-size: 13px;
+	font-weight: bold;
+	color: #585858;
+	margin-top: 8px;
 }
 .heading_h4{
 	margin-left: 20px;
@@ -554,4 +569,11 @@ margin-top: 30px;
 	   font-size: 26px;
 	   color: #ffffff;
 	   font-weight: bold;
+}
+.recevied_inv_btn{
+	height: 312px;
+}
+.maybe_icon{
+	font-size: 20px;
+font-weight: bold;
 }

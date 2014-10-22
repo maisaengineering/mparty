@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
 	before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars
-	layout 'spree_application',except: [:new,:create,:add_guests,:add_products,:show]
+	layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show]
 
 	helper 'spree/taxons'
 

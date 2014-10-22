@@ -1,15 +1,60 @@
-<%= link_to "Create Event", new_event_path, class: "createEventbtn" %>
+<div class="container" style="border:1px solid #c1c1c1;background:#F9FAFA">
+  <div class="row">
+    <div class="col-md-8"><h3>Featured Events</h3><br>
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+            <%= image_tag 'event1.png',height: '200px' %>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item">
+            <%= image_tag 'event2.png',height: '200px' %>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+          <div class="item">
+            <%= image_tag 'event3.png',height: '200px' %>
+            <div class="carousel-caption">
+              ...
+            </div>
+          </div>
+        </div>
 
-<h3>Upcoming Events</h3>
-	<%= render :partial => "events_list", :locals => {events: @upcoming_all_events, event_type: "Upcoming"} %>
-
-<h3>Past Events</h3>
-	<%= render :partial => "events_list", :locals => {events: @previous_all_events, event_type: "Past"} %>
-
-
-<h3>Your Invitations</h3>
-	<%= render :partial => "events_list", :locals => {events: @invited_events, event_type: "Invited"} %>
-
-
-<h3>Public Events</h3>
-	<%= render :partial => "events_list", :locals => {events: @public_events, event_type: "Public"} %>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+          <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-4"><div class="btn_createvent event_btn_top">
+      <%= link_to "Create Event", new_event_path %></div></div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-6"><h3>Upcoming Events</h3>
+      <%= render :partial => "events_list", :locals => {events: @upcoming_all_events, event_type: "Upcoming"} %>
+    </div>
+    <div class="col-md-6"><h3>Your Invitations</h3>
+      <%= render :partial => "events_list", :locals => {events: @invited_events, event_type: "Invited"} %>
+    </div>
+    <div class="col-md-6"><h3>Public Events</h3>
+      <%= render :partial => "events_list", :locals => {events: @public_events, event_type: "Public"} %>
+    </div>
+    <div class="col-md-6"><h3>Past Events</h3>
+      <%= render :partial => "events_list", :locals => {events: @previous_all_events, event_type: "Past"} %>
+    </div>
+  </div>
+</div>
