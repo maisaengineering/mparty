@@ -44,7 +44,15 @@
         .form_ce_loc
           %label Description*
           = f.text_area :description, class: 'form-control form_ce_loc_ctrl',required: true
+
       .row
+        .form_ce_left
+          %label Start Date* / Start Time*
+          = f.text_field :starts_at , class: 'form-control glyphicon glyphicon-calendar datetimepicker' ,required: true
+        .form_ce_right
+          %label End Date* / End Time
+          = f.text_field :ends_at , class: 'form-control glyphicon glyphicon-calendar datetimepicker'
+      -#.row
         .start_event
           .form_ce_left.start_event_lw
             %label Start Date*
@@ -122,6 +130,10 @@
         var keyed = $(this).val().replace(/\n/g, '<br/>');
         $(".eventLocation").html(keyed);
   });
+
+
+  $('.datetimepicker').datetimepicker();
+
 
   // Location Autocomplete
   var input = document.getElementById("event_location");

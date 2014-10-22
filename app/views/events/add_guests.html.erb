@@ -37,10 +37,8 @@
         <% else %>
             <!--<p> Do you want to send wish list? please <%#= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>-->
             <%= link_to 'Add Wishlist', spree.new_wishlist_path(event_id: @event.id),class: 'btn_pe btn_pe-pe btn_pe-pe-clr' %>
+            <%= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
         <% end %>
-        <%#= link_to 'Preview Event', event_path(@event.id) ,class: "btn_int btn_int-int"%>
-
-
 
     <% end %>
   </div>

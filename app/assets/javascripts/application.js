@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min
+//= require jquery.datetimepicker
 
 
 // Visit pages via turbolinks
