@@ -1,13 +1,96 @@
-<%= form_tag("/events/add_ship_address", method: 'post') do %>
-	
-	<%= hidden_field_tag(:event_id, @event.id) %>
-
-  <fieldset id="shipping" data-hook>
-    <legend align="center"><%= Spree.t(:shipping_address) %></legend>
-    <%= fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form| %>
-    <% ship_form.object ||= Spree::Address.new(country: Spree::Country.new) %>
-      <%= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => Spree::Address.default(@event, "ship") } %>
+<div class="container">
+  <br>
+  <div class="create_event">
+    <div class="row">
+      <h2 class="event_details">Shipping Address</h2>
+    </div>
+    <%= form_tag("/events/add_ship_address", method: 'post',class: 'form_margin') do %>
+        <%= hidden_field_tag(:event_id, @event.id) %>
+        <%= fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form| %>
+            <% ship_form.object ||= Spree::Address.new(country: Spree::Country.new) %>
+            <%#= render :partial => 'spree/address/form', :locals => { :form => ship_form, :address_type => 'shipping', :address => Spree::Address.default(@event, "ship") } %>
+            <% address = Spree::Address.default(@event, "ship") %>
+            <% address_type = 'shipping' %>
+            <% address_id = address_type.chars.first %>
+            <div class="row">
+              <div class="form_ce_left">
+                <label>First Name*</label>
+                <%= ship_form.text_field :firstname, class: 'form-control' ,place_holder: 'First Name' ,required: true %>
+              </div>
+              <div class="form_ce_right">
+                <label>Last Name*</label>
+                <%= ship_form.text_field :lastname, class: 'form-control' ,place_holder: 'Last Name' ,required: true %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form_ce_left">
+                <label>Street Address*</label>
+                <%= ship_form.text_field :address1, class: 'form-control' ,required: true %>
+              </div>
+              <div class="form_ce_right">
+                <label>Street Address (cont'd)</label>
+                <%= ship_form.text_field :address2, class: 'form-control' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form_ce_left">
+                <label>City*</label>
+                <%= ship_form.text_field :city, class: 'form-control' ,required: true %>
+              </div>
+              <div class="form_ce_right">
+                <label>County*</label>
+                <%= ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control'} %>
+              </div>
+            </div>
+            <div class="row">
+              <% if Spree::Config[:address_requires_state] %>
+                  <% have_states = !address.country.states.empty? %>
+                  <div class="form_ce_left" id="<%="#{address_id}state" %>">
+                    <label>State*</label>
+                    <% state_elements = [
+                            ship_form.collection_select(:state_id, address.country.states,
+                                                        :id, :name,
+                                                        {:include_blank => true},
+                                                        {:class => have_states ? 'form-control' : 'hidden',
+                                                         :disabled => !have_states}) +
+                                    ship_form.text_field(:state_name,
+                                                         :class =>!have_states ? 'form-control' : 'hidden',
+                                                         :disabled => have_states)
+                    ].join.gsub('"', "'").gsub("\n", "")
+                    %>
+                    <%= javascript_tag do -%>
+                        $('#<%="#{address_id}state" %>').append("<%== state_elements %>");
+                    <% end %>
+                      <noscript>
+                      <%= ship_form.text_field :state_name, :class => 'form-control' %>
+                      </noscript>
+                  </div>
+              <% end %>
+              <div class="form_ce_right">
+                <label>Zipcode*</label>
+                <%= ship_form.text_field :zipcode, class: 'form-control' ,required: true  %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form_ce_left">
+                <label>Phone Number*</label>
+                <%= ship_form.phone_field :phone, class: 'form-control' %>
+              </div>
+              <% if Spree::Config[:alternative_shipping_phone] %>
+                  <div class="form_ce_right">
+                    <label>Alt Phone Number</label>
+                    <%= ship_form.phone_field :alternative_phone, class: 'form-control' %>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+        <div class="row">
+          <div class="form_ce_left">
+          </div>
+          <div class="form_ce_right">
+            <%= submit_tag("Add Address",  class: "btn_l btn_l-login shipping_add_btn")  %> 
+          </div>
+        </div>
     <% end %>
-  </fieldset>
-  <%= submit_tag("Add Address",  class: "btn btn-lg btn-primary")  %>
-<% end %>
+  </div>
+</div>
