@@ -7,9 +7,14 @@ background-color: #585858;
 }
 
 /*################################login########################################################*/
+.fblogin{
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
 .login{
 	width: 448px;
-	height: 399px;
+	height: auto;
 	background-color: #f9fafa;
 	border: 2px solid #ecece4;
 	margin: 0 auto;
@@ -105,6 +110,9 @@ border-radius: 4px;
   	float: right;
   	font-size: 16px;
   }
+  .fblogin img{
+  	width: 180px;
+  }
 }
 /*########################################login end##################################################################*/
 /*########################################sign up##################################################################*/
@@ -190,8 +198,12 @@ margin-top: 25px;
 	float: left;
 	margin-left: 45px;
 }
+.events_all_bg{
+	background:#F9FAFA;
+}
 /*########################################end event##################################################################*/
 /*########################################create event invitation##################################################################*/
+
 .btn_int
 {
 
@@ -300,7 +312,7 @@ border-radius: 6px;
 .wishlist_header{
 	width: 797px;
 height: 28px;
-background: #c52128;
+background: #585858;
 border: 1px solid #c1c1c1;
 border-radius: 6px 6px 0px 0px;
 }
@@ -576,4 +588,132 @@ margin-top: 30px;
 .maybe_icon{
 	font-size: 20px;
 font-weight: bold;
+}
+.sel_qty{
+	width: 234px;
+}
+.addcart_gift{
+	width:1000px;
+}
+.addcart_select{
+width: 130px;
+float: right;
+height: 44px;
+margin-top: 40px;
+}
+.addcart_btn{
+	width: 129px;
+height: 28px;
+padding: 4px;
+float: right;
+background-color: #00AEEF;
+color: #ffffff;
+text-align: center;
+font-size: 18px;
+margin-right: 18px;
+}
+.addcart_main{
+	margin-left: 50px;
+}
+.shopping_cart{
+	width: 1000px;
+}
+.shopping_cart table{
+	text-align: center;
+}
+.sp_crt{
+	width: 300px;
+}
+.total_cart{
+	float: right;
+margin-right: 50px;
+}
+.shp_cart_input{
+float: right;
+color: #585858;
+text-align: center;
+font-size: 18px;
+margin-right: 18px;
+margin-right: 50px;
+
+}
+.shp_cart_input input{
+	width: 160px;
+	height: 28px;
+}
+.total_order_text{
+	display: inline-block;
+max-width: 100%;
+margin-bottom: 5px;
+font-weight: 700;
+}
+.cart_header{
+	width: 25%;
+	text-align: center;
+font-size: 18px;
+color: #c1c1c1;
+margin-top: 20px;
+
+}
+.active_ad{
+	color: #00aeef;
+}
+.del_cart table{
+	text-align: left;
+}
+.del_cart_qty{
+	width:292px;
+	text-align: right;
+}
+.del_cart_pri{
+	width: 136px;
+
+}
+.del_radio{
+	float: left;
+   margin-left: 40px;
+}
+
+/*################################################payment form##########################################*/
+
+ .ui-tabs-vertical { width: 55em; }
+  .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+  .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; margin: 0 -1px 2.2em 0; border: 1px solid #c1c1c1;border-radius: 3px;font-size: 18px;height: 50px;
+text-align: center;
+padding: 12px;background: #c1c1c1; }
+  .ui-tabs-vertical .ui-tabs-nav li a { color: #ffffff; text-decoration: none; border: none; }
+  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { background: #00aeef;border: none; }
+  .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;margin-top: 0px;border: 1px solid #00aeef;border-radius: 6px;}
+
+.payment_mthd{
+	list-style-type: none;
+}
+.card_input{
+	margin-left: 18px;
+} 
+
+.card_input_cvv {
+width: 150px;
+}
+.card_btn{
+	height: 54px;
+background: #7ab55c;
+width: 200px;
+font-size: 20px;
+color: #ffffff;
+text-align: center;
+padding: 10px;
+border-radius: 6px;
+margin-top: -54px;
+}
+
+.palce_order_tlt{
+	float: right;
+margin-right: 30px;
+}
+
+.place_order_add{
+	font-size: 16px;
+	color: #585858;
+	
 }
