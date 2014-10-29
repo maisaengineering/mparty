@@ -1,68 +1,70 @@
-<div id="wishlist_header" class="row">
-  <h1><%= @wishlist.name %></h1>
+<div class="container">
+  <%= image_tag 'event1.png',width: '100%' %>
+  <br/>
 </div>
-<table id="wishlist">
-  <thead>
-  <tr>
-    <% if @wishlist.user == spree_current_user %>
-      <th><%= Spree.t(:wishlist_actions) %></th>
-    <% end -%>
-    <th><%= Spree.t(:item_description) %></th>
-    <th></th>
-    <th>Requested Quantity</th>
-    <th>Purchased Quantity</th>
-    <th><%= Spree.t(:price) %></th>
-    <th>Select Quntity</th>
-  </tr>
-  </thead>
-  <tbody id="line_items">
+<div class="container">
+  <div class="row"></div>
+  <h4 class="heading_h4">Your friend likes following gifts</h4>
+
 
   <% if @wishlist.wished_products.size > 0 %>
-  <%= form_for :order, :url => "/orders/populate" do |f| %>
-      <% @wishlist.wished_products.each_with_index do |wish,i|
-        variant = wish.variant
-        product = variant.product %>
-          <tr class="<%= cycle('', 'alt') %>">
-            <td>
-              <% if variant.images.length == 0 %>
-                <%= small_image(variant.product) %>
-              <% else %>
-                <%= image_tag variant.images.first.attachment.url(:small) %>
+      <%= form_for :order, :url => "/orders/populate",html: {class: 'form_margin'} do |f| %>
+          <h3><%= @wishlist.name %></h3>
+          <div class="row">
+            <div class="wishlist_main addcart_main">
+              <div class="wishlist_header" style="width:1000px;">
+                <table width="100%">
+                  <tr>
+                    <% if @wishlist.user == spree_current_user %>
+                        <td><%= Spree.t(:wishlist_actions) %></td>
+                    <% else %>
+                        <td>View</td>
+                    <% end -%>
+                    <td><%= Spree.t(:item_description) %></td>
+                    <td><%= Spree.t(:price) %></td>
+                    <td>Requested Qty.</td>
+                    <td>Purchased Qty.</td>
+                    <td>Select Qty.</td>
+                  </tr>
+                </table>
+              </div>
+              <% @wishlist.wished_products.each_with_index do |wish,i|
+                variant = wish.variant
+                product = variant.product %>
+
+                  <div class="wishlist addcart_gift">
+                    <div class="col-md-1 wlist">
+                      <% if variant.images.length == 0 %>
+                          <%= small_image(variant.product) %>
+                      <% else %>
+                          <%= image_tag variant.images.first.attachment.url(:small) %>
+                      <% end %>
+                    </div>
+                    <div class="col-md-1 wlist_id"><%= product.name %>
+                      <!--<p><%= variant_options variant %></p>-->
+                      <!--<p><%= truncate(product.description, :length => 100, :omission => "...") %></p>-->
+                    </div>
+                    <div class="col-md-1 wlist_p"><%= number_to_currency(variant.price) %></div>
+                    <div class="col-md-1 wlist_rq"><%= wish.quantity %></div>
+                    <div class="col-md-1 wlist_pq"><%= wish.quantity_purchased %></div>
+                    <div class="col-md-1 sel_qty">
+                      <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
+                      <% if !wish.is_purchased %>
+                          <%= number_field_tag "quantity[#{i}]", 0, in:0..wish.quantity-wish.quantity_purchased,class: 'form-control addcart_select' %>
+                      <% else %>
+                          <p>Already Purchased</p>
+                      <% end %>
+                    </div>
+                  </div>
               <% end %>
-            </td>
-            <td>
-              <h4><%= product.name %></h4>
-              <p><%= variant_options variant %></p>
-              <%= truncate(product.description, :length => 100, :omission => "...") %>
-            </td>
-            <td>
-              <%= wish.quantity %>
-            </td>
-            <td>
-              <%= wish.quantity_purchased %>
-            </td>
-            <td>
-              <%= number_to_currency(variant.price) %>
-            </td>
-            <td>
-              <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
-              <% if !wish.is_purchased %>
-                <%= number_field_tag "quantity[#{i}]", 0, in:0..wish.quantity-wish.quantity_purchased %>
-              <% else %>
-                <p>Already Purchased</p>  
-              <% end %>
-            </td>
-          </tr>
-      <% end -%>
-      <tr>
-        <td colspan="6"><%= f.submit "Add to Cart" %></td>
-      </tr>
-      
-    <% end %>  
-  <% else -%>
-      <tr>
-        <td colspan="6"><%= Spree.t(:your_wishlist_is_empty) %></td>
-      </tr>
-  <% end -%>
-  </tbody>
-</table>
+            </div>
+          </div>
+          <%= f.submit "Add to Cart",class: 'addcart_btn' %>
+      <% end %>
+  <% else %>
+      <div class="row">
+        <%= Spree.t(:your_wishlist_is_empty) %>
+      </div>
+  <% end %>
+
+</div>
