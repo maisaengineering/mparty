@@ -1,0 +1,34 @@
+
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
+
+<div class="container">
+  <br>
+  <div class="create_event">
+    <div class="row">
+      <div class="col-md-1 cart_header active_ad">1.Address</div>
+      <div class="col-md-1 cart_header">2.Delivery</div>
+      <div class="col-md-1 cart_header">3.Payment</div>
+      <div class="col-md-1 cart_header">4.Complete</div>
+    </div>
+    <div class="row">
+      <h2 class="event_details">Billing Address</h2>
+    </div>
+    <%= form_for @order, :url => update_checkout_path(@order.state), :html => {class: 'form_margin', :id => "checkout_form_#{@order.state}" } do |form| %>
+        <% unless @order.email? %>
+            <div class="row">
+              <div class="form_ce_left">
+                <label>Email*</label>
+                <%= form.text_field :email,class: 'from-control',placeholder: 'Email' %>
+              </div>
+            </div>
+        <% end %>
+        <%= render @order.state, :form => form %>
+
+        <% if @order.state != 'confirm' %>
+            <hr>
+            <%= render :partial => 'summary', :locals => { :order => @order } %>
+        <% end %>
+    <% end %>
+  </div>
+
+</div>

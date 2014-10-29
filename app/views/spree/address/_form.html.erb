@@ -1,0 +1,74 @@
+<% address_id = address_type.chars.first %>
+
+<div class="row">
+  <div class="form_ce_left">
+    <label>First Name*</label>
+    <%= form.text_field :firstname, class: 'form-control' ,place_holder: 'First Name' ,required: true %>
+  </div>
+  <div class="form_ce_right">
+    <label>Last Name*</label>
+    <%= form.text_field :lastname, class: 'form-control' ,place_holder: 'Last Name' ,required: true %>
+  </div>
+</div>
+<div class="row">
+  <div class="form_ce_left">
+    <label>Street Address*</label>
+    <%= form.text_field :address1, class: 'form-control' ,required: true %>
+  </div>
+  <div class="form_ce_right">
+    <label>Street Address (cont'd)</label>
+    <%= form.text_field :address2, class: 'form-control' ,required: true %>
+  </div>
+</div>
+<div class="row">
+  <div class="form_ce_left">
+    <label>City*</label>
+    <%= form.text_field :city, class: 'form-control' ,required: true %>
+  </div>
+  <div class="form_ce_right">
+    <label>County*</label>
+    <%= form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control'} %>
+  </div>
+</div>
+<div class="row">
+  <% if Spree::Config[:address_requires_state] %>
+      <% have_states = !address.country.states.empty? %>
+      <div class="form_ce_left" id="<%="#{address_id}state" %>">
+        <label>State*</label>
+        <% state_elements = [
+                form.collection_select(:state_id, address.country.states,
+                                            :id, :name,
+                                            {:include_blank => true},
+                                            {:class => have_states ? 'form-control' : 'hidden',
+                                             :disabled => !have_states}) +
+                        form.text_field(:state_name,
+                                             :class =>!have_states ? 'form-control' : 'hidden',
+                                             :disabled => have_states)
+        ].join.gsub('"', "'").gsub("\n", "")
+        %>
+        <%= javascript_tag do -%>
+            $('#<%="#{address_id}state" %>').append("<%== state_elements %>");
+        <% end %>
+        <noscript>
+          <%= form.text_field :state_name, :class => 'form-control' %>
+        </noscript>
+      </div>
+  <% end %>
+  <div class="form_ce_right">
+    <label>Zipcode*</label>
+    <%= form.text_field :zipcode, class: 'form-control' ,required: true  %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="form_ce_left">
+    <label>Phone Number*</label>
+    <%= form.phone_field :phone, class: 'form-control' %>
+  </div>
+  <% if Spree::Config[:alternative_shipping_phone] %>
+      <div class="form_ce_right">
+        <label>Alt Phone Number</label>
+        <%= form.phone_field :alternative_phone, class: 'form-control' %>
+      </div>
+  <% end %>
+</div>
