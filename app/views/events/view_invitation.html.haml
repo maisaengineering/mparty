@@ -1,15 +1,43 @@
-%br
-
-%h3 Invitaion to an Event of your friend #{@event.user.email} 
-
-%p Event : #{@event.name}
-%p Location : #{@event.location}
-%p Date : #{@event.starts_at.to_date}
-
-%div
-	%p
-		= link_to "Attend",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}", class: "UserResponseButtons Green"
-
-		= link_to "Reject",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}", class: "UserResponseButtons Red"
-
-		= link_to "May be",  spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}", class: "UserResponseButtons Yellow"
+.container
+  =image_tag 'event1.png',width: '100%'
+  %br/
+%br/
+.container
+  %br/
+  .create_event.event_pre_bg
+    .event_pre
+      %br/
+      .row
+        .col-md-6
+          %label Event Name
+        .col-md-6= @event.name
+      .row
+        .col-md-6
+          %label Host
+        .col-md-6=@event.host_name
+      .row
+        .col-md-6
+          %label Description
+        .col-md-6= @event.description.html_safe
+      .row
+        .col-md-6
+          %label Location
+        .col-md-6= @event.location
+      .row
+        .col-md-6
+          %label Date
+        .col-md-6= @event.starts_at.to_date
+    .event_pre_guest.recevied_inv_btn
+      .row
+        .col-md-6.who_cuming.accepted_invt.viaTurbo{"data-url" => spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=1&&token=#{@token}"}
+          %label Attend
+          %span.glyphicon.glyphicon-ok
+      .row
+        .col-md-6.who_cuming.maybe_invt.viaTurbo{"data-url" => spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=3&&token=#{@token}"}
+          %label Maybe
+          %span.maybe_icon ?
+      .row
+        .col-md-6.who_cuming.rejected_invt.viaTurbo{"data-url" => spree.root_url + "invites/update_invitaion?invite_email=#{@invite_email}&&status=2&&token=#{@token}"}
+          %label Rejected
+          %span.glyphicon.glyphicon-remove
+  %br/
