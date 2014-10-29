@@ -1,0 +1,20 @@
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @user } %>
+<%= render template: 'spree/user_sessions/new' %>
+<% if Spree::Config[:allow_guest_checkout] %>
+    <div class="container-fluid">
+      <div class="login">
+        <%= form_for @order, :url => update_checkout_registration_path, :method => :put, :html => { :id => 'checkout_form_registration',style: 'margin:45px;' } do |f| %>
+            <div class="form-group">
+              <% if flash[:registration_error] %>
+                  <div class='flash error'><%= flash[:registration_error] %></div>
+              <% end %>
+              <label><%= Spree.t(:guest_user_account) %></label>
+              <%= f.email_field :email, :class => 'form-control',placeholder: 'Enter email', required: true %>
+              <br>
+              <%= f.submit Spree.t(:continue), :class => 'btn_l btn_l-login' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+<% end %>
+
