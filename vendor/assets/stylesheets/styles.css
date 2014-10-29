@@ -1,205 +1,205 @@
 .footer{
-	position: absolute;
-bottom: 0;
-width: 100%;
-height: 60px;
-background-color: #585858;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #585858;
 }
 
 /*################################login########################################################*/
 .fblogin{
-	text-align: center;
-	font-size: 18px;
-	font-weight: bold;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }
 .login{
-	width: 448px;
-	height: auto;
-	background-color: #f9fafa;
-	border: 2px solid #ecece4;
-	margin: 0 auto;
+    width: 448px;
+    height: auto;
+    background-color: #f9fafa;
+    border: 2px solid #ecece4;
+    margin: 0 auto;
 }
 .login-account-txt{
-	text-align:center;
-	font-weight: bold;
-	color: #585858;
+    text-align:center;
+    font-weight: bold;
+    color: #585858;
 }
 .forgot_pwd
 {
-padding-left: 20px;
-margin-bottom: 0;
-font-weight: 400;
-cursor: pointer;
-float: right;
+    padding-left: 20px;
+    margin-bottom: 0;
+    font-weight: 400;
+    cursor: pointer;
+    float: right;
 }
 .btn_c
 {
 
-height: 40px;
-display: inline-block;
-padding: 6px 12px;
-margin-bottom: 0;
-font-size: 20px;
-font-weight: bold;
-line-height: 1.42857143;
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
-border: 1px solid transparent;
-border-radius: 4px;
+    height: 40px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .btn_c-create{
-	color: #ffffff;
-	background-color: #00aeef;
+    color: #ffffff;
+    background-color: #00aeef;
 
 }
 .btn_c-create a{
-	text-decoration: none;
-	color:#ffffff;
+    text-decoration: none;
+    color:#ffffff;
 }
 .btn_l
 {
 
-height: 40px;
-float: right;
-display: inline-block;
-padding: 6px 12px;
-margin-bottom: 0;
-font-size: 20px;
-font-weight: bold;
-line-height: 1.42857143;
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
-border: 1px solid transparent;
-border-radius: 4px;
+    height: 40px;
+    float: right;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .btn_l-login{
-	color: #ffffff;
-	background-color: #7ab55c;
+    color: #ffffff;
+    background-color: #7ab55c;
 
 }
 .btn_l-login a{
-	text-decoration: none;
-	color:#ffffff;
+    text-decoration: none;
+    color:#ffffff;
 }
 @media all and (max-width: 699px) and (min-width: 328px) {
-  .login{
-  	width:300px;
-  	margin: 0 auto;
-  }
-  .form-control{
-  	width: 200px;
-  }
-  .btn_c{
-  	font-size: 16px;
-  }
-  .btn_l{
-  	float: right;
-  	font-size: 16px;
-  }
-  .fblogin img{
-  	width: 180px;
-  }
+    .login{
+        width:300px;
+        margin: 0 auto;
+    }
+    .form-control{
+        width: 200px;
+    }
+    .btn_c{
+        font-size: 16px;
+    }
+    .btn_l{
+        float: right;
+        font-size: 16px;
+    }
+    .fblogin img{
+        width: 180px;
+    }
 }
 /*########################################login end##################################################################*/
 /*########################################sign up##################################################################*/
 .create_user{
-	width: 448px;
-	height: 695px;
-	background-color: #f9fafa;
-	border: 2px solid #ecece4;
-	margin: 0 auto;
+    width: 448px;
+    height: 695px;
+    background-color: #f9fafa;
+    border: 2px solid #ecece4;
+    margin: 0 auto;
 }
 @media all and (max-width: 699px) and (min-width: 328px) {
 
-.create_user{
-	width:300px;
-	margin: 0 auto;
-}
+    .create_user{
+        width:300px;
+        margin: 0 auto;
+    }
 
 }
 /*########################################signup end##################################################################*/
 /*########################################create event##################################################################*/
 .create_event{
-	width: 874px;
-	height: auto;
-	background-color: #f9fafa;
-	border: 2px solid #ecece4;
-	border-radius:10px; 
-	margin: 0 auto;
+    width: 874px;
+    height: auto;
+    background-color: #f9fafa;
+    border: 2px solid #ecece4;
+    border-radius:10px;
+    margin: 0 auto;
 }
 .form_ce_left{
-	width: 370px;
-	float: left;
+    width: 370px;
+    float: left;
 }
 .form_ce_right{
-	width: 370px;
-	float: right;
+    width: 370px;
+    float: right;
 }
 .form_ce_loc{
-	width: 770px;
+    width: 770px;
 }
 .form_ce_loc_ctrl{
-	width: 798px;
-} 
+    width: 798px;
+}
 .start_event{
-	width:370px;
-	float:left;
+    width:370px;
+    float:left;
 }
 .end_event{
-	width:370px;
-	float:right;
+    width:370px;
+    float:right;
 }
 .start_event_lw{
-	width: 165px;
+    width: 165px;
 }
 .start_event_rw{
-	width: 135px;
+    width: 135px;
 }
 .btn_cs{
-	height: 28px;
-float: right;
-display: inline-block;
-margin-bottom: 0;
-font-weight: bold;
-line-height: 1.42857143;
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
-border: 1px solid transparent;
-border-radius: 4px;
+    height: 28px;
+    float: right;
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .btn_cs_change{
-color: #ffffff;
-background-color: #00aeef;
-margin-right: 60px;
-margin-top: 25px;
+    color: #ffffff;
+    background-color: #00aeef;
+    margin-right: 60px;
+    margin-top: 25px;
 }
 .event_details{
-	float: left;
-	margin-left: 45px;
+    float: left;
+    margin-left: 45px;
 }
 .events_all_bg{
-	background:#F9FAFA;
+    background:#F9FAFA;
 }
 /*########################################end event##################################################################*/
 /*########################################create event invitation##################################################################*/
@@ -207,75 +207,75 @@ margin-top: 25px;
 .btn_int
 {
 
-height: 40px;
-display: inline-block;
-padding: 6px 12px;
-margin-bottom: 0;
-font-size: 20px;
-font-weight: bold;
-line-height: 1.42857143;
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
-border: 1px solid transparent;
-border-radius: 4px;
+    height: 40px;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .btn_int-int{
-	color: #ffffff;
-	background-color: #e94040;
+    color: #ffffff;
+    background-color: #e94040;
 
 }
 .btn_int-int a{
-	text-decoration: none;
-	color: #ffffff;
+    text-decoration: none;
+    color: #ffffff;
 }
 .btn_pe
 {
 
-height: 40px;
-float: right;
-display: inline-block;
-padding: 6px 12px;
-margin-bottom: 0;
-font-size: 20px;
-font-weight: bold;
-line-height: 1.42857143;
-text-align: center;
-white-space: nowrap;
-vertical-align: middle;
-cursor: pointer;
--webkit-user-select: none;
--moz-user-select: none;
--ms-user-select: none;
-user-select: none;
-background-image: none;
-border: 1px solid transparent;
-border-radius: 4px;
+    height: 40px;
+    float: right;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .btn_pe-pe{
-	color: #ffffff;
-	background-color: #7ab55c;
+    color: #ffffff;
+    background-color: #7ab55c;
 
 }
 .btn_pe-pe-clr{
-	color: #ffffff;
-	background-color: #00aeef;
-	margin-right: 200px;
+    color: #ffffff;
+    background-color: #00aeef;
+    margin-right: 200px;
 }
 .btn_pe-pe-clr a{
-	text-decoration: none;
-	color: #ffffff;
+    text-decoration: none;
+    color: #ffffff;
 }
 .btn_pe-cancel{
-	background-color: #c52128;
-	color: #ffffff;
-	margin-right: 20px;
+    background-color: #c52128;
+    color: #ffffff;
+    margin-right: 20px;
 }
 
 /*########################################create event invitation end##################################################################*/
@@ -284,436 +284,449 @@ border-radius: 4px;
 
 }
 .btn_createvent{
-width: 300px;
-height: 50px;
-background-color: #c52128;
-color: #ffffff;
-font-size: 30px;
-margin: 0 auto;
-margin-top: 35px;
-border-radius: 2px;
-text-align: center;
-padding: 6px;
+    width: 300px;
+    height: 50px;
+    background-color: #c52128;
+    color: #ffffff;
+    font-size: 30px;
+    margin: 0 auto;
+    margin-top: 35px;
+    border-radius: 2px;
+    text-align: center;
+    padding: 6px;
 }
 .btn_createvent a{
-	text-decoration: none;
-	color: #ffffff;
+    text-decoration: none;
+    color: #ffffff;
 }
 /*########################################index end##################################################################*/
 /*########################################Wishlist##################################################################*/
 
 .wishlist,.wishlist_mai{
-width: 799px;
-height: 170px;
-background-color: white;
-border: 1px solid #c1c1c1;
-border-radius: 6px;
+    width: 799px;
+    height: 170px;
+    background-color: white;
+    border: 1px solid #c1c1c1;
+    border-radius: 6px;
 }
 .wishlist_header{
-	width: 797px;
-height: 28px;
-background: #585858;
-border: 1px solid #c1c1c1;
-border-radius: 6px 6px 0px 0px;
+    width: 797px;
+    height: 28px;
+    background: #585858;
+    border: 1px solid #c1c1c1;
+    border-radius: 6px 6px 0px 0px;
 }
 .wishlist_header table{
-	width: 100%;
-	color:#ffffff;
-	font-size: 18px;
-	text-align: right;
+    width: 100%;
+    color:#ffffff;
+    font-size: 18px;
+    text-align: right;
 }
 
 #large-image img{
-	width: 100%;
+    width: 100%;
 }
 
 .wlist{
-	width: 144px;
-	margin-top: 14px;
+    width: 144px;
+    margin-top: 14px;
 }
 .wlist_id{
-	width: 144px;
-	margin-top: 44px;
-	text-align: left;
-	font-size: 15px;
-color: #585858;
-font-weight: bold;
+    width: 144px;
+    margin-top: 44px;
+    text-align: left;
+    font-size: 15px;
+    color: #585858;
+    font-weight: bold;
 }
 .wlist_p{
-	width: 144px;
-	margin-top: 44px;
-	text-align: center;
-	font-size: 15px;
-color: #585858;
-font-weight: bold;
+    width: 144px;
+    margin-top: 44px;
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+    font-weight: bold;
 }
 .wlist_rq{
-	width: 144px;
-	margin-top: 44px;
-	text-align: center;
-	font-size: 15px;
-color: #585858;
-font-weight: bold;
+    width: 144px;
+    margin-top: 44px;
+    text-align: center;
+    font-size: 15px;
+    color: #585858;
+    font-weight: bold;
 }
 .wlist_pq{
-	width: 168px;
-	margin-top: 44px;
-	text-align: right;
-	font-size: 15px;
-color: #585858;
-font-weight: bold;
+    width: 168px;
+    margin-top: 44px;
+    text-align: right;
+    font-size: 15px;
+    color: #585858;
+    font-weight: bold;
 }
 .wlist_rmv_btn{
-	width: 94px;
-height: 24px;
-float: right;
-margin: 28px;
-background-color: #c52128;
-color:#ffffff;
-text-align: center;
-font-size: 14px;
+    width: 94px;
+    height: 24px;
+    float: right;
+    margin: 28px;
+    background-color: #c52128;
+    color:#ffffff;
+    text-align: center;
+    font-size: 14px;
 }
 .wlist_check{
-width: 150px;
-float: left;
+    width: 150px;
+    float: left;
 
 }
 /*########################################wishlist end##################################################################*/
 /*########################################Event preview##################################################################*/
 .form_margin{
-	margin: 45px;
+    margin: 45px;
 }
 
 .event_pre{
-	width: 600px;
-	float:left;
-height: auto;
-background-color: #f9fafa;
-border: 2px solid #ecece4;
-border-radius: 10px;
+    width: 600px;
+    float:left;
+    height: auto;
+    background-color: #f9fafa;
+    border: 2px solid #ecece4;
+    border-radius: 10px;
 }
 .event_pre label{
-	font-size: 16px;
-padding-left: 12px;
-color: #585858;
-font-weight: bold
+    font-size: 16px;
+    padding-left: 12px;
+    color: #585858;
+    font-weight: bold
 }
 .event_pre_guest{
-	width: 270px;
-	float:right;
-height: 587px;
-background-color: #f9fafa;
-border: 2px solid #ecece4;
-border-radius: 10px;
+    width: 270px;
+    float:right;
+    height: 587px;
+    background-color: #f9fafa;
+    border: 2px solid #ecece4;
+    border-radius: 10px;
 }
 .event_pre_guest label{
-	margin-top: 10px;
-color: #ffffff;
+    margin-top: 10px;
+    color: #ffffff;
 }
 .event_pre_guest span{
-	float: right;
-margin-top: 10px;
-color: #ffffff;
+    float: right;
+    margin-top: 10px;
+    color: #ffffff;
 }
 .event_pre_guest h3{
-	font-size: 20px;
-font-weight: bold;
-color: #585858;
-padding-left: 12px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #585858;
+    padding-left: 12px;
 }
 .event_pre_bg{
-	border:none;
-	background-color:#ffffff;
+    border:none;
+    background-color:#ffffff;
 }
 .who_cuming{
-	width: 250px;
-margin: 23px;
-background: red;
-height: 40px;
-border-radius: 6px;
+    width: 250px;
+    margin: 23px;
+    background: red;
+    height: 40px;
+    border-radius: 6px;
 }
 .accepted_invt{
-	background-color: #669900;
+    background-color: #669900;
 }
 .maybe_invt{
-	background-color: #FFCF79;
+    background-color: #FFCF79;
 }
 .pending_invt{
-	background-color: #666666;
+    background-color: #666666;
 }
 .rejected_invt{
-	background-color: #FF3333;
+    background-color: #FF3333;
 }
 .wlist_cart{
-	width:266px;
-	height: 300px;
-	margin: 12px;
+    width:266px;
+    height: 300px;
+    margin: 12px;
 }
 .wlist_cart img {
-	width: 200px;
-	margin-left: 12px;
+    width: 200px;
+    margin-left: 12px;
 }
 .wlist_cart :hover {
-	width:200px;
-	border: 1px solid #c1c1c1;
+    width:200px;
+    border: 1px solid #c1c1c1;
 }
 .wlist_cart_item{
-	width: 200px;
-text-align: center;
-color: #585858;
-font-size: 14px;
-font-weight: bold;
-margin-top: 10px;
-margin-left:12px 
+    width: 200px;
+    text-align: center;
+    color: #585858;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left:12px
 }
 .qty_width{
-	width: 130px;
+    width: 130px;
 }
 .item_view_block{
-	border: 1px solid #c1c1c1;
+    border: 1px solid #c1c1c1;
 }
 .item_view_block img{
-	width: 300px;
-	margin:28px;
-	margin-left: 130px;
+    width: 300px;
+    margin:28px;
+    margin-left: 130px;
 }
 .item_view_btn{
-	width: 188px;
-height: 40px;
-background-color: #7ab55c;
-color: #ffffff;
-font-size: 20px;
-margin: 0 auto;
-margin-top: 28px;
-border-radius: 2px;
-text-align: center;
-padding: 6px;
-margin-left: 16px;
+    width: 188px;
+    height: 40px;
+    background-color: #7ab55c;
+    color: #ffffff;
+    font-size: 20px;
+    margin: 0 auto;
+    margin-top: 28px;
+    border-radius: 2px;
+    text-align: center;
+    padding: 6px;
+    margin-left: 16px;
 }
 .comment_box{
-	
-height: auto;
-width: 775px;
-border-radius: 6px;
-padding-bottom: 8px;
+
+    height: auto;
+    width: 775px;
+    border-radius: 6px;
+    padding-bottom: 8px;
 }
 .comment_box_bg{
-	background:#ECECE4;
-	margin-left: 15px;
-	width: 758px; 
+    background:#ECECE4;
+    margin-left: 15px;
+    width: 758px;
 }
 .comment_img{
-	width: 85px;
-height: 100px;
+    width: 85px;
+    height: 100px;
 }
 .comment_box textarea{
-	width: 758px;
-border: 1px solid #c1c1c1;
-height: auto;
-border-radius: 6px;
-margin-right: 5px;
+    width: 758px;
+    border: 1px solid #c1c1c1;
+    height: auto;
+    border-radius: 6px;
+    margin-right: 5px;
 }
 .comment_btn{
-	float: right;
-	width: 150px;
-	text-align: center;
-	height: 30px;
-	background-color: #00aeef;
-	margin-right: 45px;
-	margin-top: 10px;
+    float: right;
+    width: 150px;
+    text-align: center;
+    height: 30px;
+    background-color: #00aeef;
+    margin-right: 45px;
+    margin-top: 10px;
 }
 .comment_btn p {
-	margin-top: 4px;
-font-size: 14px;
-font-weight: bold;
-color: #ffffff;
+    margin-top: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
 }
 .comment_btn a {
-	text-decoration: none;
+    text-decoration: none;
 }
 .comment_block{
-	width: 874px;
-	margin: 0 auto;
-	background-color: #F9FAFA;
+    width: 874px;
+    margin: 0 auto;
+    background-color: #F9FAFA;
 }
 .comment_box h4{
-	float: right;
+    float: right;
 }
 .comment_box p {
-	float: right;
-	font-size: 13px;
-	font-weight: bold;
-	color: #585858;
-	margin-top: 8px;
+    float: right;
+    font-size: 13px;
+    font-weight: bold;
+    color: #585858;
+    margin-top: 8px;
 }
 .heading_h4{
-	margin-left: 20px;
-font-weight: bold;
-color: #585858;
+    margin-left: 20px;
+    font-weight: bold;
+    color: #585858;
 }
 /*########################################event preview end##################################################################*/
 .event_btn_top{
-	margin-top: 200px;
+    margin-top: 200px;
 }
 .event_dtl_text{
-	background:#ECECE4;
+    background:#ECECE4;
 }
 .add_guest_btn{
-	float: right;
-margin-top: -14px;
-background-color: #00AEEF;
-border: none;
-color: #ffffff;
+    float: right;
+    margin-top: -14px;
+    background-color: #00AEEF;
+    border: none;
+    color: #ffffff;
 }
 .shipping_add_btn{
-margin-right: 13px;
-margin-top: 30px;
+    margin-right: 13px;
+    margin-top: 30px;
 }
 
 .design_position{
-  position:relative;
+    position:relative;
 }
 .event_design_name{
-	position:absolute;
-	 z-index:10;
-	  top:20px;
-	   left:590px;
-	   font-size: 26px;
-	   color: #ffffff;
-	   font-weight: bold;
+    position:absolute;
+    z-index:10;
+    top:20px;
+    left:590px;
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: bold;
 }
 .recevied_inv_btn{
-	height: 312px;
+    height: 312px;
 }
 .maybe_icon{
-	font-size: 20px;
-font-weight: bold;
+    font-size: 20px;
+    font-weight: bold;
 }
 .sel_qty{
-	width: 234px;
+    width: 234px;
 }
 .addcart_gift{
-	width:1000px;
+    width:1000px;
 }
 .addcart_select{
-width: 130px;
-float: right;
-height: 44px;
-margin-top: 40px;
+    width: 130px;
+    float: right;
+    height: 44px;
+    margin-top: 40px;
 }
 .addcart_btn{
-	width: 129px;
-height: 28px;
-padding: 4px;
-float: right;
-background-color: #00AEEF;
-color: #ffffff;
-text-align: center;
-font-size: 18px;
-margin-right: 18px;
+    width: 129px;
+    height: 28px;
+    padding: 3px;
+    float: right;
+    background-color: #00AEEF;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+    margin-right: 18px;
+    border: none;
+}
+.addcart_btn a{
+    text-decoration: none;
+    color: #ffffff;
 }
 .addcart_main{
-	margin-left: 50px;
+    margin-left: 50px;
 }
 .shopping_cart{
-	width: 1000px;
+    width: 1000px;
 }
 .shopping_cart table{
-	text-align: center;
+    text-align: center;
 }
 .sp_crt{
-	width: 300px;
+    width: 300px;
 }
 .total_cart{
-	float: right;
-margin-right: 50px;
+    float: right;
+    margin-right: 50px;
 }
 .shp_cart_input{
-float: right;
-color: #585858;
-text-align: center;
-font-size: 18px;
-margin-right: 18px;
-margin-right: 50px;
+    float: right;
+    color: #585858;
+    text-align: center;
+    font-size: 18px;
+    margin-right: 18px;
+    margin-right: 50px;
 
 }
 .shp_cart_input input{
-	width: 160px;
-	height: 28px;
+    width: 160px;
+    height: 28px;
 }
 .total_order_text{
-	display: inline-block;
-max-width: 100%;
-margin-bottom: 5px;
-font-weight: 700;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
 }
 .cart_header{
-	width: 25%;
-	text-align: center;
-font-size: 18px;
-color: #c1c1c1;
-margin-top: 20px;
+    width: 25%;
+    text-align: center;
+    font-size: 18px;
+    color: #c1c1c1;
+    margin-top: 20px;
 
 }
 .active_ad{
-	color: #00aeef;
+    color: #00aeef;
 }
 .del_cart table{
-	text-align: left;
+    text-align: left;
 }
 .del_cart_qty{
-	width:292px;
-	text-align: right;
+    width:292px;
+    text-align: right;
 }
 .del_cart_pri{
-	width: 136px;
+    width: 136px;
 
 }
 .del_radio{
-	float: left;
-   margin-left: 40px;
+    float: left;
+    margin-left: 40px;
+}
+
+.accepted_invt,.maybe_invt,.rejected_invt{
+    cursor: pointer;
 }
 
 /*################################################payment form##########################################*/
 
- .ui-tabs-vertical { width: 55em; }
-  .ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-  .ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; margin: 0 -1px 2.2em 0; border: 1px solid #c1c1c1;border-radius: 3px;font-size: 18px;height: 50px;
-text-align: center;
-padding: 12px;background: #c1c1c1; }
-  .ui-tabs-vertical .ui-tabs-nav li a { color: #ffffff; text-decoration: none; border: none; }
-  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { background: #00aeef;border: none; }
-  .ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;margin-top: 0px;border: 1px solid #00aeef;border-radius: 6px;}
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; margin: 0 -1px 2.2em 0; border: 1px solid #c1c1c1;border-radius: 3px;font-size: 18px;height: 50px;
+    text-align: center;
+    padding: 12px;background: #c1c1c1; }
+.ui-tabs-vertical .ui-tabs-nav li a { color: #ffffff; text-decoration: none; border: none; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { background: #00aeef;border: none; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;margin-top: 0px;border: 1px solid #00aeef;border-radius: 6px;}
 
 .payment_mthd{
-	list-style-type: none;
+    list-style-type: none;
 }
 .card_input{
-	margin-left: 18px;
-} 
+    margin-left: 18px;
+}
 
 .card_input_cvv {
-width: 150px;
+    width: 150px;
 }
 .card_btn{
-	height: 54px;
-background: #7ab55c;
-width: 200px;
-font-size: 20px;
-color: #ffffff;
-text-align: center;
-padding: 10px;
-border-radius: 6px;
-margin-top: -54px;
+    height: 54px;
+    background: #7ab55c;
+    width: 200px;
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: -54px;
+}
+.card_btn a{
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .palce_order_tlt{
-	float: right;
-margin-right: 30px;
+    float: right;
+    margin-right: 30px;
 }
 
 .place_order_add{
-	font-size: 16px;
-	color: #585858;
-	
+    font-size: 16px;
+    color: #585858;
+
 }
