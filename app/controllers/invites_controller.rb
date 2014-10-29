@@ -1,7 +1,7 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
   skip_before_filter :auth_user
-  layout 'spree_application'
+  #layout 'spree_application'
 
   def update_invitaion
     @invitaion = Invite.where(token: params[:token]).first
@@ -15,20 +15,20 @@ class InvitesController < ApplicationController
         #TODO change has_wishlist in invitation table if user adds wishlist later
         if @invitaion.has_wishlist == true
           @wishlist = @event.wishlist
-          flash[:notice] = "Your friend likes following gifts."
-          render "/events/_wishlist_cart", layout: 'application'
+          flash.now[:notice] = "Your friend likes following gifts."
+          render "/events/_wishlist_cart"#, layout: 'application'
         else
           redirect_to event_path(id: @event.id)
         end
       else
-        flash[:notice] = "Access denied.You are not invited to this event"
+        flash.now[:notice] = "Access denied.You are not invited to this event"
         redirect_to event_path(id: @event.id)
       end  
     else  
       if @invitaion.has_wishlist == true 
         @wishlist = @event.wishlist
-        flash[:notice] = "Your friend likes following gifts."
-        render "/events/_wishlist_cart", layout: 'application'
+        flash.now[:notice] = "Your friend likes following gifts."
+        render "/events/_wishlist_cart"#, layout: 'application'
       else  
         redirect_to event_path(id: @event.id)
       end 
