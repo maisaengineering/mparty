@@ -50,6 +50,9 @@
     <div class="col-md-6"><h3>Your Invitations</h3>
       <%= render :partial => "events_list", :locals => {events: @invited_events, event_type: "Invited"} %>
     </div>
+
+  </div>
+  <div class="row">
     <div class="col-md-6"><h3>Public Events</h3>
       <%= render :partial => "events_list", :locals => {events: @public_events, event_type: "Public"} %>
     </div>
