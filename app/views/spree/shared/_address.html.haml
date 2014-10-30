@@ -1,0 +1,14 @@
+.place_order_add= address.full_name
+- unless address.company.blank?
+  .place_order_add= address.company
+.place_order_add= address.address1
+- unless address.address2.blank?
+  .place_order_add= address.address2
+.place_order_add= address.city
+.place_order_add= address.state_text
+.place_order_add= address.zipcode
+.place_order_add= address.country.try(:name)
+- unless address.phone.blank?
+  %span.type= "#{Spree.t(:phone)} #{address.phone}"
+- unless address.alternative_phone.blank?
+  %span.type= "#{Spree.t(:alternative_phone)} #{address.alternative_phone}"

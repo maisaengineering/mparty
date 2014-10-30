@@ -8,7 +8,7 @@
       <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('address') %>">1.Address</div>
       <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('delivery') %>">2.Delivery</div>
       <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('payment') %>">3.Payment</div>
-      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('complete') %>">4.Complete</div>
+      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('confirm') %>">4.Complete</div>
     </div>
     <%= form_for @order, :url => update_checkout_path(@order.state), :html => {class: 'form_margin', :id => "checkout_form_#{@order.state}" } do |form| %>
         <% unless @order.email? %>
