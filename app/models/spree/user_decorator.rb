@@ -6,7 +6,8 @@ Spree::User.class_eval do
 
   after_create :send_email
 
-  validates :first_name, :last_name, :phone, presence: true
+  #TODO uncomment below after admin has been created
+  #validates :first_name, :last_name, :phone, presence: true
 
   validates :phone, uniqueness: true
 
