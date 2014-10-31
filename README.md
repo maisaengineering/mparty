@@ -30,3 +30,15 @@ Pass     : XXXXX
 ######be sure to check 'ENABLE MAIL DELIVERY'
 * Sample screenshot added to Rails.root/doc/spree-smpt-settings-example.png
 
+#### Facebook authentication configuration
+
+* go to spree admin/configuration and click on 'Social Authentication Methods' then 'New authentication method'
+
+```sh
+Select Facebook and production env  
+API KEY : xxxx
+API     : xxxx
+```
+######be sure to check 'Active'
+* Sample screenshot added to Rails.root/doc/spree-fb-configuration-example.png
+
