@@ -6,7 +6,14 @@
 
   .login
     = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {style: 'margin:45px;'})  do |f|
-      = flash_messages
+      - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+        .form-group
+          .fblogin
+            = link_to image_tag('fblogin.png',class: 'img-rounded'),spree.spree_user_omniauth_authorize_url(provider: 'facebook')
+            %br/
+            %br/
+            or
+
       .form-group
         %label Email address
         = f.email_field :email,placeholder: 'Enter email',id: 'exampleInputEmail1',class: 'form-control', required: true
