@@ -11,24 +11,44 @@ Invitation::Application.configure do
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations
-  config.active_record.migration_error = :page_load
+  #config.active_record.migration_error = :page_load
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
 
+  # ActionMailer Config
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.asset_host = 'http://localhost:3000'
+  # leeter_opener Previews the email in the browser instead of sending it ,enable smpt if you want send an email
+  config.action_mailer.delivery_method = :letter_opener #:smtp
+  # change to false to prevent email from being sent during development
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
 
-  ENV['SENDER'] = "maisa.engineers@gmail.com"
+  config.active_record.migration_error = :page_load
+
+  ENV['SENDER'] = 'maisa.engineers@gmail.com'
+  # ENV['CDN_URL'] = 'https://d1l5f2v82xoaic.cloudfront.net'
+  config.action_mailer.smtp_settings = {
+      :enable_starttls_auto => true,
+      :address => "smtpout.secureserver.net",
+      :port => 80,
+      :domain => "maisasolutions.com",
+      :authentication => :plain,
+      :user_name => 'labs@maisasolutions.com',
+      :password => 'MPRIDE786',
+  }
+
 end
