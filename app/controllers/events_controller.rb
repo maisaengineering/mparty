@@ -2,7 +2,7 @@ class EventsController < ApplicationController
 	before_filter :check_for_cancel, :only => [:create, :send_invitation]
 	before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars
-	layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation]
+	layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation]
 
 	helper 'spree/taxons'
 
@@ -50,8 +50,8 @@ class EventsController < ApplicationController
 		@imageable = @event
 		@pictures = @imageable.pictures
 		@picture = Picture.new
-    event_template = Spree::Admin::Template.find(@event.template_id)
-    @event_design = event_template.designs.where(id: @event.design_id).first
+    event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    @event_design = event_template.designs.where(id: @event.design_id).first if event_template
 	end
 
 	def view_invitation
@@ -76,13 +76,13 @@ class EventsController < ApplicationController
 			flash[:error] = "We are sorry Invitation not found."
 			render
 		end	
-		@wishlist = @event.wishlist
-		@commentable = @event
-		@comments = @commentable.comments
-		@comment = Comment.new
-		@imageable = @event
-		@pictures = @imageable.pictures
-		@picture = Picture.new
+		# @wishlist = @event.wishlist
+		# @commentable = @event
+		# @comments = @commentable.comments
+		# @comment = Comment.new
+		# @imageable = @event
+		# @pictures = @imageable.pictures
+		# @picture = Picture.new
 	end		
 
 	def send_invitation
