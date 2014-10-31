@@ -11,4 +11,5 @@
     = csrf_meta_tags
   %body
     = render 'layouts/shared/header'
+    = render partial: "shared/flash_messages", flash: flash
     = yield
