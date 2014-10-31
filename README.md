@@ -14,5 +14,19 @@ We need to run:
  * `heroku pg:reset postgres` OR
  * `heroku pg:reset DATABASE_URL` then follow above steps from migrate
 
+#### Mailer Configuration
 
+* go to spree admin/configuration and click on 'Mail method smpt settings' then add below settings
+
+```sh
+DOMAIN    : maisasolutions.com
+MAIL HOST : smtpout.secureserver.net
+PORT      : 80
+SECURE CONNECTION TYPE : None
+AUTHENTICATION TYPE : plain
+USERNAME : labs@maisasolutions.com
+Pass     : XXXXX
+```
+######be sure to check 'ENABLE MAIL DELIVERY'
+* Sample screenshot added to Rails.root/doc/spree-smpt-settings-example.png
 
