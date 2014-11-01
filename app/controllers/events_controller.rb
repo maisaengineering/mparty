@@ -119,7 +119,7 @@ class EventsController < ApplicationController
 			#	render "/events/shipping_address"
 			#else
 				if invitations.size > 0
-					send_invitation_emails(invitations)
+					send_invitation_emails(invitations,@event)
 					flash[:notice] = "Successfully sent Invitation mail."
 				else
 					flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"	
@@ -212,9 +212,9 @@ class EventsController < ApplicationController
 			end
 		end
 
-		def send_invitation_emails(invitations)
+		def send_invitation_emails(invitations,event)
 			invitations.each do |inv|
-				if Notifier.invite_friend(inv.recipient_email, inv).deliver
+				if Notifier.invite_friend(inv.recipient_email, inv,event).deliver
 					inv.mail_sent = true
 					inv.save
 				end

@@ -15,13 +15,13 @@ class InvitesController < ApplicationController
         #TODO change has_wishlist in invitation table if user adds wishlist later
         if @invitaion.has_wishlist == true
           @wishlist = @event.wishlist
-          flash.now[:notice] = "Your friend likes following gifts."
+          flash[:notice] = "Your friend likes following gifts."
           render "/events/_wishlist_cart"#, layout: 'application'
         else
           redirect_to event_path(id: @event.id)
         end
       else
-        flash.now[:notice] = "Access denied.You are not invited to this event"
+        flash[:notice] = "Access denied.You are not invited to this event"
         redirect_to event_path(id: @event.id)
       end  
     else  

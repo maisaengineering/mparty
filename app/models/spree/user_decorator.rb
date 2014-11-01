@@ -58,4 +58,8 @@ Spree::User.class_eval do
     default_wishlist
   end
 
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
 end
