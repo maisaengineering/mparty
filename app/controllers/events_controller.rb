@@ -106,7 +106,7 @@ class EventsController < ApplicationController
 								inv.user_id = existing_user.id
 							end	
 							inv.recipient_email = email
-							inv.has_wishlist = params[:add_wishlist] if params[:add_wishlist]
+							inv.has_wishlist = true if params[:add_wishlist].present?
 						end
 						invitations << invite
 					else

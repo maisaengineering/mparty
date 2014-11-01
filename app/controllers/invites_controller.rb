@@ -27,7 +27,7 @@ class InvitesController < ApplicationController
     else  
       if @invitaion.has_wishlist == true 
         @wishlist = @event.wishlist
-        flash.now[:notice] = "Your friend likes following gifts."
+        flash[:notice] = "Your friend likes following gifts."
         render "/events/_wishlist_cart"#, layout: 'application'
       else  
         redirect_to event_path(id: @event.id)

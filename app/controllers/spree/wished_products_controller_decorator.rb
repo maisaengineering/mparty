@@ -7,6 +7,7 @@ Spree::WishedProductsController.class_eval do
 		else
 			@wished_product.wishlist = @wishlist
 			@wished_product.save
+      @wishlist.event.update_attribute(:has_wishlist,true) if @wishlist and @wishlist.event
 		end
 		if !session[:wishlist_id].present?
 			respond_with(@wished_product) do |format|
