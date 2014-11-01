@@ -24,6 +24,8 @@ Spree::User.class_eval do
   def apply_omniauth(omniauth)
     if ["facebook", 'google_oauth2'].include? omniauth['provider']
       self.email = omniauth['info']['email'] if email.blank?
+      self.first_name = omniauth['info']['first_name'] rescue ''
+      self.last_name = omniauth['info']['last_name'] rescue ''
     end
     user_authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :fb_token => omniauth['credentials']['token'])
   end
