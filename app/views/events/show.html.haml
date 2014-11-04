@@ -76,6 +76,7 @@
             = hidden_field_tag :resource ,'event'
             = hidden_field_tag :resource_id ,@event.id
           = submit_tag 'Post',id: 'send_comment',class: 'comment_btn'
+    .row.row-comment
     - unless @comments.blank?
       - @comments.each do |comment|
         = render 'comments/comment',comment: comment
