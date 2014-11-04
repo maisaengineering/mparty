@@ -10,20 +10,14 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @commentable.comments.new(comment_params)
-    @comment.user =current_spree_user
+    @comment = @commentable.comments.build(user: current_spree_user,content: params[:content])
 
-    if @comment.save
-      redirect_to @commentable, notice: "Comment created."
-    else
-      render :new
-    end
   end
 
   private
 
   def load_commentable
-    resource, id = request.path.split('/')[1, 2]
+    resource, id = params[:resource] ,params[:resource_id]
     @commentable = resource.singularize.classify.constantize.find(id)
   end
 
@@ -33,7 +27,5 @@ class CommentsController < ApplicationController
   #   @commentable = klass.find(params["#{klass.name.underscore}_id"])
   # end
 
-  def comment_params
-    params.require(:comment).permit(:content)
-  end
+
 end

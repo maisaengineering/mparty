@@ -17,6 +17,7 @@
 //= require jquery.datetimepicker
 //= require js-image-slider
 //= require cart
+//= require comments
 
 
 // Visit pages via turbolinks

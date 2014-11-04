@@ -1,0 +1,10 @@
+.row.row-comment
+  .col-xs-6.col-md-4.comment_img
+    = image_tag 'avatar.jpg',width: '60px'
+  .col-xs-12.col-md-8.comment_box.comment_box_bg
+    %h4{:style => "float:left"}= comment.commented_by
+    %p= date_formatter(comment.created_at)
+    %br
+      %br
+        %span= comment.content.html_safe
+  %br

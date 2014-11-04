@@ -1,0 +1,3 @@
+<% if @comment.save %>
+  $('.comment_block .row-comment:first').before("<%= j render('comments/comment',comment: @comment) %>").hide().slideDown("slow")
+<% end %>

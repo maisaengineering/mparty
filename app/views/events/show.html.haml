@@ -63,21 +63,19 @@
     - if @wish_list
       = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
   %br/
-  -# TODO add comments dynamic via ajax
   .comment_block
     .row
     %h4.heading_h4 Comments
-    .row
-      .col-xs-6.col-md-4.comment_img
-        = image_tag 'avatar.jpg',width: '80px'
-      .col-xs-12.col-md-8.comment_box
-        %span Now's the time for a birthday party
-        %p sat 16th 2014, 2 hours ago
-    .row
-      .col-xs-6.col-md-4.comment_img
-        = image_tag 'avatar.jpg',width: '80px'
-      .col-xs-12.col-md-8.comment_box
-        %textarea
-      .col-xs-6.col-md-4.comment_btn
-        %a{:href => "#"}
-          %p Create Comment
+    - if current_spree_user
+      .row
+        = form_tag comments_path ,remote: true,id: 'comment_form' do
+          .col-xs-6.col-md-4.comment_img
+            = image_tag 'avatar.jpg',width: '60px'
+          .col-xs-12.col-md-8.comment_box
+            = text_area_tag :content,'',id: 'comment_content',placeholder: "Write a comment...",cols: 5,rows: 3
+            = hidden_field_tag :resource ,'event'
+            = hidden_field_tag :resource_id ,@event.id
+          = submit_tag 'Post',id: 'send_comment',class: 'comment_btn'
+    - unless @comments.blank?
+      - @comments.each do |comment|
+        = render 'comments/comment',comment: comment
