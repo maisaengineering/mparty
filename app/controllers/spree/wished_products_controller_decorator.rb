@@ -1,4 +1,5 @@
 Spree::WishedProductsController.class_eval do
+  skip_before_filter :verify_authenticity_token, only: :crate
 	def create
 		@wished_product = Spree::WishedProduct.new(wished_product_attributes)
 		@wishlist = session[:wishlist_id].present? ? Spree::Wishlist.find(session[:wishlist_id]) : spree_current_user.wishlist

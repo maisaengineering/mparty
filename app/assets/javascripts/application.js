@@ -16,6 +16,7 @@
 //= require bootstrap.min
 //= require jquery.datetimepicker
 //= require js-image-slider
+//= require cart
 
 
 // Visit pages via turbolinks

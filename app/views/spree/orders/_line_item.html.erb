@@ -1,6 +1,6 @@
 <% variant = line_item.variant -%>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
-    <div class="wishlist addcart_gift">
+    <div class="wishlist addcart_gift line-item">
       <div class="col-md-1 wlist">
         <% if variant.images.length == 0 %>
             <%= link_to small_image(variant.product), variant.product %>
@@ -22,13 +22,13 @@
       </div>
       <div class="col-md-1 wlist_p"> <%= line_item.single_money.to_html %></div>
       <div class="col-md-1 sel_qty">
-        <%= item_form.number_field :quantity, :min => 0, :class => "form-control addcart_select", :size => 5  %>
+        <%= item_form.number_field :quantity, :min => 0, :class => "form-control addcart_select line_item_quantity", :size => 5  %>
       </div>
       <div class="col-md-1 wlist_p">
         <%= line_item.display_amount.to_html unless line_item.quantity.nil? %>
-        <% if !session[:event_id].present? %>
-            &nbsp; &nbsp;<%= link_to image_tag('icons/delete.png'), '#', :class => 'delete', :id => "delete_#{dom_id(line_item)}" %>
-        <% end %>
+        <%-# if !session[:event_id].present? %>
+            &nbsp; &nbsp;<%= link_to image_tag('icons/delete.png'), '#', :class => 'delete', :id => "delete_#{dom_id(line_item)}",title: 'remove'%>
+        <%-# end %>
       </div>
 
     </div>
