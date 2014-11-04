@@ -28,7 +28,7 @@
                 <%= link_to 'Join', "#" ,class: 'add_guest_btn'%>
             <% else %>
                 <% if event.owner.email == current_spree_user.email %>
-                     <%= link_to 'Add Guests', add_guests_path(:event_id => event.id),class: 'add_guest_btn' %>
+                     <%= link_to('Add Guests', add_guests_path(:event_id => event.id),class: 'add_guest_btn') unless event_type.eql?('Past')  %>
                 <% end %>
             <% end %>
           </div>
