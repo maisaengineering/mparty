@@ -84,10 +84,13 @@ Invitation::Application.routes.draw do
     collection do
       get 'update_designs'
     end
-    resources :comments
+   # resources :comments
     resources :pictures
   end
-  post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
+
+  resources :comments
+
+    post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests
   get '/events/remove_product_from_wishlist/:product_id'=>"events#remove_product_from_wishlist", as: :remove_product_from_wishlist
