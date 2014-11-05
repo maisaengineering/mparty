@@ -92,3 +92,5 @@ gem "nested_form"
 # gem 'debugger', group: [:development, :test]
 
 gem 'letter_opener', group: :development
+
+gem 'jquery-fileupload-rails'

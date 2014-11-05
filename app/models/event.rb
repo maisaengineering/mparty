@@ -30,4 +30,10 @@ class Event < ActiveRecord::Base
       self.invites.where(joined: 2).count
     end
   end
+
+  def is_owner?(user=nil)
+    return false if user.nil?
+    user_id.eql?(user.id)
+  end
+
 end

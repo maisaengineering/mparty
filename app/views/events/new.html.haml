@@ -52,6 +52,11 @@
         .form_ce_right
           %label End Date* / End Time
           = f.text_field :ends_at , class: 'form-control glyphicon glyphicon-calendar datetimepicker'
+      = f.fields_for @event.pictures.build do |p|
+        .field
+          = p.label :picture
+          %br
+            = p.file_field :image, :multiple => true, name: "picture[image]"
       -#.row
         .start_event
           .form_ce_left.start_event_lw
@@ -68,6 +73,8 @@
           .form_ce_right.start_event_rw
             %label End Time
             = f.time_field :end_time, :class => 'form-control glyphicon glyphicon-time', :style => "width:120px"
+
+
       .form_ce_left
         = f.check_box :is_private
         %label Is Private

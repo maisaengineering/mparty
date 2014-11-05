@@ -62,6 +62,27 @@
     %h4.heading_h4 Wishlist
     - if @wish_list
       = render :partial => "show_wishlist", :locals => {:wishlist => @wish_list}
+
+
+  %hr
+  #pictures
+    - unless @event.pictures.blank?
+      - @event.pictures.each do |picture|
+        = render 'pictures/picture',picture: picture
+  - if @event.is_owner?(spree_current_user)
+    = form_for Picture.new do |f|
+      = f.label :image, "Upload pictures:"
+      = hidden_field_tag :resource_id ,@event.id
+      = hidden_field_tag :resource ,'event'
+      = f.file_field :image,multiple: true, name: "picture[image]"
+
+  -# Enable if progress bar is required
+    %script#template-upload{:type => "text/x-tmpl"}
+      .upload
+        {%=o.name%}
+        .progress
+          .bar{:style => "width: 0%;"}
+
   %br/
   .comment_block
     .row

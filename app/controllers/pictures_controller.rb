@@ -1,35 +1,24 @@
 class PicturesController < ApplicationController
-  before_filter :load_imageable
-
-  def index
-    @pictures = @imageable.comments
-  end
-
-  def new
-    @picture = @imageable.pictures.new
-  end
+  before_filter :load_imageable,only: [:create]
 
   def create
-    @picture = @imageable.pictures.new(picture_params)
-    if @picture.save
-      redirect_to @imageable
-    else
-      render :new
-    end
+    @picture = @imageable.pictures.create(picture_params)
+  end
+
+  def destroy
+    #TODO make it asynchronously
+    @picture = Picture.find(params[:id])
+    @event = @picture.imageable
+    @picture.destroy
+    redirect_to @event, notice: "Picture was successfully destroyed."
   end
 
   private
 
   def load_imageable
-    resource, id = request.path.split('/')[1, 2]
+    resource, id = params[:resource],params[:resource_id]
     @imageable = resource.singularize.classify.constantize.find(id)
   end
-
-  # alternative option:
-  # def load_commentable
-  #   klass = [Article, Photo, Event].detect { |c| params["#{c.name.underscore}_id"] }
-  #   @commentable = klass.find(params["#{klass.name.underscore}_id"])
-  # end
 
   def picture_params
     params.require(:picture).permit(:image)

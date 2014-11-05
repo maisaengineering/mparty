@@ -18,10 +18,11 @@ class InvitesController < ApplicationController
           flash[:notice] = "Your friend likes following gifts."
           render "/events/_wishlist_cart"#, layout: 'application'
         else
+          flash[:error] = "Invitation doesn't have wishlist"
           redirect_to event_path(id: @event.id)
         end
       else
-        flash[:notice] = "Access denied.You are not invited to this event"
+        flash[:error] = "Access denied.You are not invited to this event"
         redirect_to event_path(id: @event.id)
       end  
     else  
