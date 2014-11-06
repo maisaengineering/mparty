@@ -1,0 +1,79 @@
+.container
+  %br/
+  - if @venue.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@venue.errors.count, "error")
+        prohibited this event from being saved:
+      %ul
+        - @venue.errors.full_messages.each do |msg|
+          %li= msg
+  .create_event
+    .row
+      %h2.event_details Enter Venue Details
+    = form_for(@venue, :html => {:multipart => true,class: 'form_margin'}) do |f|
+      .row
+        .form_ce_left
+          %label Name*
+          = f.text_field :name, class: 'form-control',placeholder: 'Venue Name',required: true
+        .form_ce_right
+          %label Venue Type*
+          = f.select :venue_type, Venue::VENUE_TYPES, {:include_blank => 'Select venue type'} ,class: 'form-control',required: true
+      .row
+        .form_ce_left
+          %label Room Dimensions
+          = f.number_field :room_dimensions, class: 'form-control',placeholder: 'in sq feet'
+        .form_ce_right
+          %label Capacity
+          = f.number_field :capacity, class: 'form-control',placeholder: 'members'
+      .row
+        .form_ce_left
+          %label Price min
+          = f.number_field :price_min, class: 'form-control'
+        .form_ce_right
+          %label Price max
+          = f.number_field :price_max, class: 'form-control'
+      .row
+        .form_ce_loc
+          %label Location
+          = f.text_field :location, class: 'form-control form_ce_loc_ctrl',placeholder: 'Location'
+      .row
+        .form_ce_left
+          %label Address*
+          = f.text_field :address1, class: 'form-control',required: true
+        .form_ce_right
+          %label Address2
+          = f.text_field :address2, class: 'form-control'
+      .row
+        .form_ce_left
+          %label City*
+          = f.text_field :city, class: 'form-control',required: true
+        .form_ce_right
+          %label State*
+          = f.text_field :state, class: 'form-control' ,required: true
+      .row
+        .form_ce_left
+          %label Country
+          = f.text_field :country, class: 'form-control',required: true
+        .form_ce_right
+          %label Zip*
+          = f.text_field :zip, class: 'form-control' ,required: true
+      .row
+        .form_ce_left
+          %label Contact name*
+          = f.text_field :contact_name, class: 'form-control',required: true
+        .form_ce_right
+          %label Contact Mobile*
+          = f.text_field :contact_mobile, class: 'form-control' ,required: true
+      .row
+        .form_ce_loc
+          %label Description
+          = f.text_area :description, class: 'form-control form_ce_loc_ctrl',placeholder: 'Enter description'
+
+      .checkbox.form_ce_right
+        %button.btn_l.btn_l-login{:on => "", :type => "submit"} Create
+
+:javascript
+  // Location Autocomplete
+    var input = document.getElementById("venue_location");
+    var autocomplete = new google.maps.places.Autocomplete(input);

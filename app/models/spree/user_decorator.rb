@@ -4,6 +4,8 @@ Spree::User.class_eval do
   has_many :invites , foreign_key: "invited_user_id", class_name: "Invite"
   has_many :comments
 
+  has_many :venues
+
   after_create :send_email
 
   #TODO uncomment below after admin has been created
