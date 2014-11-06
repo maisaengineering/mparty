@@ -6,7 +6,9 @@
           <%#= image_tag picture.image_url(:thumb).to_s %>
           <%# end %>
 
-          <div class="col-md-4" style="width:120px"><img src="<%= asset_path('event1.png') %>" width="100px" height="90px"></div>
+          <div class="col-md-4" style="width:120px">
+            <%= event_cover_photo(:thumb,event)  %>
+          </div>
           <div class="col-md-8 event_dtl_text">
             <h4>
               <% if event.owner.email == current_spree_user.email || event_type == "Public"%>

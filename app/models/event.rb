@@ -36,4 +36,9 @@ class Event < ActiveRecord::Base
     user_id.eql?(user.id)
   end
 
+  # cover photo
+  def event_photo
+    pictures.first
+  end
+
 end
