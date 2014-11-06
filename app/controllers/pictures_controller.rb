@@ -2,6 +2,7 @@ class PicturesController < ApplicationController
   before_filter :load_imageable,only: [:create]
 
   def create
+    @event = @imageable
     @picture = @imageable.pictures.create(picture_params)
   end
 
