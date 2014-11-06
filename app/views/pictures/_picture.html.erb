@@ -1,16 +1,13 @@
-<%#= raise picture.inspect %>
 <% if picture.image? %>
     <div class="picture">
       <%= link_to image_tag(picture.image_url(:thumb)), picture  %>
-      <div class="name"><%= picture.name %></div>
+      <div class="name"><%= truncate(picture.name,length: 10) %></div>
       <div class="actions">
-        <%#= link_to "edit", edit_picture_path(picture.id)  if @event.is_owner?(spree_current_user) %>
-        <% if picture.imageable.is_a?(Event) %>
-            <%= link_to "remove", picture , :confirm => 'Are you sure?', :method => :delete  if @event.is_owner?(spree_current_user) %>
+        <% if picture.imageable.is_a?(Event) and @event.is_owner?(spree_current_user) %>
+            <%= link_to "remove", picture , confirm: 'Are you sure?', method: :delete ,class: 'btn btn-danger btn-xs' %>
         <% else %>
-            <%= link_to "remove", picture , :confirm => 'Are you sure?', :method => :delete  %>
+            <%= link_to "remove", picture , confirm: 'Are you sure?', method: :delete ,class: 'btn btn-danger btn-xs' %>
         <% end %>
-        
       </div>
     </div>
 <% end %>

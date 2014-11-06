@@ -1,3 +1,6 @@
+
+
+
 .footer{
     position: absolute;
     bottom: 0;
@@ -505,6 +508,7 @@
 .comment_img{
     width: 85px;
     height: 100px;
+    margin-left: 15px;
 }
 .comment_box textarea{
     width: 758px;
@@ -729,4 +733,191 @@
     font-size: 16px;
     color: #585858;
 
+}
+
+/*##########################################venues page#########################################*/
+
+.venue_block{
+    width:867px;
+    margin:0 auto;
+    margin-top: 150px;
+}
+.venue_block h1{
+    color: #ffffff;
+}
+
+.form_search{
+    float: left;
+    display: block;
+    width: 490px;
+    height: 40px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.crt_loc{
+    width: 190px;
+    float: left;
+    margin-left: 15px;
+
+}
+.adv_search_btn{
+    float: right;
+    background: #00AEEF;
+    height: 40px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 8px;
+    border: none;
+
+}
+.adv_search_btn p{
+    text-decoration: none;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.form_adv_search{
+    display: block;
+    width: 266px;
+    height: 38px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+.adv_input{
+    margin-left: 20px;
+    float: left;
+}
+.search_bg{
+    width: 100%;
+    height: 400px;
+    background: url(../img/bg.jpg);
+    margin: 0px;
+}
+
+.venue_slider{
+    width: 50%;
+    float: left;
+}
+.venue_right{
+    width:48%;
+    float:right;
+    border-radius:6px;
+    background:#fff;
+}
+.venue_right h4{
+    float: left;
+}
+.venue_right img {
+    margin-top: 30px;
+}
+.venue_right textarea{
+    border-radius: 6px;
+    border: 1px solid #c1c1c1;
+    margin-left: 16px;
+}
+.venue_right button{
+    float: right;
+    margin-right: 20px;
+    background: #585858;
+    border: none;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 6px;
+    width: 100px;
+    height: 28px;
+}
+
+
+.myac_order p {
+    font-size: 20px;
+    color: #585858;
+    font-family: bold;
+}
+.myac_event a {
+    text-decoration: none;
+    color: #fff
+}
+
+/*######################################################uplodae image########################*/
+
+#pictures {
+    margin-left: -12px;
+    margin-right: -12px;
+}
+
+.pictures_block {
+
+    width:874px;
+
+    margin:0 auto;
+
+    height:auto;
+    overflow: hidden;
+
+}
+
+.picture {
+
+    width:100px;
+
+    margin:5px 14px;
+
+    height:auto;
+
+    float:left;
+    margin-bottom: 25px;
+}
+.picture img {
+    border-radius:10px;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+}
+
+.actions {
+    text-align: center;
+}
+.actions a {
+    color: #ffffff;
+
+}
+
+.actions  a:hover {
+    text-decoration: none;
+}
+.name {
+    font-size: 12px;
+    padding: 3px 0;
+    text-align: center;
+}
+
+.pictures_block .btn-success {
+    border-radius:50px;
+    -moz-border-radius:50px;
+    -webkit-border-radius:50px;
+}
+textarea {
+    text-indent: 5px;
+    padding-top: 4px;
 }
