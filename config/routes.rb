@@ -8,7 +8,11 @@ Invitation::Application.routes.draw do
 
   resources :templates
   resources :pictures
-  resources :venues
+  resources :venues do
+    member do
+      get 'add_photos'
+    end
+  end
 
 
   # This line mounts Spree's routes at the root of your application.

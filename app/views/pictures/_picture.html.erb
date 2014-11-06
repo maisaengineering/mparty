@@ -5,7 +5,12 @@
       <div class="name"><%= picture.name %></div>
       <div class="actions">
         <%#= link_to "edit", edit_picture_path(picture.id)  if @event.is_owner?(spree_current_user) %>
-        <%= link_to "remove", picture , :confirm => 'Are you sure?', :method => :delete  if @event.is_owner?(spree_current_user) %>
+        <% if picture.imageable.is_a?(Event) %>
+            <%= link_to "remove", picture , :confirm => 'Are you sure?', :method => :delete  if @event.is_owner?(spree_current_user) %>
+        <% else %>
+            <%= link_to "remove", picture , :confirm => 'Are you sure?', :method => :delete  %>
+        <% end %>
+        
       </div>
     </div>
 <% end %>
