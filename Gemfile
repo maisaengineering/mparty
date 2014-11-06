@@ -94,3 +94,4 @@ gem "nested_form"
 gem 'letter_opener', group: :development
 
 gem 'jquery-fileupload-rails'
+gem "geocoder"
