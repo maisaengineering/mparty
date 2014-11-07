@@ -149,6 +149,8 @@ GEM
     friendly_id (5.0.3)
       activerecord (>= 4.0.0)
     fullcalendar-rails (1.6.4.0)
+    fuzzily (0.3.2)
+      activerecord (>= 2.3.17)
     geocoder (1.2.2)
     haml (4.1.0.beta.1)
       tilt
@@ -395,6 +397,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 4.0.0)
   fullcalendar-rails
+  fuzzily
   geocoder
   haml-rails
   handlebars
