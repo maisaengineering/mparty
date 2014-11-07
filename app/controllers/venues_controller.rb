@@ -1,4 +1,10 @@
 class VenuesController < ApplicationController
+  before_filter :auth_user ,except:  [:index,:show]
+
+  def index
+    @top_five = Venue.top_five
+    @venues = Venue.search(params[:query])
+  end
 
   def new
     @venue = Venue.new
@@ -12,6 +18,10 @@ class VenuesController < ApplicationController
     else
       render 'new'
     end
+  end
+
+  def show
+    @venue = Venue.find(params[:id])
   end
 
   def add_photos

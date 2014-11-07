@@ -1,4 +1,5 @@
 class PicturesController < ApplicationController
+  before_filter :auth_user
   before_filter :load_imageable,only: [:create]
 
   def create
@@ -9,9 +10,15 @@ class PicturesController < ApplicationController
   def destroy
     #TODO make it asynchronously
     @picture = Picture.find(params[:id])
-    @event = @picture.imageable
+    imageable =  @picture.imageable
     @picture.destroy
-    redirect_to @event, notice: "Picture was successfully destroyed."
+    if imageable.is_a?(Venue)
+      redirect_to add_photos_venue_url(imageable), notice: "Picture was successfully destroyed."
+    else
+      redirect_to @event, notice: "Picture was successfully destroyed."
+    end
+
+
   end
 
   private

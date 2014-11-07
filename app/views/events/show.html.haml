@@ -105,10 +105,3 @@
     - unless @comments.blank?
       - @comments.each do |comment|
         = render 'comments/comment',comment: comment
-
-:javascript
-   var divwrapper="<div style='width:0; height:0; overflow:hidden;'></div>"
-   $(document).ready(function() {
-      $("#picture_image").wrap(divwrapper);
-      $("#upload_photos").click(function(){ $('#picture_image').click();  });
-   });

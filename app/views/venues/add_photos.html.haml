@@ -1,14 +1,20 @@
 .container
   .create_event
     .row
-      %h2.event_details Upload Venue photos
-    #pictures
+      %h2.event_details Upload photos to Venue
+    .pictures_block
       #pictures
         - unless @venue.pictures.blank?
           - @venue.pictures.each do |picture|
             = render 'pictures/picture',picture: picture
-      = form_for Picture.new do |f|
-        = f.label :image, "Upload pictures:"
-        = hidden_field_tag :resource_id ,@venue.id
-        = hidden_field_tag :resource ,'venue'
-        = f.file_field :image,multiple: true, name: "picture[image]"
+      .pictures_block{:style => "clear:both; margin-top:20px;"}
+        = form_for Picture.new do |f|
+          = f.label :image, "Upload pictures:"
+          = hidden_field_tag :resource_id ,@venue.id
+          = hidden_field_tag :resource ,'venue'
+          = f.file_field :image,multiple: true, name: "picture[image]"
+        %button#upload_photos.btn_upload.mtop.btn.btn-success UPLOAD PHOTOS
+    .form_ce_right
+      = link_to  @venue,class: 'btn btn-success btn-sm btn_l' do
+        %span.glyphicon.glyphicon-ok
+        Done

@@ -12,9 +12,24 @@ class Venue < ActiveRecord::Base
   geocoded_by :full_address, if: ->(rec){ rec.address1.present? and rec.zip.present? }
   after_validation :geocode          # auto-fetch coordinates
 
+  #TODO get via ratings
+  scope :top_five, limit(5).order(:created_at)
+
+  def
+
   def full_address
     "#{address1} #{address2} #{city} #{state} #{country} #{zip}"
   end
 
+
+  # cover photo
+  def cover_photo
+    pictures.first
+  end
+
+
+  def self.search(query=nil)
+    all
+  end
 
 end
