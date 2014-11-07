@@ -15,8 +15,6 @@ class Venue < ActiveRecord::Base
   #TODO get via ratings
   scope :top_five, limit(5).order(:created_at)
 
-  def
-
   def full_address
     "#{address1} #{address2} #{city} #{state} #{country} #{zip}"
   end
