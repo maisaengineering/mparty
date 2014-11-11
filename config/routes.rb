@@ -4,15 +4,17 @@ Invitation::Application.routes.draw do
     namespace :admin do
       resources :templates
     end
+    namespace :csr do
+      resources :venues do
+          get 'add_photos' , on: :member
+      end
+    end
   end
 
   resources :templates
+  resources :venues
   resources :pictures
-  resources :venues do
-    member do
-      get 'add_photos'
-    end
-  end
+
 
 
   # This line mounts Spree's routes at the root of your application.
@@ -23,9 +25,9 @@ Invitation::Application.routes.draw do
   mount Spree::Core::Engine, :at => "/"
 
   #Spree::Core::Engine.routes.prepend do
-    #root :to => 'user_sessions#new'
+  #root :to => 'user_sessions#new'
   #end
-          # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
@@ -89,13 +91,13 @@ Invitation::Application.routes.draw do
     collection do
       get 'update_designs'
     end
-   # resources :comments
+    # resources :comments
     resources :pictures
   end
 
   resources :comments
 
-    post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
+  post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests
   get '/events/remove_product_from_wishlist/:product_id'=>"events#remove_product_from_wishlist", as: :remove_product_from_wishlist
@@ -106,7 +108,7 @@ Invitation::Application.routes.draw do
   get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
 
   resources :invites, only: [:create, :destroy]
-  
+
   get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
 
   get '/events/show_invitation/:event_id'=>"events#show_invitation", as: :show_invitation

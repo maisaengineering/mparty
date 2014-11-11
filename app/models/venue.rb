@@ -3,8 +3,11 @@ class Venue < ActiveRecord::Base
   has_many :pictures, as: :imageable
   has_many :reviews, as: :reviewable
 
-  belongs_to :owner, foreign_key: "user_id", class_name: "Spree::User" # event created user
+  has_many :venue_contacts,inverse_of: :venue,dependent: :destroy
 
+  belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
+
+  accepts_nested_attributes_for :venue_contacts,reject_if: proc { |attributes| attributes['full_name'].blank? }
 
   VENUE_TYPES = ['Conference Centres','Convention Centres','Retreats','Banquet','Hotels']
 
