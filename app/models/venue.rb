@@ -12,8 +12,9 @@ class Venue < ActiveRecord::Base
   geocoded_by :full_address, if: ->(rec){ rec.address1.present? and rec.zip.present? }
   after_validation :geocode          # auto-fetch coordinates
 
-  #TODO get via ratings
-  scope :top_five, limit(5).order(:created_at)
+  #Promote true and priority is high
+  scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
+
   fuzzily_searchable :name
 
   def full_address
