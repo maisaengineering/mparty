@@ -1,0 +1,8 @@
+- content_for :page_actions do
+  %li= button_link_to 'Back to venues', session[:return_to] || admin_venues_url, icon: 'icon-arrow-left'
+  - if can?(:create, Venue)
+    %li#new_product_link
+      = button_link_to 'New Venue', new_admin_venue_url, { icon: 'icon-plus', id: 'admin_new_venue' }
+= nested_form_for [:admin, @venue], :method => :put, :html => { :multipart => true } do |f|
+  %fieldset.no-border-top
+    = render  'form',  f: f,heading: 'Edit Venue',button_name: 'Update'

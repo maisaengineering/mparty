@@ -1,0 +1,143 @@
+= render :partial => 'spree/shared/error_messages', :locals => { :target => @venue }
+%fieldset
+  %legend{:align => "center"} #{heading}
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Name
+        %span.required *
+        %br/
+        = f.text_field :name,class: 'fullwidth'
+        = f.error_message_on :name
+    .omega.eight.columns
+      .field
+        %label Venue type
+        %span.required
+        %br/
+        = f.select :venue_type, Venue::VENUE_TYPES, {:include_blank => 'Select venue type'} ,class: 'fullwidth'
+        = f.error_message_on :venue_type
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Room Dimensions
+        %span.required
+        %br/
+        = f.number_field :room_dimensions ,placeholder: 'in sq feet',class: 'fullwidth'
+        = f.error_message_on :room_dimensions
+    .omega.eight.columns
+      .field
+        %label Capacity
+        %span.required
+        %br/
+        = f.number_field :capacity, class: 'fullwidth',placeholder: 'members'
+        = f.error_message_on :capacity
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Price min
+        %span.required
+        %br/
+        = f.number_field :price_min  , class: 'fullwidth'
+        = f.error_message_on :price_min
+    .omega.eight.columns
+      .field
+        %label Price max
+        %span.required
+        %br/
+        = f.number_field :price_max, class: 'fullwidth'
+        = f.error_message_on :price_max
+  // Address
+  %legend{:align => "center",class: 'no-border-bottom'} Address
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Address1
+        %span.required *
+        %br/
+        = f.text_field :address1  , class: 'fullwidth'
+        = f.error_message_on :address1
+    .omega.eight.columns
+      .field
+        %label Address2
+        %span.required
+        %br/
+        = f.text_field :address2, class: 'fullwidth'
+        = f.error_message_on :address2
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label City
+        %span.required
+        %br/
+        = f.text_field :city  , class: 'fullwidth'
+        = f.error_message_on :city
+    .omega.eight.columns
+      .field
+        %label State
+        %span.required
+        %br/
+        = f.text_field :state, class: 'fullwidth'
+        = f.error_message_on :state
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Country
+        %span.required
+        %br/
+        = f.text_field :country  , class: 'fullwidth'
+        = f.error_message_on :country
+    .omega.eight.columns
+      .field
+        %label Zip
+        %span.required *
+        %br/
+        = f.text_field :zip, class: 'fullwidth'
+        = f.error_message_on :zip
+  .field
+    %label About
+    %span.required
+    %br/
+    = f.text_area :description ,placeholder: 'About venue'  ,class: 'fullwidth'
+    = f.error_message_on :description
+  .field
+    %label Special Notes
+    %span.required
+    %br/
+    = f.text_area :special_notes ,placeholder: 'Allows html formatted data',rows: 7  ,class: 'fullwidth'
+    = f.error_message_on :special_notes
+  // Contact Details
+  %legend Contact Information
+  #venue_contacts
+    = f.fields_for :venue_contacts do |contact_form|
+      .row
+        .alpha.five.columns
+          .field
+            %label Full name
+            %span.required *
+            %br/
+            = contact_form.text_field :full_name,class: 'fullwidth'
+        .three.columns
+          .field
+            %label Mobile
+            %span.required
+            %br/
+            = contact_form.text_field :mobile_number
+        .three.columns
+          .field
+            %label Land line number
+            %span.required
+            %br/
+            = contact_form.text_field :land_number
+        .three.columns
+          .field
+            %label
+            %span.required
+            %br/
+            = contact_form.link_to_remove "Remove(-)"
+  %div{style: 'text-align: right;margin: 5px;'}
+    = f.link_to_add "Add new contact(+)", :venue_contacts, "data-target" => "#venue_contacts"
+  .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
+    %button.icon-ok.button{:name => "button", :type => "submit"} #{button_name}
+    %span.or or
+    %a.button.icon_link.with-tip.icon-remove{:href => "#{admin_venues_path}"}
+      %span.text Cancel

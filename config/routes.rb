@@ -1,18 +1,18 @@
 Invitation::Application.routes.draw do
 
-  Spree::Core::Engine.routes.prepend do
+  Spree::Core::Engine.routes.draw do
     namespace :admin do
       resources :templates
-    end
-    namespace :csr do
       resources :venues do
-          get 'add_photos' , on: :member
+        member do
+          get 'add_photos'
+        end
       end
     end
   end
 
-  resources :templates
-  resources :venues
+  # resources :templates
+  # resources :venues
   resources :pictures
 
 
