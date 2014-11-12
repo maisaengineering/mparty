@@ -46,6 +46,21 @@
         %br/
         = f.number_field :price_max, class: 'fullwidth'
         = f.error_message_on :price_max
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label Priority
+        %span.required
+        %br/
+        = f.number_field :priority  , class: 'fullwidth'
+        = f.error_message_on :priority
+    .omega.eight.columns
+      .field
+        %label Promote
+        %span.required
+        %br/
+        = f.check_box :promote
+        = f.error_message_on :promote
   // Address
   %legend{:align => "center",class: 'no-border-bottom'} Address
   .align-center.row
