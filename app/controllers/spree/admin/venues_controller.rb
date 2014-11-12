@@ -39,10 +39,33 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
     end
   end
 
+  def add_photos
+    @venue = Venue.find(params[:id])
+  end
+
+  def upload_photos
+    @venue = Venue.find(params[:id])
+    @venue.pictures.create(picture_params)
+    redirect_to add_photos_admin_venue_url(@venue), notice: 'Image uploaded successfully.'
+  end
+
+
+  def remove_photo
+    @venue = Venue.find(params[:id])
+    @picture = Picture.find(params[:picture_id])
+    @picture.destroy
+    redirect_to add_photos_admin_venue_path(@venue) , notice: 'Image removed successfully'
+  end
+
+
   private
   def venue_params
     params.require(:venue).permit(:name, :description,:venue_type,:room_dimensions,:capacity,:price_min,
                                   :price_max,:address1,:address2 ,:city,:state,:country,:zip,
                                   :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id])
+  end
+
+  def picture_params
+    params.require(:picture).permit(:image,:name)
   end
 end

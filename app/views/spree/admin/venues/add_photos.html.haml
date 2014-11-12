@@ -1,20 +1,41 @@
-.container
-  .create_event
-    .row
-      %h2.event_details Upload photos to Venue
-    .pictures_block
-      #pictures
-        - unless @venue.pictures.blank?
-          - @venue.pictures.each do |picture|
-            = render 'pictures/picture',picture: picture
-      .pictures_block{:style => "clear:both; margin-top:20px;"}
-        = form_for Picture.new do |f|
-          = f.label :image, "Upload pictures:"
-          = hidden_field_tag :resource_id ,@venue.id
-          = hidden_field_tag :resource ,'venue'
-          = f.file_field :image,multiple: true, name: "picture[image]"
-        %button#upload_photos.btn_upload.mtop.btn.btn-success UPLOAD PHOTOS
-    .form_ce_right
-      = link_to  @venue,class: 'btn btn-success btn-sm btn_l' do
-        %span.glyphicon.glyphicon-ok
-        Done
+- content_for :page_actions do
+  %li= button_link_to 'Back to Venue',  edit_admin_venue_url(@venue), icon: 'icon-arrow-left'
+  %li= button_link_to 'Add New Venue', new_admin_venue_url, icon: 'icon-plus'
+- unless @venue.pictures.any?
+  .no-objects-found
+    = "No Images"
+- else
+  %table.index.sortable{"data-hook" => "images_table", "data-sortable-link" =>'#'}
+    %colgroup
+      %col{:style => "width: 5%"}
+      %col{:style => "width: 30%"}
+      %col{:style => "width: 45%"}
+    %thead
+      %tr
+        %th{:colspan => "2"}= Spree.t(:thumbnail)
+        %th.actions
+    %tbody
+      - @venue.pictures.each do |image|
+        %tr{class: cycle('odd', 'even'), id: spree_dom_id(image)}
+          %td.no-border
+            %span.handle
+          %td
+            = link_to image_tag(image.image_url(:thumb)), image.image_url
+          %td.actions
+            = link_to_with_icon 'icon-trash', 'Delete', remove_photo_admin_venue_path(@venue,picture_id: image.id), method: :delete,confirm: 'Are you sure?'
+#images
+  = form_for Picture.new,url: upload_photos_admin_venue_url(@venue), :html => { :multipart => true } do |f|
+    %fieldset
+      %legend{:align => "center"} Upload New Image
+      %div
+        .nine.columns.alpha
+          .field
+            %label{:for => "image_Filename"} Filename
+            %br/
+            = f.file_field :image
+      .clear
+      .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
+        %button.icon-refresh.button{:name => "button", :type => "submit"} Update
+        %span.or or
+        %a#cancel_link.button.icon_link.with-tip.icon-remove{:href => "#{edit_admin_venue_url(@venue)}"}
+          %span.text Cancel

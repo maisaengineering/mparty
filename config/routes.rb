@@ -6,6 +6,8 @@ Invitation::Application.routes.draw do
       resources :venues do
         member do
           get 'add_photos'
+          post 'upload_photos'
+          delete 'remove_photo'
         end
       end
     end

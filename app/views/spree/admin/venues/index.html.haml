@@ -1,1 +1,27 @@
+- content_for :page_title do
+  = 'Listing Venues'
+- content_for :page_actions do
+  - if can?(:create,Venue)
+    %li#new_product_link
+      = button_link_to 'New venue', new_admin_venue_path, { icon: 'icon-plus', id:'admin_new_product' }
 
+- unless @venues.blank?
+  %table.index
+    %colgroup
+      %col{:style => "width: 25%"}
+      %col{:style => "width: 45%"}
+      %col{:style => "width: 30%"}
+    %thead
+      %tr
+        %th{:colspan => "2"}= 'Name'
+        %th.actions
+    %tbody
+      - @venues.each do |venue|
+        %tr{class: cycle('odd', 'even'), id: spree_dom_id(venue)}
+          %td.no-border
+            - if venue.cover_photo
+              = link_to image_tag(venue.cover_photo.image_url(:thumb)), venue.cover_photo.image_url
+          %td
+            =  venue.name
+          %td.actions
+            -#= link_to_with_icon 'icon-trash', 'Delete', remove_photo_admin_venue_path(@venue,picture_id: image.id), method: :delete,confirm: 'Are you sure?'
