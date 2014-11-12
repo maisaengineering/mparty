@@ -14,7 +14,7 @@ Invitation::Application.routes.draw do
   end
 
   # resources :templates
-  # resources :venues
+  resources :venues,only: [:index,:show]
   resources :pictures
 
 
