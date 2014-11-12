@@ -24,4 +24,4 @@
           %td
             =  venue.name
           %td.actions
-            -#= link_to_with_icon 'icon-trash', 'Delete', remove_photo_admin_venue_path(@venue,picture_id: image.id), method: :delete,confirm: 'Are you sure?'
+            = link_to '',edit_admin_venue_path(venue) ,class: 'edit icon_link with-tip icon-edit no-text'
