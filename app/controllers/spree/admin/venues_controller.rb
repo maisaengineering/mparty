@@ -15,7 +15,7 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
   def create
     @venue = spree_current_user.venues.build(venue_params)
     if @venue.save
-      redirect_to admin_add_photos_venue_url(@venue), notice: 'Venue was successfully created.Upload photos'
+      redirect_to add_photos_admin_venue_url(@venue), notice: 'Venue was successfully created.Upload photos'
       # render 'add_photos', notice: 'Venue was successfully created now add venue photos'
     else
       render 'new'
