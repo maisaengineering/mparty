@@ -92,6 +92,7 @@ Invitation::Application.routes.draw do
   resources :events do #, only: [:new, :create, :show, :index]
     collection do
       get 'update_designs'
+      post 'select_venue'
     end
     # resources :comments
     resources :pictures
