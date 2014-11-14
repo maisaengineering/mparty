@@ -14,8 +14,9 @@
     <% if try_spree_current_user %>
         <div class="wlist_check">
           &nbsp; &nbsp;
-          <%= check_box_tag 'save_user_address', '1', try_spree_current_user.respond_to?(:persist_order_address) %>
-          <%= label_tag :save_user_address, Spree.t(:save_my_address) %>
+          <%#= check_box_tag 'save_user_address', '1', try_spree_current_user.respond_to?(:persist_order_address) %>
+          <%= hidden_field_tag 'save_user_address', '1' %>
+          <%#= label_tag :save_user_address, Spree.t(:save_my_address) %>
         </div>
     <% end %>
   </div>
