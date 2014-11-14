@@ -20,10 +20,11 @@
             </div>
         <% end %>
         <%= render @order.state, :form => form %>
-
-        <% if @order.state != 'confirm' %>
-            <hr>
-            <%= render :partial => 'summary', :locals => { :order => @order } %>
+        <% if (@order.state != 'confirm')   %>
+            <% unless @order.state == 'address'  %>
+                <hr>
+                <%= render :partial => 'summary', :locals => { :order => @order } %>
+            <% end %>
         <% end %>
     <% end %>
   </div>
