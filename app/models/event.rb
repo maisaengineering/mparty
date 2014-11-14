@@ -5,6 +5,9 @@ class Event < ActiveRecord::Base
   belongs_to :owner, foreign_key: "user_id", class_name: "Spree::User" # event created user
   belongs_to :ship_address, foreign_key: "shipping_address_id", class_name: "Spree::Address", validate: true
   belongs_to :template, foreign_key: "template_id", class_name: "Spree::Admin::Template"
+  belongs_to :venue, foreign_key: "venue_id", class_name: "Venue"
+
+
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
@@ -17,7 +20,8 @@ class Event < ActiveRecord::Base
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
-  validates :name, :location, :starts_at, presence: true
+  validates :name, :starts_at, presence: true
+  validates_presence_of :location, :unless => :venue_id?
 
   def attendees(status)
     if status.eql?('pending')

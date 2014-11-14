@@ -37,9 +37,17 @@
           %label Host Phone*
           = f.text_field :host_phone, class: 'form-control',placeholder: 'Host Phone',required: true
       .row
-        .form_ce_loc
+        .form_ce_left
           %label Location*
-          = f.text_field :location, class: 'form-control form_ce_loc_ctrl',placeholder: 'Location',required: true
+          = f.text_field :location, class: 'form-control',placeholder: 'Location' ,disabled: @venue ? true : false
+        .form_ce_right
+          %label
+            - if @venue
+              = @venue.name
+              = link_to '(change)',venues_path(from_event: true)
+              = f.hidden_field :venue_id ,value: @venue.id
+            - else
+              = link_to 'Choose Venue',venues_path(from_event: true)
       .row
         .form_ce_loc
           %label Description*

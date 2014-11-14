@@ -16,6 +16,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new
     @imageable = Event.new
     #@pictures = @imageable.pictures
@@ -198,7 +199,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:name, :host_name,
+    params.require(:event).permit(:name, :host_name,:venue_id,
                                   :host_phone, :location, :description, :starts_at,
                                   :start_time, :ends_at, :end_time, :is_private,
                                   :image, :template_id, :design_id, pictures_attributes: [:image])

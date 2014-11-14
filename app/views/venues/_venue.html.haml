@@ -6,3 +6,4 @@
       %p= venue.description.html_safe
       %p
         = link_to 'View More','#',class: 'btn btn-primary'
+        = link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),class: 'btn btn-primary') if params[:from_event].present?
