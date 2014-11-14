@@ -17,10 +17,7 @@ class EventsController < ApplicationController
 
   def new
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
-    @event = current_spree_user.events.new
-    @imageable = Event.new
-    #@pictures = @imageable.pictures
-    @picture = Picture.new
+    @event = current_spree_user.events.new(session[:event_data])
     @event_templates = Spree::Admin::Template.select(:id,:name)
   end
 
@@ -28,10 +25,17 @@ class EventsController < ApplicationController
     @designs = Spree::Admin::Template.find(params[:template_id]).designs
   end
 
+  def  select_venue
+    # hold user entered data before moving to venue selection
+    session[:event_data] = event_params
+    render nothing: true
+  end
+
   def create
     @event = current_spree_user.events.new(event_params)
     @event_templates = Spree::Admin::Template.select(:id,:name)
     if @event.save
+      session.delete(:event_data) if session[:event_data]
       if params[:commit] == "Create"
         redirect_to events_path
       else

@@ -47,7 +47,7 @@
               = link_to '(change)',venues_path(from_event: true)
               = f.hidden_field :venue_id ,value: @venue.id
             - else
-              = link_to 'Choose Venue',venues_path(from_event: true)
+              = link_to 'Choose Venue','#',id: 'choose_venue'
       .row
         .form_ce_loc
           %label Description*
@@ -121,7 +121,22 @@
 
   $('.datetimepicker').datetimepicker();
 
+  $('#choose_venue').click(function (e){
+      e.preventDefault();
+       var sData = $('#new_event').serialize();
+        $.ajax({
+            type: "POST",
+            url: "/events/select_venue",
+            data: sData,
+            success: function(res) {
+              window.location = '/venues?from_event=true'
+            }
+        });
 
+  })
   // Location Autocomplete
   var input = document.getElementById("event_location");
   var autocomplete = new google.maps.places.Autocomplete(input);
+
+
+
