@@ -15,11 +15,11 @@
             <div class="row">
               <div class="form_ce_left">
                 <label>First Name*</label>
-                <%= ship_form.text_field :firstname, class: 'form-control' ,place_holder: 'First Name' ,required: true %>
+                <%= ship_form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,place_holder: 'First Name' ,required: true %>
               </div>
               <div class="form_ce_right">
                 <label>Last Name*</label>
-                <%= ship_form.text_field :lastname, class: 'form-control' ,place_holder: 'Last Name' ,required: true %>
+                <%= ship_form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,place_holder: 'Last Name' ,required: true %>
               </div>
             </div>
             <div class="row">
