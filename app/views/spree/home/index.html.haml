@@ -1,5 +1,123 @@
-.container-fluide
-  .main_wrapper
-    = image_tag 'landing.jpg',width: "100%"
-    .btn_createvent
-      = link_to "Create Event", '/events/new'
+.container-fluid.banner_padding
+  = image_tag('banner.jpg' ,width: '100%')
+  .container
+    .create_event
+      .btn_orange
+        %a{"data-dismiss" => "modal", "data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} Create Event
+      .title_trending
+        .title_bg
+        .title_name Trending Events
+    .row
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_4.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_1.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_2.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_3.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+    .row.event_margin
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_1.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_2.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_3.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad
+      .col-xs-6.col-md-3
+        .event_img
+          %a.thumbnail{:href => "#"}
+            = image_tag('event_4.jpg')
+        .event_name
+          %p MAISA EVENT
+        .event_details
+          .event_date
+            %span.glyphicon.glyphicon-calendar>
+            24/11/14
+            .pull-right 04.30 PM
+          .event_place
+            %span.glyphicon.glyphicon-map-marker>
+            Hyderabad

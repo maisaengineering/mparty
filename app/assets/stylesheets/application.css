@@ -9,10 +9,9 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require bootstrap.min
+ *= require bootstrap
+ *= require jquery.e-calendar
  *= require styles
- *= require jquery.datetimepicker
- *= require js-image-slider
  */
 
 
