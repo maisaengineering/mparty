@@ -1,36 +1,3 @@
--#%nav.navbar.navbar-default{:role => "navigation"}
-  .container-fluid
-    / Brand and toggle get grouped for better mobile display
-    .navbar-header
-      %button.navbar-toggle.collapsed{"data-target" => "#bs-example-navbar-collapse-1", "data-toggle" => "collapse", :type => "button"}
-        %span.sr-only Toggle navigation
-        %span.icon-bar
-        %span.icon-bar
-        %span.icon-bar
-      %a.navbar-brand{:href => "index.html"} Mparty
-    / Collect the nav links, forms, and other content for toggling
-    #bs-example-navbar-collapse-1.collapse.navbar-collapse
-      %ul.nav.navbar-nav.navbar-right
-        %li
-          %a{:href => "index.html"} What's Up?
-        %li
-          %a{:href => "/events"} Events
-        %li
-          %a{:href => "/venues"} Venues
-        %li
-          %a{:href => "#contact"} Organizers
-        %li
-          %a{:href => "#contact"} My Calendar
-        %li
-          %a{:href => "#contact"} |
-        - if signed_in?
-          %li= link_to 'My Account', '/account'
-          %li= link_to "Log Out", '/logout'
-        - else
-          %li= link_to "Signup", '/signup'
-          %li= link_to "Login", '/login'
-
-
 %nav.navbar.navbar-default{:role => "navigation"}
   .container
     / Brand and toggle get grouped for better mobile display
@@ -40,15 +7,27 @@
         %span.icon-bar
         %span.icon-bar
         %span.icon-bar
-      %a.navbar-brand{:href => "#"}
+      %a.navbar-brand{:href => "#{root_url}"}
         = image_tag('logo.png',alt: 'mparty')
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.top-nav.nav.navbar-nav.navbar-right
-        %li
-          %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} SignUp
-        %li
-          %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} LogIn
+        - if signed_in?
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              #{current_spree_user.full_name}
+              =# image_tag('bg_pic.jpg',class: 'img-rounded bg_img')
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              %li= link_to 'My Account', '/account'
+              %li.divider
+              %li= link_to "Log Out", '/logout'
+        - else
+          %li
+            %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} SignUp
+          %li
+            %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} LogIn
+
 
 .navbar-collapse.navbar-default_2.collapse
   .container
@@ -73,82 +52,9 @@
         %a{:href => "mycalendar.html"}
           %span.glyphicon.glyphicon-calendar>
           \  My Calendar
+- unless signed_in?
+  = render 'layouts/shared/login_modal'
+  = render 'layouts/shared/signup_modal'
+  = render 'layouts/shared/forgot_pswd_modal'
 
-  / login modal box
-#login_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      %a{:href => "#"}
-        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      .modal-header
-        %a{:href => "#"} 
-          = image_tag('fb_icon.jpg',alt: 'fb login',class: 'pull-right')
-        %h3.modal-title Login
-      .modal-body
-        %form.form-signin{:role => "form"}
-          %label
-          %input.form-control{:autofocus => "", :placeholder => "Email address*", :required => "", :type => "email"}/
-          %label
-          %input.form-control{:placeholder => "Password*", :required => "", :type => "password"}/
-          %label
-          %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Log in
-          %label
-          .row.no_margin
-            %a{"data-dismiss" => "modal", "data-target" => "#forgot_password_modal", "data-toggle" => "modal", :href => "#"} Forgot Your Password?
-            %a.pull-right{"data-dismiss" => "modal", "data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} REGISTER
-      .modal-footer
-
-  / SIgnUP modal box
-#signup_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog.modal2
-    .modal-content
-      %a{:href => ""}
-        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      .modal-header
-        %h3#myModalLabel.modal-title Create New Account
-      .modal-body
-        %form.form-signin{:role => "form"}
-          .row
-            .col-md-6
-              %input.form-control{:autofocus => "", :placeholder => "First Name*", :required => "", :type => "text"}/
-            .col-md-6
-              %input.form-control{:placeholder => "Last Name*", :required => "", :type => "text"}/
-          / <span class="err"> error occured!</span>
-          %br/
-          .row
-            .col-md-12
-              %input.form-control{:placeholder => "Email Address*", :required => "", :type => "email"}/
-          %br/
-          .row
-            .col-md-6
-              %input.form-control{:autofocus => "", :placeholder => "Password*", :required => "", :type => "password"}/
-            .col-md-6
-              %input.form-control{:placeholder => "Password Confirmation*", :required => "", :type => "password"}/
-          %br/
-          .row
-            .col-md-12
-              %input.form-control{:placeholder => "Phone Number*", :required => "", :type => "tel"}/
-          %br/
-          .row
-            .col-md-3
-            .col-md-6
-              %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} REGISTER
-            .col-md-3
-      .modal-footer
-
-  / Forgot password modal box
-#forgot_password_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      %a{:href => "#"}
-        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      .modal-header
-        %h3.modal-title Forgot Password?
-      .modal-body
-        %form.form-signin{:role => "form"}
-          %label
-          %input.form-control{:autofocus => "", :placeholder => "Enter Your Email Id*", :required => "", :type => "email"}/
-          %label
-          %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SEND
-      .modal-footer
 

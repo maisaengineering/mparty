@@ -1,0 +1,22 @@
+#login_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      %a{:href => "#"}
+        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
+      .modal-header
+        - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+          = link_to image_tag('fb_icon.png',class: 'pull-right'),spree.spree_user_omniauth_authorize_url(provider: 'facebook') 
+        %h3.modal-title Login
+      .modal-body
+        = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
+          %label
+          = f.email_field :email,placeholder: 'Email address*',class: 'form-control', required: true
+          %label
+          = f.password_field :password,placeholder: 'Password*',class: 'form-control', required: true
+          %label
+          %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Log in
+          %label
+          .row.no_margin
+            %a{"data-dismiss" => "modal", "data-target" => "#forgot_password_modal", "data-toggle" => "modal", :href => "#"} Forgot Your Password?
+            %a.pull-right{"data-dismiss" => "modal", "data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} REGISTER
+      .modal-footer

@@ -1,0 +1,36 @@
+#signup_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal2
+    .modal-content
+      %a{:href => ""}
+        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
+      .modal-header
+        %h3#myModalLabel.modal-title Create New Account
+      .modal-body
+        = form_for Spree::User.new, :as => :spree_user, :url => spree.registration_path(Spree::User.new) ,html: {class: 'form-signin'} do |f|
+          .row
+            .col-md-6
+              = f.text_field :first_name ,placeholder: 'First Name*' ,class: 'form-control', required: true,autofocus: true
+            .col-md-6
+              = f.text_field :last_name ,placeholder: 'Last Name*' ,class: 'form-control', required: true
+          / <span class="err"> error occured!</span>
+          %br/
+          .row
+            .col-md-12
+              = f.email_field :email ,placeholder: 'Email Address*' ,class: 'form-control', required: true
+          %br/
+          .row
+            .col-md-6
+              = f.password_field :password ,placeholder: 'Password*' ,class: 'form-control', required: true,:autofocus => ""
+            .col-md-6
+              = f.password_field :password_confirmation ,placeholder: 'Password Confirmation*' ,class: 'form-control', required: true
+          %br/
+          .row
+            .col-md-12
+              = f.text_field :phone ,placeholder: 'Phone Number*' ,class: 'form-control', required: true
+          %br/
+          .row
+            .col-md-3
+            .col-md-6
+              %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} REGISTER
+            .col-md-3
+      .modal-footer

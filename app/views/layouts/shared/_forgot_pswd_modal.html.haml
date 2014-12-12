@@ -1,0 +1,14 @@
+#forgot_password_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      %a{:href => "#"}
+        %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
+      .modal-header
+        %h3.modal-title Forgot Password?
+      .modal-body
+        %form.form-signin{:role => "form"}
+          %label
+          %input.form-control{:autofocus => "", :placeholder => "Enter Your Email Id*", :required => "", :type => "email"}/
+          %label
+          %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SEND
+      .modal-footer
