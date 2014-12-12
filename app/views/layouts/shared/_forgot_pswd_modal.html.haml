@@ -7,8 +7,9 @@
         %h3.modal-title Forgot Password?
       .modal-body
         %form.form-signin{:role => "form"}
-          %label
-          %input.form-control{:autofocus => "", :placeholder => "Enter Your Email Id*", :required => "", :type => "email"}/
+        = form_for Spree::User.new, :as => :spree_user, :url => spree.reset_password_path,html:{class: 'form-signin'} do |f|
+          %label 
+          = f.email_field :email,value: params[:spree_user].try(:[], :email) ,class: 'form-control' ,placeholder: 'Enter Your Email Id*' ,required: true,autofocus: true
           %label
           %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SEND
       .modal-footer
