@@ -1,30 +1,25 @@
-.container-fluid
-  %br/
-  %br/
-  %h1{style: "text-align: center;font-weight: bold;"} Log in to your account
-  %br/
-
-  .login
-    = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {style: 'margin:45px;'})  do |f|
-      - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
-        .form-group
-          .fblogin
-            = link_to image_tag('fblogin.png',class: 'img-rounded'),spree.spree_user_omniauth_authorize_url(provider: 'facebook')
-            %br/
-            %br/
-            or
-
-      .form-group
-        %label Email address
-        = f.email_field :email,placeholder: 'Enter email',id: 'exampleInputEmail1',class: 'form-control', required: true
-      %br/
-      .form-group
-        %label Password
-        = f.password_field :password,placeholder: 'Password',id: 'exampleInputPassword1',class: 'form-control', required: true
-      .checkbox
-        %label
-          = link_to 'Forgot Password ?',spree.recover_password_path
-      %br/
-      .btn_c.btn_c-create.viaTurbo{"data-url" => spree.signup_path}
-        %a{:href => "#"} Create New
-      %button.btn_l.btn_l-login{:on => "", :type => "submit"} Login
+.container-fluid.banner_padding
+  / inner container section
+  .container
+    .row
+      .col-md-12
+        .title_name.t_left Login
+    .row
+      = render :partial => 'spree/shared/error_messages', :locals => { :target => @user }
+      = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
+        .col-md-3
+          .row
+            .col-md-12
+              %label
+              = f.email_field :email,placeholder: 'Email Address*',class: 'form-control', required: true,autofocus: true
+            .col-md-12
+              %label
+              = f.password_field :password,placeholder: 'Password',class: 'form-control', required: true
+          %br
+            .row
+              .col-md-12
+                = f.submit "Login", class: "btn btn-primary btn-block"
+              .col-md-12.ptop
+                = link_to "Forgot your password?","#"
+                = link_to "Register","#"
+/ end inner container section
