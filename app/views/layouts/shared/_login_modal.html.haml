@@ -4,8 +4,8 @@
       %a{:href => "#"}
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
       .modal-header
-        - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
-          = link_to image_tag('fb_icon.png',class: 'pull-right'),spree.spree_user_omniauth_authorize_url(provider: 'facebook') 
+        -#- if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+        = link_to image_tag('fb_icon.jpg',class: 'pull-right'),spree.spree_user_omniauth_authorize_url(provider: 'facebook')
         %h3.modal-title Login
       .modal-body
         = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
