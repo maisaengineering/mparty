@@ -41,7 +41,7 @@
         %span.icon-bar
         %span.icon-bar
       %a.navbar-brand{:href => "#"}
-        = image_tag('logo.png',class:  'logo')
+        = image_tag('logo.png',alt: 'mparty')
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.top-nav.nav.navbar-nav.navbar-right
@@ -49,94 +49,85 @@
           %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} SignUp
         %li
           %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} LogIn
-  / /.navbar-collapse
-  / /.container-fluid
+
 .navbar-collapse.navbar-default_2.collapse
   .container
     %ul.main-nav.nav.navbar-nav
-      %li
+      %li.active
         %a{:href => "index.html"}
           %span.glyphicon.glyphicon-ok>
-          \&nbsp Whats Up?
+          \  Whats Up?
       %li
         %a{:href => "#"}
           %span.glyphicon.glyphicon-star>
-          \&nbsp Events
+          \  Events
       %li
         %a{:href => "venues.html"}
           %span.glyphicon.glyphicon-map-marker>
-          \&nbsp Venues
+          \  Venues
       %li
         %a{:href => "organizers.html"}
           %span.glyphicon.glyphicon-list-alt>
-          \&nbsp Organizers
+          \  Organizers
       %li
         %a{:href => "mycalendar.html"}
           %span.glyphicon.glyphicon-calendar>
-          \&nbsp My Calendar
+          \  My Calendar
+
   / login modal box
 #login_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
-      %a{:href => ""}
-      %a{:href => "/"}
+      %a{:href => "#"}
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      %br/
       .modal-header
-        %a{:href => "#"}
-          = image_tag('fb_icon.jpg')
-        %h3#myModalLabel.modal-title Login
+        %a{:href => "#"} 
+          = image_tag('fb_icon.jpg',alt: 'fb login',class: 'pull-right')
+        %h3.modal-title Login
       .modal-body
         %form.form-signin{:role => "form"}
-          %label Email Id
-          %input#inputEmail.form-control{:autofocus => "", :placeholder => "Email address", :required => "", :type => "email"}/
-          %br/
-          %label Password
-          %input#inputPassword.form-control{:placeholder => "Password", :required => "", :type => "password"}/
-          %br/
+          %label
+          %input.form-control{:autofocus => "", :placeholder => "Email address*", :required => "", :type => "email"}/
+          %label
+          %input.form-control{:placeholder => "Password*", :required => "", :type => "password"}/
+          %label
           %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Log in
-          %br/
-          %a{"data-dismiss" => "modal", "data-target" => "#forgot_password_modal", "data-toggle" => "modal", :href => "#"} Forgot Your Password?
-          %br/
-          %a.pull-right{"data-dismiss" => "modal", "data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} REGISTER
+          %label
+          .row.no_margin
+            %a{"data-dismiss" => "modal", "data-target" => "#forgot_password_modal", "data-toggle" => "modal", :href => "#"} Forgot Your Password?
+            %a.pull-right{"data-dismiss" => "modal", "data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} REGISTER
       .modal-footer
+
   / SIgnUP modal box
 #signup_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal2
     .modal-content
       %a{:href => ""}
-      %a{:href => "/"}
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      %br/
       .modal-header
         %h3#myModalLabel.modal-title Create New Account
       .modal-body
         %form.form-signin{:role => "form"}
           .row
             .col-md-6
-              %label First Name*
-              %input#inputEmail.form-control{:autofocus => "", :placeholder => "", :required => "", :type => "text"}/
+              %input.form-control{:autofocus => "", :placeholder => "First Name*", :required => "", :type => "text"}/
             .col-md-6
-              %label Last Name*
-              %input#inputPassword.form-control{:placeholder => "", :required => "", :type => "text"}/
+              %input.form-control{:placeholder => "Last Name*", :required => "", :type => "text"}/
+          / <span class="err"> error occured!</span>
           %br/
           .row
             .col-md-12
-              %label Email Address*
-              %input#inputPassword.form-control{:placeholder => "", :required => "", :type => "email"}/
+              %input.form-control{:placeholder => "Email Address*", :required => "", :type => "email"}/
           %br/
           .row
             .col-md-6
-              %label Password*
-              %input#inputEmail.form-control{:autofocus => "", :placeholder => "", :required => "", :type => "password"}/
+              %input.form-control{:autofocus => "", :placeholder => "Password*", :required => "", :type => "password"}/
             .col-md-6
-              %label Password Confirmation*
-              %input#inputPassword.form-control{:placeholder => "", :required => "", :type => "password"}/
+              %input.form-control{:placeholder => "Password Confirmation*", :required => "", :type => "password"}/
           %br/
           .row
             .col-md-12
-              %label Email Address*
-              %input#inputPassword.form-control{:placeholder => "", :required => "", :type => "email"}/
+              %input.form-control{:placeholder => "Phone Number*", :required => "", :type => "tel"}/
           %br/
           .row
             .col-md-3
@@ -144,22 +135,20 @@
               %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} REGISTER
             .col-md-3
       .modal-footer
+
   / Forgot password modal box
 #forgot_password_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog
     .modal-content
-      %a{:href => ""}
-      %a{:href => "/"}
+      %a{:href => "#"}
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
-      %br/
       .modal-header
-        %h3#myModalLabel.modal-title Forgot Password?
+        %h3.modal-title Forgot Password?
       .modal-body
         %form.form-signin{:role => "form"}
-          %label Enter Your Email Id
-          %input#inputEmail.form-control{:autofocus => "", :placeholder => "Email address", :required => "", :type => "email"}/
-          %br/
+          %label
+          %input.form-control{:autofocus => "", :placeholder => "Enter Your Email Id*", :required => "", :type => "email"}/
+          %label
           %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SEND
       .modal-footer
-        / modal box end
 
