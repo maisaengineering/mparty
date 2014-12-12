@@ -72,7 +72,7 @@ body{
 }
 .btn_orange a{
   text-decoration:none;
-  color:#fff;
+  color:#fff !important;
   font-size:20px;
 }
 .title_trending{
@@ -211,6 +211,9 @@ label{
   background-color:#ef5323;
   border-color:#ef5323;
 }
+.btn-primary{
+  color:#FFFFFF !important;
+}
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.focus,
@@ -232,6 +235,12 @@ label{
   border-radius:0px;
   color:#000000;
 }
+.modal_wishlist_bg .form-control {
+  background-color:#FFFFFF;
+  border:1px solid #bbbbbb;
+  border-radius:0px;
+  color:#000000;}
+
 .reset_modal{
   width:324px;
   margin:0 auto;
@@ -333,10 +342,10 @@ label{
   display:none;
 }
 #upload_photos{
-  /*display:none;*/
+  display:none;
 }
 #invitation_without_wishlist{
-  display:none;
+  display:block;
 }
 #invitation_with_wishlist{
   display:none;
@@ -985,7 +994,7 @@ label{
 }
 .join_btn a{
   text-decoration:none;
-  color:#fff;
+  color:#fff !important;
 }
 .addguest_btn{
   width: 70px;
@@ -1066,6 +1075,7 @@ label{
   color:#D70003;
   font-size: 17px;
   font-weight: bold;
+  cursor:pointer;
 }
 
 
@@ -1112,6 +1122,13 @@ label{
   outline:none;
 }
 
+/*below css for autocomplete*/
+.autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 10px 5px; font-size: 14px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }
+/**************************/
+
 /*v1_login_register (12-12)*/
 .t_left {
   text-align:left;
@@ -1140,6 +1157,11 @@ label{
 .container-fluid a {
   color:#337ab7;
 }
+.mtop40 {
+  margin-top:40px;
+}
+
+
 
 
 
