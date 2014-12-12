@@ -57,7 +57,7 @@ body{
   margin-top:5px;
 }
 .event_margin{
-  margin-top:40px;
+  margin-top:20px;
 }
 .btn_orange{
   width:294px;
@@ -220,11 +220,17 @@ label{
   background-color: #ef5323;
   border-color: #ef5323;
 }
-.form-control{
+.modal-body .form-control{
   background-color:transparent;
   border:1px solid #fff;
   border-radius:0px;
   color:#ffffff;
+}
+.form-control{
+  background-color:#FFFFFF;
+  border:1px solid #bbbbbb;
+  border-radius:0px;
+  color:#000000;
 }
 .reset_modal{
   width:324px;
@@ -324,10 +330,10 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display: none;
+  display:none;
 }
 #upload_photos{
-  display:none;
+  /*display:none;*/
 }
 #invitation_without_wishlist{
   display:none;
@@ -819,7 +825,7 @@ label{
   display:none;
 }
 #place_order{
-   display: none;
+  display: none;
 }
 .pay_now_btn{
   background: #8bd92f;
@@ -1049,12 +1055,91 @@ label{
   color:#ef5323;
   font-size:13px;
 }
+.remove_btn{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-radius: 7.5px;
+  right: -2px;
+  top: -11px;
+  text-align: center;
+  color:#D70003;
+  font-size: 17px;
+  font-weight: bold;
+}
 
 
+/*v2 (12-12)*/
+#tags {}
+.tags_wrap {
+  float:left;
+  border:1px solid #ccc;
+  padding:5px;
+  font-family:Arial;
+  min-height:240px;
+  overflow:hidden;
+  width:100%;
+  margin-top:20px;
+}
+#tags span.tag{
+  cursor:pointer;
+  display:block;
+  float:left;
+  color:#fff;
+  background-color:#8bd92f;
+  padding:5px;
+  padding-right:25px;
+  margin:4px;
+}
+#tags span.tag:hover{
+  opacity:0.7;
+}
+#tags span.tag:after{
+  position:absolute;
+  content:"x";
+  border:1px solid;
+  padding:0 4px;
+  margin:3px 0 10px 5px;
+  font-size:10px;
+}
+#tags input{
+  background:#eee;
+  border:0;
+  margin:4px;
+  padding:7px;
+  width:auto;
+  background-color:transparent;
+  outline:none;
+}
 
+/*v1_login_register (12-12)*/
+.t_left {
+  text-align:left;
+}
+.errorExplanation {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+.errorExplanation h2 {
+  font-size:18px;
+  margin-top:5px;
+  margin-bottom:5px}
+.errorExplanation ul {
+}
+.errorExplanation ul li {
+}
 
-
-
+.ptop {
+  margin-top:10px;
+}
+.container-fluid a {
+  color:#337ab7;
+}
 
 
 
@@ -1113,18 +1198,16 @@ and (max-device-width : 1024px) {
 (min-device-width : 320px)
 and (max-device-width : 480px) {
   .whatsup_search {
-    top: 40px;
+    top:40px;
   }
-  .whatsup_src_block {
-    width: 280px;
-  }
-  .event_search {
-    width: 280px;
+  .whatsup_src_block { width:280px;}
+  .event_search { width: 280px;
   }
   .whatsup_src_icon {
-    left: 255px;
+    left:255px;
   }
 }
+
 @media screen and (max-device-width : 479px)
 {
   .whatsup_search {
