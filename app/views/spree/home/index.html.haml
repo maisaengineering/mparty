@@ -12,7 +12,10 @@
     .row
       .create_event
         .btn_orange
-          %a{"data-dismiss" => "modal", "data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} Create Event
+          - if spree_current_user
+            = link_to 'Create Event','/events/new'
+          - else
+            %a{"data-dismiss" => "modal", "data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} Create Event
       .title_name Trending Events
     .row
       .col-xs-12.col-sm-6.col-md-3
