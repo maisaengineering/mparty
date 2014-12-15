@@ -1,0 +1,108 @@
+<div class="col-md-6 event_left_block">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_for(@event, :html => {:multipart => true}) do |f| %>
+          <div class="col-md-6">
+            <input type="text" id="inputEmail" class="form-control" placeholder="Event Name*" required="" autofocus>
+          </div>
+          <div class="col-md-6">
+            <select class="form-control" placeholder="Password" required>
+              <option>Event Type*</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <input type="text" class="form-control" placeholder="Host Name*" required="" autofocus>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <input type="tel" class="form-control" placeholder="Host Phone*" required="">
+          </div>
+          <div id="datepairExample">
+            <div class="col-md-3">
+              <label></label>
+              <input type="text" class="form-control date start" placeholder="Start Date*"/>
+            </div>
+            <div class="col-md-3">
+              <label></label>
+              <input type="text" class="form-control time start" placeholder="Start Time*"/>
+            </div>
+            <div class="col-md-3">
+              <label></label>
+              <input type="text" class="form-control date end" placeholder="End Date*"/>
+            </div>
+            <div class="col-md-3">
+              <label></label>
+              <input type="text" class="form-control time end" placeholder="End Time*" />
+            </div>
+          </div>
+          <div class="col-md-12">
+            <label></label>
+            <select id="dynamic_select" class="form-control"  required>
+              <option value="">Venue*</option>
+              <option value="venues.html">Choose</option>
+              <option value="">Custom</option>
+            </select>
+          </div>
+          <div class="col-md-12">
+            <label></label>
+            <textarea class="form-control" placeholder="Address*" rows="1"></textarea>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <input type="text"  class="form-control" placeholder="City*" required="" autofocus>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <select class="form-control"  required>
+              <option>State*</option>
+              <option>Telangana</option>
+              <option>AndhraPradesh</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <select class="form-control"  required>
+              <option>Country*</option>
+              <option>India</option>
+              <option>USA</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label></label>
+            <input type="text"  class="form-control" placeholder="Zipcode*" required="">
+          </div>
+          <div class="col-md-12">
+            <label></label>
+            <textarea class="form-control" placeholder="Description*" rows="2"></textarea>
+          </div>
+          <div class="col-md-12">
+            <label>
+              <input type="checkbox">
+              Is Private</label>
+          </div>
+          <div class="col-md-12">
+            <label></label>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+              CREATE
+            </button>
+          </div>
+      <%= end %>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $('#datepairExample .time').timepicker({
+        'showDuration': true,
+        'timeFormat': 'g:ia'
+    });
+
+    $('#datepairExample .date').datepicker({
+        'format': 'm/d/yyyy',
+        'autoclose': true
+    });
+
+    // $('#datepairExample').datepair();
+</script>

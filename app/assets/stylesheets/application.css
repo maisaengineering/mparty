@@ -10,8 +10,10 @@
  *
  *= require_self
  *= require bootstrap
+ *= require bootstrap-datepicker
  *= require jquery.e-calendar
  *= require styles
+
  */
 
 

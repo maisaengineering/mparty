@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require jcarousel.ajax
+//= require jcarousel.min
+//= require bootstrap-datepicker
+//= require jquery.timepicker
 //#= require jquery-fileupload/basic
 //#= require jquery-fileupload/vendor/tmpl
 //= require cart
