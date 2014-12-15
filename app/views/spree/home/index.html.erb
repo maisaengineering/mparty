@@ -1,0 +1,58 @@
+<div class="container-fluid banner_padding">
+  <!-- banner image -->
+  <div class="position_rel">
+    <div>
+      <%= image_tag('banner.jpg' ,class: 'img-responsive') %>
+    </div>
+    <div class="whatsup_src_block">
+      <div class="form-group whatsup_search">
+        <%= form_tag("" ,:method => 'get') do%>
+            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events' %>
+        <%end  %>
+        <span class="glyphicon glyphicon-search pull-left whatsup_src_icon"></span>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="create_event">
+        <div class="btn_orange">
+          <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="#">Create Event</a>
+        </div>
+      </div>
+      <div class="title_name">Trending Events</div>
+    </div>
+
+
+    <div class="row">
+      <% @trending_events.each do |p| %>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <div class=" row nomargin event_margin">
+            <div class="event_img">
+              <%=link_to(image_tag("event_2.jpg"), "", class: "thumbnail") %>
+              <div class="event_name">
+                <p><%= p.name.titleize%></p>
+              </div>
+              <div class="event_details">
+                <div class="event_date"><span class="glyphicon glyphicon-calendar"></span><%= p.starts_at.strftime("%d/%m/%y")%>
+                  <div class="pull-right"><%=p.starts_at.strftime("%I:%M %p")%></div>
+                </div>
+                <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
+                  <% if p.location.length > 25 %>
+                  <%= p.location.camelcase.first(20)%>...
+                  <% else %>
+                      <%= p.location.camelcase%>
+                  <% end %>
+                  <%= %>
+                  <div class="pull-right join_btn" > <%= link_to "Join", "" %></div>
+                </div>
+              </div>
+            </div>
+              </div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
