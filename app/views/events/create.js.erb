@@ -1,0 +1,13 @@
+<% if @event.save %>
+$("#create_form").css("display", "none");
+$("#upload_photos").css("display", "block");
+$('#create_event_tab').removeClass('event_tab_active').addClass('event_tab')
+$('#upload_photos_tab').removeClass('event_tab').addClass('event_tab_active')
+
+<% else %>
+<%
+  errors = ''
+  @event.errors.full_messages.each {|m| errors << "#{m} \n"}
+%>
+alert("<%= j(errors.html_safe) %>")
+<% end %>

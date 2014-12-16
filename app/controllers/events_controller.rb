@@ -16,6 +16,7 @@ class EventsController < ApplicationController
   end
 
   def new
+    session.delete(:event_data)
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new(session[:event_data])
     @event_templates = Spree::Admin::Template.select(:id,:name)
@@ -34,16 +35,17 @@ class EventsController < ApplicationController
   def create
     @event = current_spree_user.events.new(event_params)
     @event_templates = Spree::Admin::Template.select(:id,:name)
-    if @event.save
-      session.delete(:event_data) if session[:event_data]
-      if params[:commit] == "Create"
-        redirect_to events_path
-      else
-        render 'add_guests'
-      end
-    else
-      render 'new'
-    end
+
+    # if @event.save
+    #   session.delete(:event_data) if session[:event_data]
+    #   if params[:commit] == "Create"
+    #     redirect_to events_path
+    #   else
+    #     render 'add_guests'
+    #   end
+    # else
+    #   render 'new'
+    # end
   end
 
   def show
@@ -206,6 +208,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :host_name,:venue_id,
                                   :host_phone, :location, :description, :starts_at,
                                   :start_time, :ends_at, :end_time, :is_private,
+                                  :city,:state,:country,:zip,
                                   :image, :template_id, :design_id, pictures_attributes: [:image])
   end
 

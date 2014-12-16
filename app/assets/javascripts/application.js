@@ -30,3 +30,7 @@ $(document).on('click', '.viaTurbo',function (e) {
     e.preventDefault()
     Turbolinks.visit($(this).attr('data-url'));
 });
+
+
+
+

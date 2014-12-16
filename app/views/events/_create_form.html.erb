@@ -1,86 +1,92 @@
 <div class="col-md-6 event_left_block">
   <div class="row">
     <div class="col-md-12">
-      <%= form_for(@event, :html => {:multipart => true}) do |f| %>
+      <%= form_for(@event, :html => {:multipart => true,remote: true}) do |f| %>
           <div class="col-md-6">
-            <input type="text" id="inputEmail" class="form-control" placeholder="Event Name*" required="" autofocus>
+            <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,autofocus: true%>
           </div>
           <div class="col-md-6">
-            <select class="form-control" placeholder="Password" required>
-              <option>Event Type*</option>
-              <option>Wedding</option>
-              <option>Birthday</option>
-            </select>
+            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Event Type*'} ,class: 'form-control' %>
+            <%= f.hidden_field :design_id %>
           </div>
           <div class="col-md-6">
             <label></label>
-            <input type="text" class="form-control" placeholder="Host Name*" required="" autofocus>
+            <%= f.text_field :host_name, class: 'form-control',placeholder: 'Host Name*',required: true %>
           </div>
           <div class="col-md-6">
             <label></label>
-            <input type="tel" class="form-control" placeholder="Host Phone*" required="">
+            <%= f.text_field :host_phone, class: 'form-control',placeholder: 'Host Phone*',required: true %>
           </div>
           <div id="datepairExample">
-            <div class="col-md-3">
-              <label></label>
-              <input type="text" class="form-control date start" placeholder="Start Date*"/>
+            <div class="row no_margin">
+              <div class="col-md-4">
+                <label></label>
+                <%= f.text_field :starts_at , class: 'form-control date start' ,required: true ,placeholder: 'Start Date*' %>
+              </div>
+              <div class="col-md-4">
+                <label></label>
+                <%= f.text_field :start_time , class: 'form-control time start' ,required: true ,placeholder: 'Start Time*' %>
+              </div>
+              <div class="col-md-4 nopleft">
+                <div class="mtop20 btn_add_endtime"> <a href="#"> <span class="btn btn-xs btn-success glyphicon glyphicon-plus"></span> Add end time </a></div>
+              </div>
             </div>
-            <div class="col-md-3">
-              <label></label>
-              <input type="text" class="form-control time start" placeholder="Start Time*"/>
-            </div>
-            <div class="col-md-3">
-              <label></label>
-              <input type="text" class="form-control date end" placeholder="End Date*"/>
-            </div>
-            <div class="col-md-3">
-              <label></label>
-              <input type="text" class="form-control time end" placeholder="End Time*" />
+            <div id="endtime" class="row no_margin">
+              <div class="col-md-4">
+                <label></label>
+                <%= f.text_field :ends_at , class: 'form-control date start' ,placeholder: 'End Date*' %>
+              </div>
+              <div class="col-md-4">
+                <label></label>
+                <%= f.text_field :end_time , class: 'form-control time start',placeholder: 'End Time*' %>
+              </div>
+              <div class="col-md-4 nopleft">
+
+                <div class="mtop20 btn_remove_endtime"> <a href="#"> <span class="btn btn-xs btn-danger glyphicon glyphicon-minus"></span> Remove end time </a></div>
+              </div>
             </div>
           </div>
           <div class="col-md-12">
             <label></label>
-            <select id="dynamic_select" class="form-control"  required>
-              <option value="">Venue*</option>
-              <option value="venues.html">Choose</option>
-              <option value="">Custom</option>
+            <select id="venue_type" class="form-control"  required>
+              <option>Venue*</option>
+              <option value="choose">Choose</option>
+              <option value="custom">Custom</option>
             </select>
+            <%if @venue %>
+                <span id="venue_name"><i><%= @venue.name %></i></span>
+            <% end %>
+            <%=f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
+          </div>
+          <div id="venue_dform">
+            <div class="col-md-12">
+              <label></label>
+              <%= f.text_area :location, class: 'form-control',placeholder: 'Address*' ,rows: 1 ,value: @venue ? "#{@venue.address1} #{@venue.address2}" : '' %>
+            </div>
+            <div class="col-md-6">
+              <label></label>
+              <%= f.text_field :city, class: 'form-control',placeholder: 'City*' ,value: @venue ? @venue.city : ''%>
+            </div>
+            <div class="col-md-6">
+              <label></label>
+              <%= f.text_field :state, class: 'form-control',placeholder: 'State*',value: @venue ? @venue.state : ''%>
+            </div>
+            <div class="col-md-6">
+              <label></label>
+              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*' ,value: @venue ? @venue.country : ''%>
+            </div>
+            <div class="col-md-6">
+              <label></label>
+              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' ,value: @venue ? @venue.zip : ''%>
+            </div>
           </div>
           <div class="col-md-12">
             <label></label>
-            <textarea class="form-control" placeholder="Address*" rows="1"></textarea>
-          </div>
-          <div class="col-md-6">
-            <label></label>
-            <input type="text"  class="form-control" placeholder="City*" required="" autofocus>
-          </div>
-          <div class="col-md-6">
-            <label></label>
-            <select class="form-control"  required>
-              <option>State*</option>
-              <option>Telangana</option>
-              <option>AndhraPradesh</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label></label>
-            <select class="form-control"  required>
-              <option>Country*</option>
-              <option>India</option>
-              <option>USA</option>
-            </select>
-          </div>
-          <div class="col-md-6">
-            <label></label>
-            <input type="text"  class="form-control" placeholder="Zipcode*" required="">
-          </div>
-          <div class="col-md-12">
-            <label></label>
-            <textarea class="form-control" placeholder="Description*" rows="2"></textarea>
+            <%= f.text_area :description, class: 'form-control',placeholder: 'Description*',rows: 2%>
           </div>
           <div class="col-md-12">
             <label>
-              <input type="checkbox">
+              <%= f.check_box :is_private %>
               Is Private</label>
           </div>
           <div class="col-md-12">
@@ -95,14 +101,64 @@
 </div>
 <script type="text/javascript">
     $('#datepairExample .time').timepicker({
-        'showDuration': true,
-        'timeFormat': 'g:ia'
+        showDuration: true,
+        timeFormat: 'g:ia'
     });
 
     $('#datepairExample .date').datepicker({
-        'format': 'm/d/yyyy',
-        'autoclose': true
+        format: 'yyyy-mm-dd',
+        autoclose: true
     });
+
+    $('#new_event #venue_type').bind('change', function () {
+        if($(this).val() == 'choose'){
+            $('#venue_dform').fadeOut()
+            var sData = $('#new_event').serialize();
+            $.ajax({
+                type: "POST",
+                url: "/events/select_venue",
+                data: sData,
+                success: function(res) {
+                    window.location = '/venues?from_event=true'
+                }
+            });
+        }else if($(this).val() == 'custom'){
+            $('#venue_dform').fadeIn('slow')
+            $('#venue_name').remove()
+            $('#event_venue_id').val('')
+            $('#event_location').val('')
+            $('#event_city').val('')
+            $('#event_state').val('')
+            $('#event_country').val('')
+            $('#event_zip').val('')
+        }
+    });
+
+    /*event creation end time toggle option */
+    $(".btn_add_endtime").click(function(e) {
+        e.preventDefault()
+        $("#endtime").fadeIn("slow");
+        $(this).fadeOut("slow");
+        $(".btn_remove_endtime").fadeIn("slow");
+    });
+    $(".btn_remove_endtime").click(function(e) {
+        e.preventDefault()
+        $("#endtime").fadeOut("slow");
+        $(this).fadeOut("slow")
+        $(".btn_add_endtime").fadeIn("slow");
+        $('#event_ends_at').val('')
+        $('#event_end_time').val('')
+    });
+
+    if($('#event_ends_at').val() != '' ){
+        $("#endtime").show()
+        $('.btn_add_endtime').hide()
+        $(".btn_remove_endtime").fadeIn("slow");
+    }
+
+    if($('#event_venue_id').val() != ''){
+        $('#venue_dform').show()
+    }
 
     // $('#datepairExample').datepair();
 </script>
