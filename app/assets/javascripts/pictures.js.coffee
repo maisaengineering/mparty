@@ -2,10 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
-  divwrapper = "<div style='width:0; height:0; overflow:hidden;'></div>"
+  ###divwrapper = "<div style='width:0; height:0; overflow:hidden;'></div>"
   $("#picture_image").wrap divwrapper
   $("#upload_photos").click ->
-    $("#picture_image").click()
+    $("#picture_image").click()###
 
   $('#new_picture').fileupload
       dataType: "script"

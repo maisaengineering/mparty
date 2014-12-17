@@ -1,13 +1,9 @@
 <% if picture.image? %>
-    <div class="picture">
-      <%= link_to image_tag(picture.image_url(:thumb)), picture  %>
-      <div class="name"><%= truncate(picture.name,length: 10) %></div>
-      <div class="actions">
-        <% if picture.imageable.is_a?(Event) and @event.is_owner?(spree_current_user) %>
-            <%= link_to "remove", picture , confirm: 'Are you sure?', method: :delete ,class: 'btn btn-danger btn-xs' %>
-        <% else %>
-            <%= link_to "remove", picture , confirm: 'Are you sure?', method: :delete ,class: 'btn btn-danger btn-xs' %>
-        <% end %>
-      </div>
+    <div class="col-md-3 picture" id="picture_<%= picture.id %>">
+      <%= link_to picture , confirm: 'Are you sure?', method: :delete ,class: 'remove_btn',remote: true do %>
+          <span class="glyphicon glyphicon-remove-circle"></span>
+      <% end  %>
+      <%#= link_to image_tag(picture.image_url(:thumb)), picture  %>
+      <%= image_tag(picture.image_url(:thumb) ) %>
     </div>
 <% end %>

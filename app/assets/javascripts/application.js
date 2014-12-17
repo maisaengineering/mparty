@@ -18,8 +18,8 @@
 //= require jcarousel.min
 //= require bootstrap-datepicker
 //= require jquery.timepicker
-//#= require jquery-fileupload/basic
-//#= require jquery-fileupload/vendor/tmpl
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require cart
 //= require comments
 //= require pictures

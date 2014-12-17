@@ -12,11 +12,11 @@ class PicturesController < ApplicationController
     @picture = Picture.find(params[:id])
     imageable =  @picture.imageable
     @picture.destroy
-    if imageable.is_a?(Venue)
-      redirect_to add_photos_venue_url(imageable), notice: "Picture was successfully destroyed."
-    else
-      redirect_to @event, notice: "Picture was successfully destroyed."
-    end
+    # if imageable.is_a?(Venue)
+    #   redirect_to add_photos_venue_url(imageable), notice: "Picture was successfully destroyed."
+    # else
+    #   redirect_to @event, notice: "Picture was successfully destroyed."
+    # end
 
 
   end
