@@ -342,13 +342,13 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display: block;
+  display: none;
 }
 #upload_photos{
   display: none;
 }
 #invitation_without_wishlist{
-  display:none;
+  display: block;
 }
 #invitation_with_wishlist{
   display:none;
@@ -1558,7 +1558,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 
 
-
+.mbottom40 {
+  margin-bottom:40px;
+}
 
 
 /***************responsive**********************/

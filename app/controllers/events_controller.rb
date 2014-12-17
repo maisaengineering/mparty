@@ -16,7 +16,6 @@ class EventsController < ApplicationController
   end
 
   def new
-    session.delete(:event_data)
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new(session[:event_data])
     @event_templates = Spree::Admin::Template.select(:id,:name)
@@ -147,8 +146,11 @@ class EventsController < ApplicationController
   end
 
   def add_products
+    @event = Event.find(params[:event_id])
+    # Create wishlist if not exists
+    @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
+    session[:wishlist_id] = @wishlist.id
     @products = Spree::Product.all
-    session[:wishlist_id] = Spree::Wishlist.find_by_event_id(params[:event_id]).id
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
   end
 

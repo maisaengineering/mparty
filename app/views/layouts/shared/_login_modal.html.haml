@@ -10,9 +10,9 @@
       .modal-body
         = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
           %label
-          = f.email_field :email,placeholder: 'Email address*',class: 'form-control', required: true
+          = f.email_field :email,placeholder: 'Email address*',class: 'form-control', required: true,id: 'login_email_modal'
           %label
-          = f.password_field :password,placeholder: 'Password*',class: 'form-control', required: true
+          = f.password_field :password,placeholder: 'Password*',class: 'form-control', required: true,id: 'login_password_modal'
           %label
           %button.btn.btn-lg.btn-primary.btn-block{:type => "submit"} Log in
           %label

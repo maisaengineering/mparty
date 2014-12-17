@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-md-12 wishlist_text">
       <h4>Do You Want To Send Wishlist?</h4>
-      <a href="wishlist.html" class="btn btn-lg btn-primary btn-block create_wishlist_btn">CREATE WISHLIST</a> </div>
+      <%= link_to 'CREATE WISHLIST',event_wishlist_path(event_id: 9),class: "btn btn-lg btn-primary btn-block create_wishlist_btn" %>
+    </div>
     <div class="col-md-12">
       <form role="form">
         <div class="col-md-12 invitation_text">

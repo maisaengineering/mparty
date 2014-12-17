@@ -11,10 +11,10 @@
           .row
             .col-md-12
               %label
-              = f.email_field :email,placeholder: 'Email Address*',class: 'form-control', required: true,autofocus: true
+              = f.email_field :email,placeholder: 'Email Address*',class: 'form-control', required: true,autofocus: true,id: 'login_email'
             .col-md-12
               %label
-              = f.password_field :password,placeholder: 'Password',class: 'form-control', required: true
+              = f.password_field :password,placeholder: 'Password',class: 'form-control', required: true,id: 'login_password'
           %br
             .row
               .col-md-12

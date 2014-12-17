@@ -1,0 +1,36 @@
+= render 'products/filters'
+.col-md-9.products_list.wishable_products
+  - if products.any?
+    - products.in_groups_of(3, false) do |row_products|
+      .row.mbottom40
+        - for product in row_products
+          - url = spree.product_url(product, :taxon_id => @taxon.try(:id))
+          .col-md-4.product{id: "product_#{ product.id}"}
+            %a{:href => "#{url}"}
+              .product_block
+                %h4= truncate(product.name, :length => 50)
+                = large_image(product, :itemprop => "image")
+                %p= number_to_currency(product.price)
+            .product_add_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,wishlist_id: wishlist.id,variant_id: product.master.id}}
+              - if wishlist.include?(product.id)
+                %span.glyphicon.glyphicon-ok.remove
+              - else
+                %span.glyphicon.glyphicon-plus.add
+:javascript
+  $('.wishable_products .add_product_to_wishlist_btn').click(function (e){
+    e.preventDefault()
+    if($(this).find('span').first().hasClass('add')){ // Add product to wishlist
+      var data = {event_id: $(this).data('event-id'),variant_id: $(this).data('variant-id')}
+      var url = '/wishlist/'+$(this).data('wishlist-id')+'/add_product'
+      $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          beforeSend: function(){},
+          success: function(res) {}
+      });
+    }else{ // Remove product from wishlist
+     alert('Remove')
+    }
+    // alert($(this).parent('.product').attr('id'))
+  })
