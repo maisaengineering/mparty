@@ -1,20 +1,36 @@
+html {
+  height:100%;
+}
 a{
   color:#555;
 }
 body{
   background-color:#f1f2f7;
+  height:100%;
+}
+
+.social_icons{
+  padding:20px;
+}
+.banner_padding {
+  padding-left:0px;
+  padding-right:0px;
+}
+#wrapper {
+  min-height:100%;
+  padding-bottom:25px;
+  margin-bottom:-77px;
+}
+#wrapper:after {
+  content: "";
+  display: block;
+}
+.footer, #wrapper:after {
+  height:77px;
 }
 .footer{
   background-color:#0f0f0f;
   border-top:4px solid #ef5323;
-  margin-top:50px;
-}
-.social_icons{
-  padding:20px;
-}
-.banner_padding{
-  padding-left:0px;
-  padding-right:0px;
 }
 
 .thumbnail{
@@ -345,10 +361,10 @@ label{
   display: block;
 }
 #upload_photos{
-  display: none;
+  display:none;
 }
 #invitation_without_wishlist{
-  display: none;
+  display:none;
 }
 #invitation_with_wishlist{
   display: none;
@@ -705,6 +721,9 @@ label{
   border:10px solid #fff;
   height:186px;
 }
+.location_block img{
+  width:100%;
+}
 .event_pre_wishlist_block img{
   background:#fff;
 }
@@ -838,11 +857,11 @@ label{
   display:none;
 }
 #payment_method{
-  display:none;
+  display:block;
 }
 
 #place_order{
-  display:block;
+  display:none;
 }
 .pay_now_btn{
   background: #8bd92f;
@@ -1167,10 +1186,6 @@ label{
 .valid_separate a {
   color:#337ab7;
 }
-.mtop40 {
-  margin-top:40px;
-}
-
 .edit_event_btn{
   height: 30px;
   width: 100%;
@@ -1455,9 +1470,23 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .ptop_medium {
   padding-top:20px;
 }
-
+.mtop40 {
+  margin-top:40px;
+}
 .mtop20 {
   margin-top:20px;
+}
+.mtop10 {
+  margin-top:10px;
+}
+.mbottom40 {
+  margin-bottom:40px;
+}
+.mbottom20 {
+  margin-bottom:20px;
+}
+.mbottom10 {
+  margin-bottom:10px;
 }
 .txt_center {
   text-align:center;
@@ -1465,7 +1494,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .nopleft{
   padding-left:0px;
 }
-
+.color_white {
+  color:#FFFFFF !important;
+}
 
 #endtime {
   display:none
@@ -1508,7 +1539,6 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .order_placing h2,h3{
   text-align:center;
 }
-
 .ccdc_bg{
   background-image: image-url('dc.png');
   background-repeat: no-repeat;
@@ -1545,22 +1575,52 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background-color:#FFFFFF;
   border-bottom:1px solid #C8C8C8;
 }
-
 .myaccount_wishlist ul li a{
   padding-left:10px;
 }
-
 .debitcard_types {
   display:none;
 }
 #new_event {
   padding-top:40px;
 }
-
-
-.mbottom40 {
-  margin-bottom:40px;
+.select_myacc_wishlist {
+  width:inherit !important;
+  margin:inherit !important;
 }
+.dropdown-menu .divider {
+  margin:5px 0;
+}
+
+.venue_rating span{
+  color: #e78f08;
+  font-size:18px;
+}
+.write_review label{
+  color:#555;
+}
+.write_review span{
+  color: #e78f08;
+  font-size:18px;
+}
+.write_review a:hover{
+  color:#e78f08;
+}
+.border_search_result {
+  border:1px solid #e78f08;
+}
+.venue_description_height {
+  height:100px;
+  overflow:hidden;
+}
+
+
+
+
+
+
+
+
 
 
 /***************responsive**********************/
