@@ -8,6 +8,8 @@ Invitation::Application.routes.draw do
           get 'add_photos'
           post 'upload_photos'
           delete 'remove_photo'
+          get 'add_calendar'
+          post 'book_venue'
         end
       end
     end
