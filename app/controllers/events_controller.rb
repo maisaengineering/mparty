@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation]
+  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist]
 
   helper 'spree/taxons'
 
@@ -89,6 +89,11 @@ class EventsController < ApplicationController
     # @picture = Picture.new
   end
 
+  def invite_with_wishlist
+    @event = Event.find(params[:event_id])
+    @wished_products = @event.wishlist.wished_products if @event.wishlist
+  end
+
   def send_invitation
     @event = Event.find(params[:event_id])
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
@@ -130,12 +135,12 @@ class EventsController < ApplicationController
       end
 
 
-      redirect_to events_path
+      redirect_to event_path(@event)
       #end
 
     else
       flash[:notice] = "Atleast one email is required to Invite."
-      redirect_to "/events/add_guests/#{@event.id}"
+      redirect_to invite_with_wishlist_url(event_id: @event.id)
     end
 
   end

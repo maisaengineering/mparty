@@ -120,8 +120,11 @@ Invitation::Application.routes.draw do
 
   ## Wish list ----------------------------------------------------------------
   get '/event/:event_id/whishlist'=>"whishlist#index",as: :event_wishlist
-  post '/wishlist/:wishlist_id/add_product'=>"whishlist#add_product"
-  delete '/wishlist/:wishlist_id/remove_product'=>"whishlist#remove_product"
+  post '/event/:event_id/wishlist/add_product'=>"whishlist#add_product"
+  delete '/event/:event_id/wishlist/remove_product'=>"whishlist#remove_product"
+  get '/event/:event_id/wishlist/wished_products'=>"whishlist#wished_products"
+
+  get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
 
 
 

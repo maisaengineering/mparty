@@ -32,11 +32,17 @@
   </div>
 </div>
 <script type="text/javascript">
+
+    $('#new_picture').fileupload(function(){
+        dataType: "script"
+    })
+
+
   $('.upload_btn_done,.upload_btn_skip').click(function(e){
       e.preventDefault()
       $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
       $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
       $("#upload_photos").css("display", "none")
-      $("#invitation_without_wishlist").css("display", "block")
+      $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
   })
 </script>

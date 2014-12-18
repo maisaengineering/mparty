@@ -1,9 +1,16 @@
 <% if @event.save %>
+<% session.delete(:event_data) if session[:event_data] %>
 $("#create_form").css("display", "none");
-$("#upload_photos").css("display", "block");
+$("#upload_photos").css("display", "block").hide().fadeIn('slow');
 $('#create_event_tab').removeClass('event_tab_active').addClass('event_tab')
 $('#upload_photos_tab').removeClass('event_tab').addClass('event_tab_active')
+// update resource id to upload photos
 $('#resource_id').val('<%= @event.id %>')
+// update invite without wishlist
+$('#invitation_without_wishlist').html("<%= j(render('invite_without_wish_list')) %>").hide()
+
+
+
 <% else %>
 <%
   errors = ''

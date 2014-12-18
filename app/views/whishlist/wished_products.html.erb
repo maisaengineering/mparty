@@ -1,0 +1,34 @@
+<% if @wishlist.wished_products.size > 0 %>
+    <% @wishlist.wished_products.each do |wish| %>
+        <%  variant = wish.variant  %>
+        <% product = variant.product %>
+        <div class="row wishlist_popup_center">
+          <div class="col-md-2">
+            <div class="wishlist_img_block">
+              <% if variant.images.length == 0 %>
+                  <%= small_image(variant.product) %>
+              <% else %>
+                  <%= image_tag variant.images.first.attachment.url(:small) %>
+              <% end %>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <h4><%= product.name %></h4>
+            <p><%= truncate(product.description,length: 50) %></p>
+          </div>
+          <div class="col-md-2">
+            <%= wish.quantity %>
+          </div>
+          <div class="col-md-2">
+            <h5><%= number_to_currency(variant.price) %></h5>
+          </div>
+          <div class="col-md-2">
+            <% if current_spree_user.id == @wishlist.event.owner.id && wish.quantity_purchased == 0 %>
+                <%= link_to '#',id: 'wishlist_item_del' do  %>
+                    <span class="glyphicon glyphicon-trash"></span>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
+    <% end %>
+<% end %>

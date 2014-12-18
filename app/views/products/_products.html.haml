@@ -12,10 +12,10 @@
                 = large_image(product, :itemprop => "image")
                 %p= number_to_currency(product.price)
             - if wishlist.include?(product.id)
-              .product_added_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,wishlist_id: wishlist.id,variant_id: product.master.id}}
+              .product_added_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
                 %span.glyphicon.glyphicon-ok.remove
             - else
-              .product_add_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,wishlist_id: wishlist.id,variant_id: product.master.id}}
+              .product_add_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
                 %span.glyphicon.glyphicon-plus.add
 :javascript
   $('.wishable_products .add_product_to_wishlist_btn').click(function (e){
@@ -23,8 +23,8 @@
     $this = $(this)
 
     if($(this).find('span').first().hasClass('add')){ // Add product to wishlist
-      var url = '/wishlist/'+$(this).data('wishlist-id')+'/add_product'
-      var data = {event_id: $(this).data('event-id'),variant_id: $(this).data('variant-id')}
+      var url = '/event/'+$(this).data('event-id')+'/wishlist/add_product'
+      var data = {variant_id: $(this).data('variant-id')}
       $.ajax({
           type: "POST",
           url: url,
@@ -37,8 +37,8 @@
           }
       });
     }else{ // Remove product from wishlist
-      var url = '/wishlist/'+$(this).data('wishlist-id')+'/remove_product'
-       var data = {"_method": 'delete',event_id: $(this).data('event-id'),variant_id: $(this).data('variant-id')}
+      var url =  '/event/'+$(this).data('event-id')+'/wishlist/remove_product'
+       var data = {"_method": 'delete',variant_id: $(this).data('variant-id')}
       $.ajax({
           type: "POST",
           url: url,

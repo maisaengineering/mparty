@@ -1,8 +1,9 @@
 <div class="container-fluid">
   <div class="container" >
+    <%= hidden_field_tag :event_id ,@event.id %>
     <!--modal boxes************************************************************-->
     <!--add to wishlist modal box-->
-    <%= render 'wishlist_items' %>
+    <%= render 'wishlist_modal' %>
     <!--modalbox end-->
     <!--shipping modal box-->
     <%= render 'shipping_address_form' %>
@@ -12,11 +13,12 @@
       <div class="col-md-6 position_rel">
         <input type="search" class="form-control" placeholder="search products">
         <span class="glyphicon glyphicon-search position_abs search_btn"></span> </div>
-      <div class="col-md-3"><a href="#" class="btn btn-lg btn-primary btn-block addwishlist_btn" data-toggle="modal" data-target="#mywishlist">
+      <div class="col-md-3"><a href="#" class="btn btn-lg btn-primary btn-block addwishlist_btn" data-toggle="modal" data-target="#wishlist-modal">
         <div class="img-rounded search_btn_count position_abs">
           <p id="wishlist-count"><%= @wishlist.wished_products.count %></p>
         </div>
-        ADD TO WISHLIST</a></div>
+        ADD TO WISHLIST</a>
+      </div>
     </div>
 
     <div class="row mtop40" id="choose_products">
@@ -24,3 +26,18 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    // fill wished products via ajax when modal is open
+    $('#wishlist-modal').on('shown.bs.modal', function () {
+        var url = '/event/'+$('#event_id').val()+'/wishlist/wished_products'
+        $.ajax({
+            type: "GET",
+            url: url,
+            beforeSend: function(){},
+            success: function(res) {
+                $('#wishlist-modal-items').html(res).hide().fadeIn('slow')
+            }
+        });
+    })
+</script>

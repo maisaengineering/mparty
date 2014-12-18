@@ -1,0 +1,50 @@
+<!--add to wishlist modal box-->
+<div class="modal fade" id="wishlist-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal5">
+    <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+      <div class="modal-header">
+        <div class="title_trending">
+          <div class="title_bg"></div>
+          <div class="model_box_name">YOUR WISHLIST</div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="row wishlist_popup_header">
+          <div class="col-md-2"></div>
+          <div class="col-md-4">DESCRIPTION</div>
+          <div class="col-md-2">QUANTITY</div>
+          <div class="col-md-2">PRICE</div>
+          <div class="col-md-2"></div>
+        </div>
+
+        <div id="wishlist-modal-items">
+          <div> Loading...</div>
+        </div>
+
+        <div class="row wishlist_popup_footer">
+          <div class="col-md-4"><a href="#" id="wishlist-add-more-poducts">
+            <div class="wishlist_add_btn"><span class="glyphicon glyphicon-plus"></span></div>
+            <h4>Add More Products</h4>
+          </a></div>
+          <div class="col-md-4"><a href="#" data-toggle="modal" data-target="#wishlist_shipping_addrs" data-dismiss="modal">
+            <div class="wishlist_add_btn"><span class="glyphicon glyphicon-edit"></span></div>
+            <h4>Edit Shipping Address</h4>
+          </a></div>
+          <div class="col-md-4">
+            <a href="<%= invite_with_wishlist_path(event_id: @event.id) %>" class="btn btn-lg btn-primary btn-block addwishlist_done pull-right">Done</a>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"> </div>
+    </div>
+  </div>
+</div>
+<!--modalbox end-->
+
+<script type="text/javascript">
+  // close wishlist modal on adding more products button
+  $('#wishlist-add-more-poducts').click(function (e){
+      e.preventDefault()
+      $('#wishlist-modal').modal('toggle');
+  })
+</script>
