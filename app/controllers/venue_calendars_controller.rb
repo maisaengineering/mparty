@@ -1,0 +1,2 @@
+class VenueCalendarsController < ApplicationController
+end

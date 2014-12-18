@@ -1,0 +1,45 @@
+- content_for :page_actions do
+  %li= button_link_to 'Back to Venue',  edit_admin_venue_url(@venue), icon: 'icon-arrow-left'
+  %li= button_link_to 'Add New Venue', new_admin_venue_url, icon: 'icon-plus'
+- unless @venue.venue_calendars.any?
+  .no-objects-found
+    = "No Bookings Found"
+- else
+  %table.index.sortable{"data-hook" => "images_table", "data-sortable-link" =>'#'}
+    %colgroup
+      %col{:style => "width: 5%"}
+      %col{:style => "width: 30%"}
+      %col{:style => "width: 45%"}
+    %thead
+      %tr
+        %th{:colspan => "2"}= Spree.t(:start_date)
+        %th{:colspan => "2"}= Spree.t(:end_date)
+        %th.actions
+    %tbody
+      - @venue.venue_calendars.each do |cl|
+        %tr{class: cycle('odd', 'even'), id: spree_dom_id(cl)}
+          %td.no-border
+          %td
+            = cl.start_date.strftime("%m/%d/%Y")
+          %td
+            = cl.end_date.strftime("%m/%d/%Y")
+          %td.actions
+            = link_to_with_icon 'icon-trash', 'Delete', remove_photo_admin_venue_path(@venue,picture_id: cl.id), method: :delete,confirm: 'Are you sure?'
+#calendars
+  = form_for VenueCalendar.new,url: book_venue_admin_venue_url(@venue) do |f|
+    %fieldset
+      %legend{:align => "center"} Book Slot
+      %div
+        .nine.columns.alpha
+          .field
+            %label{:for => "start_date"} Start Date
+            = f.text_field :start_date, :class => 'datepicker'
+          .field
+            %label{:for => "end_date"} End Date  
+            = f.text_field :end_date, :class => 'datepicker'
+      .clear
+      .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
+        %button.icon-refresh.button{:name => "button", :type => "submit"} Book Slot
+        %span.or or
+        %a#cancel_link.button.icon_link.with-tip.icon-remove{:href => "#{edit_admin_venue_url(@venue)}"}
+          %span.text Cancel
