@@ -118,6 +118,17 @@ Invitation::Application.routes.draw do
 
   get '/invites/join_public_event/:event_id'=>"invites#join_public_event", as: :join_public_event
 
+  ## Wish list ----------------------------------------------------------------
+  get '/event/:event_id/whishlist'=>"whishlist#index",as: :event_wishlist
+  post '/wishlist/:wishlist_id/add_product'=>"whishlist#add_product"
+  delete '/wishlist/:wishlist_id/remove_product'=>"whishlist#remove_product"
+
+
+
+  ## End Wish list -------------------------------------------------------------
+
+  # Products lisitng search ,fileter etc
+
   # resources :rsvps, only: [:create, :destroy]
   #
   # get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create

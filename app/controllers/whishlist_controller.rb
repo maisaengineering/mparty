@@ -11,24 +11,27 @@ class WhishlistController < ApplicationController
   end
 
 
+  # POST '/wishlist/:wishlist_id/add_product'
   def add_product
-    @wished_product = Spree::WishedProduct.new
-    @wishlist = session[:wishlist_id].present? ? Spree::Wishlist.find(session[:wishlist_id]) : spree_current_user.wishlist
-    if @wishlist.include? params[:wished_product][:variant_id]
-      @wished_product = @wishlist.wished_products.detect {|wp| wp.variant_id == params[:wished_product][:variant_id].to_i }
+    wishlist =  Spree::Wishlist.find(params[:wishlist_id])
+    if wishlist.include? params[:variant_id]
+      wished_product = wishlist.wished_products.detect {|wp| wp.variant_id == params[:variant_id].to_i }
     else
-      @wished_product.wishlist = @wishlist
-      @wished_product.save
-      @wishlist.event.update_attribute(:has_wishlist,true) if @wishlist and @wishlist.event
+      wished_product = Spree::WishedProduct.new(variant_id: params[:variant_id],quantity: params[:quantity] || 1)
     end
-    if !session[:wishlist_id].present?
-      respond_with(@wished_product) do |format|
-        format.html { redirect_to wishlist_url(@wishlist) }
-      end
-    else
-      session[:wishlist_id] = nil
-      redirect_to "/events/add_guests/#{@wishlist.event_id}"
-    end
+    wished_product.wishlist = wishlist
+    wished_product.save
+    wishlist.event.update_attribute(:has_wishlist,true) if wishlist and wishlist.event
+    #end
+    render nothing: true
   end
+
+  # DELETE '/wishlist/:wishlist_id/remove_product'
+  def remove_product
+    wished_product = Spree::WishedProduct.where(variant_id: params[:variant_id],wishlist_id: params[:wishlist_id]).first
+    wished_product.destroy if wished_product
+    render nothing: true
+  end
+
 
 end
