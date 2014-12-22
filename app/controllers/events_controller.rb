@@ -7,13 +7,29 @@ class EventsController < ApplicationController
   helper 'spree/taxons'
 
   def index
+=begin
     @events = current_spree_user.events
     @upcoming_all_events = @events.where("starts_at >= ? AND is_private = ?", Date.today, true).order(starts_at: :asc)
     @previous_all_events = @events.where("starts_at < ? AND is_private = ?", Date.today, true).order(starts_at: :desc)
 
     @public_events = Event.where(is_private: false)
     @invited_events = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
+=end
+    # params[:type] ||= "upcoming"
+
+
+    my_invitations=Event.invited(current_spree_user.email)
+
+    params[:type] ||= 'upcoming'
+    @events = Event.send(params[:type]).page(params[:page]).per(4)
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
+
+
 
   def new
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
@@ -50,12 +66,14 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @wish_list = @event.wishlist
     @commentable = @event
-    @comments = @commentable.comments
+    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
     @comment = Comment.new
     @pictures = @event.pictures.build
     event_template = Spree::Admin::Template.where(id: @event.template_id).first
     @event_design = event_template.designs.where(id: @event.design_id).first if event_template
   end
+
+
 
   def view_invitation
     @invitation = Invite.find_by_token(params[:invitation_code])
