@@ -1,63 +1,237 @@
-<div class="container" style="border:1px solid #c1c1c1;background:#F9FAFA">
-  <div class="row">
-    <div class="col-md-8"><h3>Featured Events</h3><br>
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <%= image_tag 'event1.png',height: '200px' %>
-            <div class="carousel-caption">
-              ...
-            </div>
-          </div>
-          <div class="item">
-            <%= image_tag 'event2.png',height: '200px' %>
-            <div class="carousel-caption">
-              ...
-            </div>
-          </div>
-          <div class="item">
-            <%= image_tag 'event3.png',height: '200px' %>
-            <div class="carousel-caption">
-              ...
-            </div>
-          </div>
-        </div>
 
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-        </a>
+<div class="container-fluid" style="background-color:#f1f2f7">
+  <div class="container" >
+    <div class="row">
+      <div class="create_event">
+        <div  class="btn_orange"><a href="create_event_form.html">Create Event</a></div>
       </div>
+      <div class="title_name">Events</div>
     </div>
-    <div class="col-md-4"><div class="btn_createvent event_btn_top">
-      <%= link_to "Create Event", new_event_path %></div></div>
-  </div>
-  <hr>
-  <div class="row">
-    <div class="col-md-6"><h3>Upcoming Events</h3>
-      <%= render :partial => "events_list", :locals => {events: @upcoming_all_events, event_type: "Upcoming"} %>
-    </div>
-    <div class="col-md-6"><h3>Your Invitations</h3>
-      <%= render :partial => "events_list", :locals => {events: @invited_events, event_type: "Invited"} %>
-    </div>
+    <div>
+      <div role="tabpanel">
 
-  </div>
-  <div class="row">
-    <div class="col-md-6"><h3>Public Events</h3>
-      <%= render :partial => "events_list", :locals => {events: @public_events, event_type: "Public"} %>
-    </div>
-    <div class="col-md-6"><h3>Past Events</h3>
-      <%= render :partial => "events_list", :locals => {events: @previous_all_events, event_type: "Past"} %>
+        <!-- Nav tabs -->
+        <ul id="test" class="nav nav-tabs" role="tablist">
+          <li  value="upcoming" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Upcoming Events</a></li>
+          <li  value="public"><a href="#tab2" aria-controls="tab2" data-toggle="tab" >Public Events</a></li>
+          <li value="past" ><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" >Past Events</a></li>
+          <li value="invited"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" >Your Invitations</a></li>
+        </ul>
+
+        <div class="row event_margin">
+        <div id="listing_events">
+            <%= render 'events/events_list',events: @events,type: params[:type] || 'upcoming' %>
+        </div>
+        <%#= paginate @events ,params: {type: params[:type] || 'upcoming' }%>
+      </div>
+
+
+        <!-- Tab panes -->
+        <!--<div class="tab-content">
+          &lt;!&ndash;Upcoming Events &ndash;&gt;
+          <div role="tabpanel" class="tab-pane active" id="tab1">
+            <div class="row event_margin">
+              <div id="upcoming_events">
+                <div class="page">
+                <%#= render 'events/events_list',events: @events,type: 'upcoming' %>
+                </div>
+              </div>
+              <%#= paginate @events, params:  {type: "upcoming"} %>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane active" id="tab2">
+            <div class="row event_margin">
+              <div id="public_events">
+                <div class="page">
+                  <%#= render 'events/events_list',events: @events,type: 'public' %>
+                </div>
+              </div>
+              <%#= paginate @events, params:  {type: "public"} %>
+            </div>
+          </div>-->
+          <!--
+          <div role="tabpanel" class="tab-pane" id="tab2">
+            <div class="row event_margin">
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="event_preview_public.html" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
+                    <div class="pull-right join_btn"><a href="#">Join</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
+                    <div class="pull-right join_btn"><a href="#">Join</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
+                    <div class="pull-right join_btn"><a href="#">Join</a></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
+                    <div class="pull-right join_btn"><a href="#">Join</a></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab3">
+            <div class="row event_margin">
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab4">
+            <div class="row event_margin">
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+              <div class="col-xs-6 col-md-3">
+                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
+                <div class="event_name">
+                  <p>MAISA EVENT</p>
+                </div>
+                <div class="event_details">
+                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
+                    <div class="pull-right">04.30 PM</div>
+                  </div>
+                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
+                </div>
+              </div>
+            </div>
+          </div>-->
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+
+  $("#test li").click(function(){
+
+      action=  "/events"
+      data=$(this).attr('value')
+      $.ajax({
+          url: action,
+          type:'GET',
+          data: {type: data}
+      });
+  });
+
+
+</script>

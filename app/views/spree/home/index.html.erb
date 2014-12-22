@@ -1,0 +1,37 @@
+<div class="container-fluid banner_padding">
+  <!-- banner image -->
+  <div class="position_rel">
+    <div>
+      <%= image_tag('banner.jpg' ,class: 'img-responsive') %>
+    </div>
+    <div class="whatsup_src_block">
+      <div class="form-group whatsup_search">
+        <%= form_tag("/events",:method => 'get', remote: true) do%>
+            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events' %>
+        <%end %>
+        <span class="glyphicon glyphicon-search pull-left whatsup_src_icon"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="create_event">
+      <div class="btn_orange">
+        <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="">Create Event</a>
+      </div>
+    </div>
+    <div class="title_name">Trending Events</div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div id="trending_events">
+        <div class="page">
+          <%= render 'events/events_list',events: @trending_events,type: 'trending' %>
+        </div>
+      </div>
+      <%= paginate @trending_events %>
+    </div>
+  </div>
+</div>

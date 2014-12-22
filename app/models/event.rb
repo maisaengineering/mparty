@@ -26,9 +26,11 @@ class Event < ActiveRecord::Base
   #scopes
   scope :public, -> { where(is_private:  false) }
   scope :private, -> { where(is_private:  true) }
-  scope :past, -> { private.where("starts_at < ?", Date.today).order(starts_at: :desc)}
-  scope :upcoming, -> { private.where("starts_at >= ?", Date.today).order(starts_at: :asc)}
+  scope :past, -> { where("starts_at < ?", Date.today)}
+  scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
   scope :invited, ->(email) { where(id: Invite.where(recipient_email: email).map(&:event_id))}
+
+  scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
 
   def attendees(status)
     if status.eql?('pending')

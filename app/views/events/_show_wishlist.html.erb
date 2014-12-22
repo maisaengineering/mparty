@@ -1,4 +1,58 @@
+
+<!--wishlist-->
+
 <% if wishlist.wished_products.size > 0 %>
+<div class="row">
+  <div class="col-md-12">
+    <h4>Wishlist</h4>
+    <div class="row wishlist_popup_header event_pre_wishlist_block no_margin">
+      <div class="col-md-2"></div>
+      <div class="col-md-3">DESCRIPTION</div>
+      <div class="col-md-3">REQUESTED QUANTITY</div>
+      <div class="col-md-3">PURCHASED QUANTITY</div>
+      <div class="col-md-1">PRICE</div>
+    </div>
+    <% wishlist.wished_products.each do |wish| %>
+        <%  variant = wish.variant  %>
+        <% product = variant.product %>
+    <div class="row wishlist_popup_center event_pre_wishlist_block">
+      <div class="col-md-2">
+        <div class="wishlist_img_block">
+          <% if variant.images.length == 0 %>
+          <%= small_image(variant.product) %>
+          <% else %>
+          <%= image_tag variant.images.first.attachment.url(:small) %>
+          <% end %>
+         </div>
+      </div>
+      <div class="col-md-3">
+        <h4><%= product.name %></h4>
+      </div>
+      <div class="col-md-3">
+        <p><%= wish.quantity %></p>
+      </div>
+      <div class="col-md-3">
+        <p><%= wish.quantity_purchased %></p>
+      </div>
+      <div class="col-md-1">
+        <p>₹.<%= number_to_currency(variant.price) %>/-</p>
+      </div>
+    </div>
+    <% end %>
+    <div class="row event_pre_wishlist no_margin"></div>
+  </div>
+</div>
+<% end %>
+<!--wishlist end-->
+
+
+
+
+
+
+
+<!--
+<%# if wishlist.wished_products.size > 0 %>
     <div class="form_margin">
       <div class="row">
         <div class="wishlist_main">
@@ -11,30 +65,30 @@
               <td>Purchased Qty.</td>
             </tr>
           </table></div>
-          <% wishlist.wished_products.each do |wish| %>
-              <%  variant = wish.variant  %>
-              <% product = variant.product %>
+          <%# wishlist.wished_products.each do |wish| %>
+              <%#  variant = wish.variant  %>
+              <%# product = variant.product %>
               <div class="wishlist">
                 <div class="col-md-1 wlist">
-                  <% if variant.images.length == 0 %>
-                      <%= small_image(variant.product) %>
-                  <% else %>
-                      <%= image_tag variant.images.first.attachment.url(:small) %>
-                  <% end %>
+                  <%# if variant.images.length == 0 %>
+                      <%#= small_image(variant.product) %>
+                  <%# else %>
+                      <%#= image_tag variant.images.first.attachment.url(:small) %>
+                  <%# end %>
                 </div>
-                <div class="col-md-1 wlist_id"><%= product.name %></div>
-                <div class="col-md-1 wlist_p"> <%= number_to_currency(variant.price) %></div>
-                <div class="col-md-1 wlist_rq"> <%= wish.quantity %></div>
-                <div class="col-md-1 wlist_pq"><%= wish.quantity_purchased %></div>
-                <% if current_spree_user.id == @event.owner.id && wish.quantity_purchased == 0 %>
-                      <%= link_to "Remove", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?",class: 'wlist_rmv_btn' %>
-                <% end %>
+                <div class="col-md-1 wlist_id"><%#= product.name %></div>
+                <div class="col-md-1 wlist_p"> <%#= number_to_currency(variant.price) %></div>
+                <div class="col-md-1 wlist_rq"> <%#= wish.quantity %></div>
+                <div class="col-md-1 wlist_pq"><%#= wish.quantity_purchased %></div>
+                <%# if current_spree_user.id == @event.owner.id && wish.quantity_purchased == 0 %>
+                      <%#= link_to "Remove", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?",class: 'wlist_rmv_btn' %>
+                <%# end %>
               </div>
-          <% end %>
+          <%# end %>
         </div>
       </div>
     </div>
-<% else -%>
-    <p style="margin-left: 40px;"><%= Spree.t(:your_wishlist_is_empty) %></p>
-    <p style="margin-left: 40px;"> Do you want to send wish list? please <%= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
-<% end %>
+<%# else -%>
+    <p style="margin-left: 40px;"><%#= Spree.t(:your_wishlist_is_empty) %></p>
+    <p style="margin-left: 40px;"> Do you want to send wish list? please <%#= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
+<%# end %>-->

@@ -11,19 +11,24 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
 //= require jcarousel.ajax
 //= require jcarousel.min
+//= require jquery.fancybox
+//= require jquery.fancybox-media
 //= require bootstrap-datepicker
 //= require jquery.timepicker
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require jquery.infinitescroll
+
 //= require cart
+//= require events
 //= require comments
 //= require pictures
-
 
 // Visit pages via turbolinks
 $(document).on('click', '.viaTurbo',function (e) {

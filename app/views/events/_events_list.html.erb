@@ -1,42 +1,36 @@
-<% if events.present? %>
-    <% events.each do |event| %>
-        <div class="row">
-          <%# if event.pictures.size > 0 %>
-          <%# event.pictures.each do |picture|%>
-          <%#= image_tag picture.image_url(:thumb).to_s %>
-          <%# end %>
+<div id="events">
+  <div class="page">
+    <% if events.present? %>
 
-          <div class="col-md-4" style="width:120px">
-            <%= event_cover_photo(:thumb,event)  %>
-          </div>
-          <div class="col-md-8 event_dtl_text">
-            <h4>
-              <% if event.owner.email == current_spree_user.email || event_type == "Public"%>
-                  <%= link_to event.name, event_path(event.id) %>
-              <% else %>
-                  <%= link_to event.name, show_invitation_path(event.id) %>
-              <% end %>
-            </h4>
-            <p>
-              <% if event.starts_at == Date.today %>
-                  Today
-              <% else %>
-                  <%= event.starts_at.strftime('%d-%m-%Y')  %>
-              <% end %>
-            </p>
-            <span> <%= event.owner.email%></span>
-
-            <% if event_type == "Public" %>
-                <%= link_to 'Join', "#" ,class: 'add_guest_btn'%>
-            <% else %>
-                <% if event.owner.email == current_spree_user.email %>
-                     <%= link_to('Add Guests', add_guests_path(:event_id => event.id),class: 'add_guest_btn') unless event_type.eql?('Past')  %>
-                <% end %>
-            <% end %>
-          </div>
-        </div>
+        <% events.each do |e| %>
+            <div class="event">
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class=" row nomargin event_margin">
+                  <div class="event_img">
+                    <%=link_to(image_tag("event_2.jpg"), "events/#{e.id}", class: "thumbnail") %>
+                    <div class="event_name">
+                      <p><%= e.name.titleize%></p>
+                    </div>
+                    <div class="event_details">
+                      <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>
+                        <% if e.starts_at== Date.today %>
+                            Today
+                        <% else %>
+                            <%= e.starts_at.strftime("%d/%m/%y")%>
+                        <% end %>
+                        <div class="pull-right"><%=e.starts_at.strftime("%I:%M %p")%></div>
+                      </div>
+                      <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
+                        <%= truncate(e.location.camelcase ,length: 20) %>
+                        <div class="pull-right join_btn" > <%= link_to "Join", "" %></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        <% end %>
     <% end %>
-<% else %>
-    <p style="margin-left: 15px;">You don't Have any <%= event_type %> Events</p>
-<% end %>
-
+  </div>
+</div>
+<%= paginate events ,params: {type: params[:type] || 'upcoming' }%>
