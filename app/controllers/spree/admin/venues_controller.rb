@@ -57,6 +57,17 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
     redirect_to add_photos_admin_venue_path(@venue) , notice: 'Image removed successfully'
   end
 
+  def add_calendar
+    @venue = Venue.find(params[:id])
+  end 
+
+  def book_venue
+    @venue = Venue.find(params[:id])
+    byebug
+    @venu.venue_calendars.create(venue_calendar_params)
+    redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
+  end 
+
 
   private
   def venue_params
@@ -68,4 +79,8 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
   def picture_params
     params.require(:picture).permit(:image,:name)
   end
+
+  def venue_calendar_params
+    params.require(:venue_calendar).permit(:start_date,:end_date)
+  end  
 end

@@ -1,0 +1,55 @@
+= render 'products/filters'
+.col-md-9.products_list.wishable_products
+  - if products.any?
+    - products.in_groups_of(3, false) do |row_products|
+      .row.mbottom40
+        - for product in row_products
+          - url = spree.product_url(product, :taxon_id => @taxon.try(:id))
+          .col-md-4.product{id: "product_#{ product.id}"}
+            %a{:href => "#{url}"}
+              .product_block
+                %h4= truncate(product.name, :length => 50)
+                = large_image(product, :itemprop => "image")
+                %p= number_to_currency(product.price)
+            - if wishlist.include?(product.id)
+              .product_added_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
+                %span.glyphicon.glyphicon-ok.remove
+            - else
+              .product_add_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
+                %span.glyphicon.glyphicon-plus.add
+:javascript
+  $('.wishable_products .add_product_to_wishlist_btn').click(function (e){
+    e.preventDefault()
+    $this = $(this)
+
+    if($(this).find('span').first().hasClass('add')){ // Add product to wishlist
+      var url = '/event/'+$(this).data('event-id')+'/wishlist/add_product'
+      var data = {variant_id: $(this).data('variant-id')}
+      $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          beforeSend: function(){},
+          success: function(res) {
+            $this.removeClass('product_add_btn').addClass('product_added_btn')
+            $this.find('span:first').removeClass('glyphicon-plus add').addClass('glyphicon-ok remove');
+            $("#wishlist-count").text(parseInt($("#wishlist-count").text()) + 1);
+          }
+      });
+    }else{ // Remove product from wishlist
+      var url =  '/event/'+$(this).data('event-id')+'/wishlist/remove_product'
+       var data = {"_method": 'delete',variant_id: $(this).data('variant-id')}
+      $.ajax({
+          type: "POST",
+          url: url,
+          data: data,
+          beforeSend: function(){},
+          success: function(res) {
+            $this.removeClass('product_added_btn').addClass('product_add_btn')
+            $this.find('span:first').removeClass('glyphicon-ok remove').addClass('glyphicon-plus add');
+            $("#wishlist-count").text(parseInt($("#wishlist-count").text()) - 1);
+          }
+      });
+    }
+    // alert($(this).parent('.product').attr('id'))
+  })

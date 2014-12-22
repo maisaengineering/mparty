@@ -1,0 +1,48 @@
+<%= form_tag(send_invitation_path, class: 'form_margin') do %>
+    <%= hidden_field_tag(:event_id, @event.id) %>
+    <div class="col-md-12 invitation_text">
+      <label></label>
+      <div id="tags" class="tags_wrap">
+        <input type="text" name="friend_emails" class="biginput" id="emails_autocomplete">
+      </div>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <label></label>
+      <a href="#" class="btn btn-lg btn-primary btn-block invite_btn_cancel" type="submit">CANCEL</a> </div>
+    <div class="col-md-4">
+      <label></label>
+      <%= submit_tag("INVITE",class: 'btn btn-lg btn-primary btn-block upload_btn_done') %>
+    </div>
+<% end  %>
+
+
+<script type="text/javascript">
+    /* $('#tags input').on('focusout',function(){
+     var txt= this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,''); // allowed characters
+     if(txt) {
+     $(this).before('<span class="tag">'+ txt.toLowerCase() +'</span>');
+     }
+     this.value="";
+     }).on('keyup',function( e ){
+     // if: comma,enter (delimit more keyCodes with | pipe)
+     if(/(188|13)/.test(e.which)) $(this).focusout();
+     });
+
+     $('#tags').on('click','.tag',function(){
+     if(confirm("want to delete this envitee's email address?")) $(this).remove();
+     });
+     $('.tags_wrap').click(function() {
+     $('#tags input').focus();
+     })
+
+     // setup autocomplete function pulling from currencies[] array
+     $('#emails_autocomplete').autocomplete({
+     lookup: currencies,
+     onSelect: function (suggestion) {
+     var thehtml = '<strong>Currency Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
+     $('#outputcontent').html(thehtml);
+     }
+     });*/
+
+</script>

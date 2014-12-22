@@ -7,9 +7,9 @@ class Venue < ActiveRecord::Base
   has_many :events
   has_many :pictures, as: :imageable
   has_many :reviews, as: :reviewable
-  has_many :venue_contacts,inverse_of: :venue,dependent: :destroy
+  has_many :venue_contacts, inverse_of: :venue,dependent: :destroy
+  has_many :venue_calendars, dependent: :destroy 
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
-  has_many :events
 
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}

@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation]
+  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist]
 
   helper 'spree/taxons'
 
@@ -50,16 +50,17 @@ class EventsController < ApplicationController
   def create
     @event = current_spree_user.events.new(event_params)
     @event_templates = Spree::Admin::Template.select(:id,:name)
-    if @event.save
-      session.delete(:event_data) if session[:event_data]
-      if params[:commit] == "Create"
-        redirect_to events_path
-      else
-        render 'add_guests'
-      end
-    else
-      render 'new'
-    end
+
+    # if @event.save
+    #   session.delete(:event_data) if session[:event_data]
+    #   if params[:commit] == "Create"
+    #     redirect_to events_path
+    #   else
+    #     render 'add_guests'
+    #   end
+    # else
+    #   render 'new'
+    # end
   end
 
   def show
@@ -106,6 +107,11 @@ class EventsController < ApplicationController
     # @picture = Picture.new
   end
 
+  def invite_with_wishlist
+    @event = Event.find(params[:event_id])
+    @wished_products = @event.wishlist.wished_products if @event.wishlist
+  end
+
   def send_invitation
     @event = Event.find(params[:event_id])
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
@@ -147,12 +153,12 @@ class EventsController < ApplicationController
       end
 
 
-      redirect_to events_path
+      redirect_to event_path(@event)
       #end
 
     else
       flash[:notice] = "Atleast one email is required to Invite."
-      redirect_to "/events/add_guests/#{@event.id}"
+      redirect_to invite_with_wishlist_url(event_id: @event.id)
     end
 
   end
@@ -163,8 +169,11 @@ class EventsController < ApplicationController
   end
 
   def add_products
+    @event = Event.find(params[:event_id])
+    # Create wishlist if not exists
+    @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
+    session[:wishlist_id] = @wishlist.id
     @products = Spree::Product.all
-    session[:wishlist_id] = Spree::Wishlist.find_by_event_id(params[:event_id]).id
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
   end
 
@@ -224,6 +233,7 @@ class EventsController < ApplicationController
     params.require(:event).permit(:name, :host_name,:venue_id,
                                   :host_phone, :location, :description, :starts_at,
                                   :start_time, :ends_at, :end_time, :is_private,
+                                  :city,:state,:country,:zip,
                                   :image, :template_id, :design_id, pictures_attributes: [:image])
   end
 

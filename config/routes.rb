@@ -8,6 +8,8 @@ Invitation::Application.routes.draw do
           get 'add_photos'
           post 'upload_photos'
           delete 'remove_photo'
+          get 'add_calendar'
+          post 'book_venue'
         end
       end
     end
@@ -117,6 +119,20 @@ Invitation::Application.routes.draw do
   get '/events/show_invitation/:event_id'=>"events#show_invitation", as: :show_invitation
 
   get '/invites/join_public_event/:event_id'=>"invites#join_public_event", as: :join_public_event
+
+  ## Wish list ----------------------------------------------------------------
+  get '/event/:event_id/whishlist'=>"whishlist#index",as: :event_wishlist
+  post '/event/:event_id/wishlist/add_product'=>"whishlist#add_product"
+  delete '/event/:event_id/wishlist/remove_product'=>"whishlist#remove_product"
+  get '/event/:event_id/wishlist/wished_products'=>"whishlist#wished_products"
+
+  get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
+
+
+
+  ## End Wish list -------------------------------------------------------------
+
+  # Products lisitng search ,fileter etc
 
   # resources :rsvps, only: [:create, :destroy]
   #
