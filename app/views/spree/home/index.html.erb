@@ -17,10 +17,16 @@
   <div class="row">
     <div class="create_event">
       <div class="btn_orange">
-        <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="">Create Event</a>
+        <% if spree_current_user  %>
+            <%= link_to 'Create Event','/events/new' %>
+        <% else %>
+            <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="">Create Event</a>
+        <% end %>
       </div>
     </div>
-    <div class="title_name">Trending Events</div>
+    <% unless @trending_events.blank? %>
+        <div class="title_name">Trending Events</div>
+    <% end  %>
   </div>
 
 
