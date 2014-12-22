@@ -10,7 +10,7 @@
 
       <div class="col-md-12"><div class="inv_preview_bg"><%= image_tag('event1.png') %></div></div>
       <div class="col-md-12 event_preview_right">
-       <% if current_spree_user.id == @event.user_id  %>
+       <% if current_spree_user and current_spree_user.id == @event.user_id  %>
          <div class="row event_margin">
            <div class="col-md-3">
               <h4><%= "Host Name" %> </h4>
@@ -41,7 +41,7 @@
         </div>
 
 
-      <% if current_spree_user.id == @event.user_id  %>
+      <% if current_spree_user and current_spree_user.id == @event.user_id  %>
         <div class="row count_btns_margin">
           <div class="col-md-2">
             <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -94,7 +94,7 @@
 
 
 
-   <% if current_spree_user.id == @event.user_id  %>
+   <% if current_spree_user and current_spree_user.id == @event.user_id  %>
    <% if @wish_list %>
     <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
    <% end %>
