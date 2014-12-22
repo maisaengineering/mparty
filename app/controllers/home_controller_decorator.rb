@@ -3,6 +3,7 @@ Spree::HomeController.class_eval do
 
   def index
     @trending_events = Event.trending.page(params[:page]).per(4)
+    render layout: false if request.xhr?
   end
 
 end

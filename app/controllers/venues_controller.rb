@@ -7,6 +7,8 @@ class VenuesController < ApplicationController
 
   def show
     @venue = Venue.find(params[:id])
+    @pictures = @venue.pictures
+    @comments = @venue.reviews
   end
 
 end
