@@ -9,6 +9,7 @@ class VenuesController < ApplicationController
     @venue = Venue.find(params[:id])
     @pictures = @venue.pictures
     @comments = @venue.reviews
+    @contact_number = @venue.venue_contacts.first.mobile_number
   end
 
 end
