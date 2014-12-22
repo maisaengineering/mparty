@@ -36,6 +36,17 @@ class ImageUploader < CarrierWave::Uploader::Base
      process :resize_to_fill=> [90, 90]
    end
 
+
+   # /venue/show/  page  for Gallery image size.
+   version :gallery do
+     process :resize_to_limit => [220,165]
+   end
+
+# FANCY IMAGE POPUP WINDOW IMAGE SIZE
+  version :fancy do
+    process :resize_to_limit => [600,450]
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # def extension_white_list
