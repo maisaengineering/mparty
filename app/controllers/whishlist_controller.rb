@@ -1,5 +1,6 @@
 class WhishlistController < ApplicationController
-  skip_before_filter :verify_authenticity_token, only: :add_product
+  before_filter :auth_user
+  skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product]
   before_action :find_wishlist,except: :index
 
   #GET '/event/:event_id/whishlist'
