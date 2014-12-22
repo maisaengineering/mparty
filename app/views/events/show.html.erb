@@ -1,0 +1,232 @@
+<div class="container-fluid">
+  <div class="container" >
+    <div class="row">
+      <div class="title_name"><%=@event.name.titleize%></div>
+    </div>
+
+    <!--event description-->
+
+    <div class="row event_margin">
+
+      <div class="col-md-12"><div class="inv_preview_bg"><%= image_tag('event1.png') %></div></div>
+      <div class="col-md-12 event_preview_right">
+       <% if current_spree_user.id == @event.user_id  %>
+         <div class="row event_margin">
+           <div class="col-md-3">
+              <h4><%= "Host Name" %> </h4>
+           </div>
+           <div class="col-md-7">
+              <h5><%= @event.host_name.titleize %></h5>
+           </div>
+           <div class="col-md-2"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>
+         </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h4><%= "Phone Number" %></h4>
+              </div>
+              <div class="col-md-9">
+                <h5><%= @event.host_phone %></h5>
+              </div>
+            </div>
+       <% end %>
+
+        <div class="row">
+          <div class="col-md-3"><h4>Description</h4></div>
+          <div class="col-md-9"><h5><%=@event.description.camelcase%></h5></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3"><h4>Venue</h4></div>
+          <div class="col-md-9"><h5><%=@event.venue.camelcase if @event.venue%></h5></div>
+        </div>
+
+
+      <% if current_spree_user.id == @event.user_id  %>
+        <div class="row count_btns_margin">
+          <div class="col-md-2">
+            <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
+            <div class="accept_count">
+              <h4><%= @event.attendees('accepted') %></h4>
+              <p><%= "accepted" %></p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="inv_count_btn maybe_count_btn"><span class="glyphicon glyphicon-question-sign"></span></div>
+            <div class="accept_count">
+              <h4><%= @event.attendees('maybe') %></h4>
+              <p><%= "may be" %></p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="inv_count_btn pending_count_btn"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
+            <div class="accept_count">
+              <h4><%= @event.attendees('pending') %></h4>
+              <p><%= "pending" %></p>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="inv_count_btn rejected_count_btn"><span class="glyphicon glyphicon-remove-sign"></span></div>
+            <div class="accept_count">
+              <h4><%= @event.attendees('rejected') %></h4>
+              <p><%= "rejected" %></p>
+            </div>
+          </div>
+        </div>
+       <% end %>
+
+
+
+
+
+      </div>
+    </div>
+    <!--event description end-->
+    <!--location-->
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Location</h4>
+        <div class="location_block">
+          <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+          <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location %>"></iframe>
+        </div>
+      </div>
+    </div>
+
+
+
+   <% if current_spree_user.id == @event.user_id  %>
+   <% if @wish_list %>
+    <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
+   <% end %>
+   <% end %>
+
+
+
+
+    <!--event photos-->
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Photos</h4>
+        <div class="gallery event_photos" id="myCarousel">
+          <div class="jcarousel event_photos_block" data-jcarousel="false">
+            <ul style="left: 0px; top: 0px;">
+
+              <% if @event.pictures.count == 0 %>
+                  No Images
+              <% else %>
+                  <% @event.pictures.each do |p| %>
+                      <li><a class="fancybox" href="<%=p.image%>"><img src="<%=p.image%>" alt="Image 1"></a></li>
+                      <li><%#=link_to(image_tag(p.image.url(:thumb)),"#{p.image}", calss: "fancybox" ) %></li>
+                  <% end%>
+              <% end %>
+            </ul>
+          </div>
+          <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
+          <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
+          <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
+          <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
+        </div>
+      </div>
+    </div>
+
+    <!--event photos end-->
+    <!--comments-->
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row comment_block_btn">
+          <div class="col-md-12">
+            <h4>Comments</h4>
+          </div>
+          <div class="col-md-9">
+            <% if current_spree_user %>
+               <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+                    <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
+                    <%= hidden_field_tag :resource ,'event' %>
+                    <%= hidden_field_tag :resource_id ,@event.id %>
+                    </div>
+                    <div class="col-md-3">
+                      <%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %>
+                    </div>
+                <% end %>
+            <% end %>
+            </div>
+      </div>
+
+    </div><br>
+    <div class="comment_block">
+      <% if @comments.blank? %>
+          No comments
+      <% else%>
+          <div id="comments">
+            <div class="page">
+              <% unless @comments.blank? %>
+                  <% @comments.each do |comment| %>
+                      <%= render 'comments/comment',comment: comment %>
+                  <% end %>
+              <% end %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <!--comments end-->
+  </div>
+</div>
+<%= paginate @comments %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#large-image").html("<img src="+$(".jcarousel ul li ").eq(0).find('img').attr('src')+">");
+        $(".jcarousel a").click(function(e){
+            $("#large-image").html("<img src="+$(this).find('img').attr('src')+">");
+
+        });
+
+        $('#myCarousel').carousel({
+            interval: 1000
+        })
+
+        $('#myCarousel').on('slid.bs.carousel', function() {
+            //alert("slid");
+        });
+
+    });
+
+    /*fancy box*/
+
+    $(document).ready(function() {
+        /*
+         *  Simple image gallery. Uses default settings
+         */
+
+        $('.fancybox').fancybox();
+
+        /*
+         /*
+         *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
+         */
+        $('.fancybox-media')
+                .attr('rel', 'media-gallery')
+                .fancybox({
+                    openEffect : 'none',
+                    closeEffect : 'none',
+                    prevEffect : 'none',
+                    nextEffect : 'none',
+
+                    arrows : false,
+                    helpers : {
+                        media : {},
+                        buttons : {}
+                    }
+                });
+
+        /*
+         *  Open manually
+         */
+
+    });
+
+
+
+
+</script>
