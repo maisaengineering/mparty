@@ -97,3 +97,6 @@ gem 'jquery-fileupload-rails'
 gem "geocoder"
 
 gem 'fuzzily'
+
+gem 'kaminari'
+gem 'jquery-turbolinks'
