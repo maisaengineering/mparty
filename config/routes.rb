@@ -114,7 +114,7 @@ Invitation::Application.routes.draw do
 
   resources :invites, only: [:create, :destroy]
 
-  get '/invites/update_invitaion'=>"invites#update_invitaion", as: :update_invitaion
+  get '/invites/update_invitation'=>"invites#update_invitation", as: :update_invitation
 
   get '/events/show_invitation/:event_id'=>"events#show_invitation", as: :show_invitation
 
