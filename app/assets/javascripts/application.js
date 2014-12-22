@@ -37,5 +37,13 @@ $(document).on('click', '.viaTurbo',function (e) {
 });
 
 
+$(document).ready(function() {
+    //$(".btn_create").on("click",function(){
+    $(".alert_wrapper").animate({top:'10px'}, 500);
+    setTimeout(function() {
+            $(".alert_wrapper").animate({top:'-60px'}, 250)}
+        , 3000)
+});
+
 
 
