@@ -24,6 +24,8 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.infinitescroll
+//= require jquery.e-calendar
+
 
 //= require cart
 //= require events
@@ -36,6 +38,14 @@ $(document).on('click', '.viaTurbo',function (e) {
     Turbolinks.visit($(this).attr('data-url'));
 });
 
+
+$(document).ready(function() {
+    //$(".btn_create").on("click",function(){
+    $(".alert_wrapper").animate({top:'10px'}, 500);
+    setTimeout(function() {
+            $(".alert_wrapper").animate({top:'-60px'}, 250)}
+        , 3000)
+});
 
 
 

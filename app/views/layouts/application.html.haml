@@ -16,7 +16,8 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    = render 'layouts/shared/header'
     = render partial: "shared/flash_messages", flash: flash
-    = yield
+    #wrapper
+      = render 'layouts/shared/header'
+      = yield
     = render 'layouts/shared/footer'

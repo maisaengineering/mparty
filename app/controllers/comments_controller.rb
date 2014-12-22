@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_filter :auth_user
   before_filter :load_commentable
 
   def index

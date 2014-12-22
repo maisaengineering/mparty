@@ -316,11 +316,11 @@ label{
 .event_left_block{
   border-right:2px solid #cecfd0;
   min-height: 540px;
-  overflow:hidden; /*16-12*/
+  overflow:hidden;
 }
 .event_right_block{
   min-height: 540px;
-  overflow:hidden;  /*16-12*/
+  overflow:hidden;
 }
 
 .event_left_block label{
@@ -1613,11 +1613,25 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   height:100px;
   overflow:hidden;
 }
-
-
-
-
-
+.alert_wrapper {
+  position:fixed;
+  z-index:10;
+  margin-left:auto;
+  margin-right:auto;
+  top:-60px;
+  left:0;
+  right:0;
+  width:50%;
+}
+/*added by dinesh */
+#infscr-loading {
+  text-align: center;
+}
+#infscr-loading img {
+  width:20px;
+  height:20px;
+}
+/****************/
 
 
 
@@ -1645,14 +1659,6 @@ li.ui-timepicker-selected .ui-timepicker-duration,
     width:1170px;
     margin:0 auto;
   }
-}
-
-#infscr-loading {
-  text-align: center;
-}
-#infscr-loading img {
-  width:20px;
-  height:20px;
 }
 
 /***************our responsive**********************/
