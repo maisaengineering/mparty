@@ -19,7 +19,7 @@ Spree::OrdersController.class_eval do
           format.html { redirect_to cart_path }
         end
       else
-        flash[:error] = populator.errors.full_messages.join(" ")
+        flash[:error] = 'Please select quantity'  #populator.errors.full_messages.join(" ")
         redirect_to :back
       end
     end

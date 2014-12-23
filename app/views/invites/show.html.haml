@@ -1,0 +1,70 @@
+:css
+  .title_trending {
+    top: 0px;
+  }
+
+.container-fluid
+  .container
+    .title_trending
+      .title_bg
+      .title_name= @event.name
+    .row.event_margin
+      .col-md-12
+        .inv_preview_bg
+          = image_tag('event2.png')
+      .col-md-12.event_preview_right
+        .row
+          .col-md-3
+            %h4 Description
+          .col-md-9
+            %h5= @event.description
+        .row
+          - if @event.venue
+            .col-md-3
+              %h4 Venue
+            .col-md-3
+              %h5= "#{@event.venue.name}(#{@event.venue.full_address})"
+          - else
+            .col-md-3
+              %h4 Address
+            .col-md-3
+              %h5= @event.full_address
+          .col-md-2
+            %a.btn.btn-lg.btn-primary.btn-block.accepte_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=1&&token=#{@token}"}"} ACCEPT
+          .col-md-2
+            %a.btn.btn-lg.btn-primary.btn-block.maybe_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=3&&token=#{@token}"}"} MAY BE
+          .col-md-2
+            %a.btn.btn-lg.btn-primary.btn-block.rejected_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=2&&token=#{@token}"}"} REJECT
+    .row
+      .col-md-12
+        %h4 Location
+        .location_block
+          - location = @event.venue ? @event.venue.full_address : @event.full_address
+          %iframe{:frameborder => "0", :height => "165", :src => "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{location}", :width => "100%"}
+    .row
+      .col-md-12
+        %h4 Photos
+        #myCarousel.gallery.event_photos
+          .jcarousel.event_photos_block{"data-jcarousel" => "false"}
+            %ul{:style => "left: 0px; top: 0px;"}
+              - if @event.pictures.count == 0
+                No Images
+              - else
+                - @event.pictures.each do |p|
+                  %li
+                    %a.fancybox{:href => p.image}
+                      %img{:alt => "Image 1", :src => p.image}/
+                  %li
+          %a.jcarousel-control-prev.inactive.event_photo_prev{"data-jcarouselcontrol" => "true", :href => "#"} ‹
+          %a.jcarousel-control-next.event_photo_next{"data-jcarouselcontrol" => "true", :href => "#"} ›
+    .row
+      .col-md-12
+        %h4 Comments
+        - if @comments.blank?
+          No comments
+        - else
+          #comments
+            .page
+              - unless @comments.blank?
+                - @comments.each do |comment|
+                  = render 'comments/comment',comment: comment
