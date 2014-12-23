@@ -81,23 +81,22 @@ Invitation::Application.configure do
   config.action_mailer.default_url_options = { :host => 'mparty.herokuapp.com' }
   config.action_mailer.asset_host = 'https://mparty.herokuapp.com'
 
-  ENV['SENDER'] = "maisa.engineers@gmail.com"
 
 # ActionMailer Config
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default :charset => "utf-8"
-
-  config.action_mailer.smtp_settings = {
-      :enable_starttls_auto => true,
-      :address => "smtpout.secureserver.net",
-      :port => 80,
-      :domain => "maisasolutions.com",
-      :authentication => :plain,
-      :user_name => 'labs@maisasolutions.com',
-      :password => 'MPRIDE786',
-  }
+#   config.action_mailer.delivery_method = :smtp
+#   config.action_mailer.perform_deliveries = true
+#   config.action_mailer.raise_delivery_errors = false
+#   config.action_mailer.default :charset => "utf-8"
+#
+#   config.action_mailer.smtp_settings = {
+#       :enable_starttls_auto => true,
+#       :address => "smtpout.secureserver.net",
+#       :port => 80,
+#       :domain => "maisasolutions.com",
+#       :authentication => :plain,
+#       :user_name => 'labs@maisasolutions.com',
+#       :password => 'MPRIDE786',
+#   }
 
 
 end

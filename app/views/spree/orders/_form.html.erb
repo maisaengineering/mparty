@@ -1,23 +1,27 @@
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
-<div class="row">
-  <div class="wishlist_main addcart_main">
-    <div class="wishlist_header shopping_cart"><table width="100%">
-      <tr>
-        <td>Item View</td>
-        <td><%= Spree.t(:price) %></td>
-        <td><%= Spree.t(:qty) %></td>
-        <td><%= Spree.t(:total) %></td>
-      </tr>
-    </table></div>
-    <div class="line_items"> <%= render partial: 'line_item', collection: order_form.object.line_items, locals: {order_form: order_form} %></div>
-    <% if @order.adjustments.exists? || @order.line_item_adjustments.exists? || @order.shipment_adjustments.exists? %>
-        <tr class="cart-subtotal">
-          <td colspan="4" align='right'><h5><%= Spree.t(:cart_subtotal, :count => @order.line_items.sum(:quantity)) %></h5></th>
-          <td colspan><h5><%= order_form.object.display_item_total %></h5></td>
-          <td></td>
-        </tr>
-        <%= render "spree/orders/adjustments" %>
-    <% end %>
-  </div>
-  <div class="col-md-1 wlist_p total_cart"><b><%= Spree.t(:total) %>:</b><%= order_form.object.display_total %></div>
+<div class="row wishlist_popup_header no_margin shopping_cart_wishlist">
+  <div class="col-md-2"></div>
+  <div class="col-md-3">DESCRIPTION</div>
+  <div class="col-md-2">QUANTITY</div>
+  <div class="col-md-2">PRICE</div>
+  <div class="col-md-2">TOTAL</div>
+  <div class="col-md-2"></div>
+</div>
+<div class="line_items">
+  <%= render partial: 'line_item', collection: order_form.object.line_items, locals: {order_form: order_form} %>
+</div>
+<% if @order.adjustments.exists? || @order.line_item_adjustments.exists? || @order.shipment_adjustments.exists? %>
+    <tr class="cart-subtotal">
+      <td colspan="4" align='right'><h5><%= Spree.t(:cart_subtotal, :count => @order.line_items.sum(:quantity)) %></h5></th>
+      <td colspan><h5><%= order_form.object.display_item_total %></h5></td>
+      <td></td>
+    </tr>
+    <%= render "spree/orders/adjustments" %>
+<% end %>
+<div class="row shopping_cart_footer no_margin">
+  <div class="col-md-2"></div>
+  <div class="col-md-4"></div>
+  <div class="col-md-2"></div>
+  <div class="col-md-1"><h4>TOTAL</h4></div>
+  <div class="col-md-2"><h4></h4><%= order_form.object.display_total %></h4></div>
 </div>

@@ -30,7 +30,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <div class="btn_orange quote_btn"><a href="create_event_form.html">Choose</a></div>
+          <div class="btn_orange quote_btn"><% if params[:from_event] %> <%= link_to "Choose", new_event_path(venue_id: @venue.id)%> <% end %></div>
         </div>
       </div>
     </div>
@@ -248,18 +248,16 @@ $(document).ready(function() {
     /*
      *  Open manually
      */
-});
-
- $('#calendar').eCalendar({ 
+  <% if @venue_calendars.present? %>
+    $('#calendar').eCalendar({ 
     events: [
-        {title: 'Event Title 1', description: 'Description 1', datetime: new Date(2014, 11, 12, 17)},
-        {title: 'Event Title 2', description: 'Description 2', datetime: new Date(2014,11, 17, 16)},
-    {title: 'Event Title 2', description: 'Description 2', datetime: new Date(2014,11, 20, 20)},
-    
-    ]
+        <%= @booked_slots %>
+        ]
+    });
+  <% else %>   
+    $('#calendar').eCalendar();
+  <% end %>     
 });
-
-
 
 
 
