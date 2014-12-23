@@ -81,7 +81,6 @@ Invitation::Application.configure do
   config.action_mailer.default_url_options = { :host => 'mparty.herokuapp.com' }
   config.action_mailer.asset_host = 'https://mparty.herokuapp.com'
 
-  ENV['SENDER'] = "maisa.engineers@gmail.com"
 
 # ActionMailer Config
 #   config.action_mailer.delivery_method = :smtp
