@@ -110,7 +110,7 @@ Invitation::Application.routes.draw do
   get '/calendar/'=>"events#calendar", as: :calendar
 
 
-  get '/view_invitation/:invitation_code'=>"events#view_invitation", as: :view_invitation
+  get '/view_invitation/:invitation_code'=>"invites#show", as: :view_invitation
 
   resources :invites, only: [:create, :destroy]
 
