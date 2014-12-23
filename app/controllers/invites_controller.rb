@@ -3,13 +3,26 @@ class InvitesController < ApplicationController
   skip_before_filter :auth_user
   #layout 'spree_application'
 
+  def show
+    @invitation = Invite.find_by_token(params[:invitation_code])
+    if @invitation.present?
+      @event = @invitation.event
+      @invite_email = @invitation.recipient_email
+      @token = @invitation.token
+      @comments = @event.comments.order('created_at DESC').limit(10)
+    else
+      flash[:error] = "We are sorry Invitation not found."
+      render
+    end
+  end
+
   def update_invitation
     @invitaion = Invite.where(token: params[:token]).first
     @invitaion.update_attributes(joined: params[:status])
     @event = @invitaion.event
     @wishlist = @event.wishlist
-    # session[:event_id] = @event.id
-    # session[:invitaion_id] = @invitaion.id
+    session[:event_id] = @event.id
+    session[:invitaion_id] = @invitaion.id
     # if signed_in?
     #   if @invitaion.recipient_email == current_spree_user.email
     #     #redirect_to show_invitation_path(@event.id)

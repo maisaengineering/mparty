@@ -45,7 +45,7 @@
                       <div class="col-md-2">
                         <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
                         <% if !wish.is_purchased %>
-                            <%= number_field_tag "quantity[#{i}]", 0, in:0..wish.quantity-wish.quantity_purchased,class: 'form-control addcart_select' %>
+                            <%= number_field_tag "quantity[#{i}]", 0, in:0..wish.quantity-wish.quantity_purchased,class: 'form-control addcart_select',size: 5 %>
                         <% else %>
                             <p>Already Purchased</p>
                         <% end %>

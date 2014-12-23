@@ -54,4 +54,12 @@ class Event < ActiveRecord::Base
     pictures.first
   end
 
+  def full_address
+    "#{location} #{city} #{state} #{country} #{zip}"
+  end
+
+  def map_address
+    "#{location},#{city},#{state},#{country},#{zip}"
+  end
+
 end

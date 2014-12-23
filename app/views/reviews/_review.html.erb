@@ -1,0 +1,13 @@
+<div class="review">
+  <div class="row review_block">
+    <div class="col-md-1">
+      <%= image_tag('avatar.png') %>
+    </div>
+    <div class="col-md-11">
+      <h5><%= review.heading %></h5>
+      <p class="review_time pull-right"><%= distance_of_time_in_words_to_now(review.created_at)%></p>
+      <p><%= review.description%></p>
+    </div>
+  </div>
+</div>
+<hr>
