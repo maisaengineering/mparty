@@ -31,6 +31,7 @@
 //= require events
 //= require comments
 //= require pictures
+//= require reviews
 
 // Visit pages via turbolinks
 $(document).on('click', '.viaTurbo',function (e) {

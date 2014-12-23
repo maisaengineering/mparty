@@ -8,7 +8,7 @@ class VenuesController < ApplicationController
   def show
     @venue = Venue.find(params[:id])
     @pictures = @venue.pictures
-    @comments = @venue.reviews
+    @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contact_number = @venue.venue_contacts.first.mobile_number
   end
 

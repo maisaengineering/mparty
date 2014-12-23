@@ -128,27 +128,39 @@
         <div role="tabpanel" class="tab-pane fade" id="Reviews">
           <div class="row">
             <div class="col-md-12">
-
-              <%@comments.each do |comment|%>
-              <div class="row comment_block">
-                <div class="col-md-1"> <img src="/assets/avatar.png"> </div>
-                <div class="col-md-11">
-                  <h5><%= comment.heading%></h5>
-                   <p class="comment_time pull-right"><%= distance_of_time_in_words_to_now(comment.created_at)%> ago</p>
-                  <p><%= comment.description%></p>
-                </div>
+              <div class="col-md-12">
+                <div class="row comment_block_btn">
+                  <div class="col-md-12">
+                    <h4>Reviews</h4>
+                  </div>
+                    <% if current_spree_user %>
+                    <div class="col-md-9">
+                      <%= form_tag reviews_path ,remote: true,id: 'review_form' do %>
+                        <%= text_area_tag :description,'',id: 'review_content',cols: 95,rows: 2     %>
+                        <%= hidden_field_tag :resource ,'venue' %>
+                        <%= hidden_field_tag :venue_id ,@venue.id %>
+                         </div>
+                        <div class="col-md-3">
+                          <%= submit_tag 'WRITE REVIEW',class: 'btn btn-lg btn-success btn-block  ' %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                    </div>
+              <div class="comment_block">
+                <% if @reviews.blank? %>
+                  No Reviews
+                <% else%>
+                  <div id="reviews">
+                    <div class="page">
+                      <% @reviews.each do |review| %>
+                        <%= render 'reviews/review',review: review %>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
               </div>
-              <%end%>
-            </div>
-            <div class="col-md-6">          
-            </div>
-
-
-
-    <!--         <div class="col-md-6"><div class="writereview_btn pull-right"><a href="" data-toggle="modal" data-target="#login_modal_venuev">WRITE REVIEW</a></div></div>
- -->
-
-
+              <%= paginate @reviews %>              
+               </div>
           </div>
         </div>
       </div>
