@@ -1,5 +1,5 @@
 Invitation::Application.routes.draw do
-
+  resources :reviews
   Spree::Core::Engine.routes.draw do
     namespace :admin do
       resources :templates

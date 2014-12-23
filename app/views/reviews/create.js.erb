@@ -1,0 +1,3 @@
+<% if @review.save %>
+  $('.review_block:first').before("<%= j render('reviews/review',review: @review) %>").hide().slideDown("slow")
+<% end %>

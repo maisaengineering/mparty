@@ -24,11 +24,14 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.infinitescroll
+//= require jquery.e-calendar
+
 
 //= require cart
 //= require events
 //= require comments
 //= require pictures
+//= require reviews
 
 // Visit pages via turbolinks
 $(document).on('click', '.viaTurbo',function (e) {
