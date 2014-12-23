@@ -1,7 +1,5 @@
-%h1 your have invited an event(#{@event.name}) of your friend #{@sender_name}
-
+%h3 You have been invited for an event "#{@event.name}" by your friend '#{@sender_name}'
 %p= link_to "View Invitation",  @url
-
 -#%p
   = link_to 'Attend',spree.root_url + "invites/update_invitation?&status=1&&token=#{@token}"
   &nbsp;&nbsp;&nbsp; |

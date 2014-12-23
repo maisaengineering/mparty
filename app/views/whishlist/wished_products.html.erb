@@ -17,7 +17,8 @@
             <p><%= truncate(product.description,length: 50) %></p>
           </div>
           <div class="col-md-2">
-            <%= wish.quantity %>
+            <%#= wish.quantity %>
+            <%= number_field_tag :quantity, wish.quantity, min: 1, class: "form-control addcart_select line_item_quantity text_6", :size => 5  %>
           </div>
           <div class="col-md-2">
             <h5><%= number_to_currency(variant.price) %></h5>
