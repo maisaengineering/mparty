@@ -27,6 +27,8 @@ class CsrAbility
       can :manage, Spree::PaymentMethod
       can :manage, Spree::InventoryUnit
       can :manage, Spree::OptionValue
+      can :manage, Venue
+      can :admin, Spree::Admin::VenuesController
     end
   end
 end

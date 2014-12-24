@@ -1,4 +1,4 @@
-class Spree::Admin::VenuesController < Spree::Admin::BaseController
+class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   #before_action :set_spree_admin_template, only: [:show, :edit, :update, :destroy]
 
   # GET /spree/admin/templates
@@ -88,5 +88,9 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
 
   def venue_calendar_params
     params.require(:venue_calendar).permit(:start_date,:end_date)
+  end
+
+  def model_class
+    Venue
   end  
 end
