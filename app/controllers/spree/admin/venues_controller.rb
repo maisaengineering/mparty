@@ -67,6 +67,13 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
     redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
   end 
 
+  def remove_venue_slot
+    @venue = Venue.find(params[:id])
+    @venue_calendar = VenueCalendar.find(params[:calendar_id])
+    @venue_calendar.destroy
+    redirect_to add_calendar_admin_venue_url(@venue), notice: 'Slot removed successfully'
+  end  
+
 
   private
   def venue_params
