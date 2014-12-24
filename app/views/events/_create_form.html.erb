@@ -160,5 +160,48 @@
         $('#venue_dform').show()
     }
 
+
+    $("#event_template_id").change(function(e){
+        e.preventDefault();
+        var template_id = $(this).val();
+        $.ajax({
+            url: "/events/update_designs",
+            type: "GET",
+            data: {"template_id" : template_id},
+            beforeSend: function(){
+               $('#event_template_designs').fadeOut('slow')
+            },
+            success: function(data) {
+                // design_selection();
+                // manual_keyup();
+                updateTemplateDesignWithData()
+            }
+        });
+    });
+
+
+    updateTemplateDesignWithData = function(){
+        $ele = $('#event_template_designs')
+        $("#new_event #event_host_name").keyup(function(){
+            ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
+        })
+        $("#new_event #event_name").keyup(function(){
+            ($(this).val() == '') ?  $ele.find('.eventDesignEventName').text('Event name') : $ele.find('.eventDesignEventName').text($(this).val())
+        })
+
+        $("#new_event #event_starts_at").change(function() {
+            var eventDesignEventDate = $ele.find('.eventDesignEventDate')
+            eventDesignEventDate.text($(this).val());
+        });
+
+        $("#new_event #event_description").keyup(function() {
+            var eventDesignEventDesc =  $ele.find('.eventDesignEventText').find('td');
+            ($(this).val() == '') ? eventDesignEventDesc.text('Description') :eventDesignEventDesc.text($(this).val())
+        });
+
+    }
+
+
+
     // $('#datepairExample').datepair();
 </script>

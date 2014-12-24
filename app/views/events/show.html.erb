@@ -7,19 +7,27 @@
     <!--event description-->
 
     <div class="row event_margin">
-
-      <div class="col-md-12"><div class="inv_preview_bg"><%= image_tag('event1.png') %></div></div>
+      <% if @event_design %>
+          <div class="col-md-12">
+            <div class="inv_preview_bg">
+              <div id="eventDesignPreview">
+                <% c_design = @handlebars.compile(@event_design.content) %>
+                <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+              </div>
+            </div>
+          </div>
+      <% end %>
       <div class="col-md-12 event_preview_right">
-       <% if current_spree_user and current_spree_user.id == @event.user_id  %>
-         <div class="row event_margin">
-           <div class="col-md-3">
-              <h4><%= "Host Name" %> </h4>
-           </div>
-           <div class="col-md-7">
-              <h5><%= @event.host_name.titleize %></h5>
-           </div>
-           <div class="col-md-2"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>
-         </div>
+        <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+            <div class="row event_margin">
+              <div class="col-md-3">
+                <h4><%= "Host Name" %> </h4>
+              </div>
+              <div class="col-md-7">
+                <h5><%= @event.host_name.titleize %></h5>
+              </div>
+              <div class="col-md-2"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>
+            </div>
             <div class="row">
               <div class="col-md-3">
                 <h4><%= "Phone Number" %></h4>
@@ -28,7 +36,7 @@
                 <h5><%= @event.host_phone %></h5>
               </div>
             </div>
-       <% end %>
+        <% end %>
 
         <div class="row">
           <div class="col-md-3"><h4>Description</h4></div>
@@ -41,38 +49,38 @@
         </div>
 
 
-      <% if current_spree_user and current_spree_user.id == @event.user_id  %>
-        <div class="row count_btns_margin">
-          <div class="col-md-2">
-            <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
-            <div class="accept_count">
-              <h4><%= @event.attendees('accepted') %></h4>
-              <p><%= "accepted" %></p>
+        <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+            <div class="row count_btns_margin">
+              <div class="col-md-2">
+                <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
+                <div class="accept_count">
+                  <h4><%= @event.attendees('accepted') %></h4>
+                  <p><%= "accepted" %></p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="inv_count_btn maybe_count_btn"><span class="glyphicon glyphicon-question-sign"></span></div>
+                <div class="accept_count">
+                  <h4><%= @event.attendees('maybe') %></h4>
+                  <p><%= "may be" %></p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="inv_count_btn pending_count_btn"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
+                <div class="accept_count">
+                  <h4><%= @event.attendees('pending') %></h4>
+                  <p><%= "pending" %></p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="inv_count_btn rejected_count_btn"><span class="glyphicon glyphicon-remove-sign"></span></div>
+                <div class="accept_count">
+                  <h4><%= @event.attendees('rejected') %></h4>
+                  <p><%= "rejected" %></p>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-md-2">
-            <div class="inv_count_btn maybe_count_btn"><span class="glyphicon glyphicon-question-sign"></span></div>
-            <div class="accept_count">
-              <h4><%= @event.attendees('maybe') %></h4>
-              <p><%= "may be" %></p>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="inv_count_btn pending_count_btn"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
-            <div class="accept_count">
-              <h4><%= @event.attendees('pending') %></h4>
-              <p><%= "pending" %></p>
-            </div>
-          </div>
-          <div class="col-md-2">
-            <div class="inv_count_btn rejected_count_btn"><span class="glyphicon glyphicon-remove-sign"></span></div>
-            <div class="accept_count">
-              <h4><%= @event.attendees('rejected') %></h4>
-              <p><%= "rejected" %></p>
-            </div>
-          </div>
-        </div>
-       <% end %>
+        <% end %>
 
 
 
@@ -94,11 +102,11 @@
 
 
 
-   <% if current_spree_user and current_spree_user.id == @event.user_id  %>
-   <% if @wish_list %>
-    <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
-   <% end %>
-   <% end %>
+    <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+        <% if @wish_list %>
+            <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
+        <% end %>
+    <% end %>
 
 
 
@@ -141,7 +149,7 @@
           </div>
           <div class="col-md-9">
             <% if current_spree_user %>
-               <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+                <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
                     <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
                     <%= hidden_field_tag :resource ,'event' %>
                     <%= hidden_field_tag :resource_id ,@event.id %>

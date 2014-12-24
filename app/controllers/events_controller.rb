@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
-  before_filter :register_handlebars
+  before_filter :register_handlebars,only: [:update_designs,:show]
   layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist]
 
   helper 'spree/taxons'
@@ -51,7 +51,8 @@ class EventsController < ApplicationController
   end
 
   def update_designs
-    @designs = Spree::Admin::Template.find(params[:template_id]).designs
+    @template = Spree::Admin::Template.find(params[:template_id])
+    @designs = @template.designs
   end
 
   def  select_venue
@@ -83,8 +84,8 @@ class EventsController < ApplicationController
     @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
     @comment = Comment.new
     @pictures = @event.pictures.build
-    event_template = Spree::Admin::Template.where(id: @event.template_id).first
-    @event_design = event_template.designs.where(id: @event.design_id).first if event_template
+    @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
   end
 
 
