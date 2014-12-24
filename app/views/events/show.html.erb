@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="container" >
     <div class="row">
-      <div class="title_name"><%=@event.name.titleize%></div>
+      <div class="title_name"><%#=@event.name.titleize%></div>
     </div>
 
     <!--event description-->
@@ -11,23 +11,7 @@
       <div class="col-md-12"><div class="inv_preview_bg"><%= image_tag('event1.png') %></div></div>
       <div class="col-md-12 event_preview_right">
        <% if current_spree_user and current_spree_user.id == @event.user_id  %>
-         <div class="row event_margin">
-           <div class="col-md-3">
-              <h4><%= "Host Name" %> </h4>
-           </div>
-           <div class="col-md-7">
-              <h5><%= @event.host_name.titleize %></h5>
-           </div>
-           <div class="col-md-2"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>
-         </div>
-            <div class="row">
-              <div class="col-md-3">
-                <h4><%= "Phone Number" %></h4>
-              </div>
-              <div class="col-md-9">
-                <h5><%= @event.host_phone %></h5>
-              </div>
-            </div>
+           <div class="row event_margin"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>
        <% end %>
 
         <div class="row">
@@ -37,7 +21,11 @@
 
         <div class="row">
           <div class="col-md-3"><h4>Venue</h4></div>
-          <div class="col-md-9"><h5><%=@event.venue.name.camelcase if @event.venue%></h5></div>
+          <% if @event.venue.present? %>
+             <div class="col-md-9"><h5><%=@event.venue.name.camelcase%></h5></div>
+          <% else %>
+             <div class="col-md-9"><h5><%=@event.location %></h5></div>
+          <% end %>
         </div>
 
 
@@ -74,10 +62,6 @@
         </div>
        <% end %>
 
-
-
-
-
       </div>
     </div>
     <!--event description end-->
@@ -86,8 +70,13 @@
       <div class="col-md-12">
         <h4>Location</h4>
         <div class="location_block">
-          <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-          <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location %>"></iframe>
+          <% if @event.location.present? %>
+             <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
+          <% else %>
+             <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.address1 + @event.venue.city  %> "></iframe>
+          <% end %>
         </div>
       </div>
     </div>
@@ -99,8 +88,6 @@
     <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
    <% end %>
    <% end %>
-
-
 
 
     <!--event photos-->
@@ -147,7 +134,7 @@
                     <%= hidden_field_tag :resource_id ,@event.id %>
                     </div>
                     <div class="col-md-3">
-                      <%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %>
+                      <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
                     </div>
                 <% end %>
             <% end %>
@@ -157,7 +144,7 @@
     </div><br>
     <div class="comment_block">
       <% if @comments.blank? %>
-          No comments
+          <div id="no_comment">No comments</div>
       <% else%>
           <div id="comments">
             <div class="page">
@@ -174,3 +161,10 @@
   </div>
 </div>
 <%= paginate @comments %>
+
+
+<script type="text/javascript">
+  $("#submit").click(function(){
+      $("#no_comment").empty();
+  });
+</script>
