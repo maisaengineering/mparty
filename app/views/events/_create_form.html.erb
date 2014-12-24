@@ -11,11 +11,12 @@
           </div>
           <div class="col-md-6">
             <label></label>
-            <%= f.text_field :host_name, class: 'form-control',placeholder: 'Host Name*',required: true %>
+
+            <%= f.text_field :host_name,value:  current_spree_user.full_name.titleize , class: 'form-control',required: true %>
           </div>
           <div class="col-md-6">
             <label></label>
-            <%= f.text_field :host_phone, class: 'form-control',placeholder: 'Host Phone*',required: true %>
+            <%= f.text_field :host_phone,value:  current_spree_user.phone, class: 'form-control',required: true %>
           </div>
           <div id="datepairExample">
             <div class="row no_margin">
@@ -82,7 +83,7 @@
           </div>
           <div class="col-md-12">
             <label></label>
-            <%= f.text_area :description, class: 'form-control',placeholder: 'Description*',rows: 2%>
+            <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2%>
           </div>
           <div class="col-md-12">
             <label>
