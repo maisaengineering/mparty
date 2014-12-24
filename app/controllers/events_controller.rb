@@ -22,13 +22,11 @@ class EventsController < ApplicationController
       if  params[:type] == 'upcoming'
 
         #@events =Event.joins(:invites).where("invites.user_id=? OR invites.invited_user_id=? OR events.is_private=?",current_spree_user.id,current_spree_user.id,false)
-      @events = Event.joins(:invites).where("invites.user_id=? OR invites.invited_user_id=? OR events.is_private=?",current_spree_user.id,current_spree_user.id,false).uniq.upcoming.page(params[:page]).per(4)
+      @events = Event.joins(:invites).where("invites.invited_user_id=?",current_spree_user.id).upcoming.uniq.page(params[:page]).per(4)
       elsif params[:type] == 'past'
-        @events = Event.joins(:invites).where("invites.user_id=? OR invites.invited_user_id=? OR events.is_private=?",current_spree_user.id,current_spree_user.id,false).uniq.past.page(params[:page]).per(4)
-      elsif params[:type] == 'public'
-        @events= Event.send(params[:type]).upcoming.page(params[:page]).per(4)
+      @events = Event.joins(:invites).where("invites.invited_user_id=?",current_spree_user.id).past.uniq.page(params[:page]).per(4)
       elsif params[:type] == 'invited'
-        @events= Event.invited(current_spree_user.email).upcoming.page(params[:page]).per(4)
+      @events= Event.invited(current_spree_user.email).upcoming.page(params[:page]).per(4)
       end
     else
 

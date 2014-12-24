@@ -39,7 +39,10 @@
       %li
         %a{:href => "/events"}
           %span.glyphicon.glyphicon-star>
-          \  Events
+          - if signed_in?
+            \ &nbsp; My Events
+          - else
+            \ Events
       %li
         %a{:href => "/venues"}
           %span.glyphicon.glyphicon-map-marker>
