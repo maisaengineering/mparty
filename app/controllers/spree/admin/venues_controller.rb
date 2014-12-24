@@ -63,8 +63,7 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
 
   def book_venue
     @venue = Venue.find(params[:id])
-    byebug
-    @venu.venue_calendars.create(venue_calendar_params)
+    @venue.venue_calendars.create(venue_calendar_params)
     redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
   end 
 
