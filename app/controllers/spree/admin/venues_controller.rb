@@ -1,10 +1,10 @@
-class Spree::Admin::VenuesController < Spree::Admin::BaseController
+class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   #before_action :set_spree_admin_template, only: [:show, :edit, :update, :destroy]
 
   # GET /spree/admin/templates
   # GET /spree/admin/templates.json
   def index
-    @venues = Venue.all
+    @venues = current_spree_user.has_spree_role?(:admin) ? Venue.all : current_spree_user.venues
   end
 
   def new
@@ -67,6 +67,13 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
     redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
   end 
 
+  def remove_venue_slot
+    @venue = Venue.find(params[:id])
+    @venue_calendar = VenueCalendar.find(params[:calendar_id])
+    @venue_calendar.destroy
+    redirect_to add_calendar_admin_venue_url(@venue), notice: 'Slot removed successfully'
+  end  
+
 
   private
   def venue_params
@@ -81,5 +88,9 @@ class Spree::Admin::VenuesController < Spree::Admin::BaseController
 
   def venue_calendar_params
     params.require(:venue_calendar).permit(:start_date,:end_date)
+  end
+
+  def model_class
+    Venue
   end  
 end

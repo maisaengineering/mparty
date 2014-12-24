@@ -27,6 +27,11 @@ class CsrAbility
       can :manage, Spree::PaymentMethod
       can :manage, Spree::InventoryUnit
       can :manage, Spree::OptionValue
+      can [:manage], Venue
+      can [:show, :edit, :update, :destroy], Venue do |resource|
+        resource.user_id == user.id
+      end  
+      can [:admin, :manage], Spree::Admin::VenuesController  
     end
   end
 end

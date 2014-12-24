@@ -3,32 +3,36 @@
     <% if events.present? %>
 
         <% events.each do |e| %>
-            <div class="event">
-              <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class=" row nomargin event_margin">
-                  <div class="event_img">
-                    <%=link_to(image_tag("event_2.jpg"), "events/#{e.id}", class: "thumbnail") %>
-                    <div class="event_name">
-                      <p><%= e.name.titleize%></p>
+
+            <div class="col-xs-12 col-sm-6 col-md-3 event">
+              <div class=" row nomargin event_margin">
+                <div class="event_img">
+                  <% if e.pictures.present? %>
+                      <%=link_to(image_tag(e.pictures.first.image.url(:small)), "events/#{e.id}", class: "thumbnail") %>
+                  <% else %>
+                      <%=link_to(image_tag("event_2.jpg"), "events/#{e.id}", class: "thumbnail") %>
+                  <% end %>
+                  <div class="event_name">
+                    <p><%= e.name.titleize%></p>
+                  </div>
+                  <div class="event_details">
+                    <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>
+                      <% if e.starts_at== Date.today %>
+                          Today
+                      <% else %>
+                          <%= e.starts_at.strftime("%d/%m/%y")%>
+                      <% end %>
+                      <div class="pull-right"><%=e.starts_at.strftime("%I:%M %p")%></div>
                     </div>
-                    <div class="event_details">
-                      <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>
-                        <% if e.starts_at== Date.today %>
-                            Today
-                        <% else %>
-                            <%= e.starts_at.strftime("%d/%m/%y")%>
-                        <% end %>
-                        <div class="pull-right"><%=e.starts_at.strftime("%I:%M %p")%></div>
-                      </div>
-                      <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
-                        <%= truncate(e.location.camelcase ,length: 20) %>
-                        <div class="pull-right join_btn" > <%= link_to "Join", "" %></div>
-                      </div>
+                    <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
+                      <%= truncate(e.location.camelcase ,length: 20) %>
+                      <div class="pull-right join_btn" > <%= link_to "Join", "" %></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
         <% end %>
     <% end %>
   </div>

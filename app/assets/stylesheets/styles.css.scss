@@ -38,6 +38,7 @@ body{
   border:none;
   border-radius:0px;
   margin-bottom:0px;
+
 }
 
 .event_name{
@@ -1150,6 +1151,8 @@ label{
   width:auto;
   background-color:transparent;
   outline:none;
+  /*dinesh to increase text length for placeholder in events/_invite_form.html */
+  width: 230px;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
@@ -1666,6 +1669,12 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   width: 50%;
   height: 30px;
 }
+
+/* added by naveen
+.event_img img{
+  width:263px;
+}
+*/
 
 
 

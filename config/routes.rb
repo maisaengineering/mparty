@@ -10,6 +10,7 @@ Invitation::Application.routes.draw do
           delete 'remove_photo'
           get 'add_calendar'
           post 'book_venue'
+          delete 'remove_venue_slot'
         end
       end
     end
