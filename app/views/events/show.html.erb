@@ -103,7 +103,7 @@
                   No Images
               <% else %>
                   <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image%>"><img src="<%=p.image%>" alt="Image 1"></a></li>
+                      <li><a class="fancybox" href="<%=p.image.url(:small)%>"><img src="<%=p.image.url(:small)%>" alt="Image 1"></a></li>
                       <li><%#=link_to(image_tag(p.image.url(:thumb)),"#{p.image}", calss: "fancybox" ) %></li>
                   <% end%>
               <% end %>

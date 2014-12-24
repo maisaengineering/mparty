@@ -37,7 +37,6 @@ class ImageUploader < CarrierWave::Uploader::Base
    end
 
 
-=begin
    # /venue/show/  page  for Gallery image size.
    version :gallery do
      process :resize_to_fill => [220,165]
@@ -47,7 +46,6 @@ class ImageUploader < CarrierWave::Uploader::Base
   version :fancy do
     process :resize_to_fill => [600,450]
   end
-=end
 
   version :small do
     process :resize_to_fill => [293,293]
