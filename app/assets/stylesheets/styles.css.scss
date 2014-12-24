@@ -38,8 +38,7 @@ body{
   border:none;
   border-radius:0px;
   margin-bottom:0px;
-  /*added by dinesh */
-  height: 200px;
+
 }
 
 .event_name{
@@ -1152,6 +1151,8 @@ label{
   width:auto;
   background-color:transparent;
   outline:none;
+  /*dinesh to increase text length for placeholder in events/_invite_form.html */
+  width: 230px;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
