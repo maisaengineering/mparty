@@ -211,6 +211,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    mysql2 (0.3.17)
     nested_form (0.3.2)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
@@ -285,6 +286,7 @@ GEM
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       polyamorous (~> 0.6.0)
+    ratyrate (1.2.2.alpha)
     rdoc (4.1.1)
       json (~> 1.4)
     recaptcha (0.3.6)
@@ -376,7 +378,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     truncate_html (0.9.2)
-    turbolinks (2.2.2)
+    turbolinks (2.3.0)
       coffee-rails
     tzinfo (0.3.39)
     uglifier (2.5.1)
@@ -413,10 +415,12 @@ DEPENDENCIES
   koala (~> 1.8.0rc1)
   letter_opener
   money (= 6.0.1)
+  mysql2
   nested_form
   pg
   rails (= 4.0.4)
   rails_12factor
+  ratyrate
   rmagick
   sass-rails (~> 4.0.2)
   sdoc
