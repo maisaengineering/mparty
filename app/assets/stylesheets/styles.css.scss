@@ -1334,6 +1334,10 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .jcarousel-wrapper {
   position: relative;
 }
+#event_template_designs  .jcarousel-wrapper {
+  position: relative;
+  width:440px;
+}
 
 /** Carousel **/
 
@@ -1359,6 +1363,21 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 .jcarousel li {
   float: left;
+}
+
+#event_template_designs  .jcarousel li{
+  float: left;
+  width:140px; /*24/12/2014*/
+  margin-right:10px; /*24/12/2014*/
+  -webkit-transform: scale(0.15);
+  -webkit-transform-origin: left top;
+  -ms-transform: scale(0.15);
+  -ms-transform-origin: left top;
+  -moz-transform: scale(0.15);
+  -moz-transform-origin: left top;
+  -transform: scale(0.15);
+  -transform-origin: left top;
+  cursor:pointer;
 }
 
 .jcarousel img {
@@ -1513,9 +1532,20 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 
 #large-image {
-  position:relative;
-
+  position: relative;
+  transform: scale(0.5);
+  transform-origin: left top 0;
+  height: 350px;
 }
+
+#eventDesignPreview{
+  position: relative;
+  transform: scale(0.545);
+  transform-origin: center top 0;
+  height: 350px;
+}
+
+
 .contentplace {
   position:absolute;
   z-index:10;

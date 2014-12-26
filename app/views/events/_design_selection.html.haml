@@ -1,0 +1,29 @@
+-  unless @designs.blank?
+  #large-image
+  #eventDesignsCarousel.gallery.jcarousel-wrapper
+    .jcarousel{"data-jcarousel" => "false"}
+      %ul{:style => "left: 0px; top: 0px;"}
+        - @designs.each do |design|
+          %li.design_template{id: "design_#{ design.id }",data:{'design-id'=> design.id}}
+            - c_design = @handlebars.compile(design.content)
+            = c_design.call(MPARTY: event_data_points(@event,@template)).html_safe
+    %a.jcarousel-control-prev{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true' } &lsaquo;
+    %a.jcarousel-control-next{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true'} &rsaquo;
+
+:javascript
+    applyJcarousel()
+    $("#event_template_designs #large-image").html($("#event_template_designs .jcarousel li").eq(0).html());
+    $("#event_template_designs .jcarousel li").click(function(e){
+      e.preventDefault()
+      $("#event_template_designs #large-image").html($(this).html());
+      return false;
+    });
+
+   // set design id for template
+    $('#new_event #event_design_id').val($('#eventDesignsCarousel').find('.design_template').first().data("design-id"))
+
+    $('#eventDesignsCarousel .design_template').click(function (e){
+      $('#new_event #event_design_id').val($(this).data("design-id"))
+    })
+
+

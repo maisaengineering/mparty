@@ -161,5 +161,58 @@
         $('#venue_dform').show()
     }
 
+
+    function invokeDesign(template_id){
+        if(template_id != ''){
+            $.ajax({
+                url: "/events/update_designs",
+                type: "GET",
+                data: {"template_id" : template_id},
+                beforeSend: function(){
+                    $('#event_template_designs').fadeOut('slow')
+                },
+                success: function(data) {
+                    // design_selection();
+                    // manual_keyup();
+                    updateTemplateDesignWithData()
+                }
+            });
+        }
+    }
+    invokeDesign($("#event_template_id").val())
+    $("#event_template_id").change(function(e){
+        e.preventDefault();
+        var template_id = $(this).val();
+        invokeDesign(template_id)
+    });
+
+
+    updateTemplateDesignWithData = function(){
+        $ele = $('#event_template_designs')
+        if($('#event_host_name').val() !== '') $ele.find('.eventDesignHostname').text($('#event_host_name').val())
+        if($('#event_name').val() !== '') $ele.find('.eventDesignEventName').text($('#event_name').val())
+        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val());
+        if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
+        $("#new_event #event_host_name").keyup(function(){
+            ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
+        })
+        $("#new_event #event_name").keyup(function(){
+            ($(this).val() == '') ?  $ele.find('.eventDesignEventName').text('Event name') : $ele.find('.eventDesignEventName').text($(this).val())
+        })
+
+        $("#new_event #event_starts_at,#new_event #event_start_time").change(function() {
+            var eventDesignEventDate = $ele.find('.eventDesignEventDate')
+            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() );
+        });
+
+        $("#new_event #event_description").keyup(function() {
+            var eventDesignEventDesc =  $ele.find('.eventDesignEventText').find('td');
+            ($(this).val() == '') ? eventDesignEventDesc.text('Description') :eventDesignEventDesc.text($(this).val())
+        });
+
+    }
+
+
+
     // $('#datepairExample').datepair();
 </script>

@@ -1,14 +1,22 @@
 <div class="container-fluid">
   <div class="container" >
     <div class="row">
-      <div class="title_name"><%#=@event.name.titleize%></div>
+      <div class="title_name"><%=@event.name.titleize%></div>
     </div>
 
     <!--event description-->
 
     <div class="row event_margin">
-
-      <div class="col-md-12"><div class="inv_preview_bg"><%= image_tag('event1.png') %></div></div>
+      <% if @event_design %>
+          <div class="col-md-12">
+            <div class="inv_preview_bg">
+              <div id="eventDesignPreview">
+                <% c_design = @handlebars.compile(@event_design.content) %>
+                <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+              </div>
+            </div>
+          </div>
+      <% end %>
       <div class="col-md-12 event_preview_right">
        <% if current_spree_user and current_spree_user.id == @event.user_id  %>
            <div class="row event_margin"> <%= link_to "Edit Event","" ,class: "btn btn-primary pull-right" %> </div>

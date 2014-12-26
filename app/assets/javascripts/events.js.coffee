@@ -30,14 +30,6 @@ $(document).ready ->
 
 
 $(document).ready ->
-  $("#large-image").html "<img src=" + $(".jcarousel ul li ").eq(0).find("img").attr("src") + ">"
-  $(".jcarousel a").click (e) ->
-    $("#large-image").html "<img src=" + $(this).find("img").attr("src") + ">"
-    return
-
-  $("#myCarousel").carousel interval: 1000
-  $("#myCarousel").on "slid.bs.carousel", ->
-    #alert('slid)
   $(".fancybox").fancybox()
   $(".fancybox-media").attr("rel", "media-gallery").fancybox
     openEffect: "none"
