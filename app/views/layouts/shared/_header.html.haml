@@ -32,27 +32,27 @@
 .navbar-collapse.navbar-default_2.collapse
   .container
     %ul.main-nav.nav.navbar-nav
-      %li.active
+      %li{class: controller.controller_name.eql?('home') ? 'active' : ''}
         %a{:href => "/"}
           %span.glyphicon.glyphicon-ok>
           \  Whats Up?
-      %li
+      %li{class: controller.controller_name.eql?('events') ? 'active' : ''}
         %a{:href => "/events"}
           %span.glyphicon.glyphicon-star>
           - if signed_in?
             \ &nbsp; My Events
           - else
             \ Events
-      %li
+      %li{class: controller.controller_name.eql?('venues') ? 'active' : ''}
         %a{:href => "/venues"}
           %span.glyphicon.glyphicon-map-marker>
           \  Venues
       %li
-        %a{:href => "organizers.html"}
+        %a{:href => "#"}
           %span.glyphicon.glyphicon-list-alt>
           \  Organizers
       %li
-        %a{:href => "mycalendar.html"}
+        %a{:href => "#"}
           %span.glyphicon.glyphicon-calendar>
           \  My Calendar
 - unless signed_in?
