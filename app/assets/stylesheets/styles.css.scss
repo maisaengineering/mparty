@@ -1658,8 +1658,13 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 /*added by dinesh */
 #infscr-loading {
-  text-align: center;
+  position: fixed;
+  bottom: 70px;
+  left: 43%;
+  padding: 9px;
+  font-size: 15px;
 }
+
 #infscr-loading img {
   width:20px;
   height:20px;
