@@ -362,13 +362,13 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display:none;
+  display: block;
 }
 #upload_photos{
-  display:none;
+  display: none;
 }
 #invitation_without_wishlist{
-  display:block;
+  display: none;
 }
 #invitation_with_wishlist{
   display:none;
@@ -641,7 +641,7 @@ label{
   float: left;
   margin-bottom: -1px;
   background-color:#444444;
-  width:50%;
+//  width:50%;
   border:none;
   margin:0px;
   text-align:center;

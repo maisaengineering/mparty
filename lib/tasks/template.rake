@@ -42,7 +42,7 @@ namespace :db do
         }
 
         .eventDesignWrapper-#{index} .eventDesignContainer {
-            background-image: url(https://test-ms-templates.s3.amazonaws.com/assets/template_image/source/523cc43b0b3859627e00008a/mst_bg.jpg);
+            background-image: url(http://sadacreator.esy.es/template_2.png);
             background-position: center center;
             background-repeat: no-repeat;
             font-family: "ProximaNova-Regular", Arial, Helvetica, sans-serif;
@@ -221,7 +221,7 @@ namespace :db do
             </div>
         </div>
 
-        <div class="eventDesignPhoto" style="background-image: url(https://test-ms-templates.s3.amazonaws.com/assets/template_image/source/523cc43b0b3859627e00008b/mst_temp_photo.jpg);">
+        <div class="eventDesignPhoto" style="">
         </div>
         <div class="eventDesignFooter">
             <div class="eventDesignSponsor"><table><tr><td>
