@@ -1,5 +1,11 @@
 module ApplicationHelper
 
+  #alias_method :current_user, Spree::AuthenticationHelpers::spree_current_user
+  
+  def current_user
+   current_spree_user
+  end
+    
   def title
     controller = params[:controller]
     case controller

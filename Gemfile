@@ -7,7 +7,7 @@ gem 'rails', '4.0.4'
 gem 'pg'#, group: :production
 
 #Use Mysql as the database for Active Record
-#gem 'mysql2', group: :development
+gem 'mysql2', group: :development
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -100,3 +100,5 @@ gem 'fuzzily'
 
 gem 'kaminari'
 gem 'jquery-turbolinks'
+
+gem 'ratyrate'

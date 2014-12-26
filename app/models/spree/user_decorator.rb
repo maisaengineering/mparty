@@ -6,6 +6,8 @@ Spree::User.class_eval do
 
   has_many :venues
 
+  ratyrate_rater
+
   after_create :send_email
 
   #TODO uncomment below after admin has been created
