@@ -1,4 +1,6 @@
 class Notifier < ActionMailer::Base
+  include ApplicationHelper
+  helper :application
 
   def invite_friend(email, invite,event,handlebars)
    # from = invite.invited_by.email # for socail login users email is not mandatory
