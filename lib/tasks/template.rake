@@ -3,7 +3,7 @@ namespace :db do
     task create_templates: :environment do
         ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_admin_templates RESTART IDENTITY;")
         ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_admin_designs RESTART IDENTITY;")
-        ['Birthday','Wedding','Friendship day','Marriage day','Mother day'].to_a.each_with_index do |v|
+        ['New year','Birthday','Wedding','Friendship day','Marriage day','Mother day'].to_a.each_with_index do |v|
             template = Spree::Admin::Template.new(name: v)
             ['#eee354','green','red','blue'].each_with_index do |c,i|
                 template.designs.build(content: template_content(c,i))
@@ -138,7 +138,6 @@ namespace :db do
         .eventDesignWrapper-#{index} .eventDesignFooter {
             height: 65px;
             background-color: #{color};
-            background-image: url(http://s3.amazonaws.com/kidslink-test/assets/milestones/521d7fc6af0665db87000005/msg_kllogo.png?1377664966);
             background-position: 505px center;
             background-repeat: no-repeat;
             padding-left: 40px;
