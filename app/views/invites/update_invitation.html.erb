@@ -77,14 +77,16 @@
         <div class="row nomargin">
           <div class="col-md-12"><h2>Thanks for your response.</h2></div>
         </div>
-        <div class="row nomargin">
-          <div class="col-md-12"><h3>Your friend probably has a wish list. Do you want to check it out?</h3></div>
-        </div>
-        <div class="row nomargin event_margin">
-          <div class="col-md-4"></div>
-          <div class="col-md-4"><a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal"><span class="glyphicon glyphicon-gift"></span>Checkout</a></div>
-          <div class="col-md-4"></div>
-        </div>
+        <% if @wishlist and @wishlist.wished_products.size > 0 %>
+            <div class="row nomargin">
+              <div class="col-md-12"><h3>Your friend probably has a wish list. Do you want to check it out?</h3></div>
+            </div>
+            <div class="row nomargin event_margin">
+              <div class="col-md-4"></div>
+              <div class="col-md-4"><a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal"><span class="glyphicon glyphicon-gift"></span>Checkout</a></div>
+              <div class="col-md-4"></div>
+            </div>
+        <% end %>
       </div>
     </div>
   </div>
