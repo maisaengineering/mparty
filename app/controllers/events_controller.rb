@@ -50,7 +50,11 @@ class EventsController < ApplicationController
 
   def update_designs
     @template = Spree::Admin::Template.find(params[:template_id])
-    @designs = @template.designs
+    if params[:design_id].present?
+      @designs = @template.designs.where(id: params[:design_id]) + @template.designs.where('id not in (?)',[ params[:design_id].to_i ])
+    else
+      @designs = @template.designs
+    end
   end
 
   def  select_venue

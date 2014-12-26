@@ -162,12 +162,12 @@
     }
 
 
-    function invokeDesign(template_id){
+    function invokeDesign(template_id,design_id){
         if(template_id != ''){
             $.ajax({
                 url: "/events/update_designs",
                 type: "GET",
-                data: {"template_id" : template_id},
+                data: {"template_id" : template_id,design_id: design_id},
                 beforeSend: function(){
                     $('#event_template_designs').fadeOut('slow')
                 },
@@ -179,11 +179,11 @@
             });
         }
     }
-    invokeDesign($("#event_template_id").val())
+    invokeDesign($("#event_template_id").val(),$("#event_design_id").val())
     $("#event_template_id").change(function(e){
         e.preventDefault();
         var template_id = $(this).val();
-        invokeDesign(template_id)
+        invokeDesign(template_id,$("#event_design_id").val())
     });
 
 
