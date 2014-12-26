@@ -3,8 +3,8 @@ class PicturesController < ApplicationController
   before_filter :load_imageable,only: [:create]
 
   def create
-    @event = @imageable
-    @picture = @imageable.pictures.create(picture_params)
+    @picture = Picture.new({imageable_type: @imageable.class.to_s,imageable_id: @imageable.id}.merge!(picture_params))
+    @picture.save
   end
 
   def destroy

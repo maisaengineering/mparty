@@ -32,24 +32,46 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Create different versions of your uploaded files:
-   version :thumb do
+   version :thumb  do
      process :resize_to_fill=> [90, 90]
    end
 
-
-   # /venue/show/  page  for Gallery image size.
-   version :gallery do
-     process :resize_to_fill => [220,165]
+   version :slide_show  do
+     process :resize_to_fill=> [190, 190],if: :event?
+     process :resize_to_fill=> [195, 195],if: :venue?
    end
 
-# FANCY IMAGE POPUP WINDOW IMAGE SIZE
-  version :fancy do
-    process :resize_to_fill => [600,450]
-  end
+   version :preview  do
+     process :resize_to_fill=> [262, 262],if: :event?
+     process :resize_to_fill=> [360, 270],if: :venue?
+   end
 
-  version :small do
-    process :resize_to_fill => [293,293]
-  end
+
+#    # /venue/show/  page  for Gallery image size.
+#    version :gallery do
+#      process :resize_to_fill => [220,165]
+#    end
+#
+# # FANCY IMAGE POPUP WINDOW IMAGE SIZE
+#   version :fancy do
+#     process :resize_to_fill => [600,450]
+#   end
+#
+#   version :small do
+#     process :resize_to_fill => [293,293]
+#   end
+
+
+
+   protected
+
+   def event?(new_file)
+     self.model.imageable_type.eql?('Event')
+   end
+
+   def venue?(new_file) 
+     self.model.imageable_type.eql?('Venue')
+   end
 
 
 

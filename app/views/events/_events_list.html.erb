@@ -8,7 +8,7 @@
               <div class=" row nomargin event_margin">
                 <div class="event_img">
                   <% if e.pictures.present? %>
-                      <%=link_to(image_tag(e.pictures.first.image.url(:small)), "events/#{e.id}", class: "thumbnail") %>
+                      <%=link_to(image_tag(e.pictures.first.image.url(:preview)), "events/#{e.id}", class: "thumbnail") %>
                   <% else %>
                       <%=link_to(image_tag("event_2.jpg"), "events/#{e.id}", class: "thumbnail") %>
                   <% end %>

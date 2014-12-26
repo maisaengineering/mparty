@@ -45,7 +45,8 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
   def upload_photos
     @venue = Venue.find(params[:id])
-    @venue.pictures.create(picture_params)
+    @picture = Picture.new({imageable_type: @venue.class.to_s,imageable_id: @venue.id}.merge!(picture_params))
+    @picture.save
     redirect_to add_photos_admin_venue_url(@venue), notice: 'Image uploaded successfully.'
   end
 

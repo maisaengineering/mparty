@@ -108,8 +108,8 @@
           <h4>Photos</h4>
             <%@pictures.each do |picture|%>
               <div class="col-md-3 fix_image_size">
-                <a class="fancybox" href="<%= picture.image.url(:fancy)%>">
-                  <img src="<%= picture.image.url(:gallery)%>">
+                <a class="fancybox" href="<%= picture.image.url%>">
+                  <img src="<%= picture.image.url(:slide_show)%>">
                 </a>
               </div>        
             <%end%>
