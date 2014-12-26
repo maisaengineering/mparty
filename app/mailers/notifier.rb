@@ -1,10 +1,13 @@
 class Notifier < ActionMailer::Base
 
-  def invite_friend(email, invite,event)
+  def invite_friend(email, invite,event,handlebars)
    # from = invite.invited_by.email # for socail login users email is not mandatory
     @event = event
     @invite_email = invite.recipient_email
     @token = invite.token
+    @template = @event.template
+    @handlebars = handlebars
+    @design = @template.designs.where(id: @event.design_id).first if @template
 
     @sender_name = @event.owner.full_name
     @url =  "#{spree.root_url}#{view_invitation_path(:invitation_code => invite.token)}"

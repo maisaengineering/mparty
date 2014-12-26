@@ -17,11 +17,14 @@
   <span>You are invited to</span> <br>
   <br>
   <!-- invitation -->
-  <div style="width:100%;background-image:url(<%= asset_url('event_bg.png') %>);">
-    <div style="width:300px;margin:0 auto;">
-      <%= image_tag 'event3.png', style: "width:250px;"%>
-    </div>
-  </div>
+  <% if @design %>
+      <div style="width:100%;background-image:url(<%= asset_url('event_bg.png') %>);">
+        <div style="width:300px;margin:0 auto;">
+        <% c_design = @handlebars.compile(@design.content) %>
+        <%= c_design.call(MPARTY: event_data_points(@event,@template)).html_safe %>
+        </div>
+      </div>
+  <% end %>
   <br>
   <br>
   <!-- invitation end-->
