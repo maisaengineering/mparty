@@ -1,9 +1,10 @@
-<%= form_tag(send_invitation_path, class: 'form_margin') do %>
+<%= form_tag(send_invitation_path, class: 'form_margin',id: 'invite_friends_form') do %>
     <%= hidden_field_tag(:event_id, @event.id) %>
+    <%= hidden_field_tag(:friend_emails) %>
     <div class="col-md-12 invitation_text">
       <label></label>
       <div id="tags" class="tags_wrap">
-        <input type="text" name="friend_emails" placeholder="Enter email with comma separated" class="biginput" id="emails_autocomplete">
+        <input type="text" name="emails_autocomplete" placeholder="Enter email with comma separated" class="biginput" id="emails_autocomplete">
       </div>
     </div>
     <div class="col-md-4"></div>
@@ -16,33 +17,61 @@
     </div>
 <% end  %>
 
+<script type="text/javascript"> 
 
-<script type="text/javascript">
-    /* $('#tags input').on('focusout',function(){
-     var txt= this.value.replace(/[^a-zA-Z0-9\+\-\.\#]/g,''); // allowed characters
-     if(txt) {
-     $(this).before('<span class="tag">'+ txt.toLowerCase() +'</span>');
-     }
-     this.value="";
-     }).on('keyup',function( e ){
-     // if: comma,enter (delimit more keyCodes with | pipe)
-     if(/(188|13)/.test(e.which)) $(this).focusout();
-     });
+  $('#invite_friends_form  #tags input').on('focusout',function(){    
+    var txt= this.value.replace(/[^a-zA-Z0-9\+\-\.\@\#]/g,''); // allowed characters
+        
+    // //  EMAIL VALIDATION.   STARTS.....
+    // var atpos = txt.indexOf("@");
+    // var dotpos = txt.lastIndexOf(".");
+    // if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=txt.length) {
+    //     alert("Not a valid e-mail address");
+    //     this.value = "";
+    //     return false;
+    // }
+    // //  EMAIL VALIDATION.   ENDS.....
 
-     $('#tags').on('click','.tag',function(){
-     if(confirm("want to delete this envitee's email address?")) $(this).remove();
-     });
-     $('.tags_wrap').click(function() {
-     $('#tags input').focus();
-     })
+    if(txt) {
 
-     // setup autocomplete function pulling from currencies[] array
-     $('#emails_autocomplete').autocomplete({
-     lookup: currencies,
-     onSelect: function (suggestion) {
-     var thehtml = '<strong>Currency Name:</strong> ' + suggestion.value + ' <br> <strong>Symbol:</strong> ' + suggestion.data;
-     $('#outputcontent').html(thehtml);
-     }
-     });*/
+      $(this).before('<span class="tag">'+ txt.toLowerCase() +'</span>');
+    }
+    this.value="";
+  }).on('keyup',function( e ){
+    // if: comma,enter (delimit more keyCodes with | pipe)
+    if(/(188|13)/.test(e.which)) $(this).focusout(); 
+
+  });
+  
+  
+  $('#invite_friends_form #tags').on('click','.tag',function(){
+     if(confirm("want to delete this envitee's email address?")) $(this).remove(); 
+  });
+  
+  $('#invite_friends_form  .tags_wrap').click(function() {
+         $('#tags input').focus();
+  })
+
+  $("#invite_friends_form").submit(function(e) {  
+    emails = []
+    $('#tags').children('.tag').each(function () {
+     emails.push($(this).text()); // "this" is the current element in the loop
+    }); 
+    $('#friend_emails').val(emails.join()) 
+  })
 
 </script>
+
+<style type="text/css">
+#tags input{
+  background:#eee;
+  border:0;
+  margin:4px;
+  padding:7px;
+  width:auto;
+  background-color:transparent;
+  outline:none;
+  /*dinesh to increase text length for placeholder in events/_invite_form.html */
+  width: 270px;
+}
+</style>

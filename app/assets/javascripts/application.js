@@ -25,6 +25,8 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.infinitescroll
 //= require jquery.e-calendar
+//= require jquery.raty
+//= require ratyrate
 
 
 //= require cart

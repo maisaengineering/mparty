@@ -1,6 +1,8 @@
 Invitation::Application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   resources :reviews
   Spree::Core::Engine.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
     namespace :admin do
       resources :templates
       resources :venues do

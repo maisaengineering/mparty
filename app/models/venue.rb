@@ -11,6 +11,7 @@ class Venue < ActiveRecord::Base
   has_many :venue_calendars, dependent: :destroy 
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
 
+  ratyrate_rateable
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
 
@@ -42,5 +43,5 @@ class Venue < ActiveRecord::Base
   def self.search(query=nil)
     all
   end
-
+  
 end
