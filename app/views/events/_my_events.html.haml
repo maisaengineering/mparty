@@ -1,0 +1,39 @@
+- if @events.size > 3
+  .fade_past
+  .fade_upcoming
+- if @events.blank?
+  .event_details No events found.
+- else
+  .scroll_timeline
+    - @events.each  do  |event|
+      .event_details.viaTurbo{:id => "event_timeline_#{event.id}","data-url" => event_url(event)}
+        .row
+          .col-md-1
+            .event_img
+              = event_cover_photo(event,:thumb)
+          .col-md-5
+            %h4= event.name
+            .event_date
+              %span>
+                %span.glyphicon.glyphicon-calendar>
+                \ #{event_start_date(event)}
+              \ 
+              - if event.start_time
+                %span
+                  %span.glyphicon.glyphicon-time>
+                  \  #{event_start_time(event)}
+            .event_place
+              %span.glyphicon.glyphicon-map-marker
+              = event_address(event)
+          .col-md-6
+            .pull-right
+              %span.color_success
+                %span.glyphicon.glyphicon-ok-sign
+                = event.attendees('accepted')
+                members accepted
+            .clearfix
+            .pull-right.mtop10
+              %button.btn.addguest_btn
+                %a.color_white{:href => "#"} #{pluralize(event.comments.count, 'Comment')}
+              %button.btn.addguest_btn{:title => "Add Guest"}
+                %span.glyphicon.glyphicon-plus.color_white

@@ -1,11 +1,27 @@
 module EventsHelper
 
-  def event_cover_photo(version,event)
+  def event_cover_photo_url(event,version=nil)
     if event.event_photo
-      image_tag event.event_photo.image_url(version)
+     event.event_photo.image_url(version)
     else # default
-      image_tag 'event1.png',width: '100px',height: '90px'
+      asset_path('event1.png')
     end
+  end
+
+  def event_cover_photo(event,version=nil)
+    image_tag(event_cover_photo_url(event,version))
+  end
+
+  def event_start_date(event)
+    event.try(:starts_at) and event.starts_at.to_date.eql?(Date.today)  ? 'Today' : event.starts_at.try(:strftime, '%d/%m/%Y')
+  end
+
+  def event_start_time(event)
+    event.start_time.try(:strftime, '%I-%M %p')
+  end
+
+  def event_address(event)
+    "#{event.location} #{event.city}"
   end
 
 end

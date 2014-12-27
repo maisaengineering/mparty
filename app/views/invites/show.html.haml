@@ -9,9 +9,12 @@
       .title_bg
       .title_name= @event.name
     .row.event_margin
-      .col-md-12
-        .inv_preview_bg
-          = image_tag('event2.png')
+      -  if @event_design
+        .col-md-12
+          .inv_preview_bg
+            #eventDesignPreview
+              - c_design = @handlebars.compile(@event_design.content)
+              = c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe
       .col-md-12.event_preview_right
         .row
           .col-md-3

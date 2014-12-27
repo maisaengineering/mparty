@@ -5,6 +5,12 @@ class Invite < ActiveRecord::Base
 
   before_create :generate_token
 
+  # pending => 0
+  # accepted => 1
+  # maybe => 3
+  # rejected => 2
+
+
   private
 
   	def generate_token
