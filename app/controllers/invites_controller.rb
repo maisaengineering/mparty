@@ -1,15 +1,15 @@
 class InvitesController < ApplicationController
   #before_filter :validate_invite, :only => [:update_invitaion]
   skip_before_filter :auth_user
-  #layout 'spree_application'
+  before_filter :register_handlebars,only: [:show]
 
   def show
     @invitation = Invite.find_by_token(params[:invitation_code])
     if @invitation.present?
       @event = @invitation.event
-      @invite_email = @invitation.recipient_email
-      @token = @invitation.token
       @comments = @event.comments.order('created_at DESC').limit(10)
+      @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+      @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
     else
       flash[:error] = "We are sorry Invitation not found."
       render
