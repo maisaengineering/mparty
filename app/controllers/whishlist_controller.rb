@@ -1,11 +1,13 @@
 class WhishlistController < ApplicationController
   before_filter :auth_user
+  before_action :find_wishlist
+  before_action :check_authorization # only event owner can add or remove products
   skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product]
-  before_action :find_wishlist,except: :index
+
 
   #GET '/event/:event_id/whishlist'
   def index
-    @event = Event.find(params[:event_id])
+
     @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
     #session[:wishlist_id] = @wishlist.id
     @products = Spree::Product.all
@@ -41,9 +43,14 @@ class WhishlistController < ApplicationController
   end
 
   private
+
+
   def find_wishlist
     @event = Event.find(params[:event_id])
     @wishlist =  @event.wishlist
   end
 
+  def check_authorization
+    (render text: 'Access Denied') and return unless @event.is_owner?(spree_current_user)
+  end
 end
