@@ -50,6 +50,11 @@ GIT
     spree_gateway (2.2.1)
       spree_core (~> 2.2.0)
 
+PATH
+  remote: lib/ratyrate-1.2.2.alpha
+  specs:
+    ratyrate (1.2.2.alpha)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -286,7 +291,6 @@ GEM
       actionpack (>= 3.0)
       activerecord (>= 3.0)
       polyamorous (~> 0.6.0)
-    ratyrate (1.2.2.alpha)
     rdoc (4.1.1)
       json (~> 1.4)
     recaptcha (0.3.6)
@@ -420,7 +424,7 @@ DEPENDENCIES
   pg
   rails (= 4.0.4)
   rails_12factor
-  ratyrate
+  ratyrate!
   rmagick
   sass-rails (~> 4.0.2)
   sdoc

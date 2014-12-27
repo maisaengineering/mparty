@@ -101,4 +101,5 @@ gem 'fuzzily'
 gem 'kaminari'
 gem 'jquery-turbolinks'
 
-gem 'ratyrate'
+# gem 'ratyrate'
+gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha' 
