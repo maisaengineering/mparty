@@ -62,11 +62,23 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
     @venue = Venue.find(params[:id])
   end 
 
+  # def book_venue
+  #   @venue = Venue.find(params[:id])
+  #   @venue.venue_calendars.create(venue_calendar_params)
+  #   redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
+  # end 
   def book_venue
-    @venue = Venue.find(params[:id])
-    @venue.venue_calendars.create(venue_calendar_params)
-    redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
-  end 
+   @venue = Venue.find(params[:id])
+
+   @new_venue_calendar = @venue.venue_calendars.build(venue_calendar_params)
+   if @new_venue_calendar.save 
+     redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
+
+   else
+     flash[:error] = @new_venue_calendar.errors.full_messages.to_sentence
+     redirect_to add_calendar_admin_venue_url(@venue)
+   end 
+  end
 
   def remove_venue_slot
     @venue = Venue.find(params[:id])

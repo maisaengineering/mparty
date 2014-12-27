@@ -1,0 +1,92 @@
+<script data-turbolinks-track="true" src="/assets/datetime_picker.js"></script>
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to 'Back to Venue',  edit_admin_venue_url(@venue), icon: 'icon-arrow-left' %>
+  </li>
+  <li>
+    <%= button_link_to 'Add New Venue', new_admin_venue_url, icon: 'icon-plus' %>
+  </li>
+<% end %>
+<% unless @venue.venue_calendars.any? %>
+  <div class="no-objects-found">
+    <%= "No Bookings Found" %>
+  </div>
+<% else %>
+  <table class="index sortable" data-hook="images_table" data-sortable-link="#">
+    <colgroup>
+      <col style="width: 5%"></col>
+      <col style="width: 30%"></col>
+      <col style="width: 45%"></col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="2">
+          <%= Spree.t(:start_date) %>
+        </th>
+        <th colspan="2">
+          <%= Spree.t(:end_date) %>
+        </th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @venue.venue_calendars.each do |cl| %>
+        <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id(cl) %>">
+          <td class="no-border"></td>
+          <td>
+            <%#= cl.start_date.strftime("%m/%d/%Y") %>
+            <%= cl.start_date %>
+          </td>
+          <td>
+            <%#= cl.end_date.strftime("%m/%d/%Y") %>
+            <%= cl.end_date %>
+          </td>
+          <td class="actions">
+            <%= link_to_with_icon 'icon-trash', 'Delete', remove_photo_admin_venue_path(@venue,picture_id: cl.id), method: :delete,confirm: 'Are you sure?' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<div id="calendars">
+  <%= form_for VenueCalendar.new,url: book_venue_admin_venue_url(@venue) do |f| %>
+    <fieldset>
+      <legend align="center">Book Slot</legend>
+      <div>
+        <div class="nine columns alpha">
+          <div class="field">
+            <label for="start_date">Start Date</label>
+            <%= f.text_field :start_date, :class => 'datepicker' ,:readonly => "readonly"%>
+          </div>
+          <div class="field">
+            <label for="end_date">End Date  </label>
+            <%= f.text_field :end_date, :class => 'datepicker',:readonly => "readonly" %>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <button class="icon-refresh button" name="button" type="submit">Book Slot</button>
+        <span class="or">or</span>
+        <a class="button icon_link with-tip icon-remove" href="<%= edit_admin_venue_url(@venue) %>" id="cancel_link">
+          <span class="text">Cancel</span>
+        </a>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  //Restrict to select a past date from date picker on venue process
+  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datepicker({
+    minDate: new Date(),
+    dateFormat: "yy-mm-dd"
+
+  });  
+
+
+        $('.datepicker').datepicker();
+</script>
+
+<link href="/assets/date_time_picker.css" media="screen" rel="stylesheet" />
