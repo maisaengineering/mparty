@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
-  before_filter :register_handlebars,only: [:update_designs,:show,:send_invitation]
+  before_filter :register_handlebars,only: [:update_designs,:show]
   layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist]
 
   helper 'spree/taxons'
@@ -162,7 +162,7 @@ class EventsController < ApplicationController
       #	render "/events/shipping_address"
       #else
       if invitations.size > 0
-        send_invitation_emails(invitations,@event,@handlebars)
+        send_invitation_emails(invitations,@event)
         flash[:notice] = "Successfully sent Invitation mail."
       else
         flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
@@ -259,9 +259,9 @@ class EventsController < ApplicationController
     end
   end
 
-  def send_invitation_emails(invitations,event,handlebars)
+  def send_invitation_emails(invitations,event)
     invitations.each do |inv|
-      if Notifier.invite_friend(inv.recipient_email, inv,event,handlebars).deliver
+      if Notifier.invite_friend(inv.recipient_email, inv,event).deliver
         inv.mail_sent = true
         inv.save
       end

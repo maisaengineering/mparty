@@ -14,20 +14,14 @@
   <br>
   <span>Hello,</span> <br>
   <br>
-  <span>You are invited to</span> <br>
+  <span>You are invited to an event by '<%= @sender_name %>'</span> <br>
   <br>
   <!-- invitation -->
-  <% if @design %>
-      <div style="width:100%;background-image:url(<%= asset_url('event_bg.png') %>);">
-        <div style="width:300px;margin:0 auto;">
-        <% c_design = @handlebars.compile(@design.content) %>
-        <%= c_design.call(MPARTY: event_data_points(@event,@template)).html_safe %>
-        </div>
-      </div>
-  <% end %>
+  <p><strong>Event :</strong> <%= @event.name %></p>
+  <p><strong>Location :</strong> <%= @event.full_address %></p>
+  <p><strong>Date :</strong> <%= @event.starts_at.strftime('%d-%b-%Y')  %></p>
   <br>
   <br>
-  <!-- invitation end-->
 
 
   <div style="text-align:center;">
