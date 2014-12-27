@@ -66,4 +66,36 @@ Spree::User.class_eval do
     "#{first_name} #{last_name}"
   end
 
+  def organizing_events
+    events.order('created_at ASC')
+  end
+
+
+  # Events (# Other users invited me theirs events) ##################### ----------
+  # pending => 0  accepted => 1  maybe => 3  rejected => 2
+
+  def event_invitations(joined = nil)
+     events = Event.joins(:invites).where(invites: {recipient_email: self.email})
+     events = events.where(invites: {joined: joined}) if joined
+     events
+  end
+
+  def attending_events
+    event_invitations(1)
+  end
+
+  def pending_events
+    event_invitations(0)
+  end
+
+  def maybe_events
+    event_invitations(3)
+  end
+
+  def rejected_events
+    event_invitations(2)
+  end
+
+  #-------------------------------------------------------------------------------------
+
 end

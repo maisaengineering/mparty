@@ -35,10 +35,26 @@
 //= require pictures
 //= require reviews
 
+
+Turbolinks.pagesCached(0);
 // Visit pages via turbolinks
 $(document).on('click', '.viaTurbo',function (e) {
     e.preventDefault()
     Turbolinks.visit($(this).attr('data-url'));
+});
+
+$(document).on('page:fetch', function () {
+    $('.container-fluid').animate( {"opacity": "0.4"}, "slow");
+});
+
+$(document).on('page:change', function() {
+    // hide the loading indicator after page load
+    // $("#turbolink_indicator").hide();
+});
+
+
+$(document).on('page:restore', function () {
+    $('.container-fluid').fadeIn('slow')
 });
 
 

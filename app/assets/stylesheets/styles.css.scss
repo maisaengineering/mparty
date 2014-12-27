@@ -82,10 +82,10 @@ body{
   margin:0 auto;
   padding:10px;
   margin-top:40px;
-  border: 0px;
   text-decoration: none;
   color: #fff !important;
   font-size: 20px;
+  border: 0px;
 }
 .create_event{
   text-align:center;
@@ -362,13 +362,13 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display: block;
+  display:block;
 }
 #upload_photos{
-  display: none;
+  display:none;
 }
 #invitation_without_wishlist{
-  display: none;
+  display:none;
 }
 #invitation_with_wishlist{
   display:none;
@@ -641,7 +641,7 @@ label{
   float: left;
   margin-bottom: -1px;
   background-color:#444444;
-//  width:50%;
+  /*width:50%;*/
   border:none;
   margin:0px;
   text-align:center;
@@ -1154,6 +1154,7 @@ label{
   width:auto;
   background-color:transparent;
   outline:none;
+  width:230px;
 }
 
 .autocomplete-suggestions { border: 1px solid #999; background: #fff; cursor: default; overflow: auto; }
@@ -1368,18 +1369,19 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 #event_template_designs .jcarousel li {
   float: left;
-  width:140px; /*24/12/2014*/
-  margin-right:10px; /*24/12/2014*/
-  -webkit-transform: scale(0.15);
+  width: 140px;
+  /*24/12/2014*/
+  margin-right:10px;
+  /*24/12/2014*/
+  transform: scale(0.15);
+  transform-origin: left top;
+  -webkit-transform: scale(0.30);
   -webkit-transform-origin: left top;
   -ms-transform: scale(0.15);
   -ms-transform-origin: left top;
   -moz-transform: scale(0.15);
   -moz-transform-origin: left top;
-  -transform: scale(0.15);
-  -transform-origin: left top;
-  cursor:pointer;
-
+  cursor: pointer;
 }
 
 .jcarousel img {
@@ -1537,14 +1539,26 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   position: relative;
   transform: scale(0.5);
   transform-origin: left top 0;
+  -webkit-transform: scale(1);
+  -webkit-transform-origin: left top;
+  -ms-transform: scale(0.5);
+  -ms-transform-origin: left top;
+  -moz-transform: scale(0.5);
+  -moz-transform-origin: left top;
   height: 350px;
 }
 
-#eventDesignPreview{
+#eventDesignPreview {
   position: relative;
   transform: scale(0.545);
-  transform-origin: center top 0;
-  height: 350px
+  transform-origin: left top;
+  -webkit-transform: scale(1);
+  -webkit-transform-origin: 30% top;
+  -ms-transform: scale(0.545);
+  -ms-transform-origin: center top;
+  -moz-transform: scale(0.545);
+  -moz-transform-origin: center top;
+  height: 350px;
 }
 .contentplace {
   position:absolute;
@@ -1615,7 +1629,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   display:none;
 }
 #new_event {
-  padding-top:40px;
+  padding-top:10px;
 }
 .select_myacc_wishlist {
   width:inherit !important;
@@ -1672,7 +1686,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 /****************/
 
 .text_6{
-  width: 50%;
+  width: 25%;
   height: 30px;
 }
 
@@ -1680,32 +1694,32 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 /*timeline for events*/
 
-
-#timeline .event_details{
-  /*width:262.5px;*/
-  width: 100%;  /*changed for responsive*/
+#timeline_tabs .event_details{
+  width: 100%;
   height: auto;
   overflow:hidden;
   background: #fff;
   border: 1px solid #cfcfcf;
   padding:4px 4px;
   margin-top:15px;
+  cursor:pointer;
 }
 
-#timeline .event_img {
+#timeline_tabs .event_img {
   margin-right:20px;
+  float:left;
 }
 
-#timeline .event_img img {
-  width:80px;
+#timeline_tabs .event_img img {
+  width:90px;
+  height:90px;
 }
 
-
-
-#timeline .fade_past {
+#timeline_tabs .fade_past {
   position:absolute;
   width:98.5%;
   height:110px;
+  z-index:100;
   background: -moz-linear-gradient(top, rgba(181,181,181,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(181,181,181,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, rgba(181,181,181,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
@@ -1714,11 +1728,12 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: linear-gradient(to bottom, rgba(181,181,181,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
 }
 
-#timeline .fade_upcoming {
+#timeline_tabs .fade_upcoming {
   position:absolute;
   width:98.5%;
   height:225px;
   top:228px;
+  z-index:100;
   background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(181,181,181,1) 100%); /* FF3.6+ */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(181,181,181,1))); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(181,181,181,1) 100%); /* Chrome10+,Safari5.1+ */
@@ -1727,11 +1742,28 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(181,181,181,1) 100%); /* W3C */
 }
 
-#timeline .scroll_timeline {
+#timeline_tabs .scroll_timeline {
   height:450px;
   width:100%;
   overflow:auto;
 }
+
+#timeline_tabs .nav-tabs > li {
+  width:50%;
+}
+.color_success {
+  color:#8bd92f;
+}
+
+.btn-success {
+  background-color:#8bd92f;
+}
+.btn_add_quantity {
+  height:30px;
+  padding-top:4px;
+}
+
+
 
 /***************responsive**********************/
 @media (min-width: 768px) {

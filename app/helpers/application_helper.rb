@@ -58,17 +58,4 @@ module ApplicationHelper
     end
   end
 
-
-
-  def event_data_points(event=nil,template=nil)
-    data_points = {}
-    data_points.merge!({templateName: template.name }) if template
-    data_points.merge!({eventName: event.name }) if event and !event.name.nil?
-    start_at = (event and !event.starts_at.nil?) ? event.starts_at : Time.now
-    data_points.merge!({eventTime: start_at.try(:strftime, '%Y-%m-%d') })
-    data_points.merge!({eventHostName:  event.host_name }) if event and !event.host_name.nil?
-    data_points.merge!({eventDescription: event.description}) if event and !event.description.nil?
-    return data_points
-  end
-
 end

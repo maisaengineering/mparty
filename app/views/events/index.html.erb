@@ -1,238 +1,33 @@
-
-<div class="container-fluid" style="background-color:#f1f2f7">
+<div class="container-fluid">
   <div class="container" >
     <div class="row">
       <div class="create_event">
-        <div  class="btn_orange"><%= link_to "Create Event", new_event_path %></div>
+        <a href="<%= new_event_path %>"><button class="btn_orange">Create Event</button></a>
       </div>
-      <div class="title_name">Events</div>
     </div>
-    <div>
-      <div role="tabpanel">
+    <div role="tabpanel" class="mtop20" id="timeline_tabs">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"  class="<%= params[:scope].present? ? '' : 'active' %>">
+          <%= link_to "I'm organizing",events_path,id: 'organizing_events_tab' %>
+        </li>
+        <li role="presentation" class="<%= params[:scope].eql?('attending') ? 'active' : '' %>">
+          <%= link_to "I'm attending",events_path(scope: 'attending'),id: 'attending_events_tab' %>
+        </li>
+      </ul>
 
-        <!-- Nav tabs -->
-        <ul id="test" class="nav nav-tabs" role="tablist">
-          <li  value="upcoming" class="active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Upcoming Events</a></li>
-         <!-- <li  value="public"><a href="#tab2" aria-controls="tab2" data-toggle="tab" >Public Events</a></li>-->
-          <li value="past" ><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" >Past Events</a></li>
-          <li value="invited"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" >Your Invitations</a></li>
-        </ul>
-
-        <div class="row event_margin">
-        <div id="listing_events">
-            <%= render 'events/events_list',events: @events,type: params[:type] || 'upcoming' %>
-        </div>
-        <%#= paginate @events ,params: {type: params[:type] || 'upcoming' }%>
-      </div>
-
-
-        <!-- Tab panes -->
-        <!--<div class="tab-content">
-          &lt;!&ndash;Upcoming Events &ndash;&gt;
-          <div role="tabpanel" class="tab-pane active" id="tab1">
-            <div class="row event_margin">
-              <div id="upcoming_events">
-                <div class="page">
-                <%#= render 'events/events_list',events: @events,type: 'upcoming' %>
-                </div>
-              </div>
-              <%#= paginate @events, params:  {type: "upcoming"} %>
-            </div>
-          </div>
-          <div role="tabpanel" class="tab-pane active" id="tab2">
-            <div class="row event_margin">
-              <div id="public_events">
-                <div class="page">
-                  <%#= render 'events/events_list',events: @events,type: 'public' %>
-                </div>
-              </div>
-              <%#= paginate @events, params:  {type: "public"} %>
-            </div>
-          </div>-->
-          <!--
-          <div role="tabpanel" class="tab-pane" id="tab2">
-            <div class="row event_margin">
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="event_preview_public.html" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
-                    <div class="pull-right join_btn"><a href="#">Join</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
-                    <div class="pull-right join_btn"><a href="#">Join</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
-                    <div class="pull-right join_btn"><a href="#">Join</a></div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad
-                    <div class="pull-right join_btn"><a href="#">Join</a></div>
-                  </div>
-                </div>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="tab1">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="position:relative;">
+                <%= render 'my_events',events: @events,type: params[:type] || 'organizing' %>
               </div>
             </div>
           </div>
-          <div role="tabpanel" class="tab-pane" id="tab3">
-            <div class="row event_margin">
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="tab4">
-            <div class="row event_margin">
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_1.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_2.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_3.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-              <div class="col-xs-6 col-md-3">
-                <div class="event_img"> <a href="#" class="thumbnail"> <img src="images/event_4.jpg" alt="..."> </a> </div>
-                <div class="event_name">
-                  <p>MAISA EVENT</p>
-                </div>
-                <div class="event_details">
-                  <div class="event_date"><span class="glyphicon glyphicon-calendar"></span>24/11/14
-                    <div class="pull-right">04.30 PM</div>
-                  </div>
-                  <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>Hyderabad</div>
-                </div>
-              </div>
-            </div>
-          </div>-->
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-<script type="text/javascript">
-
-  $("#test li").click(function(){
-
-      action=  "/events"
-      data=$(this).attr('value')
-      $.ajax({
-          url: action,
-          type:'GET',
-          data: {type: data}
-      });
-  });
-
-</script>

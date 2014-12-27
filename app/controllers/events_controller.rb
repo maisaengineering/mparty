@@ -7,32 +7,11 @@ class EventsController < ApplicationController
   helper 'spree/taxons'
 
   def index
-=begin
-    @events = current_spree_user.events
-    @upcoming_all_events = @events.where("starts_at >= ? AND is_private = ?", Date.today, true).order(starts_at: :asc)
-    @previous_all_events = @events.where("starts_at < ? AND is_private = ?", Date.today, true).order(starts_at: :desc)
-
-    @public_events = Event.where(is_private: false)
-    @invited_events = Event.where(:id=>Invite.where(recipient_email: current_spree_user.email).map(&:event_id))
-=end
-
-
-    params[:type] ||= 'upcoming'
-    if current_spree_user.present?
-      if  params[:type] == 'upcoming'
-
-        #@events =Event.joins(:invites).where("invites.user_id=? OR invites.invited_user_id=? OR events.is_private=?",current_spree_user.id,current_spree_user.id,false)
-      @events = Event.joins(:invites).where("invites.invited_user_id=?",current_spree_user.id).upcoming.uniq.page(params[:page]).per(4)
-      elsif params[:type] == 'past'
-      @events = Event.joins(:invites).where("invites.invited_user_id=?",current_spree_user.id).past.uniq.page(params[:page]).per(4)
-      elsif params[:type] == 'invited'
-      @events= Event.invited(current_spree_user.email).upcoming.page(params[:page]).per(4)
-      end
-    else
-
-
-    @events = Event.send(params[:type]).page(params[:page]).per(4)
-    end
+    @events =  if params[:scope].eql?('attending')
+                 spree_current_user.attending_events
+               else
+                 spree_current_user.organizing_events
+               end
 
     respond_to do |format|
       format.js
