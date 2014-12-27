@@ -44,7 +44,7 @@ $(document).on('click', '.viaTurbo',function (e) {
 });
 
 $(document).on('page:fetch', function () {
-    $('.container-fluid').animate( {"opacity": "0.4"}, "slow");
+    $('.loading-indicator').fadeIn('slow');
 });
 
 $(document).on('page:change', function() {
@@ -54,7 +54,7 @@ $(document).on('page:change', function() {
 
 
 $(document).on('page:restore', function () {
-    $('.container-fluid').fadeIn('slow')
+    $('.loading-indicator').fadeIn('slow')
 });
 
 

@@ -17,6 +17,8 @@
     = csrf_meta_tags
   %body
     = render partial: "shared/flash_messages", flash: flash
+    .loading-indicator
+      %div= image_tag('loading-indicator.gif')
     #wrapper
       = render 'layouts/shared/header'
       = yield
