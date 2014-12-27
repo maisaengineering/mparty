@@ -12,7 +12,8 @@ class EventsController < ApplicationController
                else
                  spree_current_user.organizing_events
                end
-
+    # scroll to nearest event in view
+    @nearest_event = @events.where('starts_at >=?',Date.today).select("events.id").first
     respond_to do |format|
       format.js
       format.html
