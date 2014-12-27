@@ -36,7 +36,7 @@
     </div>
     <div class="venue_tab_content">
       <h4 class="review_star">Average Rating: <%= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %><%= rating_for @venue , nil, imdb_avg: true%></h4>
-      <p><%= @rated_users_count%>Members have Rated for this Venue.</p>
+      <!-- <p><%#= @rated_users_count%>Members have Rated for this Venue.</p> -->
       <ul class="nav nav-tabs" role="tablist" id="myTab">
         <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
         <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab">Contact Details</a></li>
@@ -76,13 +76,15 @@
             <%=@venue.address1%>, <%=@venue.city%><br>
             <%=@venue.state%>,<%=@venue.country%><br>
             <%=@venue.zip%><br>
-            <abbr title="Phone">P:</abbr> <%=@contact.mobile_number%>
+            <%=@contact.land_number%><br>
+            +91-<%=@contact.mobile_number%>
           </address>
 
-          <address>
+<!--           <address>
             <strong>Contact:</strong><br>
-            <a href=""><%=@contact.full_name%></a>
-          </address>
+            <%#=@contact.full_name%>
+            <%#@contact%>
+          </address> -->
 
 
            <!--       <div class="row">
