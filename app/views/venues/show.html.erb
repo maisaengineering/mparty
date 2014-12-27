@@ -35,7 +35,12 @@
       </div>
     </div>
     <div class="venue_tab_content">
-      <h4 class="review_star">Average Rating: <%= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %><%= rating_for @venue , nil, imdb_avg: true%></h4>
+      <!-- 
+      <h4 class="review_star">Average Rating: <%#= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %><%#= rating_for @venue , nil, imdb_avg: true%></h4>
+ -->
+    <%= rating_for @venue, "venue_rating" , disable_after_rate: true%>
+    <br>
+
       <!-- <p><%#= @rated_users_count%>Members have Rated for this Venue.</p> -->
       <ul class="nav nav-tabs" role="tablist" id="myTab">
         <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
