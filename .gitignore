@@ -15,5 +15,10 @@
 /log/*.log
 /tmp
 .idea/
+/.idea
 /config/database.yml
 /public/uploads
+
+
+# Ignore application configuration
+/config/application.yml
