@@ -24,3 +24,13 @@ en:
   # https://github.com/spree/spree/blob/master/core/config/locales/en.yml
   spree:
     logged_in_succesfully:  'Welcome to Mparty'
+  activerecord:
+      attributes:
+        event:
+          location: ""
+      errors:
+        models:
+          event:
+            attributes:
+              location:
+                blank: "Please select venue or fill the address"

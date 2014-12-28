@@ -3,7 +3,7 @@
     <div class="col-md-12">
       <%= form_for(@event, :html => {:multipart => true,remote: true}) do |f| %>
           <div class="col-md-6">
-            <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,autofocus: true%>
+            <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
           </div>
           <div class="col-md-6">
             <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Event Type*'} ,class: 'form-control' %>
@@ -12,11 +12,11 @@
           <div class="col-md-6">
             <label></label>
 
-            <%= f.text_field :host_name,value:  current_spree_user.full_name.titleize , class: 'form-control',required: true %>
+            <%= f.text_field :host_name,value:  current_spree_user.full_name.titleize , class: 'form-control',required: true ,placeholder: 'Host Name*'%>
           </div>
           <div class="col-md-6">
             <label></label>
-            <%= f.text_field :host_phone,value:  current_spree_user.phone, class: 'form-control',required: true %>
+            <%= f.text_field :host_phone,value:  current_spree_user.phone, class: 'form-control',required: true ,placeholder: 'Host Phone*'%>
           </div>
           <div id="datepairExample">
             <div class="row no_margin">
