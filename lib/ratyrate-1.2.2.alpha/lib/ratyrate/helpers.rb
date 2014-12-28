@@ -42,11 +42,9 @@ module Helpers
           content_tag :p, "Be the First to Review.", :style => "position:relative;text-align:center;font-size:12px"
           end
         else
-
-      content_tag :div, '', :style => "background-image:url(#{ asset_path 'mid-star.png'});width:61px;height:57px;margin-top:10px;" do
-          content_tag :p, avg, :style => "position:relative;font-size:.8rem;text-align:center;line-height:60px;"
-      end
-
+      # content_tag :div, '', :style => "background-image:url(#{ asset_path 'mid-star.png'});width:61px;height:57px;margin-top:10px;" do
+      #     content_tag :p, avg, :style => "position:relative;font-size:.8rem;text-align:center;line-height:60px;"
+      # end
         end
     else
       content_tag :div, '', "data-dimension" => dimension, :class => "star", "data-rating" => avg,
