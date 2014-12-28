@@ -17,7 +17,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
    def fog_directory
-     'mparty_pictures786'
+    ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_pictures786' : 'mparty_pictures786'
    end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
