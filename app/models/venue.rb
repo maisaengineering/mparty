@@ -5,15 +5,15 @@ class Venue < ActiveRecord::Base
 
   #--------- Relations
   has_many :events
-  has_many :pictures, as: :imageable
-  has_many :reviews, as: :reviewable
+  has_many :pictures, as: :imageable, dependent: :destroy
+  has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :venue_contacts, inverse_of: :venue,dependent: :destroy
   has_many :venue_calendars, dependent: :destroy 
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
 
   ratyrate_rateable 
-  has_many :rates, as: :rateable
-  has_one :rating_cache, as: :cacheable
+  has_many :rates, as: :rateable, dependent: :destroy
+  has_one :rating_cache, as: :cacheable, dependent: :destroy
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
 

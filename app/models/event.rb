@@ -11,8 +11,8 @@ class Event < ActiveRecord::Base
   has_many :rsvps ,dependent: :destroy#, before_add: :enforce_rsvp_limit
   has_many :invites,dependent: :destroy
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
-  has_many :pictures, as: :imageable
-  has_many :comments, as: :commentable
+  has_many :pictures, as: :imageable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
 
   accepts_nested_attributes_for :pictures
 
