@@ -37,10 +37,7 @@ module Invitation
 		# config.i18n.default_locale = :de
   end
 
-  #TODO change below with maisa/mparty gmail account and enable 'Google Maps Embed API' in developer console services tab
-  #
 
 	ENV['SENDER'] = "labs@maisasolutions.com"
 
-  ENV['GOOGLE_API_KEY'] = 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
 end
