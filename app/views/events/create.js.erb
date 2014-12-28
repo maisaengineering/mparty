@@ -14,7 +14,7 @@ $('#invitation_without_wishlist').html("<%= j(render('invite_without_wish_list')
 <% else %>
 <%
   errors = ''
-  @event.errors.full_messages.each {|m| errors << "#{m} \n"}
+  @event.errors.full_messages.each {|m| errors << "#{m}\n"}
 %>
 alert("<%= j(errors.html_safe) %>")
 <% end %>

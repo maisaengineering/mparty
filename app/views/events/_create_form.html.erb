@@ -6,7 +6,7 @@
             <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
           </div>
           <div class="col-md-6">
-            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Event Type*'} ,class: 'form-control' %>
+            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Event Type*'} ,class: 'form-control' ,required: true%>
             <%= f.hidden_field :design_id %>
           </div>
           <div class="col-md-6">
@@ -83,7 +83,7 @@
           </div>
           <div class="col-md-12">
             <label></label>
-            <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2%>
+            <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2 ,required: true %>
           </div>
           <div class="col-md-12">
             <label>

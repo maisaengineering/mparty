@@ -28,9 +28,10 @@ en:
       attributes:
         event:
           location: ""
+          template_id: 'Event type'
       errors:
         models:
           event:
             attributes:
               location:
-                blank: "Please select venue or fill the address"
+                blank: "Please select venue or fill the address details"
