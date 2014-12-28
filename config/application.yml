@@ -2,8 +2,4 @@ development:
   google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxx'
   google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
   GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
-production:
-  google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxxxx'
-  google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxx'
-  #TODO change below with maisa/mparty gmail account and enable 'Google Maps Embed API' in developer console services tab
-  GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
+  IS_HEROKU: 'yes'
