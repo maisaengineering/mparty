@@ -67,7 +67,7 @@ Spree::User.class_eval do
   end
 
   def organizing_events
-    events.order('starts_at ASC')
+    events.order('starts_at ASC,start_time ASC')
   end
 
 
@@ -77,7 +77,7 @@ Spree::User.class_eval do
   def event_invitations(joined = nil)
      events = Event.joins(:invites).where(invites: {recipient_email: self.email})
      events = events.where(invites: {joined: joined}) if joined
-     events.order('starts_at ASC')
+     events.order('starts_at ASC,start_time ASC')
   end
 
   def attending_events

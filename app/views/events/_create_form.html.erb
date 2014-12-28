@@ -197,7 +197,7 @@
         if($('#event_host_name').val() !== '') $ele.find('.eventDesignHostname').text($('#event_host_name').val())
         if($('#event_name').val() !== '') $ele.find('.eventDesignEventName').text($('#event_name').val())
         if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val());
-        if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
+        // if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
         $("#new_event #event_host_name").keyup(function(){
             ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
         })
@@ -210,10 +210,10 @@
             eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() );
         });
 
-        $("#new_event #event_description").keyup(function() {
+        /*$("#new_event #event_description").keyup(function() {
             var eventDesignEventDesc =  $ele.find('.eventDesignEventText').find('td');
             ($(this).val() == '') ? eventDesignEventDesc.text('Description') :eventDesignEventDesc.text($(this).val())
-        });
+        });*/
 
     }
 

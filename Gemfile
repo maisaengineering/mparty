@@ -4,10 +4,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.4'
 
 # Use postgres as the database for Active Record
-gem 'pg'#, group: :production
+gem 'pg', group: :development
 
 #Use Mysql as the database for Active Record
-gem 'mysql2', group: :development
+gem 'mysql2', group: :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -102,4 +102,7 @@ gem 'kaminari'
 gem 'jquery-turbolinks'
 
 # gem 'ratyrate'
-gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha' 
+gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
+
+gem 'fog'
+gem 'figaro'

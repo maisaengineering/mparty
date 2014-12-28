@@ -1,4 +1,3 @@
-<!--add to wishlist modal box-->
 <% if @wishlist and @wishlist.wished_products.size > 0 %>
     <%= form_for :order, :url => "/orders/populate",html: {class: 'form_margin'} do |f| %>
         <div class="modal fade" id="yourfriendwishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -34,7 +33,7 @@
                       </div>
                       <div class="col-md-2">
                         <h4><%= product.name %></h4>
-                        <p<%= truncate(product.description, :length => 100, :omission => "...") %></p>
+                        <p<%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
                       </div>
                       <div class="col-md-2">
                         <p><%= wish.quantity %></p>
@@ -45,7 +44,7 @@
                       <div class="col-md-2">
                         <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
                         <% if !wish.is_purchased %>
-                            <%= number_field_tag "quantity[#{i}]", 0, in:0..wish.quantity-wish.quantity_purchased,class: 'form-control addcart_select',size: 5 %>
+                            <%= number_field_tag "quantity[#{i}]", 0, in: 0..wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select',size: 5 %>
                         <% else %>
                             <p>Already Purchased</p>
                         <% end %>
@@ -71,23 +70,29 @@
   <div class="container" >
     <!--event description-->
     <div class="row response_inv">
-      <div class="col-md-12"><div class="inv_preview_bg">
-        <%= image_tag 'event2.png' %>
-      </div>
-        <div class="row nomargin">
-          <div class="col-md-12"><h2>Thanks for your response.</h2></div>
-        </div>
-        <% if @wishlist and @wishlist.wished_products.size > 0 %>
-            <div class="row nomargin">
-              <div class="col-md-12"><h3>Your friend probably has a wish list. Do you want to check it out?</h3></div>
+      <% if @event_design %>
+          <div class="col-md-12">
+            <div class="inv_preview_bg">
+              <div id="eventDesignPreview">
+                <% c_design = @handlebars.compile(@event_design.content) %>
+                <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+              </div>
             </div>
-            <div class="row nomargin event_margin">
-              <div class="col-md-4"></div>
-              <div class="col-md-4"><a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal"><span class="glyphicon glyphicon-gift"></span>Checkout</a></div>
-              <div class="col-md-4"></div>
-            </div>
-        <% end %>
+          </div>
+      <% end %>
+      <div class="row nomargin">
+        <div class="col-md-12"><h2>Thanks for your response.</h2></div>
       </div>
+      <% if @wishlist and @wishlist.wished_products.size > 0 %>
+          <div class="row nomargin">
+            <div class="col-md-12"><h3>Your friend probably has a wish list. Do you want to check it out?</h3></div>
+          </div>
+          <div class="row nomargin event_margin">
+            <div class="col-md-4"></div>
+            <div class="col-md-4"><a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal"><span class="glyphicon glyphicon-gift"></span>Checkout</a></div>
+            <div class="col-md-4"></div>
+          </div>
+      <% end %>
     </div>
   </div>
 </div>

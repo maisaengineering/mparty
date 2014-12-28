@@ -7,14 +7,18 @@ class ImageUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  # storage :file
+  storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+
+   def fog_directory
+     'mparty_pictures786'
+   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -45,23 +49,6 @@ class ImageUploader < CarrierWave::Uploader::Base
      process :resize_to_fill=> [262, 262],if: :event?
      process :resize_to_fill=> [360, 270],if: :venue?
    end
-
-
-#    # /venue/show/  page  for Gallery image size.
-#    version :gallery do
-#      process :resize_to_fill => [220,165]
-#    end
-#
-# # FANCY IMAGE POPUP WINDOW IMAGE SIZE
-#   version :fancy do
-#     process :resize_to_fill => [600,450]
-#   end
-#
-#   version :small do
-#     process :resize_to_fill => [293,293]
-#   end
-
-
 
    protected
 

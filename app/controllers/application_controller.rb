@@ -22,7 +22,8 @@ class ApplicationController < ActionController::Base
     data_points.merge!({templateName: template.name }) if template
     data_points.merge!({eventName: event.name }) if event and !event.name.nil?
     start_at = (event and !event.starts_at.nil?) ? event.starts_at : Time.now
-    data_points.merge!({eventTime: start_at.try(:strftime, '%Y-%m-%d') })
+    start_time = (event and !event.start_time.nil?) ? event.start_time.try(:strftime, '%I-%M %p') : nil
+    data_points.merge!({eventTime: "#{start_at.try(:strftime, '%Y-%m-%d')} #{start_time}"})
     data_points.merge!({eventHostName:  event.host_name }) if event and !event.host_name.nil?
     data_points.merge!({eventDescription: event.description}) if event and !event.description.nil?
     return data_points
