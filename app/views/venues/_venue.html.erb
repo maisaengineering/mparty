@@ -8,8 +8,17 @@
       <p class="venue_description_height">
         <%= venue.description.html_safe %>
       </p>
+      <h4 class="review_star">Overall Rating:<%= venue.rating_cache.present? ? number_with_precision(venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>/5
+      <div id="rated_members_count">
+        <% if venue.rates.present? %>
+           <p style="position:relative;font-size:12px;color:green"><%= pluralize(venue.rates.size, 'Member') %> Rated</p>
+        <% else %>
+          <p style="position:relative;font-size:12px;color:green">Not Rated</p>
+        <% end %>
+      </div> 
+      </h4>
       <p>
-        <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : false),class: 'btn btn-primary' %>
+        <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : "false"),class: 'btn btn-primary' %>
 
         <%if params[:from_event]%> 
           <%= link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),data: {id: venue.id}, class: 'btn btn-primary add_this_venue_to_event') if params[:from_event] %>

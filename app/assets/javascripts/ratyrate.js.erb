@@ -53,7 +53,7 @@ $(function(){
 
             if ($(_this).attr('data-disable-after-rate') == 'true') {
               $("#first_rate_text").remove(); // remove first rate text
-              location.reload(true);
+              window.location.reload(true);
               $(_this).raty('set', { readOnly: true, score: score });
             }
           }

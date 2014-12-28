@@ -30,7 +30,11 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <div class="btn_orange quote_btn"><% if params[:from_event] %> <%= link_to "Choose", new_event_path(venue_id: @venue.id)%> <% end %></div>
+           <% if params[:from_event] != "false" && current_spree_user.present? %>
+            <div class="btn_orange quote_btn">
+              <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
+            </div>
+           <% end %> 
           </div>
         </div>
       </div>
@@ -47,7 +51,8 @@
             </div>
            <% else %>
            <div id="rated_members_count">
-           <p style="position:relative;font-size:12px;color:green"><%= pluralize(@venue.rates.size, 'Member') %> Rated</p> 
+           <p style="position:relative;font-size:12px;color:green"><%= pluralize(@venue.rates.size, 'Member') %> Rated</p>
+           </div> 
           <% end %>
         </h4>
         <%= rating_for @venue, nil, disable_after_rate: true %>
