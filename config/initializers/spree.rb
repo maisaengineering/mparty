@@ -12,6 +12,7 @@ Spree.config do |config|
 	config.logo = 'logo_jb.jpg'
 	config.admin_interface_logo = 'logo_jb.jpg'
   config.layout='spree_application'
+  config.allow_ssl_in_production = false  
 end
 Spree::Config[:layout]='application'
 Spree::Ability.register_ability(CsrAbility)
