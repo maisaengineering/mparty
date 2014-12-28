@@ -35,9 +35,7 @@
             .clearfix
             .pull-right.mtop10
               %button.btn.addguest_btn
-                %a.color_white{:href => "#"} #{pluralize(event.comments.count, 'Comment')}
-              %button.btn.addguest_btn{:title => "Add Guest"}
-                %span.glyphicon.glyphicon-plus.color_white
+                %a.color_white{:href => "#"} #{pluralize(event.comments.count, 'Comment')} 
 
 :javascript
   // scroll to nearest event
