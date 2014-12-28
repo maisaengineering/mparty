@@ -20,7 +20,7 @@ class Event < ActiveRecord::Base
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
-  validates :name, :starts_at, presence: true
+  validates :name,:template_id, :starts_at,:description, presence: true
   validates_presence_of :location, :unless => :venue_id?
 
   #scopes
