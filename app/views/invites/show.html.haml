@@ -33,11 +33,11 @@
             .col-md-3
               %h5= @event.full_address
           .col-md-2
-            %a.btn.btn-lg.btn-primary.btn-block.accepte_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=1&&token=#{@invitation.token}"}"} ACCEPT
+            %a.btn.btn-lg.btn-primary.btn-block.accepte_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=1&&invitation_code=#{@invitation.token}"}"} ACCEPT
           .col-md-2
-            %a.btn.btn-lg.btn-primary.btn-block.maybe_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=3&&token=#{@invitation.token}"}"} MAY BE
+            %a.btn.btn-lg.btn-primary.btn-block.maybe_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=3&&invitation_code=#{@invitation.token}"}"} MAY BE
           .col-md-2
-            %a.btn.btn-lg.btn-primary.btn-block.rejected_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=2&&token=#{@invitation.token}"}"} REJECT
+            %a.btn.btn-lg.btn-primary.btn-block.rejected_btn{:href => "#{spree.root_url + "invites/update_invitation?&status=2&&invitation_code=#{@invitation.token}"}"} REJECT
     .row
       .col-md-12
         %h4 Location
