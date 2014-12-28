@@ -11,7 +11,9 @@ class Venue < ActiveRecord::Base
   has_many :venue_calendars, dependent: :destroy 
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
 
-  ratyrate_rateable "venue_rating"
+  ratyrate_rateable 
+  has_many :rates, as: :rateable
+  has_one :rating_cache, as: :cacheable
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
 

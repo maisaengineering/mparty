@@ -52,6 +52,8 @@ $(function(){
             // success code goes here ...
 
             if ($(_this).attr('data-disable-after-rate') == 'true') {
+              $("#first_rate_text").remove(); // remove first rate text
+              location.reload(true);
               $(_this).raty('set', { readOnly: true, score: score });
             }
           }
