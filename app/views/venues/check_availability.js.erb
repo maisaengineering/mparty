@@ -1,0 +1,6 @@
+<% if @available %>
+  window.location.href = "/events/new?venue_id=<%= @venue.id %>"
+
+<%else%>
+alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
+<%end%>	
