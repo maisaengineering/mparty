@@ -35,11 +35,11 @@
             <div id="endtime" class="row no_margin">
               <div class="col-md-4">
                 <label></label>
-                <%= f.text_field :ends_at , class: 'form-control date start' ,placeholder: 'End Date*' %>
+                <%= f.text_field :ends_at , class: 'form-control date ends' ,placeholder: 'End Date*' %>
               </div>
               <div class="col-md-4">
                 <label></label>
-                <%= f.text_field :end_time , class: 'form-control time start',placeholder: 'End Time*' %>
+                <%= f.text_field :end_time , class: 'form-control time ends',placeholder: 'End Time*' %>
               </div>
               <div class="col-md-4 nopleft">
 
@@ -111,6 +111,10 @@
         format: 'yyyy-mm-dd',
         autoclose: true
     });
+
+    $("#event_starts_at").change(function () {
+      $('#event_ends_at').datepicker('setStartDate', this.value);
+    })    
 
     $('#new_event #venue_type').bind('change', function () {
         if($(this).val() == 'choose'){
