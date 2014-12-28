@@ -167,43 +167,42 @@
     <!--comments-->
 
     <div class="row">
-      <div class="col-md-12">
-        <div class="row comment_block_btn">
-          <div class="col-md-12">
-            <h4>Comments</h4>
-          </div>
-          <div class="col-md-9">
-            <% if current_spree_user %>
-                <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+      <div class="col-md-12"> 
+          <h4>Comments</h4>
+          <% if current_spree_user %>
+              <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+                  <%= hidden_field_tag :resource ,'event' %>
+                  <%= hidden_field_tag :resource_id ,@event.id %>
+                  <div class="col-md-9">
                     <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
-                    <%= hidden_field_tag :resource ,'event' %>
-                    <%= hidden_field_tag :resource_id ,@event.id %>
-                    </div>
-                    <div class="col-md-3">
-                      <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
-                    </div>
-                <% end %>
-            <% end %>
-            </div>
-      </div>
-
-    </div><br>
-    <div class="comment_block">
-      <% if @comments.blank? %>
-          <div id="no_comment">No comments</div>
-      <% else%>
-          <div id="comments">
-            <div class="page">
-              <% unless @comments.blank? %>
-                  <% @comments.each do |comment| %>
-                      <%= render 'comments/comment',comment: comment %>
-                  <% end %>
+                  </div>
+                  <div class="col-md-3">
+                    <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
+                  </div>
               <% end %>
-            </div>
-          </div>
-      <% end %>
+          <% end %>
+        </div>
+      </div>
+      <br>
+      <div class="col-md-12">
+        <div class="comment_block">
+          <% if @comments.blank? %>
+              <div id="no_comment">No comments</div>
+          <% else%>
+              <div id="comments">
+                <div class="page">
+                  <% unless @comments.blank? %>
+                      <% @comments.each do |comment| %>
+                          <%= render 'comments/comment',comment: comment %>
+                      <% end %>
+                  <% end %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+      <!--comments end-->
     </div>
-    <!--comments end-->
   </div>
 </div>
 <%= paginate @comments %>

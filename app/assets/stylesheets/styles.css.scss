@@ -1726,6 +1726,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: -o-linear-gradient(top, rgba(181,181,181,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, rgba(181,181,181,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
   background: linear-gradient(to bottom, rgba(181,181,181,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+  pointer-events: none;
 }
 
 #timeline_tabs .fade_upcoming {
@@ -1740,6 +1741,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(181,181,181,1) 100%); /* Opera 11.10+ */
   background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(181,181,181,1) 100%); /* IE10+ */
   background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(181,181,181,1) 100%); /* W3C */
+  pointer-events: none;
 }
 
 #timeline_tabs .scroll_timeline {
