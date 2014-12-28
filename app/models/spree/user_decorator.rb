@@ -67,7 +67,7 @@ Spree::User.class_eval do
   end
 
   def organizing_events
-    events.order('starts_at ASC')
+    events.order('starts_at ASC,start_time ASC')
   end
 
 
