@@ -362,13 +362,13 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display:block;
+  display: block;
 }
 #upload_photos{
-  display:none;
+  display: none;
 }
 #invitation_without_wishlist{
-  display:none;
+  display: none;
 }
 #invitation_with_wishlist{
   display:none;
@@ -671,7 +671,7 @@ label{
 
 }
 .inv_preview_bg{
-  background: url("event_bg.png");
+  background: image-url("event_bg.png");
   text-align: center;
 }
 .inv_count_btn{
@@ -1762,6 +1762,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   height:30px;
   padding-top:4px;
 }
+
 .loading-indicator {
   position:fixed;
   width:100%;
@@ -1788,6 +1789,12 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   top:3%;
 }
 
+.latest {
+  color:#8bd92f;
+}
+#timeline_tabs .event_details .latest {
+  border:1px solid #8bd92f;
+}
 
 /***************responsive**********************/
 @media (min-width: 768px) {
