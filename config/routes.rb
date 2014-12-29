@@ -17,9 +17,10 @@ Invitation::Application.routes.draw do
       end
     end
   end
-
   # resources :templates
-  resources :venues,only: [:index,:show]
+  resources :venues,only: [:index,:show] do 
+    get 'check_availability',on: :member
+  end
   resources :pictures
 
 
