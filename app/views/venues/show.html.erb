@@ -75,7 +75,7 @@
             <div class="row no_margin">
               <div class="col-md-12"> <b>Types of Events:</b> &nbsp;
                 <% if  @venue.events.exists?%>
-                    <h3><%=@venue.events.inspect%></h3>
+                    <h3><%#=@venue.events.inspect%></h3>
                 <%else%>
                     <h4 style="color:red">This venue has no Events</h4>
                     <% @venue.events.exists?%>
