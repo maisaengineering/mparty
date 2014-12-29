@@ -137,7 +137,7 @@
     <% end %>
 
 
-    <!--event photos--> 
+    <!--event photos-->
     <% unless @event.pictures.blank? %>
         <div class="row">
           <div class="col-md-12">
@@ -146,7 +146,7 @@
               <div class="jcarousel event_photos_block" data-jcarousel="false">
                 <ul style="left: 0px; top: 0px;">
                   <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
                   <% end%>
                 </ul>
               </div>
