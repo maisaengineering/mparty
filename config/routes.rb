@@ -20,7 +20,8 @@ Invitation::Application.routes.draw do
   # resources :templates
   resources :venues,only: [:index,:show] do 
     get 'check_availability',on: :member
-  end
+    get 'booked_slots',on: :member
+  end  
   resources :pictures
 
 

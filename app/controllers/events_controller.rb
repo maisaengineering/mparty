@@ -16,6 +16,7 @@ class EventsController < ApplicationController
     @nearest_event = @events.where('starts_at >=?',Date.today).select("events.id").first
     respond_to do |format|
       format.js
+      format.json
       format.html
     end
   end

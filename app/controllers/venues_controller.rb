@@ -7,20 +7,10 @@ class VenuesController < ApplicationController
 
   def show
     @venue = Venue.find(params[:id])
-    @venue_calendars = @venue.venue_calendars 
-    if @venue_calendars.present?
-     slots = []
-     @venue_calendars.each do |vc|
-      slots << "{datetime: new Date(#{vc.start_date.year}, #{vc.start_date.month}, #{vc.start_date.day})}" 
-      slots << "{datetime: new Date(#{vc.end_date.year}, #{vc.end_date.month}, #{vc.end_date.day})}" 
-     end
-     @booked_slots = slots.uniq.join(',')
-     puts "******************#{@booked_slots}"
-    end  
     @pictures = @venue.pictures
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contact = @venue.venue_contacts.first
-  end
+  end 
 
   def check_availability
     @event = Event.new(session[:event_data])
@@ -33,4 +23,9 @@ class VenuesController < ApplicationController
     end
     render layout: false
   end
+
+  def booked_slots
+    @venue = Venue.find(params[:id])
+    @events = Event.where(venue_id: @venue.id).group(:starts_at)
+  end  
 end

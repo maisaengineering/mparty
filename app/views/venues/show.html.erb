@@ -1,7 +1,8 @@
 <div id="wrapper">
   <div class="container-fluid">
-    <div class="container venue_bg" >
+    <div class="container venue_bg" id="venue">
       <h3><%=@venue.name.titleize%></h3>
+      <%= hidden_field_tag :venue_id,@venue.id %>
       <div id="carousel-example-generic" class="carousel slide venue_slider" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -25,7 +26,7 @@
       <div class="venue_right">
         <h4>Availability Dates</h4>
         <div>
-          <div id="calendar"></div>
+          <div id="calendar" style="max-width: 400px;"></div>
         </div>
         <div class="row">
           <div class="col-md-12">
@@ -287,15 +288,21 @@
         /*
          *  Open manually
          */
-        <% if @venue_calendars.present? %>
-        $('#calendar').eCalendar({
-            events: [
-                <%= @booked_slots %>
-            ]
-        });
-        <% else %>
-        $('#calendar').eCalendar();
-        <% end %>
+
+        $.ajax({
+          url: "/venues/"+$("#venue_id").val()+"/booked_slots",
+          beforeSend: function(res){},
+          success: function(data){
+            $('#calendar').fullCalendar({
+              header: { left: 'prev',
+                        center: 'title',
+                        right: 'next'
+              },
+              eventColor: '#ef5323',
+              events: data
+            });
+          }
+        }) 
     });
 
 
