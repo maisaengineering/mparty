@@ -1375,7 +1375,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   /*24/12/2014*/
   transform: scale(0.15);
   transform-origin: left top;
-  -webkit-transform: scale(0.30);
+  -webkit-transform: scale(0.15);
   -webkit-transform-origin: left top;
   -ms-transform: scale(0.15);
   -ms-transform-origin: left top;
@@ -1539,7 +1539,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   position: relative;
   transform: scale(0.5);
   transform-origin: left top 0;
-  -webkit-transform: scale(1);
+  -webkit-transform: scale(0.5);
   -webkit-transform-origin: left top;
   -ms-transform: scale(0.5);
   -ms-transform-origin: left top;
@@ -1551,9 +1551,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 #eventDesignPreview {
   position: relative;
   transform: scale(0.545);
-  transform-origin: left top;
-  -webkit-transform: scale(1);
-  -webkit-transform-origin: 30% top;
+  transform-origin: center top;
+  -webkit-transform: scale(0.545);
+  -webkit-transform-origin: center top;
   -ms-transform: scale(0.545);
   -ms-transform-origin: center top;
   -moz-transform: scale(0.545);
