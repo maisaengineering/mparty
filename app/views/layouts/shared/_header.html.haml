@@ -24,9 +24,9 @@
               %li= link_to "Log Out", '/logout'
         - else
           %li
-            %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} SignUp
+            %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} Sign Up
           %li
-            %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} LogIn
+            %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} Log In
 
 
 .navbar-collapse.navbar-default_2.collapse
@@ -35,7 +35,7 @@
       %li{class: controller.controller_name.eql?('home') ? 'active' : ''}
         %a{:href => "/"}
           %span.glyphicon.glyphicon-ok>
-          \  Whats Up?
+          \  What's Up?
       %li{class: controller.controller_name.eql?('events') ? 'active' : ''}
         %a{:href => "/events"}
           %span.glyphicon.glyphicon-star>

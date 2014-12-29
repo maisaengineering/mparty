@@ -48,11 +48,11 @@
           <%#= rating_for @venue , "venue_rating", imdb_avg: true, cancel: false%>
           <% if !@venue.rates.present? %>
             <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-              <p style="position:relative;text-align:center;font-size:12px">Be the First to Rate it</p>
+              <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
             </div>
            <% else %>
            <div id="rated_members_count">
-           <p style="position:relative;font-size:12px;color:green"><%= pluralize(@venue.rates.size, 'Member') %> Rated</p>
+           <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
            </div> 
           <% end %>
         </h4>
@@ -75,7 +75,7 @@
             <div class="row no_margin">
               <div class="col-md-12"> <b>Types of Events:</b> &nbsp;
                 <% if  @venue.events.exists?%>
-                    <h3>STATIC my venue events</h3>
+                    <h3><%=@venue.events.inspect%></h3>
                 <%else%>
                     <h4 style="color:red">This venue has no Events</h4>
                     <% @venue.events.exists?%>
