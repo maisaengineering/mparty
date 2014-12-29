@@ -9,8 +9,8 @@ Spree.config do |config|
 	# Example:
 	# Uncomment to override the default site name.
 	config.site_name = "Mparty Event Management"
-	config.logo = 'logo_jb.jpg'
-	config.admin_interface_logo = 'logo_jb.jpg'
+	config.logo = 'logo.png'
+	config.admin_interface_logo = 'logo.png'
   config.layout='spree_application'
   config.allow_ssl_in_production = false  
 end

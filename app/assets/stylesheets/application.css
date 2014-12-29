@@ -11,8 +11,8 @@
  *= require_self
  *= require bootstrap
  *= require bootstrap-datepicker
- *= require jquery.e-calendar
-  *= require jquery.fancybox
+ *= require fullcalendar
+ *= require jquery.fancybox
  *= require styles
  */
 

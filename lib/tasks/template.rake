@@ -33,12 +33,6 @@ namespace :db do
             margin-top: 0px;
             margin-bottom: 0px;
             position: relative;
-            -webkit-transform: scale(.5);
-            -webkit-transform-origin: left top;
-            -ms-transform: scale(.5);
-            -ms-transform-origin: left top;
-            -transform: scale(.5);
-            -transform-origin: left top;
         }
 
         .eventDesignWrapper-#{index} .eventDesignContainer {

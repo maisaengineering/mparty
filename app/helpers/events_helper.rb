@@ -4,7 +4,7 @@ module EventsHelper
     if event.event_photo
      event.event_photo.image_url(version)
     else # default
-      asset_path('event1.png')
+      asset_path('event_3.jpg')
     end
   end
 

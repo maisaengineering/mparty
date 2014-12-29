@@ -24,7 +24,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.infinitescroll
-//= require jquery.e-calendar
+//= require fullcalendar
 //= require jquery.raty
 //= require ratyrate
 
