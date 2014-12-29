@@ -62,23 +62,23 @@
           <div id="venue_dform">
             <div class="col-md-12">
               <label></label>
-              <%= f.text_area :location, class: 'form-control',placeholder: 'Address*' ,rows: 1 ,value: @venue ? "#{@venue.address1} #{@venue.address2}" : '' %>
+              <%= f.text_area :location, class: 'form-control',placeholder: 'Address*' ,rows: 1 ,value: @venue ? "#{@venue.address1} #{@venue.address2}" : '',required: true %>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :city, class: 'form-control',placeholder: 'City*' ,value: @venue ? @venue.city : ''%>
+              <%= f.text_field :city, class: 'form-control',placeholder: 'City*' ,value: @venue ? @venue.city : '',required: true%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :state, class: 'form-control',placeholder: 'State*',value: @venue ? @venue.state : ''%>
+              <%= f.text_field :state, class: 'form-control',placeholder: 'State*',value: @venue ? @venue.state : '',required: true%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*' ,value: @venue ? @venue.country : ''%>
+              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*' ,value: @venue ? @venue.country : '',required: true%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' ,value: @venue ? @venue.zip : ''%>
+              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' ,value: @venue ? @venue.zip : '',required: true%>
             </div>
           </div>
           <div class="col-md-12">
