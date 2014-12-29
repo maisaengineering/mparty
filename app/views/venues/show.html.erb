@@ -42,7 +42,8 @@
         <!--
       <h4 class="review_star">Average Rating: <%#= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %><%#= rating_for @venue , nil, imdb_avg: true%></h4>
  -->
-        <h4 class="review_star">Overall Rating:<%= @venue.rating_cache.present? ? number_with_precision(@venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>/5
+        <h4 class="review_star">Overall Rating<%#= @venue.rating_cache.present? ? number_with_precision(@venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>
+          <!-- /5 -->
           <%#= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %>
           <%#= rating_for @venue , "venue_rating", imdb_avg: true, cancel: false%>
           <% if !@venue.rates.present? %>

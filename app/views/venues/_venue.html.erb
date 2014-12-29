@@ -8,7 +8,8 @@
       <p class="venue_description_height">
         <%= venue.description.html_safe %>
       </p>
-      <h4 class="review_star">Overall Rating:<%= venue.rating_cache.present? ? number_with_precision(venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>/5
+      <h4 class="review_star">Overall Rating<%#= venue.rating_cache.present? ? number_with_precision(venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>
+        <!-- /5 -->
       <div id="rated_members_count">
         <% if venue.rates.present? %>
            <p style="position:relative;font-size:12px;color:green"><%= pluralize(venue.rates.size, 'Member') %> Rated</p>
@@ -17,6 +18,8 @@
         <% end %>
       </div> 
       </h4>
+        <%= rating_for venue, nil, disable_after_rate: true %>
+        <br>
       <p>
         <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : "false"),class: 'btn btn-primary' %>
 
@@ -27,3 +30,9 @@
     </div>
   </div>
 </div>
+
+<style type="text/css">
+img.raty-cancel {
+  display: none;
+}
+</style>
