@@ -66,7 +66,6 @@ class EventsController < ApplicationController
     @commentable = @event
     @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
     @comment = Comment.new
-    @pictures = @event.pictures.build
     @event_template = Spree::Admin::Template.where(id: @event.template_id).first
     @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
   end

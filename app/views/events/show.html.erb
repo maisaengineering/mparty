@@ -138,30 +138,26 @@
 
 
     <!--event photos-->
-
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Photos</h4>
-        <div class="gallery event_photos" id="myCarousel">
-          <div class="jcarousel event_photos_block" data-jcarousel="false">
-            <ul style="left: 0px; top: 0px;">
-
-              <% if @event.pictures.count == 0 %>
-                  No Images
-              <% else %>
+    <% unless @event.pictures.blank? %>
+        <div class="row">
+          <div class="col-md-12">
+            <h4>Photos</h4>
+            <div class="gallery event_photos" id="myCarousel">
+              <div class="jcarousel event_photos_block" data-jcarousel="false">
+                <ul style="left: 0px; top: 0px;">
                   <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
                   <% end%>
-              <% end %>
-            </ul>
+                </ul>
+              </div>
+              <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
+              <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
+              <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
+              <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
+            </div>
           </div>
-          <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
-          <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
-          <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
-          <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
         </div>
-      </div>
-    </div>
+    <% end %>
 
     <!--event photos end-->
     <!--comments-->
