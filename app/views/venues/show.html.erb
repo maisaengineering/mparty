@@ -29,14 +29,13 @@
           <div id="calendar" style="max-width: 400px;"></div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-           <% if params[:from_event] != "false" && current_spree_user.present? %>
-            <div class="btn_orange quote_btn">
+        <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
+          <div class="btn_orange quote_btn">
               <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
-            </div>
-           <% end %> 
           </div>
+        <% end %>    
         </div>
+
       </div>
       <div class="venue_tab_content">
         <!--
@@ -302,7 +301,13 @@
               events: data
             });
           }
-        }) 
+        })
+
+        /*$(".add_this_venue_to_event").click(function(e) {
+          e.preventDefault();
+          action = '/venues/'+$(this).data('id')+'/check_availability'
+          $.ajax({url: action})
+        }) */
     });
 
 
