@@ -20,6 +20,8 @@ class Event < ActiveRecord::Base
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
+  validate :validate_duplicate_event_name
+
   validates :name,:template_id, :starts_at,:description,:city,:state,:country,:zip, presence: true
   validates_presence_of :location, :unless => :venue_id?
 
@@ -62,4 +64,14 @@ class Event < ActiveRecord::Base
     "#{location},#{city},#{state},#{country},#{zip}"
   end
 
+  private
+  def validate_duplicate_event_name
+      @events=Event.where("starts_at>=? AND starts_at>=? AND is_private=?",Date.today,Time.now,false)
+      @events.each do |event|
+       if(self.name == event.name)
+        errors.add(:Event_Name,"Already exists ")
+        break
+         end
+      end
+  end
 end

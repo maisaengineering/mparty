@@ -47,7 +47,7 @@ class ImageUploader < CarrierWave::Uploader::Base
    end
 
    version :preview  do
-     process :resize_to_fill=> [262, 262],if: :event?
+     process :resize_to_fill=> [296, 293],if: :event?
      process :resize_to_fill=> [360, 270],if: :venue?
    end
 
