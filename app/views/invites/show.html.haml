@@ -44,22 +44,20 @@
         .location_block
           - location = @event.venue ? @event.venue.full_address : @event.full_address
           %iframe{:frameborder => "0", :height => "165", :src => "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{location}", :width => "100%"}
-    .row
-      .col-md-12
-        %h4 Photos
-        #myCarousel.gallery.event_photos
-          .jcarousel.event_photos_block{"data-jcarousel" => "false"}
-            %ul{:style => "left: 0px; top: 0px;"}
-              - if @event.pictures.count == 0
-                No Images
-              - else
+    - unless @event.pictures.blank?
+      .row
+        .col-md-12
+          %h4 Photos
+          #myCarousel.gallery.event_photos
+            .jcarousel.event_photos_block{"data-jcarousel" => "false"}
+              %ul{:style => "left: 0px; top: 0px;"}
                 - @event.pictures.each do |p|
                   %li
                     %a.fancybox{:href => p.image}
                       %img{:alt => "Image 1", :src => p.image}/
                   %li
-          %a.jcarousel-control-prev.inactive.event_photo_prev{"data-jcarouselcontrol" => "true", :href => "#"} ‹
-          %a.jcarousel-control-next.event_photo_next{"data-jcarouselcontrol" => "true", :href => "#"} ›
+            %a.jcarousel-control-prev.inactive.event_photo_prev{"data-jcarouselcontrol" => "true", :href => "#"} ‹
+            %a.jcarousel-control-next.event_photo_next{"data-jcarouselcontrol" => "true", :href => "#"} ›
     .row
       .col-md-12
         %h4 Comments
