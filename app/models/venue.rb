@@ -4,11 +4,11 @@ class Venue < ActiveRecord::Base
   VENUE_TYPES = ['Conference Centres','Convention Centres','Retreats','Banquet','Hotels']
 
   #--------- Relations
-  has_many :events
+  has_many :venue_calendars
+  has_many :events, through: :venue_calendars
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :venue_contacts, inverse_of: :venue,dependent: :destroy
-  has_many :venue_calendars
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
 
   ratyrate_rateable 

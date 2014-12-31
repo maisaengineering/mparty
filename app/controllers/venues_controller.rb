@@ -17,7 +17,6 @@ class VenuesController < ApplicationController
     @venue = Venue.find(params[:id])
     start_date = @event.starts_at
     end_date = @event.ends_at.present? ? @event.ends_at : start_date
-    byebug
     booked_venues_dates =  @venue.venue_calendars.where('(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?) ', start_date,end_date,start_date,end_date)
     if !booked_venues_dates.present?
       @available = true      

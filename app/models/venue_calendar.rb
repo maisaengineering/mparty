@@ -1,5 +1,7 @@
 class VenueCalendar < ActiveRecord::Base
 	belongs_to :venue
+	belongs_to :event
+	belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User"
 
 	validates_presence_of :start_date, :end_date
 	validates_uniqueness_of :start_date, scope: :venue_id
