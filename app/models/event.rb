@@ -14,7 +14,7 @@ class Event < ActiveRecord::Base
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
-  before_create :create_venue_calander
+  after_create :create_venue_calander
 
   accepts_nested_attributes_for :pictures
 
@@ -83,6 +83,8 @@ class Event < ActiveRecord::Base
      venue_calendar = VenueCalendar.new 
      venue_calendar.start_date = self.starts_at
      venue_calendar.venue_id = self.venue_id
+     venue_calendar.event_id = self.id
+     venue_calendar.user_id = current_spree_user.id
      end_date = self.ends_at.present? ? self.ends_at : self.starts_at  
      venue_calendar.end_date = end_date
      if !venue_calendar.valid?
