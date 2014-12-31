@@ -14,7 +14,7 @@ namespace :db do
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE venue_contacts;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE reviews;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE rates;")
-    ActiveRecord::Base.connection.execute("TRUNCATE TABLE rate_caches;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE rating_caches;")
 
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_wished_products;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_wishlists;")
