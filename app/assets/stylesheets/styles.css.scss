@@ -9,6 +9,12 @@ body{
   height:100%;
 }
 
+.container{
+  max-width: none !important;
+  width: 970px;
+}
+
+
 .social_icons{
   padding:20px;
 }
