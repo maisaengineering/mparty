@@ -8,7 +8,7 @@ class Venue < ActiveRecord::Base
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :venue_contacts, inverse_of: :venue,dependent: :destroy
-  has_many :venue_calendars, dependent: :destroy 
+  has_many :venue_calendars
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
 
   ratyrate_rateable 
@@ -18,7 +18,8 @@ class Venue < ActiveRecord::Base
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
 
   #--------- Validations goes here
-  validates :name,:address1,:zip,presence: true
+  validates :name,:address1, :address2, :state, :city, :country,:zip,presence: true
+  validates_associated :venue_calendars, :venue_contacts
 
   #--------  Callbacks goes here
   # GEO

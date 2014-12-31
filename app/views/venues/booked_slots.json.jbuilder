@@ -1,6 +1,6 @@
 json.prettify!
-json.array!(@events) do |event|
+json.array!(@slots) do |slot|
   json.title 'Occupied'
-  json.start event.starts_at
+  json.start slot.start_date
   json.overlap false
 end
