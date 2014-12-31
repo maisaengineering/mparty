@@ -345,6 +345,7 @@ label{
 }
 .event_left_block textarea{
   border:1px solid #ccc;
+  resize: none;
 }
 
 .upload_btn{
@@ -368,10 +369,10 @@ label{
   border-color: #8bd92f;
 }
 #create_form{
-  display: block;
+  display: none;
 }
 #upload_photos{
-  display: none;
+  display: block;
 }
 #invitation_without_wishlist{
   display: none;
@@ -1802,6 +1803,11 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 #timeline_tabs .event_details .latest {
   border:1px solid #8bd92f;
+}
+
+.photos_block .picture{
+  margin-bottom: 20px;
+  width: 24%;
 }
 
 /***************responsive**********************/
