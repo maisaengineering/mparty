@@ -22,7 +22,9 @@ Invitation::Application.routes.draw do
     get 'check_availability',on: :member
     get 'booked_slots',on: :member
   end  
-  resources :pictures
+  resources :pictures do
+    delete 'remove_all' ,on: :collection
+  end
 
 
 
