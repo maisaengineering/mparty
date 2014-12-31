@@ -19,7 +19,7 @@ class Venue < ActiveRecord::Base
 
   #--------- Validations goes here
   validates :name,:address1, :address2, :state, :city, :country,:zip,presence: true
-  validates_associated :venue_calendars, :venue_contacts
+  #validates_associated :venue_calendars, :venue_contacts
 
   #--------  Callbacks goes here
   # GEO
