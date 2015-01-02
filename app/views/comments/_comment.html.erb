@@ -6,7 +6,7 @@
     <div class="col-md-11">
       <h5><%= comment.commented_by %></h5>
       <p class="comment_time pull-right"><%= distance_of_time_in_words_to_now(comment.created_at) %></p>
-      <p><%= comment.content%></p>
+      <p><%= simple_format(comment.content) %></p>
     </div>
   </div>
 </div>

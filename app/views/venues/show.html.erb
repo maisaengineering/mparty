@@ -1,3 +1,20 @@
+<style type="text/css">
+    /*FIX IMAGE SIZE FOR CAROUSEL*/
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        display: block;
+        line-height: 1;
+        height: 380px;
+        width: 1000px;
+    }
+
+    /* FIX IMAGE SIZE FOR GALLERY TAB.*/
+    .fix_image_size > a > img
+    {
+        height: 165px;
+        width: 220px;
+    }
+</style>
 <div id="wrapper">
   <div class="container-fluid">
     <div class="container venue_bg" id="venue">
@@ -13,12 +30,19 @@
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-          <%@pictures.each do |picture|%>
+          <% if @pictures.blank? %>
               <div class="item">
-                <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
+                <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
                 <div class="carousel-caption"> venue three </div>
               </div>
-          <%end%>
+          <% else %>
+              <% @pictures.each do |picture|%>
+                  <div class="item">
+                    <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
+                    <div class="carousel-caption"> venue three </div>
+                  </div>
+              <%end%>
+          <% end %>
         </div>
 
         <!-- Controls -->
@@ -29,27 +53,45 @@
           <div id="calendar" style="max-width: 400px;"></div>
         </div>
         <div class="row">
-        <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
-          <div class="btn_orange quote_btn">
-              <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
-          </div>
-        <% end %>    
+          <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
+              <div class="btn_orange quote_btn">
+                <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
+              </div>
+          <% end %>
         </div>
 
       </div>
       <div class="venue_tab_content">
         <h4 class="review_star">Overall Rating
-          <% if !@venue.rates.present? %>
-            <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-              <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
-            </div>
-           <% else %>
-           <div id="rated_members_count">
-           <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-           </div> 
+        <% if current_spree_user.present? %>
+          <% if !@venue.rates.present? && @can_rate_it %>
+             <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
+               <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
+             </div><br/>
+             <%= rating_for @venue, nil, disable_after_rate: true %>
+          <% else %>
+             <div id="rated_members_count">
+                <% if !@venue.rates.present? %>
+                    <p style="position:relative;font-size:12px;color:green">Not Rated</p>
+                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it" %>
+                <% else %>
+                    <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
+                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it"%>
+                <% end %>   
+             </div> 
           <% end %>
-        </h4>
-        <%= rating_for @venue, nil, disable_after_rate: true %>
+        <% else %>
+           <div id="rated_members_count">
+               <% if !@venue.rates.present? %>
+                   <p style="position:relative;font-size:12px;color:green">Not Rated</p>
+                   <%= rating_for @venue, nil, readonly: true %>
+               <% else %>
+                   <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
+                   <%= rating_for @venue, nil, readonly: true%>
+               <% end %>  
+           </div> 
+        <% end %>
+       </h4>
         <br>
         <ul class="nav nav-tabs" role="tablist" id="myTab">
           <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
@@ -74,10 +116,10 @@
             <div class="row no_margin">
               <div class="col-md-12"> <b>Types of Events:</b> &nbsp;
                 <% if @venue.events.exists?%>
-                  Birthdays, Marriages, Receptions, etc.
+                    Birthdays, Marriages, Receptions, etc.
                 <%else%>
-                  Birthdays, Marriages, Receptions.
-                 <%end%>
+                    Birthdays, Marriages, Receptions.
+                <%end%>
               </div>
             </div>
             <div class="row no_margin">
@@ -96,8 +138,8 @@
                   <%=@venue.state%>,<%=@venue.country%><br>
                   <%=@venue.zip%><br>
                   <% if @contact.present? %>
-                  <%=@contact.land_number%><br>
-                  +91-<%=@contact.mobile_number%>
+                      <%=@contact.land_number%><br>
+                      +91-<%=@contact.mobile_number%>
                   <% end %>
                 </address>
               </div>
@@ -119,13 +161,13 @@
               <%end%>
             </div>
             <div class="row no_margin event_margin">
-             <!-- <h4>Videos</h4>
-              <div class="col-md-3">
-                <a class="fancybox-media" href="https://www.youtube.com/watch?v=X8XVuHi_fYo"><img src="/assets/venue_video.jpg" width="220px"></a>
-              </div>
-              <div class="col-md-3"></div>
-              <div class="col-md-3"></div>
-              <div class="col-md-3"></div>-->
+              <!-- <h4>Videos</h4>
+               <div class="col-md-3">
+                 <a class="fancybox-media" href="https://www.youtube.com/watch?v=X8XVuHi_fYo"><img src="/assets/venue_video.jpg" width="220px"></a>
+               </div>
+               <div class="col-md-3"></div>
+               <div class="col-md-3"></div>
+               <div class="col-md-3"></div>-->
             </div>
           </div>
 
@@ -171,113 +213,33 @@
   </div>
 </div>
 <script type="text/javascript">
-
-    $(document).ready(function() {
-        $(".carousel-inner div:first-child").addClass("active");
-    });
-</script>
-
-<style type="text/css">
-
-    /*FIX IMAGE SIZE FOR CAROUSEL*/
-    .carousel-inner > .item > img,
-    .carousel-inner > .item > a > img {
-        display: block;
-        line-height: 1;
-        height: 380px;
-        width: 1000px;mage_uploader.rb
-    float: center;
-    }
-
-    /*IF WE WANT TO TITLE ON THE CAROUSEL CSS*/
-    /*.carousel-caption{
-      height: 20px;
-    }
-    .carousel-caption p{
-      margin-bottom: -5px;
-    }*/
-
-    /* FIX IMAGE SIZE FOR GALLERY TAB.*/
-    .fix_image_size > a > img
-    {
-        height: 165px;
-        width: 220px;
-        float: center;
-    }
-</style>
-
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#large-image").html("<img src="+$(".jcarousel ul li ").eq(0).find('img').attr('src')+">");
-        $(".jcarousel a").click(function(e){
-            $("#large-image").html("<img src="+$(this).find('img').attr('src')+">");
-
-        });
-
-        $('#myCarousel').carousel({
-            interval: 1000
-        })
-
-        $('#myCarousel').on('slid.bs.carousel', function() {
-            //alert("slid");
-        });
-        
-        $('.raty-cancel').css("display","none"); //hiding ratyrate cancel rate button
+    $(".carousel-inner div:first-child").addClass("active");
+    $("#large-image").html("<img src="+$(".jcarousel ul li ").eq(0).find('img').attr('src')+">");
+    $(".jcarousel a").click(function(e){
+        $("#large-image").html("<img src="+$(this).find('img').attr('src')+">");
 
     });
-    /*fancy box*/
-    $(document).ready(function() {
-        /*
-         *  Simple image gallery. Uses default settings
-         */
-        $('.fancybox').fancybox();
-        /*
-         /*
-         *  Media helper. Group items, disable animations, hide arrows, enable media and button helpers.
-         */
-        $('.fancybox-media')
-                .attr('rel', 'media-gallery')
-                .fancybox({
-                    openEffect : 'none',
-                    closeEffect : 'none',
-                    prevEffect : 'none',
-                    nextEffect : 'none',
+    $('#myCarousel').carousel({
+        interval: 1000
+    })
 
-                    arrows : false,
-                    helpers : {
-                        media : {},
-                        buttons : {}
-                    }
-                });
-        /*
-         *  Open manually
-         */
+    $('.fancybox').fancybox();
 
+    if($("#venue_id").val()){
         $.ajax({
-          url: "/venues/"+$("#venue_id").val()+"/booked_slots",
-          beforeSend: function(res){},
-          success: function(data){
-            $('#calendar').fullCalendar({
-              header: { left: 'prev',
+            url: "/venues/"+$("#venue_id").val()+"/booked_slots",
+            beforeSend: function(res){},
+            success: function(data){
+                $('#calendar').fullCalendar({
+                    header: { left: 'prev',
                         center: 'title',
                         right: 'next'
-              },
-              eventColor: '#ef5323',
-              events: data
-            });
-          }
-        })
-
-        /*$(".add_this_venue_to_event").click(function(e) {
-          e.preventDefault();
-          action = '/venues/'+$(this).data('id')+'/check_availability'
-          $.ajax({url: action})
-        }) */
-    });
-
-
-
-
+                    },
+                    eventColor: '#ef5323',
+                    events: data
+                });
+            }
+        });
+    }
 </script>
 

@@ -36,6 +36,16 @@ class Event < ActiveRecord::Base
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
 
+
+  class << self
+    def search(query,type='trending')
+      query = "%#{query}%"
+      name_match = arel_table[:name].matches(query)
+      city_match = arel_table[:city].matches(query)
+      where(name_match.or(city_match))
+    end
+  end
+
   def attendees(status)
     if status.eql?('pending')
       self.invites.where(joined: 0).count
@@ -69,13 +79,9 @@ class Event < ActiveRecord::Base
   private
   
   def validate_duplicate_event_name
-      @events=Event.where("starts_at>=? AND starts_at>=? AND is_private=?",Date.today,Time.now,false)
-      @events.each do |event|
-       if(self.name == event.name)
-        errors.add(:Event_Name,"Already exists ")
-        break
-         end
-      end
+    if Event.where(name: self.name,is_private: false).where("starts_at>=?" ,Date.today).exists?
+      errors.add(:Event_Name,"Already exists ")
+    end
   end
 
   def create_venue_calander

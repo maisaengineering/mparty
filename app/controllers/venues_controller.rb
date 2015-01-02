@@ -8,6 +8,11 @@ class VenuesController < ApplicationController
   def show
     @venue = Venue.find(params[:id])
     @pictures = @venue.pictures
+    if current_spree_user.present?
+      @can_rate_it = check_permission_for_rate_it(@venue, current_spree_user)
+    else
+      @can_rate_it = false
+    end  
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contact = @venue.venue_contacts.first
     @type_of_venues = @venue.venue_categories
@@ -28,9 +33,23 @@ class VenuesController < ApplicationController
   end
 
   def booked_slots
-    @venue = Venue.find(params[:id])
+    @venue = Venue.find(params[:id])  
     if @venue.venue_calendars.present?
      @slots = @venue.venue_calendars
     end 
-  end  
+  end 
+
+  def check_permission_for_rate_it(venue, user)
+    invitation = Invite.where(joined: 1, user_id: user.id)
+    venue_id = nil
+    owner_venue_id = nil
+    is_owner_of_event = Event.find_by_user_id(user.id)
+    owner_venue_id = is_owner_of_event.venue_id if is_owner_of_event.present?
+    venue_id = invitation.first.event.venue_id if invitation.present?
+    if (owner_venue_id == venue.id) || (invitation.present? && venue_id == venue.id)
+      return true
+    else
+      return false
+    end  
+  end 
 end

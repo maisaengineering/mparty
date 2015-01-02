@@ -18,7 +18,7 @@
         <% end %>
       </div> 
       </h4>
-        <%= rating_for venue, nil, disable_after_rate: true %>
+        <%= rating_for venue, nil, readonly: true %>
         <br>
       <p>
         <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : "false"),class: 'btn btn-primary' %>

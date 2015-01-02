@@ -2,6 +2,13 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for(@event, :html => {:multipart => true,remote: true}) do |f| %>
+          <%= f.hidden_field :is_private,value: 0 %>
+          <div class="col-md-12 mbottom20">
+            <div class="btn-group" role="group" aria-label="Default button group">
+              <button type="button" id="switch_public" class="btn btn-success" value="">Public</button>
+              <button type="button" id="switch_private" class="btn btn-default" value="">Private</button>
+            </div>
+          </div>
           <div class="col-md-6">
             <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
           </div>
@@ -59,37 +66,101 @@
             <% end %>
             <%=f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
           </div>
+
           <div id="venue_dform">
             <div class="col-md-12">
               <label></label>
-              <%= f.text_area :location, class: 'form-control',placeholder: 'Address*' ,rows: 1 ,value: @venue ? "#{@venue.address1} #{@venue.address2}" : '',required: true %>
+              <%= f.text_area :location, class: 'form-control',placeholder: 'Address*' ,rows: 1  %>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :city, class: 'form-control',placeholder: 'City*' ,value: @venue ? @venue.city : '',required: true%>
+              <%= f.text_field :city, class: 'form-control',placeholder: 'City*' %>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :state, class: 'form-control',placeholder: 'State*',value: @venue ? @venue.state : '',required: true%>
+              <%= f.text_field :state, class: 'form-control',placeholder: 'State*'%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*' ,value: @venue ? @venue.country : '',required: true%>
+              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*'%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' ,value: @venue ? @venue.zip : '',required: true%>
+              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' %>
             </div>
           </div>
+
+
+
+          <% if @venue.present? %>
+              <div id="venue_afterchoose">
+                <div class="col-md-12 ptopbottom mtop20">
+                  <span class="glyphicon glyphicon-map-marker"></span> <span>Location Name</span>
+                </div>
+
+                <div class="row no_margin ptopbottom">
+                  <div class="col-md-3">
+                    Address:
+                  </div>
+                  <div class="col-md-9">
+                    <%= "#{@venue.address1} #{@venue.address2}" %>
+                  </div>
+                </div>
+
+                <div class="row no_margin ptopbottom">
+                  <div class="col-md-3">
+                    City:
+                  </div>
+                  <div class="col-md-9">
+                    <%= @venue.city  %>
+                  </div>
+                </div>
+
+                <div class="row no_margin ptopbottom">
+                  <div class="col-md-3">
+                    State:
+                  </div>
+                  <div class="col-md-9">
+                    <%= @venue.state  %>
+                  </div>
+                </div>
+
+                <div class="row no_margin ptopbottom">
+                  <div class="col-md-3">
+                    Country:
+                  </div>
+                  <div class="col-md-9">
+                    <%= @venue.country  %>
+                  </div>
+                </div>
+
+                <div class="row no_margin ptopbottom">
+                  <div class="col-md-3">
+                    Zip:
+                  </div>
+                  <div class="col-md-9">
+                    <%= @venue.zip  %>
+                  </div>
+                </div>
+              </div>
+              <div id="venus_hidden_fields">
+                <%= f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
+                <%= f.hidden_field :location,value: "#{@venue.address1} #{@venue.address2}" %>
+                <%= f.hidden_field :city,value: @venue.city %>
+                <%= f.hidden_field :state,value: @venue.state %>
+                <%= f.hidden_field :country,value: @venue.country %>
+                <%= f.hidden_field :zip,value: @venue.zip %>
+              </div>
+
+          <% end %>
+
           <div class="col-md-12">
             <label></label>
             <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2 ,required: true %>
           </div>
-          <div class="col-md-12">
-            <label>
-              <%= f.check_box :is_private %>
-              Is Private</label>
-          </div>
+
+
+
           <div class="col-md-12">
             <label></label>
             <button class="btn btn-lg btn-primary btn-block" type="submit">
@@ -101,6 +172,32 @@
   </div>
 </div>
 <script type="text/javascript">
+
+
+    $("#new_event #switch_public").addClass('btn-success').removeClass('btnn-default');
+    $("#new_event #switch_private").addClass('btn-default').removeClass('btn-success');
+    $("#new_event #switch_private").val('');
+    $("#new_event #switch_public").val('')
+
+    $("#new_event #switch_private").click(function() {
+        $("#new_event #switch_public").removeClass('btn-success').addClass('btnn-default');
+        $(this).removeClass('btn-default').addClass('btn-success');
+        $(this).val('private');
+        $("#new_event #switch_public").val('');
+        $('#event_is_private').val(1)
+
+    });
+
+    $("#new_event #switch_public").click(function() {
+        $(this).addClass('btn-success').removeClass('btnn-default');
+        $("#new_event #switch_private").addClass('btn-default').removeClass('btn-success');
+        $(this).val('public');
+        $("#new_event #switch_private").val('');
+        $('#event_is_private').val(0)
+    });
+
+
+    //$('#venue_dform').hide()
     $('#datepairExample .time').timepicker({
         showDuration: true,
         timeFormat: 'g:ia'
@@ -113,11 +210,12 @@
     });
 
     $("#event_starts_at").change(function () {
-      $('#event_ends_at').datepicker('setStartDate', this.value);
-    })    
+        $('#event_ends_at').datepicker('setStartDate', this.value);
+    })
 
     $('#new_event #venue_type').bind('change', function () {
         if($(this).val() == 'choose'){
+            $('#venue_dform').empty()
             $('#venue_dform').fadeOut()
             var sData = $('#new_event').serialize();
             $.ajax({
@@ -129,6 +227,7 @@
                 }
             });
         }else if($(this).val() == 'custom'){
+            $('#venue_afterchoose').remove()
             $('#venue_dform').fadeIn('slow')
             $('#venue_name').remove()
             $('#event_venue_id').val('')
@@ -137,6 +236,8 @@
             $('#event_state').val('')
             $('#event_country').val('')
             $('#event_zip').val('')
+            $("#venus_hidden_fields").empty()
+
         }
     });
 
@@ -162,9 +263,9 @@
         $(".btn_remove_endtime").fadeIn("slow");
     }
 
-    if($('#event_venue_id').val() != ''){
-        $('#venue_dform').show()
-    }
+    /*if($('#event_venue_id').val() != ''){
+     $('#venue_dform').show()
+     }*/
 
 
     function invokeDesign(template_id,design_id){
@@ -211,9 +312,9 @@
         });
 
         /*$("#new_event #event_description").keyup(function() {
-            var eventDesignEventDesc =  $ele.find('.eventDesignEventText').find('td');
-            ($(this).val() == '') ? eventDesignEventDesc.text('Description') :eventDesignEventDesc.text($(this).val())
-        });*/
+         var eventDesignEventDesc =  $ele.find('.eventDesignEventText').find('td');
+         ($(this).val() == '') ? eventDesignEventDesc.text('Description') :eventDesignEventDesc.text($(this).val())
+         });*/
 
     }
 

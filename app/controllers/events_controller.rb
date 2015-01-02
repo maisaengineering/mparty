@@ -116,8 +116,13 @@ class EventsController < ApplicationController
       e = params[:friend_emails].split(',')
       invitations = []
       failed_emails = []
+      self_email = []
       e.each do |email|
         email.strip!
+        if(email == current_spree_user.email)
+          self_email << email
+          next
+        end
         event_invitation = Invite.where(event_id: @event.id, recipient_email: email).first
         if event_invitation.nil?
           invite = Invite.create do |inv|
@@ -144,8 +149,20 @@ class EventsController < ApplicationController
       if invitations.size > 0
         send_invitation_emails(invitations,@event)
         flash[:notice] = "Successfully sent Invitation mail."
-      else
-        flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
+      end
+      if self_email.size > 0
+        if flash[:notice].nil?
+          flash[:notice] = "You can not send invitation to your self. "
+        else
+          flash[:notice] << "You can not send invitation to your self. "
+        end
+      end
+      if failed_emails.size > 0
+        if flash[:notice].nil?
+          flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
+        else
+          flash[:notice] << "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
+        end
       end
 
 
