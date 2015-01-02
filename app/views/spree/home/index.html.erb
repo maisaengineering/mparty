@@ -8,8 +8,9 @@
       <div class="form-group whatsup_search">
         <%= form_tag("/",method: :get) do%>
             <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events by name or city' %>
+            <button class="whatsup_src_icon"><span class="glyphicon glyphicon-search pull-left"></span></button>
         <%end %>
-        <span class="glyphicon glyphicon-search pull-left whatsup_src_icon"></span>
+
       </div>
     </div>
   </div>

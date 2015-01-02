@@ -38,7 +38,7 @@ class Event < ActiveRecord::Base
 
 
   class << self
-    def search(query,type='trending')
+    def search(query)
       query = "%#{query}%"
       name_match = arel_table[:name].matches(query)
       city_match = arel_table[:city].matches(query)
