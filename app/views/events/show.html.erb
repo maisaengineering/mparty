@@ -53,7 +53,7 @@
           <div class="col-md-7">
             <h5><%= @event.host_name %></h5>
           </div>
-          <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+          <% if current_spree_user and current_spree_user.id == @event.user_id && @event.starts_at >= Date.today %>
               <div class="col-md-2"> <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a> </div>
           <% end %>
 
