@@ -1,9 +1,7 @@
 <div id="events">
   <div class="page">
     <% if events.present? %>
-
         <% events.each do |e| %>
-
             <div class="col-xs-12 col-sm-6 col-md-3 event">
               <div class=" row nomargin event_margin">
                 <div class="event_img">
@@ -37,4 +35,4 @@
     <% end %>
   </div>
 </div>
-<%= paginate events ,params: {type: params[:type] || 'trending' }%>
+<%= paginate events ,params: {query: params[:query],type: params[:type] || 'trending' }%>

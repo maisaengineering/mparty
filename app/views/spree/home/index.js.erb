@@ -1,1 +1,1 @@
-$("#events .page").append("<%= j(render 'events/events_list',events: @trending_events,type: params[:type] ) %>");
+$("#trending_events .page").html("<%= j(render 'events/events_list',events: @trending_events,query: params[:query],type: 'trending') %>");
