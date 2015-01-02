@@ -1,0 +1,9 @@
+<%unless VenueCategory.all.blank?%>
+	<%for venue_category in VenueCategory.all%>
+		<%= check_box_tag "venue[venue_type][]",venue_category.id,@venue.venue_categories.include?(venue_category)%>
+		<%= venue_category.venue_type%>
+	<%end%>
+<%else%>
+	<br>
+	<a href="/admin/venue_categories/new">create Venue Category.</a>
+<%end%>

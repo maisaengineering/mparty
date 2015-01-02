@@ -10,6 +10,7 @@ class VenuesController < ApplicationController
     @pictures = @venue.pictures
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contact = @venue.venue_contacts.first
+    @type_of_venues = @venue.venue_categories
   end 
 
   def check_availability
