@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: mparty_dev
+  host: localhost
+  pool: 5
+  username: maisapride
+  password: maisapride
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: mparty_test
+  host: localhost
+  pool: 5
+  username: maisapride
+  password: maisapride
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: mparty_dev
+  host: localhost
+  pool: 5
+  username: maisapride
+  password: maisapride

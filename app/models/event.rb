@@ -14,6 +14,8 @@ class Event < ActiveRecord::Base
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  after_create :create_venue_calander
+
   accepts_nested_attributes_for :pictures
 
 
@@ -65,9 +67,27 @@ class Event < ActiveRecord::Base
   end
 
   private
+  
   def validate_duplicate_event_name
     if Event.where(name: self.name,is_private: false).where("starts_at>=?" ,Date.today).exists?
       errors.add(:Event_Name,"Already exists ")
     end
   end
+
+  def create_venue_calander
+   if self.venue_id.present? 
+     venue_calendar = VenueCalendar.new 
+     venue_calendar.start_date = self.starts_at
+     venue_calendar.venue_id = self.venue_id
+     venue_calendar.event_id = self.id
+     venue_calendar.user_id = self.user.id
+     end_date = self.ends_at.present? ? self.ends_at : self.starts_at  
+     venue_calendar.end_date = end_date
+     if !venue_calendar.valid?
+      errors.add(:event, "Invalid Start and End dates.")
+     else
+      venue_calendar.save 
+     end 
+   end  
+  end  
 end

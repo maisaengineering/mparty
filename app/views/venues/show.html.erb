@@ -29,23 +29,16 @@
           <div id="calendar" style="max-width: 400px;"></div>
         </div>
         <div class="row">
-          <div class="col-md-12">
-           <% if params[:from_event] != "false" && current_spree_user.present? %>
-            <div class="btn_orange quote_btn">
+        <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
+          <div class="btn_orange quote_btn">
               <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
-            </div>
-           <% end %> 
           </div>
+        <% end %>    
         </div>
+
       </div>
       <div class="venue_tab_content">
-        <!--
-      <h4 class="review_star">Average Rating: <%#= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %><%#= rating_for @venue , nil, imdb_avg: true%></h4>
- -->
-        <h4 class="review_star">Overall Rating<%#= @venue.rating_cache.present? ? number_with_precision(@venue.rating_cache.avg, precision: 1,strip_insignificant_zeros: true) : 0 %>
-          <!-- /5 -->
-          <%#= @venue.average and @venue.average.avg <= 0 ? "Not Rated": @venue.average.avg %>
-          <%#= rating_for @venue , "venue_rating", imdb_avg: true, cancel: false%>
+        <h4 class="review_star">Overall Rating
           <% if !@venue.rates.present? %>
             <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
               <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
@@ -58,8 +51,6 @@
         </h4>
         <%= rating_for @venue, nil, disable_after_rate: true %>
         <br>
-
-        <!-- <p><%#= @rated_users_count%>Members have Rated for this Venue.</p> -->
         <ul class="nav nav-tabs" role="tablist" id="myTab">
           <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
           <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab">Contact Details</a></li>
@@ -96,45 +87,11 @@
                   <%=@venue.address1%>, <%=@venue.city%><br>
                   <%=@venue.state%>,<%=@venue.country%><br>
                   <%=@venue.zip%><br>
+                  <% if @contact.present? %>
                   <%=@contact.land_number%><br>
                   +91-<%=@contact.mobile_number%>
+                  <% end %>
                 </address>
-
-                <!--           <address>
-            <strong>Contact:</strong><br>
-            <%#=@contact.full_name%>
-            <%#@contact%>
-          </address> -->
-
-
-                <!--       <div class="row">
-                <div class="col-md-4"><b>Name</b></div>
-                <div class="col-md-8"><%=@contact.full_name%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>Address</b></div>
-                <div class="col-md-8"><%=@venue.address1%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>City</b></div>
-                <div class="col-md-8"><%=@venue.city%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>State</b></div>
-                <div class="col-md-8"><%=@venue.state%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>Country</b></div>
-                <div class="col-md-8"><%=@venue.country%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>Zipcode</b></div>
-                <div class="col-md-8"><%=@venue.zip%></div>
-              </div>
-              <div class="row">
-                <div class="col-md-4"><b>PhoneNumber</b></div>
-                <div class="col-md-8"><%=@contact.mobile_number%></div>
-              </div> -->
               </div>
               <div class="col-md-8">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15222.825740006923!2d78.571752!3d17.473759450000003!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1417601051402" width="100%" height="250" frameborder="0" style="border:0"></iframe>
@@ -147,7 +104,7 @@
               <h4>Photos</h4>
               <%@pictures.each do |picture|%>
                   <div class="col-md-3 fix_image_size">
-                    <a class="fancybox" href="<%= picture.image.url%>">
+                    <a class="fancybox" href="<%= picture.image.url%>" rel="gallery1">
                       <img src="<%= picture.image.url(:slide_show)%>">
                     </a>
                   </div>
@@ -302,7 +259,13 @@
               events: data
             });
           }
-        }) 
+        })
+
+        /*$(".add_this_venue_to_event").click(function(e) {
+          e.preventDefault();
+          action = '/venues/'+$(this).data('id')+'/check_availability'
+          $.ajax({url: action})
+        }) */
     });
 
 

@@ -71,9 +71,9 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
    @venue = Venue.find(params[:id])
 
    @new_venue_calendar = @venue.venue_calendars.build(venue_calendar_params)
+   @new_venue_calendar.user_id = current_spree_user.id
    if @new_venue_calendar.save 
      redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
-
    else
      flash[:error] = @new_venue_calendar.errors.full_messages.to_sentence
      redirect_to add_calendar_admin_venue_url(@venue)
@@ -83,8 +83,14 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def remove_venue_slot
     @venue = Venue.find(params[:id])
     @venue_calendar = VenueCalendar.find(params[:calendar_id])
-    @venue_calendar.destroy
-    redirect_to add_calendar_admin_venue_url(@venue), notice: 'Slot removed successfully'
+    notice = ""
+    if @venue_calendar.event_id.nil?
+       @venue_calendar.destroy
+       notice = 'Slot removed successfully'
+    else
+       notice = "You can't delete this slot. An Event associated with this slot." 
+    end        
+    redirect_to add_calendar_admin_venue_url(@venue), notice: notice
   end  
 
 
@@ -100,7 +106,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   end
 
   def venue_calendar_params
-    params.require(:venue_calendar).permit(:start_date,:end_date)
+    params.require(:venue_calendar).permit(:start_date,:end_date, :user_id)
   end
 
   def model_class

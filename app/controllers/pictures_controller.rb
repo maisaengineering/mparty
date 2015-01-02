@@ -17,8 +17,14 @@ class PicturesController < ApplicationController
     # else
     #   redirect_to @event, notice: "Picture was successfully destroyed."
     # end
+  end
 
-
+  def remove_all
+    begin
+      Picture.where(id: params[:ids].split(',')).destroy_all
+    rescue
+    end
+    render nothing: true
   end
 
   private

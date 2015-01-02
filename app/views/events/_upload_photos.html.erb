@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for Picture.new do |f| %>
-          <%= hidden_field_tag :resource_id %>
+          <%= hidden_field_tag :resource_id  %>
           <%= hidden_field_tag :resource ,'event' %>
           <div class="col-md-12 upload_btn">
             <span class="glyphicon glyphicon-picture"></span>
@@ -31,18 +31,50 @@
     <button class="btn btn-lg btn-primary btn-block upload_btn_done" type="submit">DONE</button>
   </div>
 </div>
-<script type="text/javascript">
 
-    $('#new_picture').fileupload(function(){
-        dataType: "script"
+<script type="text/javascript">
+    $('#new_picture').fileupload({
+        dataType: "script",
+        add: function(e, data) {
+            $('.loading-indicator').show()
+            return data.submit();
+        },
+        progress: function(e, data) {
+           // $('.loading-indicator').fadeIn('slow')
+        }
+    });
+
+    // remove all uploaded pictures if user clicks on skip button if any uploaded already
+    $('.upload_btn_skip').click(function(e){
+        e.preventDefault()
+        var pic_ids = [];
+        $('.photos_block #pictures .picture').each(function(){
+            pic_ids[pic_ids.length] = $(this).data('id');
+        });
+        if(pic_ids.length == 0){
+            switchTabFromUploadToInvite()
+        }else{
+            $.ajax({
+                type: "POST",
+                url: '/pictures/remove_all',
+                data: {"_method": 'delete',ids: pic_ids},
+                beforeSend: function( ){ switchTabFromUploadToInvite() },
+                success: function(res) { }
+            });
+        }
+
     })
 
-
-  $('.upload_btn_done,.upload_btn_skip').click(function(e){
+    $('.upload_btn_done').click(function(e){
       e.preventDefault()
-      $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
-      $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
-      $("#upload_photos").css("display", "none")
-      $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
-  })
+        switchTabFromUploadToInvite()
+    })
+
+    function switchTabFromUploadToInvite(){
+        $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
+        $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
+        $("#upload_photos").css("display", "none")
+        $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
+    }
+
 </script>

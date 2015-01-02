@@ -1,5 +1,5 @@
 <% if picture.image? %>
-    <div class="col-md-3 picture" id="picture_<%= picture.id %>">
+    <div class="col-md-3 picture" id="picture_<%= picture.id %>" data-id="<%= picture.id %>">
       <%= link_to picture , confirm: 'Are you sure?', method: :delete ,class: 'remove_btn',remote: true do %>
           <span class="glyphicon glyphicon-remove-circle"></span>
       <% end  %>
