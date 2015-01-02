@@ -53,7 +53,7 @@ module ApplicationHelper
       if imageable.is_a?(Event)
         image_tag 'event1.png',width: '100px',height: '90px'
       else
-        image_tag 'venue-sample.jpg'
+        image_tag 'venue_1.jpg'
       end
     end
   end
