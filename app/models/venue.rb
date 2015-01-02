@@ -14,6 +14,7 @@ class Venue < ActiveRecord::Base
   ratyrate_rateable 
   has_many :rates, as: :rateable, dependent: :destroy
   has_one :rating_cache, as: :cacheable, dependent: :destroy
+  has_and_belongs_to_many :venue_categories 
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
 

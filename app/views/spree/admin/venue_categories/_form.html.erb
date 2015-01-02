@@ -1,0 +1,21 @@
+ <%= form_for [:admin, @venue_category] do |f| %>
+<fieldset data-hook="new_property">
+  <legend align="center"><%= Spree.t(:new_venue_type) %></legend>
+  
+
+<div data-hook="admin_property_form" class="align-center row">
+  <div class="alpha eight columns">
+    <%= f.field_container :venue_type do %>
+      <%= f.label :venue_type, Spree.t(:venue_type) %> <span class="required">*</span><br />
+      <%= f.text_field :venue_type, :class => 'fullwidth' %>
+      <%= f.error_message_on :venue_type %>
+    <% end %>
+  </div>
+</div>
+
+<%=f.submit%>
+
+  <div class="filter-actions">
+  </div>
+</fieldset>
+<% end %>

@@ -55,7 +55,7 @@
         <div class="row">
           <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
               <div class="btn_orange quote_btn">
-                <%= link_to "Choose", new_event_path(venue_id: @venue.id)%>
+                <%= link_to "Choose", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event"}%>
               </div>
           <% end %>
         </div>
@@ -67,7 +67,7 @@
           <% if !@venue.rates.present? && @can_rate_it %>
              <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
                <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
-             </div><br/>
+             </div>
              <%= rating_for @venue, nil, disable_after_rate: true %>
           <% else %>
              <div id="rated_members_count">
@@ -102,7 +102,15 @@
         <div class="tab-content venue_tab_margin">
           <div role="tabpanel" class="tab-pane fade in  active" id="About">
             <div class="row no_margin">
-              <div class="col-md-12"> <b>Type of Venue:</b> &nbsp; <%= @venue.venue_type%></div>
+              <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
+              <%unless @type_of_venues.blank?%>
+                 <% @type_of_venues.each do |venue_type|%>
+                   <%= venue_type.venue_type%>,
+                 <%end%>
+              <%else%>
+                Bunquets,venues,Birth Days etc.
+               <%end%>
+              </div>
             </div>
 
             <div class="row no_margin">
@@ -232,6 +240,12 @@
                 });
             }
         });
+
+        $(".add_this_venue_to_event").click(function(e) {
+          e.preventDefault();
+          action = '/venues/'+$("#venue_id").val()+'/check_availability'
+          $.ajax({url: action})
+        }) 
     }
 </script>
 
