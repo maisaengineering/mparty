@@ -129,13 +129,13 @@ Invitation::Application.routes.draw do
   get '/invites/join_public_event/:event_id'=>"invites#join_public_event", as: :join_public_event
 
   ## Wish list ----------------------------------------------------------------
-  get '/event/:event_id/whishlist'=>"whishlist#index",as: :event_wishlist
-  post '/event/:event_id/wishlist/add_product'=>"whishlist#add_product"
-  delete '/event/:event_id/wishlist/remove_product'=>"whishlist#remove_product"
-  get '/event/:event_id/wishlist/wished_products'=>"whishlist#wished_products"
+  get '/event/:event_id/whishlist'=>"wishlist#index",as: :event_wishlist
+  post '/event/:event_id/wishlist/add_product'=>"wishlist#add_product"
+  delete '/event/:event_id/wishlist/remove_product'=>"wishlist#remove_product",as: :remove_wished_product
+  get '/event/:event_id/wishlist/wished_products'=>"wishlist#wished_products"
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
   # Update quantity of wished product(event is mandatory)
-  post '/event/:event_id/wishlist/update-product-quantity'=>"whishlist#update_quantity",as: :update_wished_product_quantity
+  post '/event/:event_id/wishlist/update-product-quantity'=>"wishlist#update_quantity",as: :update_wished_product_quantity
 
 
 

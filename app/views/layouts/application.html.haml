@@ -17,7 +17,8 @@
     = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    = render partial: "shared/flash_messages", flash: flash
+    #flash_messages
+      = render partial: "shared/flash_messages", flash: flash
     .loading-indicator
       %div= image_tag('loading-indicator.gif')
     #wrapper
