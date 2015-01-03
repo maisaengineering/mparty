@@ -2,7 +2,7 @@
     <% @wishlist.wished_products.each do |wish| %>
         <%  variant = wish.variant  %>
         <% product = variant.product %>
-        <div class="row wishlist_popup_center">
+        <div class="row wishlist_popup_center wishlist">
           <div class="col-md-2">
             <div class="wishlist_img_block">
               <% if variant.images.length == 0 %>
@@ -18,7 +18,8 @@
           </div>
           <div class="col-md-2">
             <%#= wish.quantity %>
-            <%= number_field_tag :quantity, wish.quantity, min: 1, class: "form-control addcart_select line_item_quantity text_6", :size => 5  %>
+            <%= number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"  %>
+            <button class="btn btn-success btn_add_quantity update_product_quantity">Add</button>
           </div>
           <div class="col-md-2">
             <h5><%= number_to_currency(variant.price) %></h5>
