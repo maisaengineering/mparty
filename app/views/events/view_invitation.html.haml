@@ -22,7 +22,13 @@
       .row
         .col-md-6
           %label Location
-        .col-md-6= @event.location
+        - if @event.venue.present?
+          .col-md-6
+            = @event.venue.name
+              (#{@event.full_address})
+        - else
+          .col-md-6
+            = @event.full_address
       .row
         .col-md-6
           %label Date
