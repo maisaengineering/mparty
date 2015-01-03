@@ -2,11 +2,11 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for(@event, :html => {:multipart => true,remote: true}) do |f| %>
-          <%= f.hidden_field :is_private,value: 0 %>
+          <%= f.hidden_field :is_private,value: f.object.is_private? ? 1 : 0 %>
           <div class="col-md-12 mbottom20">
             <div class="btn-group" role="group" aria-label="Default button group">
-              <button type="button" id="switch_public" class="btn btn-success" value="">Public</button>
-              <button type="button" id="switch_private" class="btn btn-default" value="">Private</button>
+              <button type="button" id="switch_public" class="btn btn-default <%= f.object.is_private? ? '' : 'btn-success' %>" value="">Public</button>
+              <button type="button" id="switch_private" class="btn btn-default <%= f.object.is_private? ? 'btn-success' : '' %>" value="">Private</button>
             </div>
           </div>
           <div class="col-md-6">
@@ -187,10 +187,6 @@
       });
   });
 
-    $("#new_event #switch_public").addClass('btn-success').removeClass('btnn-default');
-    $("#new_event #switch_private").addClass('btn-default').removeClass('btn-success');
-    $("#new_event #switch_private").val('');
-    $("#new_event #switch_public").val('')
 
     $("#new_event #switch_private").click(function() {
         $("#new_event #switch_public").removeClass('btn-success').addClass('btnn-default');
@@ -239,7 +235,7 @@
                 url: "/events/select_venue",
                 data: sData,
                 success: function(res) {
-                    window.location = '/venues?from_event=true'
+                    Turbolinks.visit('/venues?from_event=true')
                 }
             });
         }else if($(this).val() == 'custom'){
