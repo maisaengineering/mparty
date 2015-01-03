@@ -61,11 +61,15 @@ $(document).on('page:restore', function () {
 
 $(document).ready(function() {
     //$(".btn_create").on("click",function(){
+    renderFlashMessage()
+});
+
+renderFlashMessage = function(){
     $(".alert_wrapper").animate({top:'10px'}, 500);
     setTimeout(function() {
             $(".alert_wrapper").animate({top:'-60px'}, 250)}
         , 4000)
-});
+}
 
 
 

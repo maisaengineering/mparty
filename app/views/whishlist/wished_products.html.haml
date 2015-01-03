@@ -1,0 +1,25 @@
+- if @wishlist.wished_products.size > 0
+  - @wishlist.wished_products.each do |wish|
+    - variant = wish.variant
+    - product = variant.product
+    .row.wishlist_popup_center.wishlist
+      .col-md-2
+        .wishlist_img_block
+          - if variant.images.length == 0
+            = small_image(variant.product)
+          - else
+            = image_tag variant.images.first.attachment.url(:small)
+      .col-md-4
+        %h4= product.name
+        %p= truncate(product.description,length: 50)
+      .col-md-2
+        = form_tag update_wished_product_quantity_path(event_id: @event.id),id: 'update-wished-product-quantity-form' ,remote: true do
+          = hidden_field_tag :variant_id, product.master.id
+          = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
+          %button.btn.btn-success.btn_add_quantity.update_product_quantity Add
+      .col-md-2
+        %h5= number_to_currency(variant.price)
+      .col-md-2
+        - if current_spree_user.id == @wishlist.event.owner.id && wish.quantity_purchased == 0
+          = link_to '#',id: 'wishlist_item_del' do
+            %span.glyphicon.glyphicon-trash
