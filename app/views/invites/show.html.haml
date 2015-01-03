@@ -53,8 +53,8 @@
               %ul{:style => "left: 0px; top: 0px;"}
                 - @event.pictures.each do |p|
                   %li
-                    %a.fancybox{:href => p.image}
-                      %img{:alt => "Image 1", :src => p.image}/
+                    %a.fancybox{:href => p.image.url ,rel: "gallery1"}
+                      %img{:alt => "Image 1", :src => p.image.url(:slide_show)}/
                   %li
             %a.jcarousel-control-prev.inactive.event_photo_prev{"data-jcarouselcontrol" => "true", :href => "#"} ‹
             %a.jcarousel-control-next.event_photo_next{"data-jcarouselcontrol" => "true", :href => "#"} ›
