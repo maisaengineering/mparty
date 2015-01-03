@@ -10,6 +10,14 @@ class VenuesController < ApplicationController
     @pictures = @venue.pictures
     if current_spree_user.present?
       @can_rate_it = check_permission_for_rate_it(@venue, current_spree_user)
+      venue_ratings = @venue.rates.first(5)
+      if venue_ratings.present?
+        venue_ratings.each_with_index do |rate, index|
+          if rate.rater_id == current_spree_user.id
+            @rating_possition = index+1
+          end  
+        end  
+      end  
     else
       @can_rate_it = false
     end  
@@ -45,7 +53,7 @@ class VenuesController < ApplicationController
     past_invitation = false
     if invitation.present?
        venue_id = invitation.first.event.venue_id
-       past_invitation = true if invitation.first.event.starts_at <= DateTime.now
+       past_invitation = true if invitation.first.event.starts_at < DateTime.now
     end    
 
     owner_venue_id = nil
@@ -53,7 +61,7 @@ class VenuesController < ApplicationController
     past_event = false
     if is_owner_of_event.present?
        owner_venue_id = is_owner_of_event.first.event.venue_id
-       past_event = true if is_owner_of_event.first.event.starts_at <= DateTime.now
+       past_event = true if is_owner_of_event.first.event.starts_at < DateTime.now
     end   
 
     if (owner_venue_id == venue.id && past_event) || (invitation.present? && venue_id == venue.id && past_invitation)
@@ -66,5 +74,5 @@ class VenuesController < ApplicationController
       return false
     end  
   end 
-  
+
 end

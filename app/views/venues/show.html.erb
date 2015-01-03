@@ -73,6 +73,10 @@
              <% else %>
                <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
                <%= rating_for @venue, nil, disable_after_rate: true %>
+               <% if @rating_possition.present? %>
+                <br>
+                <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;"> You rated it in <%= @rating_possition.ordinalize%> place </p>
+               <% end %>
              <% end %>
           <% else %>
              <div id="rated_members_count">
@@ -82,6 +86,10 @@
                 <% else %>
                     <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
                     <%= rating_for @venue, nil, readonly: true %>
+                    <% if @rating_possition.present? %>
+                       <br>
+                       <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;"> You rated it in <%= @rating_possition.ordinalize%> place </p>
+                    <% end %>
                 <% end %>   
              </div> 
           <% end %>
@@ -183,17 +191,18 @@
               <div class="col-md-12">
                 <div class="col-md-12">
                   <div class="row comment_block_btn">
-                    <% if current_spree_user %>
+                    <% if current_spree_user && @venue.can_review?(current_spree_user) %>
+                        <% place_holder = @reviews.blank? ? "Be the First to Review it" : "Write your Review" %>
                         <div class="col-md-9">
                           <%= form_tag reviews_path ,remote: true,id: 'review_form' do %>
-                              <%= text_area_tag :description,'',id: 'review_content',cols: 95,rows: 2     %>
+                              <%= text_area_tag :description,'',id: 'review_content',cols: 95,rows: 2 , placeholder: place_holder %>
                               <%= hidden_field_tag :resource ,'venue' %>
                               <%= hidden_field_tag :venue_id ,@venue.id %>
-                              </div>
-                              <div class="col-md-3">
-                                <%= submit_tag 'WRITE REVIEW',class: 'btn btn-lg btn-success btn-block  ' %>
-                              </div>
-                          <% end %>
+                        </div>
+                        <div class="col-md-3">
+                          <%= submit_tag 'WRITE REVIEW',class: 'btn btn-lg btn-success btn-block  ' %>
+                        </div>
+                        <% end %>
                     <% end %>
                   </div>
                   <div class="comment_block">
@@ -202,8 +211,9 @@
                     <% else%>
                         <div id="reviews">
                           <div class="page">
-                            <% @reviews.each do |review| %>
-                                <%= render 'reviews/review',review: review %>
+                            <% @reviews.each_with_index do |review, index| %>
+                                <% index = @reviews.size - index %>
+                                <%= render 'reviews/review',review: review, index: index %>
                             <% end %>
                           </div>
                         </div>
