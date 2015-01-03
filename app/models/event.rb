@@ -69,7 +69,7 @@ class Event < ActiveRecord::Base
   end
 
   def full_address
-    "#{location} #{city} #{state} #{country} #{zip}"
+    "#{location}, #{city}, #{state}, #{country}, #{zip}"
   end
 
   def map_address
