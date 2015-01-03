@@ -136,18 +136,13 @@ Invitation::Application.routes.draw do
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
   # Update quantity of wished product(event is mandatory)
   post '/event/:event_id/wishlist/update-product-quantity'=>"wishlist#update_quantity",as: :update_wished_product_quantity
-
-
-
- #Select state by country
-  get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
-
   ## End Wish list -------------------------------------------------------------
 
-  # Products lisitng search ,fileter etc
+  # Join/Un-join Event(RSVP)
+  post '/events/:event_id/join'=>"rsvps#join",as: :join_event
+  delete '/events/:event_id/disjoin'=>"rsvps#disjoin",as: :disjoin_event
 
-  # resources :rsvps, only: [:create, :destroy]
-  #
-  # get '/rsvps/rsvp_create'=>"rsvps#create", as: :rsvp_create
+  #Select state by country
+  get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
 
 end
