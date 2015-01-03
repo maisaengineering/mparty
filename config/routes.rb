@@ -135,7 +135,8 @@ Invitation::Application.routes.draw do
 
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
 
-
+ #Select state by country
+  get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
 
   ## End Wish list -------------------------------------------------------------
 
