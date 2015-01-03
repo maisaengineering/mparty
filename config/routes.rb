@@ -5,6 +5,7 @@ Invitation::Application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
     namespace :admin do
       resources :templates
+      resources :venue_categories    
       resources :venues do
         member do
           get 'add_photos'

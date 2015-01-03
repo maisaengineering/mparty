@@ -36,6 +36,16 @@ class Event < ActiveRecord::Base
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
 
+
+  class << self
+    def search(query)
+      query = "%#{query}%"
+      name_match = arel_table[:name].matches(query)
+      city_match = arel_table[:city].matches(query)
+      where(name_match.or(city_match))
+    end
+  end
+
   def attendees(status)
     if status.eql?('pending')
       self.invites.where(joined: 0).count

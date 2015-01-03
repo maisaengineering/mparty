@@ -12,7 +12,8 @@
       <div class="col-md-3"></div>
       <div class="col-md-6 position_rel">
         <input type="search" class="form-control" placeholder="search products">
-        <span class="glyphicon glyphicon-search position_abs search_btn"></span> </div>
+        <button class="position_abs search_btn"><span class="glyphicon glyphicon-search"></span></button>
+      </div>
       <div class="col-md-3"><a href="#" class="btn btn-lg btn-primary btn-block addwishlist_btn" data-toggle="modal" data-target="#wishlist-modal">
         <div class="img-rounded search_btn_count position_abs">
           <p id="wishlist-count"><%= @wishlist.wished_products.count %></p>

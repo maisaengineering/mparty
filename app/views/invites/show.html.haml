@@ -20,7 +20,7 @@
           .col-md-3
             %h4 Description
           .col-md-9
-            %h5= @event.description
+            %h5= simple_format @event.description
         .row
           - if @event.venue
             .col-md-3

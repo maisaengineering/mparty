@@ -6,10 +6,11 @@
     </div>
     <div class="whatsup_src_block">
       <div class="form-group whatsup_search">
-        <%= form_tag("/events",:method => 'get', remote: true) do%>
-            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events' %>
+        <%= form_tag("/",method: :get) do%>
+            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events by name or city' %>
+            <button class="whatsup_src_icon"><span class="glyphicon glyphicon-search pull-left"></span></button>
         <%end %>
-        <span class="glyphicon glyphicon-search pull-left whatsup_src_icon"></span>
+
       </div>
     </div>
   </div>
@@ -41,3 +42,10 @@
     </div>
   </div>
 </div>
+<% if params[:query].present? %>
+    <script type="text/javascript">
+        $('html, body').animate({
+            scrollTop: $("#trending_events").offset().top
+        }, 1500);
+    </script>
+<% end  %>

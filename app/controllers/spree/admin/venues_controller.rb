@@ -15,6 +15,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def create
     @venue = spree_current_user.venues.build(venue_params)
     if @venue.save
+      @venue.venue_category_ids = params[:venue][:venue_type]      
       redirect_to add_photos_admin_venue_url(@venue), notice: 'Venue was successfully created.Upload photos'
       # render 'add_photos', notice: 'Venue was successfully created now add venue photos'
     else
@@ -28,6 +29,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
   def update
     @venue = Venue.find(params[:id])
+    @venue.venue_category_ids = params[:venue][:venue_type]   
     respond_to do |format|
       if @venue.update(venue_params)
         format.html { redirect_to edit_admin_venue_url(@venue), notice: 'Venue was successfully updated.' }

@@ -25,24 +25,18 @@ module Helpers
     targetType   = options[:targetType]   || 'hint'
     targetFormat = options[:targetFormat] || '{score}'
     targetScore  = options[:targetScore]  || ''
+    readonly     = options[:readonly]     || false
 
     disable_after_rate = options[:disable_after_rate] && true
     disable_after_rate = true if disable_after_rate == nil
 
-    if disable_after_rate
-      readonly = !(current_spree_user && rateable_obj.can_rate?(current_spree_user, dimension))
-    else
-      readonly = !current_spree_user || false
-    end
+    #if disable_after_rate
+    #  readonly = !(current_spree_user && rateable_obj.can_rate?(current_spree_user, dimension))
+    #else
+    #  readonly = !current_spree_user || false
+    #end
 
-    # if options[:imdb_avg] && readonly   #ORIGINAL LINE IN GEM
-    if options[:imdb_avg]
-        #if avg == 0
-          #content_tag :div, '', :style => "width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green" do         
-          #content_tag :p, "Be the First to Rate it.", :style => "position:relative;text-align:center;font-size:12px"
-          #end
-        #else
-        # end
+   if options[:imdb_avg] && readonly
       content_tag :div, '', :style => "background-image:url(#{ asset_path 'mid-star.png'});width:61px;height:57px;margin-top:10px;" do
       content_tag :p, avg, :style => "position:relative;font-size:.8rem;text-align:center;line-height:60px;"
       end
@@ -75,15 +69,11 @@ module Helpers
     end
   end
 
-  def style_rating_for(rateable_obj, user, options = {})
-    #TODO: add option to change the star icon
+  def imdb_style_rating_for(rateable_obj, user, options = {})
     overall_avg = rateable_obj.overall_avg(user)
 
-    # content_tag :div, '', :style => "background-image:url(/assets/big-star.png);width:81px;height:81px;margin-top:10px;" do
-   
-
-    content_tag :div, '', :style => "background-image:url(#{asset_path 'big-star.png'});width:81px;height:81px;margin-top:10px;" do
-        content_tag :p, overall_avg, :style => "position:relative;line-height:85px;text-align:center;"
+    content_tag :div, '', :style => "background-image:url(/assets/big-star.png);width:81px;height:81px;margin-top:10px;" do
+      content_tag :p, overall_avg, :style => "position:relative;line-height:85px;text-align:center;"
     end
   end
 

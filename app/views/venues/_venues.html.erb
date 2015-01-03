@@ -6,10 +6,9 @@
   </div>
 <% end %>
 <script>
-  
-		$(".add_this_venue_to_event").click(function(e) {
-  			e.preventDefault();
-			action = '/venues/'+$(this).data('id')+'/check_availability'
-			$.ajax({url: action})
-		})
+    $(".add_this_venue_to_event").click(function(e) {
+        e.preventDefault();
+        action = '/venues/'+$(this).data('id')+'/check_availability'
+        $.ajax({url: action})
+    })
 </script>

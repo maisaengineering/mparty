@@ -8,8 +8,12 @@
             <span class="glyphicon glyphicon-picture"></span>
             <span class="glyphicon glyphicon-upload"></span>
             <label></label>
-            <%= f.file_field :image,multiple: true, name: "picture[image]" %>
+            <%= f.file_field :image,multiple: true, name: "picture[image]"%>
+            <div id="number_of_files_chosen" style="margin: 10px;display: none;">
+              <strong>0</strong> files selected
+            </div>
           </div>
+
           <div class="col-md-4">
             <button class="btn btn-lg btn-primary btn-block upload_btn_skip" type="submit">SKIP</button>
           </div>
@@ -37,10 +41,28 @@
         dataType: "script",
         add: function(e, data) {
             $('.loading-indicator').show()
-            return data.submit();
+            var uploadErrors = [];
+            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                uploadErrors.push('Not an accepted file type');
+            }
+            if(data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > 500000) {
+                uploadErrors.push('Filesize is too big');
+            }
+            if(uploadErrors.length > 0) {
+                $('.loading-indicator').hide()
+                alert(uploadErrors.join("\n"));
+            } else {
+                $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) + 1))
+                $('#number_of_files_chosen').hide().fadeIn('slow')
+                data.submit();
+            }
         },
         progress: function(e, data) {
            // $('.loading-indicator').fadeIn('slow')
+        },
+        fail:function(e, data){
+            // Something has gone wrong!
         }
     });
 
