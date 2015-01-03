@@ -78,11 +78,11 @@
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :state, class: 'form-control',placeholder: 'State*'%>
+              <%= f.collection_select :country, Spree::Country.order(:name), :name,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :country, class: 'form-control',placeholder: 'Country*'%>
+              <%= f.collection_select :state, Spree::Country.try(:states) || [], :id, :name, {:include_blank => 'State'}, {class: 'form-control'}  %>
             </div>
             <div class="col-md-6">
               <label></label>
@@ -144,7 +144,6 @@
                 </div>
               </div>
               <div id="venus_hidden_fields">
-                <%= f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
                 <%= f.hidden_field :location,value: "#{@venue.address1} #{@venue.address2}" %>
                 <%= f.hidden_field :city,value: @venue.city %>
                 <%= f.hidden_field :state,value: @venue.state %>
@@ -174,6 +173,20 @@
 <script type="text/javascript">
 
 
+  $("#event_country").change(function(){
+      country=$(this).val()
+      $.ajax({
+          type: "GET",
+          url: "/country/get-states/"+country,
+          success: function(json){
+              $('#event_state').empty()
+              $.each(json, function(i, value) {
+                  $('#event_state').append($('<option>').text(value.name).attr('value', value.name));
+              });
+          }
+      });
+  });
+
     $("#new_event #switch_public").addClass('btn-success').removeClass('btnn-default');
     $("#new_event #switch_private").addClass('btn-default').removeClass('btn-success');
     $("#new_event #switch_private").val('');
@@ -200,7 +213,10 @@
     //$('#venue_dform').hide()
     $('#datepairExample .time').timepicker({
         showDuration: true,
-        timeFormat: 'g:ia'
+        timeFormat: 'g:ia',
+        'step': 1,
+        'minTime': new Date(),
+        'maxTime': '11:59:59pm'
     });
 
     $('#datepairExample .date').datepicker({
