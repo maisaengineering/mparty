@@ -1,11 +1,11 @@
-class WhishlistController < ApplicationController
+class WishlistController < ApplicationController
   before_filter :auth_user
   before_action :find_wishlist
   before_action :check_authorization # only event owner can add or remove products
   skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product,:update_quantity]
 
 
-  #GET '/event/:event_id/whishlist'
+  #GET '/event/:event_id/wishlist'
   def index
     @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
     #session[:wishlist_id] = @wishlist.id
@@ -35,7 +35,7 @@ class WhishlistController < ApplicationController
     render nothing: true
   end
 
-  #GET /wishlist/:wishlist_id/wished_products
+  #GET /event/:event_id/wishlist/wished_products
   def wished_products
     render layout: false
   end
