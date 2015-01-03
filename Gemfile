@@ -5,6 +5,7 @@ gem 'rails', '4.0.4'
 
 # Use postgres as the database for Active Record
 gem 'pg'
+gem 'mysql2'
 
 #Use Mysql as the database for Active Record
 #gem 'mysql2', group: :production
@@ -106,3 +107,4 @@ gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
 
 gem 'fog'
 gem 'figaro'
+gem "squeel"
