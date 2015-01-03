@@ -139,8 +139,8 @@ Invitation::Application.routes.draw do
   ## End Wish list -------------------------------------------------------------
 
   # Join/Un-join Event(RSVP)
-  post '/events/:event_id/join'=>"rsvps#join",as: :join_event
-  delete '/events/:event_id/disjoin'=>"rsvps#disjoin",as: :disjoin_event
+  post '/events/:event_id/join'=>"rsvps#join",as: :join_into_event
+  delete '/events/:event_id/disjoin'=>"rsvps#disjoin",as: :disjoin_from_event
 
   #Select state by country
   get '/country/get-states/:country'=>"country#get_states", as: :get_country_states

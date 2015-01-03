@@ -63,6 +63,14 @@ class Event < ActiveRecord::Base
     user_id.eql?(user.id)
   end
 
+  def is_public?
+    !is_private?
+  end
+
+  def user_joined?(user)
+    invites.where(user: user).exists?
+  end
+
   # cover photo
   def event_photo
     pictures.first
