@@ -64,19 +64,24 @@
       <div class="venue_tab_content">
         <h4 class="review_star">Overall Rating
         <% if current_spree_user.present? %>
-          <% if !@venue.rates.present? && @can_rate_it %>
+          <% if @can_rate_it %>
+             <% if !@venue.rates.present? %>
              <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
                <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
              </div>
-             <%= rating_for @venue, nil, disable_after_rate: true %>
+               <%= rating_for @venue, nil, disable_after_rate: true %>
+             <% else %>
+               <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
+               <%= rating_for @venue, nil, disable_after_rate: true %>
+             <% end %>
           <% else %>
              <div id="rated_members_count">
                 <% if !@venue.rates.present? %>
                     <p style="position:relative;font-size:12px;color:green">Not Rated</p>
-                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it" %>
+                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it now" %>
                 <% else %>
                     <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it"%>
+                    <%= rating_for @venue, nil, readonly: true %>
                 <% end %>   
              </div> 
           <% end %>
@@ -137,9 +142,11 @@
                   <%=@venue.address1%>, <%=@venue.city%><br>
                   <%=@venue.state%>,<%=@venue.country%><br>
                   <%=@venue.zip%><br>
-                  <% if @contact.present? %>
-                      <%=@contact.land_number%><br>
-                      +91-<%=@contact.mobile_number%>
+                  <% if @contacts.present? %>
+                    <% @contacts.each do |c| %>
+                      <%= c.land_number%><br>
+                      +91-<%= c.mobile_number%>
+                    <% end %>  
                   <% end %>
                 </address>
               </div>
