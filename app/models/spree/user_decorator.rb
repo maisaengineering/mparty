@@ -6,6 +6,8 @@ Spree::User.class_eval do
 
   has_many :venues
 
+  has_many :reviews
+
   ratyrate_rater
 
   after_create :send_email

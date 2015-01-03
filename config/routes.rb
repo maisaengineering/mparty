@@ -133,8 +133,11 @@ Invitation::Application.routes.draw do
   post '/event/:event_id/wishlist/add_product'=>"whishlist#add_product"
   delete '/event/:event_id/wishlist/remove_product'=>"whishlist#remove_product"
   get '/event/:event_id/wishlist/wished_products'=>"whishlist#wished_products"
-
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
+  # Update quantity of wished product(event is mandatory)
+  post '/event/:event_id/wishlist/update-product-quantity'=>"whishlist#update_quantity",as: :update_wished_product_quantity
+
+
 
  #Select state by country
   get '/country/get-states/:country'=>"country#get_states", as: :get_country_states

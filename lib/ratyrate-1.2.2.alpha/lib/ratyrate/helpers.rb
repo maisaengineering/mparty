@@ -31,9 +31,9 @@ module Helpers
     disable_after_rate = true if disable_after_rate == nil
 
     #if disable_after_rate
-    #  readonly = !(current_spree_user && rateable_obj.can_rate?(current_spree_user, dimension))
+      #readonly = !(current_spree_user && rateable_obj.can_rate?(current_spree_user, dimension))
     #else
-    #  readonly = !current_spree_user || false
+      #readonly = !current_spree_user || false
     #end
 
    if options[:imdb_avg] && readonly

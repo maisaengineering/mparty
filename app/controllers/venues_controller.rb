@@ -10,11 +10,19 @@ class VenuesController < ApplicationController
     @pictures = @venue.pictures
     if current_spree_user.present?
       @can_rate_it = check_permission_for_rate_it(@venue, current_spree_user)
+      venue_ratings = @venue.rates.first(5)
+      if venue_ratings.present?
+        venue_ratings.each_with_index do |rate, index|
+          if rate.rater_id == current_spree_user.id
+            @rating_possition = index+1
+          end  
+        end  
+      end  
     else
       @can_rate_it = false
     end  
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
-    @contact = @venue.venue_contacts.first
+    @contacts = @venue.venue_contacts
     @type_of_venues = @venue.venue_categories
   end 
 
@@ -42,14 +50,29 @@ class VenuesController < ApplicationController
   def check_permission_for_rate_it(venue, user)
     invitation = Invite.where(joined: 1, user_id: user.id)
     venue_id = nil
+    past_invitation = false
+    if invitation.present?
+       venue_id = invitation.first.event.venue_id
+       past_invitation = true if invitation.first.event.starts_at < DateTime.now
+    end    
+
     owner_venue_id = nil
-    is_owner_of_event = Event.find_by_user_id(user.id)
-    owner_venue_id = is_owner_of_event.venue_id if is_owner_of_event.present?
-    venue_id = invitation.first.event.venue_id if invitation.present?
-    if (owner_venue_id == venue.id) || (invitation.present? && venue_id == venue.id)
-      return true
+    is_owner_of_event = Invite.where(invited_user_id: user.id)
+    past_event = false
+    if is_owner_of_event.present?
+       owner_venue_id = is_owner_of_event.first.event.venue_id
+       past_event = true if is_owner_of_event.first.event.starts_at < DateTime.now
+    end   
+
+    if (owner_venue_id == venue.id && past_event) || (invitation.present? && venue_id == venue.id && past_invitation)
+      if user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).size.zero?
+         return true
+      else
+         return false
+      end   
     else
       return false
     end  
   end 
+
 end

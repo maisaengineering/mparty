@@ -51,5 +51,33 @@ class Venue < ActiveRecord::Base
   def original_score_average
     self.rating_cache.avg
   end  
+
+  def can_review?(user)
+    invitation = Invite.where(joined: 1, user_id: user.id)
+    venue_id = nil
+    past_invitation = false
+    if invitation.present?
+       venue_id = invitation.first.event.venue_id
+       past_invitation = true if invitation.first.event.starts_at < DateTime.now
+    end    
+
+    owner_venue_id = nil
+    is_owner_of_event = Invite.where(invited_user_id: user.id)
+    past_event = false
+    if is_owner_of_event.present?
+       owner_venue_id = is_owner_of_event.first.event.venue_id
+       past_event = true if is_owner_of_event.first.event.starts_at < DateTime.now
+    end   
+
+    if (owner_venue_id == self.id && past_event) || (invitation.present? && venue_id == self.id && past_invitation)
+      if user.reviews.where(reviewable_id: self.id, reviewable_type: self.class.name).size.zero?
+         return true
+      else
+         return false
+      end   
+    else
+      return false
+    end  
+  end  
   
 end
