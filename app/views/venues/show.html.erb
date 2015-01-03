@@ -139,7 +139,7 @@
                 <br>
                 <address>
                   <strong><%=@venue.name.titleize%></strong><br>
-                  <%=@venue.address1%>, <%=@venue.city%><br>
+                  <%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%><br>
                   <%=@venue.state%>,<%=@venue.country%><br>
                   <%=@venue.zip%><br>
                   <% if @contacts.present? %>
