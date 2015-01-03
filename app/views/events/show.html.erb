@@ -63,7 +63,11 @@
 
         <div class="row">
           <div class="col-md-3"><h4>Venue</h4></div>
-              <div class="col-md-9"><h5><%=@event.full_address%></h5></div>
+          <% if @event.venue.present? %>
+              <div class="col-md-9"><h5><%= @event.venue.name%>(<%=  @event.full_address %>)</h5></div>
+           <% else %>
+                  <div class="col-md-9"><h5><%=  @event.full_address %></h5></div>
+              <% end %>
         </div>
 
 
