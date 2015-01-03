@@ -2,7 +2,7 @@
   - @wishlist.wished_products.each do |wish|
     - variant = wish.variant
     - product = variant.product
-    .row.wishlist_popup_center.wishlist
+    .row.wishlist_popup_center.wishlist.wished_product
       .col-md-2
         .wishlist_img_block
           - if variant.images.length == 0
@@ -21,5 +21,18 @@
         %h5= number_to_currency(variant.price)
       .col-md-2
         - if current_spree_user.id == @wishlist.event.owner.id && wish.quantity_purchased == 0
-          = link_to '#',id: 'wishlist_item_del' do
+          = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do
             %span.glyphicon.glyphicon-trash
+
+:javascript
+  // before updating quantity
+  $("#update-wished-product-quantity-form")
+      .bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
+      .bind('ajax:success', function(data, status, xhr) { $('.loading-indicator').hide() })
+      .bind('ajax:failure', function(xhr, status, error) { })
+      .bind('ajax:complete', function() { });
+  // remove product from UI and then send request to server to delete
+  $("#wishlist-modal-items .remove-wished-product").bind('ajax:beforeSend', function() {
+     $(this).parents('.wished_product').first().fadeOut(500, function() { $(this).remove(); })
+     $("#wishlist-count").text(parseInt($("#wishlist-count").text()) - 1)
+  })
