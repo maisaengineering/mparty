@@ -112,7 +112,6 @@ class EventsController < ApplicationController
     @event = Event.find(params[:event_id])
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
     if params[:friend_emails].present?
-
       e = params[:friend_emails].split(',')
       invitations = []
       failed_emails = []

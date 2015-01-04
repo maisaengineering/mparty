@@ -24,13 +24,23 @@
                     </div>
                     <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
                       <%= truncate(e.location.camelcase ,length: 20) %>
-                      <!--<div class="pull-right join_btn" > <%= link_to "Join", "" %></div>-->
+                      <!-- Only public events are allowed for joining a event -->
+                      <% if e.is_public? %>
+                          <% if spree_current_user and e.user_joined?(spree_current_user) %>
+                              <div class="pull-right unjoin_btn" >
+                                <%= link_to "Dis Join", "/events/#{e.id}/disjoin" ,method: :delete%>
+                              </div>
+                          <% else %>
+                              <div class="pull-right join_btn" >
+                                <%= link_to "Join", "/events/#{e.id}/join" ,method: :post%>
+                              </div>
+                          <% end  %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-
         <% end %>
     <% end %>
   </div>
