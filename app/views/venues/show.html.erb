@@ -62,49 +62,13 @@
 
       </div>
       <div class="venue_tab_content">
-        <h4 class="review_star">Overall Rating
-        <% if current_spree_user.present? %>
-          <% if @can_rate_it %>
-             <% if !@venue.rates.present? %>
-             <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-               <p style="position:relative;text-align:center;font-size:12px;">Be the First to Rate it</p>
-             </div>
-               <%= rating_for @venue, nil, disable_after_rate: true %>
-             <% else %>
-               <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-               <%= rating_for @venue, nil, disable_after_rate: true %>
-               <% if @rating_possition.present? %>
-                <br>
-                <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;"> You rated it in <%= @rating_possition.ordinalize%> place </p>
-               <% end %>
-             <% end %>
-          <% else %>
-             <div id="rated_members_count">
-                <% if !@venue.rates.present? %>
-                    <p style="position:relative;font-size:12px;color:green">Not Rated</p>
-                    <%= rating_for @venue, nil, readonly: true, noRatedMsg: "You can't rate it now" %>
-                <% else %>
-                    <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-                    <%= rating_for @venue, nil, readonly: true %>
-                    <% if @rating_possition.present? %>
-                       <br>
-                       <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;"> You rated it in <%= @rating_possition.ordinalize%> place </p>
-                    <% end %>
-                <% end %>   
-             </div> 
-          <% end %>
+        <h4 class="review_star">Overall Rating</h4>
+        <% if @venue.rates.present? %>
+           <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
+           <%= rating_for @venue, nil, readonly: true %><%= pluralize(@venue.reviews.size, 'Review')%>
         <% else %>
-           <div id="rated_members_count">
-               <% if !@venue.rates.present? %>
-                   <p style="position:relative;font-size:12px;color:green">Not Rated</p>
-                   <%= rating_for @venue, nil, readonly: true %>
-               <% else %>
-                   <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-                   <%= rating_for @venue, nil, readonly: true%>
-               <% end %>  
-           </div> 
+          <%= rating_for @venue, nil, readonly: true, noRatedMsg: "No Ratings available" %><%= pluralize(@venue.reviews.size, 'Review')%>
         <% end %>
-       </h4>
         <br>
         <ul class="nav nav-tabs" role="tablist" id="myTab">
           <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
@@ -145,18 +109,20 @@
             <div class="row no_margin">
               <div class="col-md-4">
                 <br>
-                <address>
-                  <strong><%=@venue.name.titleize%></strong><br>
-                  <%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%><br>
-                  <%=@venue.state%>,<%=@venue.country%><br>
-                  <%=@venue.zip%><br>
+                <ul class="venue_ctc_details">
+                  <li><b><%=@venue.name.titleize%></b></li>
+                  <li><%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%></li>
+                  <li><%=@venue.state%>,<%=@venue.country%></li>
+                  <li><%=@venue.zip%></li>
                   <% if @contacts.present? %>
-                    <% @contacts.each do |c| %>
-                      <%= c.land_number%><br>
-                      +91-<%= c.mobile_number%>
+                    <% if @land_number.present? %>
+                      <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_number.join(",") %></li>
+                    <% end %>
+                    <% if @mobile_numbers.present? %>  
+                      <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>
                     <% end %>  
                   <% end %>
-                </address>
+                </ul>
               </div>
               <div class="col-md-8">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d15222.825740006923!2d78.571752!3d17.473759450000003!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1417601051402" width="100%" height="250" frameborder="0" style="border:0"></iframe>
@@ -187,12 +153,25 @@
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="Reviews">
+            <% if @can_rate_it %>
+                <% if !@venue.rates.present? %>
+                     <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
+                         <p style="position:relative;text-align:left;font-size:12px;">Be the First to Rate it</p>
+                     </div>
+                     <%= rating_for @venue, nil, disable_after_rate: true %>
+                <% else %>
+                     <div id="first_rate_text">
+                       <h4>Rate It:</h4><%= rating_for @venue, nil, disable_after_rate: true %>
+                     </div>
+                <% end %>
+            <% end %>
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12">
                   <div class="row comment_block_btn">
                     <% if current_spree_user && @venue.can_review?(current_spree_user) %>
                         <% place_holder = @reviews.blank? ? "Be the First to Review it" : "Write your Review" %>
+                        <div id="review_block" >
                         <div class="col-md-9">
                           <%= form_tag reviews_path ,remote: true,id: 'review_form' do %>
                               <%= text_area_tag :description,'',id: 'review_content',cols: 95,rows: 2 , placeholder: place_holder %>
@@ -202,12 +181,13 @@
                         <div class="col-md-3">
                           <%= submit_tag 'WRITE REVIEW',class: 'btn btn-lg btn-success btn-block  ' %>
                         </div>
+                        </div>
                         <% end %>
                     <% end %>
                   </div>
                   <div class="comment_block">
                     <% if @reviews.blank? %>
-                        No Reviews
+                        <div id="no_reviews">No Reviews</div>
                     <% else%>
                         <div id="reviews">
                           <div class="page">

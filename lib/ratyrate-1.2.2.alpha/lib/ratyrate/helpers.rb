@@ -107,10 +107,10 @@ module Helpers
 
     disable_after_rate = options[:disable_after_rate] || false
 
-    readonly=false
-    if disable_after_rate
-      readonly = current_spree_user.present? ? !rateable_obj.can_rate?(current_spree_user.id, dimension) : true
-    end
+    readonly=true
+    #if disable_after_rate
+      #readonly = current_spree_user.present? ? !rateable_obj.can_rate?(current_spree_user.id, dimension) : true
+    #end
 
     content_tag :div, '', "data-dimension" => dimension, :class => "star", "data-rating" => stars,
                 "data-id" => rateable_obj.id, "data-classname" => rateable_obj.class.name,

@@ -4,8 +4,8 @@
       <%= image_tag('avatar.png') %>
     </div>
     <div class="col-md-11">
-      <h5><%= (current_spree_user.present? && (review.heading == current_spree_user.first_name)) ? review.heading+"(you)" : review.heading %></h5>
-      <% if index <= 5 %>
+      <h5><%= (current_spree_user.present? && (review.heading == current_spree_user.first_name)) ? review.heading+"(you)" : review.heading %> <%= rating_for_user(@venue, review.reviewed_by, nil, readonly: true) %></h5>
+      <% if index.present? && index == 1 %>
         <p style="position:relative;font-size:11px;color:#878484;margin-top:2px;font-weight:normal;">   <%= index.ordinalize %>
         </p>
       <% end %>

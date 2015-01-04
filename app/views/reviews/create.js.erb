@@ -1,3 +1,14 @@
 <% if @review.save %>
-  $('.review_block:first').before("<%= j render('reviews/review',review: @review) %>").hide().slideDown("slow")
+  window.location.reload(true);
+  /* $("#review_block").remove();
+   $("#no_reviews").remove();
+   <% if @venue.present? && current_spree_user.ratings_given.where(dimension: nil, rateable_id: @venue.id, rateable_type: @venue.class.name).size.zero? %>
+     $("#first_rate_text").remove(); 
+     $(".star").remove();
+   <% end %>
+   <% if @venue.present? && @venue.reviews.present? %>
+      $('.review_block:first').before("<%#= j render('reviews/review',review: @review, index: @index) %>")
+   <% else %>
+      $('.comment_block').append("<%#= j render('reviews/review',review: @review, index: @index) %>")
+   <% end %>*/
 <% end %>

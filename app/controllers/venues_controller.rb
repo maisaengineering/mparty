@@ -23,6 +23,14 @@ class VenuesController < ApplicationController
     end  
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contacts = @venue.venue_contacts
+    if @contacts.present?
+      @land_numbers = []
+      @mobile_numbers = []
+      @contacts.each do |c|
+        @mobile_numbers << c.mobile_number if !c.mobile_number.nil?
+        @land_numbers << c.land_number if !c.land_number.nil?
+      end  
+    end  
     @type_of_venues = @venue.venue_categories
   end 
 

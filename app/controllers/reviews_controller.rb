@@ -11,6 +11,12 @@ class ReviewsController < ApplicationController
 
   def create
     @review = @commentable.reviews.build(user_id: current_spree_user.id,description: params[:description],heading: current_spree_user.first_name)
+    @venue = Venue.find(params[:venue_id])
+    if @venue.present? && @venue.reviews.present?
+      @index = nil
+    else
+      @index = 1 
+    end  
   end
 
   private
