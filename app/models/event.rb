@@ -79,7 +79,7 @@ class Event < ActiveRecord::Base
   private
   
   def validate_duplicate_event_name
-    if Event.where(name: self.name,is_private: false).where("starts_at>=?" ,Date.today).exists?
+    if(Event.where(name: self.name,is_private: false).where("starts_at>=?" ,Date.today).exists? && self.is_private == false )
       errors.add(:Event_Name,"Already exists ")
     end
   end
