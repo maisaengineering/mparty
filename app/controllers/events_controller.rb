@@ -46,7 +46,7 @@ class EventsController < ApplicationController
 
   def create
     @event = current_spree_user.events.new(event_params)
-    @event_templates = Spree::Admin::Template.select(:id,:name)
+    @event_templates = Spree::Admin::Template.select([:id,:name])
 
     # if @event.save
     #   session.delete(:event_data) if session[:event_data]
