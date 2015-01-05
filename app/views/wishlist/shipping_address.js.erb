@@ -1,0 +1,8 @@
+<% unless @ship_address.errors.any? %>
+$('#ship_address_heading').text('Edit Shipping Address')
+$('.addwishlist_done').attr('data-ship-add-exists','yes')
+$('#wishlist-shipping-addrs-modal').modal('hide')
+$('#wishlist-modal').modal('show')
+<% end %>
+$("#flash_messages").html("<%= j(render partial: "shared/flash_messages", flash: flash) %>")
+renderFlashMessage()

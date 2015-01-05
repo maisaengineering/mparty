@@ -26,12 +26,18 @@
             <div class="wishlist_add_btn"><span class="glyphicon glyphicon-plus"></span></div>
             <h4>Add More Products</h4>
           </a></div>
-          <div class="col-md-4"><a href="#" data-toggle="modal" data-target="#wishlist_shipping_addrs" data-dismiss="modal">
-            <div class="wishlist_add_btn"><span class="glyphicon glyphicon-edit"></span></div>
-            <h4>Edit Shipping Address</h4>
-          </a></div>
           <div class="col-md-4">
-            <a href="<%= invite_with_wishlist_path(event_id: @event.id) %>" class="btn btn-lg btn-primary btn-block addwishlist_done pull-right">Done</a>
+            <a href="#" data-toggle="modal" data-target="#wishlist-shipping-addrs-modal" data-dismiss="modal">
+              <div class="wishlist_add_btn"><span class="glyphicon glyphicon-edit"></span></div>
+              <% if @event.ship_address %>
+                  <h4 id="ship_address_heading">Edit Shipping Address</h4>
+              <% else %>
+                  <h4 title="Its mandatory to add Shipping address to wishlist" id="ship_address_heading">Add Shipping Address</h4>
+              <% end %>
+            </a>
+          </div>
+          <div class="col-md-4">
+            <%= link_to 'Done','#',data: {url: invite_with_wishlist_path(event_id: @event.id) ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-primary btn-block addwishlist_done pull-right"%>
           </div>
         </div>
       </div>
@@ -41,10 +47,38 @@
 </div>
 <!--modalbox end-->
 
+
+
 <script type="text/javascript">
-  // close wishlist modal on adding more products button
-  $('#wishlist-add-more-poducts').click(function (e){
-      e.preventDefault()
-      $('#wishlist-modal').modal('toggle');
-  })
+    // close wishlist modal on adding more products button
+    $('#wishlist-add-more-poducts').click(function (e){
+        e.preventDefault()
+        $('#wishlist-modal').modal('toggle');
+    })
+
+    // fill wished products via ajax when modal is open
+    $('#wishlist-modal').on('shown.bs.modal', function () {
+        var url = '/event/'+$('#event_id').val()+'/wishlist/wished_products'
+        $.ajax({
+            type: "GET",
+            url: url,
+            beforeSend: function(){},
+            success: function(res) {
+                $('#wishlist-modal-items').html(res).hide().fadeIn('slow')
+            }
+        });
+    })
+
+    $('.addwishlist_done').click(function (e){
+        e.preventDefault()
+
+        if($(this).attr('data-ship-add-exists') == 'yes'){
+            Turbolinks.visit($(this).data('url'))
+        }else{ // open ship  address popup
+            alert("Please add Shipping address before continuing")
+            $('#wishlist-modal').modal('hide')
+            $('#wishlist-shipping-addrs-modal').modal('show')
+        }
+
+    })
 </script>

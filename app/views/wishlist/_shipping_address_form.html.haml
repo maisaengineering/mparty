@@ -1,0 +1,81 @@
+#wishlist-shipping-addrs-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog.modal2
+    .modal-content.modal_wishlist_bg
+      %a{:href => "/"}
+        %span.glyphicon.glyphicon-remove.pull-right.modal_wishlist_x{"data-dismiss" => "modal"}
+      %br/
+      .modal-header
+        .title_trending
+          .title_bg
+          .model_box_name SHIPPING ADDRESS
+      .modal-body
+        = form_tag(wishlist_shipping_address_path, method: 'post',class: 'form_margin',remote: true) do
+          = hidden_field_tag(:event_id, @event.id)
+          = hidden_field_tag(:ship_address_id, @event.ship_address ? @event.ship_address.id : nil)
+          = fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form|
+            - address = Spree::Address.default(@event, "ship")
+            - address_type = 'shipping'
+            - address_id = address_type.chars.first
+            .row.shipping_address_form
+              .col-md-12
+                %form{:role => "form"}
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :address2, class: 'form-control' ,placeholder: 'Street Address2'
+                  .col-md-6
+                    %label
+                    = ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control',required: true}
+
+                  .col-md-6
+                    %label
+                    - if Spree::Config[:address_requires_state]
+                      = ship_form.collection_select(:state_id, address.country.states, :id, :name,
+                                                          {:include_blank => "Select State"},
+                                                          {class: 'form-control' })
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :city, class: 'form-control' ,placeholder: 'City*' ,required: true
+                  .col-md-6
+                    %label
+                    = ship_form.text_field :zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*'
+                  - unless Spree::Config[:alternative_shipping_phone]
+                    .col-md-6
+                      %label
+                      = ship_form.phone_field :phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
+                    .col-md-6
+                      %label
+                      = ship_form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"
+                  - else
+                    .col-md-12
+                      %label
+                      = ship_form.phone_field :phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
+                  .col-lg-12
+                    .col-md-4
+                    .col-md-4
+                      %label
+                      %button#shipping_addres_form.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SAVE
+                    .col-md-4
+      .modal-footer
+:javascript
+   $("#ship_address_country_id").change(function(){
+      country= $(this).val()
+      $.ajax({
+          type: "GET",
+          url: "/country/get-states/"+country,
+          success: function(json){
+              $('#ship_address_state_id').empty()
+              $.each(json, function(i, value) {
+                  $('#ship_address_state_id').append($('<option>').text(value.name).attr('value', value.id));
+              });
+          }
+      });
+  });

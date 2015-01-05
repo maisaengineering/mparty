@@ -3,11 +3,10 @@
     <%= hidden_field_tag :event_id ,@event.id %>
     <!--modal boxes************************************************************-->
     <!--add to wishlist modal box-->
+
     <%= render 'wishlist_modal' %>
-    <!--modalbox end-->
-    <!--shipping modal box-->
     <%= render 'shipping_address_form' %>
-    <!--shipping addressmodalbox end-->
+
     <div class="row wishlist_header">
       <div class="col-md-3"></div>
       <div class="col-md-6 position_rel">
@@ -27,18 +26,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-    // fill wished products via ajax when modal is open
-    $('#wishlist-modal').on('shown.bs.modal', function () {
-        var url = '/event/'+$('#event_id').val()+'/wishlist/wished_products'
-        $.ajax({
-            type: "GET",
-            url: url,
-            beforeSend: function(){},
-            success: function(res) {
-                $('#wishlist-modal-items').html(res).hide().fadeIn('slow')
-            }
-        });
-    })
-</script>

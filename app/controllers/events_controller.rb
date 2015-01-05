@@ -218,8 +218,7 @@ class EventsController < ApplicationController
       sa.state_id = params[:ship_address][:state_id]
     end
     if ship_address.save
-      @event.shipping_address_id = ship_address.id
-      @event.save
+      @event.update_attribute(:shipping_address_id,ship_address.id)
       #invitations = Invite.where(:event_id => @event.id, :mail_sent => false)
       #send_invitation_emails(invitations)
       flash[:notice] = "Shipping Address added successfully"
