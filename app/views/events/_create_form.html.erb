@@ -207,26 +207,70 @@
 
 
     //$('#venue_dform').hide()
-    $('#datepairExample .time').timepicker({
-        showDuration: true,
-        timeFormat: 'g:ia',
-        'step': 1,
-        'minTime': new Date(),
-        'maxTime': '11:59:59pm'
-    });
 
-    $('#datepairExample .date').datepicker({
-        startDate: new Date(),
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    });
-
-    $("#event_starts_at").change(function () {
+    $("#event_starts_at").change(function(){
+        $('#event_ends_at').val("")
         $('#event_ends_at').datepicker('setStartDate', this.value);
-    })
+        date = $("#event_starts_at").val();
+        var currentTime = new Date();
+        var day = currentTime.getDate();
+        var month = currentTime.getMonth()+1;
+        var output = currentTime.getFullYear() + '-' +
+                ((''+month).length<2 ? '0' : '') + month + '-' +
+                ((''+day).length<2 ? '0' : '') + day;
+        if(date==output){
+           // alert("same")
+            //$('#datepairExample .time').removeClass("time start ui-timepicker-input")
+            $('#event_start_time').timepicker({
+                timeFormat: 'g:ia',
+                'minTime': new Date(),
+                'maxTime': '11:59:59pm'
+            });
+        }else{
+            //alert("not same")
+            //$('#datepairExample .time').removeClass("time start ui-timepicker-input")
+            $('#event_start_time').timepicker({
+                timeFormat: 'g:ia'
+            });
+        }
+
+    });
+
+    if($('#venue_afterchoose').length){
+
+        $('#event_start_time').attr('readonly','readonly');
+        $('#event_starts_at').attr('readonly','readonly');
+
+    }else{
+        $('#datepairExample .date').datepicker({
+            startDate: new Date(),
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        });
+    }
+
+
+
+   /* $("#event_starts_at").change(function () {
+        $('#event_ends_at').datepicker('setStartDate', this.value);
+    })*/
+
 
     $('#new_event #venue_type').bind('change', function () {
         if($(this).val() == 'choose'){
+            selected_date=$("#event_starts_at").val()
+            selected_time=$("#event_start_time").val()
+            if(selected_date == "" ) {
+                $("#venue_type").val("Venue*")
+                alert("please select Start Date")
+                return false;
+            }
+            else if(selected_time == "" ) {
+                $("#venue_type").val("Venue*")
+                alert("please select Start Time ")
+                return false;
+            }
+
             $('#venue_dform').empty()
             $('#venue_dform').fadeOut()
             var sData = $('#new_event').serialize();
@@ -239,6 +283,14 @@
                 }
             });
         }else if($(this).val() == 'custom'){
+
+            $('#datepairExample .date').datepicker({
+                startDate: new Date(),
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+            $('#event_start_time').removeAttr('readonly', false);
+            $('#event_starts_at').removeAttr('readonly', false);
             $('#venue_afterchoose').remove()
             $('#venue_dform').fadeIn('slow')
             $('#venue_name').remove()
