@@ -17,12 +17,39 @@
     </div>
 <% end  %>
 
-<script type="text/javascript"> 
+<script type="text/javascript">
+
+
+
+
+
 
   $('#invite_friends_form  #tags input').on('focusout',function(){    
-    var txt= this.value.replace(/[^a-zA-Z0-9\+\-\.\@\#]/g,''); // allowed characters
-        
-    // //  EMAIL VALIDATION.   STARTS.....
+    var txt= this.value.replace(/\,/g,''); // allowed characters
+
+
+      function validateEmail(txtEmail){
+          var a = txtEmail
+          var filter = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+          if(filter.test(a)){
+              return true;
+          }
+          else{
+              txt=""
+              return false;
+          }
+      }
+
+              if(validateEmail(txt))
+              {
+                  //alert('Email is valid');
+              }
+              else
+              {
+                  alert('Invalid Email Address');
+              }
+
+      // //  EMAIL VALIDATION.   STARTS.....
     // var atpos = txt.indexOf("@");
     // var dotpos = txt.lastIndexOf(".");
     // if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=txt.length) {
@@ -56,7 +83,7 @@
     emails = []
     $('#tags').children('.tag').each(function () {
      emails.push($(this).text()); // "this" is the current element in the loop
-    }); 
+    });
     $('#friend_emails').val(emails.join()) 
   })
 
