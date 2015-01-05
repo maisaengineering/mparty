@@ -71,6 +71,27 @@ class Event < ActiveRecord::Base
     invites.where('user_id=? OR recipient_email=?', user.id, user.email).where(joined: 1).exists?
   end
 
+  def user_invited?(user)
+    invites.where('user_id=? OR recipient_email=?', user.id, user.email).where.not(invited_user_id: nil).exists?
+  end
+
+  def allow_show?(user=nil)
+    return true if is_public?
+    return false if user.nil?
+    return true if is_owner?(user)
+    return  user_invited?(user)
+  end
+
+  def show_wishlist?(user)
+    return false if wishlist.nil?
+    return true if is_owner?(user)
+    if is_private?
+      user_invited?(user)
+    else
+      user_invited?(user) or user_joined?(user)
+    end
+  end
+
   # cover photo
   def event_photo
     pictures.first

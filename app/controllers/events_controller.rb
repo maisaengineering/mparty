@@ -62,12 +62,17 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @wish_list = @event.wishlist
-    @commentable = @event
-    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
-    @comment = Comment.new
-    @event_template = Spree::Admin::Template.where(id: @event.template_id).first
-    @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+    if @event.allow_show?(spree_current_user)
+      @wish_list = @event.wishlist
+      @commentable = @event
+      @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
+      @comment = Comment.new
+      @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+      @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+    else
+      flash[:error] = "Access Denied"
+      redirect_to spree.root_url
+    end
   end
 
 
