@@ -202,7 +202,10 @@
 
 
 <script type="text/javascript">
+    <% if @comments.blank? %>
+    $(".row .comment_block").removeClass("comment_block")
+    <% end%>
     $("#submit").click(function(){
-        $("#no_comment").empty();
+        $("#no_comment").empty().addClass("comment_block");
     });
 </script>
