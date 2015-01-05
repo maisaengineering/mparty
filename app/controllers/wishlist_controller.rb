@@ -50,7 +50,27 @@ class WishlistController < ApplicationController
     end
   end
 
+  def shipping_address
+    if @event.shipping_address_id.present?
+      @ship_address = @event.ship_address
+      @ship_address.update_attributes(address_params)
+    else
+      @ship_address =  Spree::Address.new(address_params)
+      @event.update_attribute(:shipping_address_id,@ship_address.id) if @ship_address.save
+    end
+    if @ship_address.errors.any?
+      flash.now[:error] = "Errors: #{@ship_address.errors.full_messages.to_sentence}"
+    else
+      flash.now[:success] = "Shipping address updated successfully"
+    end
+  end
+
   private
+
+  def address_params
+    params.require(:ship_address).permit(:firstname, :lastname,:address1,:address2,
+                                         :city,:zipcode,:phone,:alternative_phone,:country_id,:state_id)
+  end
 
 
   def find_wishlist
@@ -58,11 +78,15 @@ class WishlistController < ApplicationController
       @event = Event.find(params[:event_id])
       @wishlist =  @event.wishlist
     rescue
-      (render text: 'No event found') and return
+      flash[:error] = "No event found"
+      redirect_to spree.root_url and return
     end
   end
 
   def check_authorization
-    (render text: 'Access Denied') and return unless @event.is_owner?(spree_current_user)
+    unless @event.is_owner?(spree_current_user)
+      flash[:error] = "Access Denied"
+      redirect_to spree.root_url and return
+    end
   end
 end
