@@ -68,7 +68,7 @@ class Event < ActiveRecord::Base
   end
 
   def user_joined?(user)
-    invites.where(user: user).exists?
+    invites.where('user_id=? OR recipient_email=?', user.id, user.email).where(joined: 1).exists?
   end
 
   # cover photo
