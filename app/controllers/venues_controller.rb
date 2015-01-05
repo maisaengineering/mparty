@@ -26,6 +26,7 @@ class VenuesController < ApplicationController
     if @contacts.present?
       @land_numbers = @contacts.map(&:land_number).reject(&:empty?)
       @mobile_numbers = @contacts.map(&:mobile_number).reject(&:empty?)
+      @contact_emails = nil #need to add email column to venue_contacts table
     end  
     @type_of_venues = @venue.venue_categories
   end 
