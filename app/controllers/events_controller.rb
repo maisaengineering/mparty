@@ -26,7 +26,7 @@ class EventsController < ApplicationController
   def new
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new(session[:event_data])
-    @event_templates = Spree::Admin::Template.select(:id,:name)
+    @event_templates = Spree::Admin::Template.select([:id,:name])
   end
 
   def update_designs
