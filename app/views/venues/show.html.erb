@@ -115,8 +115,8 @@
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
                   <% if @contacts.present? %>
-                    <% if @land_number.present? %>
-                      <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_number.join(",") %></li>
+                    <% if @land_numbers.present? %>
+                      <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
                     <% end %>
                     <% if @mobile_numbers.present? %>  
                       <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>

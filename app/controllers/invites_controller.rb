@@ -8,7 +8,9 @@ class InvitesController < ApplicationController
   end
 
   def update_invitation
-    @invitation.update_attributes(joined: params[:status])
+    @invitation.joined = params[:status]
+    @invitation.user_id = spree_current_user.id if spree_current_user
+    @invitation.save
     @wishlist = @event.wishlist
     session[:event_id] = @event.id
     session[:invitation_id] = @invitation.id

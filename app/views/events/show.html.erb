@@ -47,11 +47,18 @@
       <% end %>
       <div class="col-md-12 event_preview_right">
         <div class="row event_margin">
-
-          <% if current_spree_user and current_spree_user.id == @event.user_id && @event.starts_at >= Date.today %>
-              <div class="col-md-12"> <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a> </div>
-          <% end %>
-
+          <div class="col-md-12">
+            <% if @event.is_public? %>
+                <% if spree_current_user and @event.user_joined?(spree_current_user) %>
+                    <%= link_to "Dis Join", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right" %>
+                <% else %>
+                    <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn join_btn pull-right" %>
+                <% end  %>
+            <% end %>
+            <% if current_spree_user and current_spree_user.id == @event.user_id && @event.starts_at >= Date.today %>
+                <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a>
+            <% end %>
+          </div>
         </div>
 
 
@@ -65,9 +72,9 @@
           <div class="col-md-3"><h4>Venue</h4></div>
           <% if @event.venue.present? %>
               <div class="col-md-9"><h5><%= @event.venue.name%>(<%=  @event.full_address %>)</h5></div>
-           <% else %>
-                  <div class="col-md-9"><h5><%=  @event.full_address %></h5></div>
-              <% end %>
+          <% else %>
+              <div class="col-md-9"><h5><%=  @event.full_address %></h5></div>
+          <% end %>
         </div>
 
 
@@ -112,16 +119,14 @@
       <div class="col-md-12">
         <h4>Location</h4>
         <div class="location_block">
-              <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+          <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
              <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
         </div>
       </div>
     </div>
 
-    <% if current_spree_user and current_spree_user.id == @event.user_id  %>
-        <% if @wish_list %>
-            <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
-        <% end %>
+    <% if current_spree_user and @event.show_wishlist?(current_spree_user)  %>
+        <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
     <% end %>
 
 
