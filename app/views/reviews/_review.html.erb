@@ -10,7 +10,7 @@
         </p>
       <% end %>
       <p class="review_time pull-right"><%= distance_of_time_in_words_to_now(review.created_at)%></p>
-      <p><%= review.description%></p>
+      <p><%= simple_format(review.description) %></p>
     </div>
   </div>
 </div>
