@@ -44,7 +44,7 @@ class Venue < ActiveRecord::Base
 
   #---------- Instance Methods
   def full_address
-    "#{address1} #{address2} #{city} #{state} #{country} #{zip}"
+    "#{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
   end
 
   # cover photo
