@@ -108,3 +108,4 @@ gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
 gem 'fog'
 gem 'figaro'
 gem "squeel"
+gem 'bootbox-rails', '~>0.4'

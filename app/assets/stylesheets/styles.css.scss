@@ -8,10 +8,6 @@ body{
   background-color:#f1f2f7;
   height:100%;
 }
-//.container{
-//  max-width: none !important;
-//  width: 970px;
-//}
 .social_icons{
   padding:20px;
 }
@@ -161,7 +157,6 @@ body{
 .modal-content{
   border-radius:0px;
   background-color:rgba(0,0,0,.9);
-  /*top:140px;*/
   top:50px;
   opacity:0.9;
 
@@ -345,14 +340,13 @@ label{
   border:1px solid #ccc;
   resize:none;
 }
-
 .upload_btn{
   padding:98px;
+  text-align:center;
 }
 .upload_btn span{
   font-size:50px;
   line-height: 1.5em;
-  padding-left: 118px;
 }
 .upload_btn_skip{
   background:#cfcfcf;
@@ -370,10 +364,10 @@ label{
   display: block;
 }
 #upload_photos{
-  display:none;
+  display: none;
 }
 #invitation_without_wishlist{
-  display: none;
+  display:none;
 }
 #invitation_with_wishlist{
   display:none;
@@ -865,7 +859,6 @@ label{
   font-size: 30px;
   margin: 0 auto;
 }
-
 .pay_now_btn{
   background: #8bd92f;
   border-color: #8bd92f;
@@ -973,7 +966,7 @@ label{
   float:right;
   border-radius:6px;
   background:#fff;
-  height:auto;
+  height:424px;
 }
 .venue_right h4{
   float: left;
@@ -1394,7 +1387,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   margin-right:10px;
   /*24/12/2014*/
   transform: scale(0.15);
-  transform-origin: left top;
+  transform-origin: top;
   -webkit-transform: scale(0.15);
   -webkit-transform-origin: left top;
   -ms-transform: scale(0.15);
@@ -1823,8 +1816,17 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 
 .venue_ctc_details{
- list-style-type: none;
- padding-left:0px;
+  list-style-type: none;
+  padding-left:0px;
+}
+.h3_or{
+  margin-top:75px;
+}
+.fb_img{
+  margin-top:60px;
+}
+.text-maybe {
+  color:#f0ad4e;
 }
 
 /***************responsive**********************/
@@ -1852,6 +1854,11 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 
 /***************our responsive**********************/
+@media screen and (max-device-width:767px) {
+  .container {
+    width:1200px !important;
+  }
+}
 
 @media screen
 and (max-device-width : 767px)

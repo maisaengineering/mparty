@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
+//= require bootbox
 //= require jcarousel.ajax
 //= require jcarousel.min
 //= require jquery.fancybox
