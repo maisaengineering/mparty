@@ -1,4 +1,6 @@
 Spree::CheckoutController.class_eval do
+
+  before_filter :register_handlebars,only: [:edit]
   def update
     if @order.update_from_params(params, permitted_checkout_attributes)
       persist_user_address

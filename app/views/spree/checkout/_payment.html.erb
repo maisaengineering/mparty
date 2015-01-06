@@ -64,7 +64,9 @@
   <div class="col-md-6 event_right_block">
     <% if @order.bill_address %>
         <% bill_address = @order.bill_address  %>
-        <h4>Billing Address <a href="/checkout/address" class="">(Edit)</a></h4>
+        <h4>Billing Address
+        <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed?   %>
+        </h4>
         <div class="row">
           <div class="col-md-3">NAME:</div><div class="col-md-9"><%= bill_address.full_name %></div>
           <div class="col-md-3">ADDRESS:</div><div class="col-md-9"><%="#{bill_address.address1} #{bill_address.address2}" %></div>

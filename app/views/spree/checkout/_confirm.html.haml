@@ -1,0 +1,122 @@
+- @event = Event.find(session[:event_id]) if session[:event_id].present?
+- @event_template = Spree::Admin::Template.where(id: @event.template_id).first if @event
+- @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+:css
+  #eventDesignPreview {
+   transform: scale(0.49);
+    transform-origin: left top 0;
+  }
+#place_order.row
+  .col-md-6.event_left_block
+    - if @event_design
+      .col-md-12
+        #eventDesignPreview
+          - c_design = @handlebars.compile(@event_design.content)
+          = c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe
+    .col-md-12
+      - if @order.bill_address
+        - bill_address = @order.bill_address
+        %h4
+          Billing Address
+          = link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed?
+        .row
+          .col-md-3 NAME:
+          .col-md-9= bill_address.full_name
+          .col-md-3 ADDRESS:
+          .col-md-9= "#{bill_address.address1} #{bill_address.address2}"
+          .col-md-3 CITY:
+          .col-md-9= bill_address.city
+          .col-md-3 STATE:
+          .col-md-9= bill_address.state_text
+          .col-md-3 COUNTRY:
+          .col-md-9= bill_address.country.name
+          .col-md-3 ZIPCODE:
+          .col-md-9= bill_address.zipcode
+      - if @event and @event.ship_address
+        - shipp_address = @event.ship_address
+        %h4.mtop20 Shipping Address
+        .row
+          .col-md-3 NAME:
+          .col-md-9= shipp_address.full_name
+          .col-md-3 ADDRESS:
+          .col-md-9= "#{shipp_address.address1} #{shipp_address.address2}"
+          .col-md-3 CITY:
+          .col-md-9= shipp_address.city
+          .col-md-3 STATE:
+          .col-md-9= shipp_address.state_text
+          .col-md-3 COUNTRY:
+          .col-md-9= shipp_address.country.name
+          .col-md-3 ZIPCODE:
+          .col-md-9= shipp_address.zipcode
+      .row.mtop20
+        .col-md-12
+          %b
+            = Spree.t(:payment_information)
+            = link_to "(#{Spree.t(:edit)})", checkout_state_path(:payment) unless @order.completed?
+          - @order.payments.valid.each do |payment|
+            .place_order_add= render payment
+
+  .col-md-6.event_right_block
+    .row
+      .place_order_right
+        .col-md-12
+          %h4 Order Summary
+          - @order.line_items.each do |item|
+            .row.inv_wishlist
+              .col-md-3
+                - if item.variant.images.length == 0
+                  = link_to small_image(item.variant.product), item.variant.product,width: 90
+                - else
+                  = link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product ,width: 90
+              .col-md-6
+                %h5= item.variant.product.name
+                %p Quantity #{item.quantity }
+                %p= item.single_money.to_html
+              .col-md-2
+                %h5= item.display_amount.to_html
+      .col-md-12
+        .row
+          .col-md-4
+          .col-md-5
+            %b= Spree.t(:subtotal)
+          .col-md-3= @order.display_item_total.to_html
+        - if @order.line_item_adjustments.exists?
+          - if @order.all_adjustments.promotion.eligible.exists?
+            - @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments|
+              .row
+                .col-md-4
+                .col-md-5
+                  %b= "#{Spree.t(:promotion)} : #{label}"
+                .col-md-3= Spree::Money.new(adjustments.sum(&:amount))
+        - if @order.all_adjustments.tax.exists?
+          - @order.all_adjustments.tax.group_by(&:label).each do |label, adjustments|
+            .row
+              .col-md-4
+              .col-md-5
+                %b= "#{Spree.t(:tax)} : #{label}"
+              .col-md-3= Spree::Money.new(adjustments.sum(&:amount))
+        - @order.shipments.group_by { |s| s.shipping_method.name }.each do |name, shipments|
+          .row
+            .col-md-4
+            .col-md-5
+              %b= "#{ Spree.t(:shipping)} : #{name}"
+            .col-md-3= Spree::Money.new(shipments.sum(&:discounted_cost)).to_html
+        - @order.adjustments.eligible.each do |adjustment|
+          - next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0)
+          .row
+            .col-md-4
+            .col-md-5
+              %b= adjustment.label
+            .col-md-3= adjustment.display_amount.to_html
+        .row
+          .col-md-4
+          .col-md-5
+            %b= Spree.t(:order_total)
+          .col-md-3= @order.display_total.to_html
+        .row.mtop20
+          .col-md-12
+            .col-md-4
+              -# %button.btn{:type => "submit"} CANCEL
+            .col-md-4
+            .col-md-4
+              = submit_tag Spree.t(:place_order), :class => 'btn btn-primary'

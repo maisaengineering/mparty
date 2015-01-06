@@ -36,8 +36,8 @@
                   </div>
               <% end %>
               <%= render @order.state, :form => form %>
-              <% if (@order.state != 'confirm')   %>
-                  <% unless @order.state == 'address'  %>
+              <% if (@order.state != 'confirm' )   %>
+                  <% unless @order.state == 'address' or @order.state == 'payment'  %>
                       <hr>
                       <%= render :partial => 'summary', :locals => { :order => @order } %>
                   <% end %>
