@@ -4,7 +4,7 @@
       %h1 Find Your Venue
       .form-group{:style => "position:relative;"}
         = form_tag venues_path,method: :get do
-          %input.form_search{:placeholder => 'Search by name', :type => "search" ,name: 'query',value: params[:query]}/
+          %input.form_search{:placeholder => 'Search by Name or City or State or Zip', :type => "search" ,name: 'query',value: params[:query]}/
           %button.venue_src_icon
             %span.glyphicon.glyphicon-search.pull-left
           = hidden_field_tag(:from_event,true)  if params[:from_event].present?

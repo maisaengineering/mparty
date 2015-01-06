@@ -32,6 +32,13 @@ class Venue < ActiveRecord::Base
   #Fuzzy search
   fuzzily_searchable :name
 
+
+  # Venue advance search
+  def self.advance_search(query)
+      where("name LIKE ? OR city LIKE ? OR state LIKE ? OR zip LIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+  end
+
+
   #---------  Class Methods goes here
 
   #---------- Instance Methods
