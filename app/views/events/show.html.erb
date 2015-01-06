@@ -119,8 +119,13 @@
       <div class="col-md-12">
         <h4>Location</h4>
         <div class="location_block">
-          <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+          <% if @event.venue.present? %>
+              <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.location  %> "></iframe>
+          <%else%>
+              <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
              <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
+          <% end %>
         </div>
       </div>
     </div>

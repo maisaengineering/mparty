@@ -42,8 +42,10 @@
       .col-md-12
         %h4 Location
         .location_block
-          - location = @event.venue ? @event.venue.full_address : @event.full_address
-          %iframe{:frameborder => "0", :height => "165", :src => "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{location}", :width => "100%"}
+          - if @event.venue.present?
+            %iframe{:frameborder => "0", :height => "165", :src => "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{@event.venue.name + @event.location} ", :width => "100%"}
+          - else
+            %iframe{:frameborder => "0", :height => "165", :src => "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{@event.location + @event.city} ", :width => "100%"}
     - unless @event.pictures.blank?
       .row
         .col-md-12
