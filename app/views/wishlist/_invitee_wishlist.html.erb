@@ -1,0 +1,74 @@
+<% if @wishlist and @wishlist.wished_products.size > 0 %>
+    <%= form_for :order, :url => "/orders/populate",remote: true,html: {class: 'form_margin',id: 'wishlist-add-to-cart-form'} do |f| %>
+        <div class="modal fade" id="yourfriendwishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal5">
+            <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+              <div class="modal-header">
+                <div class="title_trending rec_addlist_title_top">
+                  <div class="title_bg"></div>
+                  <div class="model_box_name rec_addlist_title">Your friend likes following gifts</div>
+                </div>
+              </div>
+              <div class="modal-body">
+                <div class="row wishlist_popup_header event_rec_wishlist_block no_margin">
+                  <div class="col-md-2"></div>
+                  <div class="col-md-2">DESCRIPTION</div>
+                  <div class="col-md-2">REQUESTED QUANTITY</div>
+                  <div class="col-md-2">PURCHASED QUANTITY</div>
+                  <div class="col-md-2">SELECT QUANTITY</div>
+                  <div class="col-md-1">PRICE</div>
+                </div>
+                <% @wishlist.wished_products.each_with_index do |wish,i|
+                  variant = wish.variant
+                  product = variant.product %>
+                    <div class="row wishlist_popup_center event_rec_wishlist_block">
+                      <div class="col-md-2">
+                        <div class="wishlist_img_block">
+                          <% if variant.images.length == 0 %>
+                              <%= small_image(variant.product) %>
+                          <% else %>
+                              <%= image_tag variant.images.first.attachment.url(:small) %>
+                          <% end %>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
+                        <h4><%= product.name %></h4>
+                        <p<%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
+                      </div>
+                      <div class="col-md-2">
+                        <p><%= wish.quantity %></p>
+                      </div>
+                      <div class="col-md-2">
+                        <p><%= wish.quantity_purchased %></p>
+                      </div>
+                      <div class="col-md-2">
+                        <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
+                        <% if !wish.is_purchased %>
+                            <%= number_field_tag "quantity[#{i}]", 0, in: 0..wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
+                        <% else %>
+                            <p>Already Purchased</p>
+                        <% end %>
+                      </div>
+                      <div class="col-md-1"><p><%= number_to_currency(variant.price) %></p></div>
+                    </div>
+                <%end  %>
+                <div class="row wishlist_popup_footer">
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4"></div>
+                  <div class="col-md-4">
+                    <%= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer"> </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+<% end  %>
+
+<script type="text/javascript">
+    // submit form via ajax
+    $("#wishlist-add-to-cart-form").bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
+
+</script>

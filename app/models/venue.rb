@@ -17,6 +17,7 @@ class Venue < ActiveRecord::Base
   has_and_belongs_to_many :venue_categories 
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
+  scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here
   validates :name,:address1, :address2, :state, :city, :country,:zip,presence: true

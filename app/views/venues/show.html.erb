@@ -36,10 +36,10 @@
                 <div class="carousel-caption"> venue three </div>
               </div>
           <% else %>
-              <% @pictures.each do |picture|%>
-                  <div class="item">
+              <% @pictures.each_with_index do |picture, index|%>
+                  <div class="item" id="venue_picture" >
                     <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
-                    <div class="carousel-caption"> venue three </div>
+                    <div class="carousel-caption"> Picture <%= index+1%> </div>
                   </div>
               <%end%>
           <% end %>
@@ -81,11 +81,9 @@
             <div class="row no_margin">
               <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
               <%unless @type_of_venues.blank?%>
-                 <% @type_of_venues.each do |venue_type|%>
-                   <%= venue_type.venue_type%>,
-                 <%end%>
+                   <%= @type_of_venues.join(',')%>
               <%else%>
-                Bunquets,venues,Birth Days etc.
+                 Not Available. Please Contact Management.
                <%end%>
               </div>
             </div>
@@ -120,6 +118,9 @@
                     <% end %>
                     <% if @mobile_numbers.present? %>  
                       <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>
+                    <% end %>
+                    <% if @contact_emails.present? %>
+                      <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%= @contact_emails.join(",") %></li>
                     <% end %>  
                   <% end %>
                 </ul>
@@ -216,8 +217,9 @@
         $("#large-image").html("<img src="+$(this).find('img').attr('src')+">");
 
     });
-    $('#myCarousel').carousel({
-        interval: 1000
+
+    $('#venue_picture').carousel({
+        interval: 500
     })
 
     $('.fancybox').fancybox();

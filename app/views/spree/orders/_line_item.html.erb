@@ -1,3 +1,9 @@
+<style type="text/css">
+ .text_6 {
+    width: 35%;
+ }
+</style>
+
 <% variant = line_item.variant -%>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
     <div class="row wishlist_popup_center shopping_cart_wishlist_list line-item">
@@ -21,7 +27,7 @@
         <p><%= line_item_description_text(line_item.description) %></p>
       </div>
       <div class="col-md-2">
-        <%= item_form.number_field :quantity, :min => 0, :class => "form-control addcart_select line_item_quantity text_6", :size => 5  %>
+        <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
       </div>
       <div class="col-md-2"><p><%= line_item.single_money.to_html %></p></div>
       <div class="col-md-2"><p><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p></div>
