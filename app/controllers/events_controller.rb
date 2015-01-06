@@ -198,7 +198,7 @@ class EventsController < ApplicationController
   end
 
   def get_my_calendar
-    @events = current_spree_user.attending_events + current_spree_user.organizing_events
+    @events = current_spree_user.attending_events + current_spree_user.pending_events + current_spree_user.rejected_events + current_spree_user.maybe_events
     respond_to do |format|
       format.js
       format.json
