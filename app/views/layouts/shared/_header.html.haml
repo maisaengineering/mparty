@@ -36,7 +36,7 @@
         %a{:href => "/"}
           %span.glyphicon.glyphicon-ok>
           \  What's Up?
-      %li{class: controller.controller_name.eql?('events') ? 'active' : ''}
+      %li{class: (controller_name.eql?('events') && !action_name.eql?('calendar')) ? 'active' : ''}
         %a{:href => "/events"}
           %span.glyphicon.glyphicon-star>
           - if signed_in?
@@ -47,14 +47,11 @@
         %a{:href => "/venues"}
           %span.glyphicon.glyphicon-map-marker>
           \  Venues
-      %li
-        %a{:href => "#"}
-          %span.glyphicon.glyphicon-list-alt>
-          \  Organizers
-      %li
-        %a{:href => "#"}
-          %span.glyphicon.glyphicon-calendar>
-          \  My Calendar
+      - if signed_in?
+        %li{class: (controller_name.eql?('events') && action_name.eql?('calendar')) ? 'active' : ''}
+          %a{:href => "/calendar"}
+            %span.glyphicon.glyphicon-calendar>
+            \  My Calendar
 - unless signed_in?
   = render 'layouts/shared/login_modal'
   = render 'layouts/shared/signup_modal'

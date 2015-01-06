@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars,only: [:update_designs,:show]
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist]
+  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar]
 
   helper 'spree/taxons'
 
@@ -195,8 +195,16 @@ class EventsController < ApplicationController
   end
 
   def calendar
-
   end
+
+  def get_my_calendar
+    @events = current_spree_user.attending_events + current_spree_user.organizing_events
+    respond_to do |format|
+      format.js
+      format.json
+      format.html
+    end
+  end  
 
   def remove_product_from_wishlist
     @wished_product = Spree::WishedProduct.find(params[:product_id])

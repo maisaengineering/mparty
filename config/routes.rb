@@ -116,6 +116,8 @@ Invitation::Application.routes.draw do
   get '/events/remove_product_from_wishlist/:product_id'=>"events#remove_product_from_wishlist", as: :remove_product_from_wishlist
   get '/events/:event_id/add_products/'=>"events#add_products", as: :add_products
   get '/calendar/'=>"events#calendar", as: :calendar
+  get '/get_my_calendar/'=>"events#get_my_calendar", as: :get_my_calendar
+
 
 
   get '/view_invitation/:invitation_code'=>"invites#show", as: :view_invitation
