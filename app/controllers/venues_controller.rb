@@ -1,7 +1,7 @@
 class VenuesController < ApplicationController
   def index
     @top_five = Venue.top_five
-    @venues = Venue.find_by_fuzzy_name(params[:query])
+    @venues = Venue.includes(:rating_cache).order(avg: :desc).find_by_fuzzy_name(params[:query])
     flash.now[:error] = "No results found for '#{params[:query]}'" if params[:query] and  @venues.blank?
   end
 
@@ -28,7 +28,7 @@ class VenuesController < ApplicationController
       @mobile_numbers = @contacts.map(&:mobile_number).reject(&:empty?)
       @contact_emails = nil #need to add email column to venue_contacts table
     end  
-    @type_of_venues = @venue.venue_categories
+    @type_of_venues = @venue.venue_categories.map(&:venue_type).reject(&:empty?) if @venue.venue_categories.present?
   end 
 
   def check_availability
