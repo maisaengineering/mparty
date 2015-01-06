@@ -1,0 +1,7 @@
+<% if @flag %>
+ Turbolinks.visit('/cart')
+<% else %>
+$("#flash_messages").html("<%= j(render partial: "shared/flash_messages", flash: flash) %>")
+renderFlashMessage()
+$('.loading-indicator').hide()
+<% end %>
