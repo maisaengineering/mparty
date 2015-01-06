@@ -81,11 +81,9 @@
             <div class="row no_margin">
               <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
               <%unless @type_of_venues.blank?%>
-                 <% @type_of_venues.each do |venue_type|%>
-                   <%= venue_type.venue_type%>,
-                 <%end%>
+                   <%= @type_of_venues.join(',')%>
               <%else%>
-                Bunquets,venues,Birth Days etc.
+                 Not Available. Please Contact Management.
                <%end%>
               </div>
             </div>
