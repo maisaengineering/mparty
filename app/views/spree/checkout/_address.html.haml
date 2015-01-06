@@ -1,0 +1,80 @@
+#create_billing_address.row
+  .col-md-6.event_left_block
+    = form.fields_for :bill_address do |form|
+      - address_type = 'billing'; address = @order.bill_address
+      .row
+        .col-md-12
+          %form{:role => "form"}
+            .col-md-6
+              %label
+              = form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true
+            .col-md-6
+              %label
+              = form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true
+            .col-md-6
+              %label
+              = form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
+            .col-md-6
+              %label
+              = form.text_field :address2, class: 'form-control' ,placeholder: 'Street Address2'
+            .col-md-6
+              %label
+              = form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control',required: true}
+            .col-md-6
+              %label
+              - if Spree::Config[:address_requires_state]
+                = form.collection_select(:state_id, address.country.states, :id, :name, {:include_blank => "Select State"}, {class: 'form-control' })
+            .col-md-6
+              %label
+              = form.text_field :city, class: 'form-control' ,placeholder: 'City*' ,required: true
+            .col-md-6
+              %label
+              = form.text_field :zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*'
+            - unless Spree::Config[:alternative_shipping_phone]
+              .col-md-6
+                %label
+                = form.phone_field :phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
+              .col-md-6
+                %label
+                = form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"
+            - else
+              .col-md-12
+                %label
+                = form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"
+            - if try_spree_current_user
+              = hidden_field_tag 'save_user_address', '1'
+            .col-md-12
+              %label
+              = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block'
+  .col-md-6.event_right_block
+    -  @event = Event.find(session[:event_id]) if session[:event_id].present?
+    %h4 Shipping Address
+    - if @event and @event.ship_address
+      - ship_address = @event.ship_address
+      .row
+        .col-md-3 NAME:
+        .col-md-9 #{ship_address.full_name}
+        .col-md-3 ADDRESS:
+        .col-md-9 #{ship_address.address1} #{ship_address.address2}
+        .col-md-3 CITY:
+        .col-md-9 #{ship_address.city}
+        .col-md-3 STATE
+        .col-md-9 #{ship_address.state_text}
+        .col-md-3 COUNTRY:
+        .col-md-9 #{ship_address.country.name}
+        .col-md-3 ZIPCODE:
+        .col-md-9 #{ship_address.zipcode}
+:javascript
+  $("#order_bill_address_attributes_country_id").change(function(){
+      country= $(this).val()
+      $.ajax({
+          type: "GET",
+          url: "/country/get-states/"+country,
+          success: function(json){
+              $('#order_bill_address_attributes_state_id').empty()
+              $.each(json, function(i, value) {
+                  $('#order_bill_address_attributes_state_id').append($('<option>').text(value.name).attr('value', value.id));
+              });
+          }
+      });
+  });

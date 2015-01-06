@@ -12,7 +12,7 @@ class InvitesController < ApplicationController
     @invitation.user_id = spree_current_user.id if spree_current_user
     @invitation.save
     @wishlist = @event.wishlist
-    session[:event_id] = @event.id
+    #session[:event_id] = @event.id
     session[:invitation_id] = @invitation.id
     flash.now[:notice] = 'Thanks for your response'
   end

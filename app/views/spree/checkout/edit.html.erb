@@ -1,32 +1,51 @@
-
+<style type="text/css">
+    #create_billing_address{
+        display: block;
+    }
+</style>
 <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @order } %>
-
-<div class="container">
-  <br>
-  <div class="create_event">
-    <div class="row">
-      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('address') %>">1.Address</div>
-      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('delivery') %>">2.Delivery</div>
-      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('payment') %>">3.Payment</div>
-      <div class="col-md-1 cart_header<%= ' active_ad' if @order.state.eql?('confirm') %>">4.Complete</div>
+<div class="container-fluid">
+  <div class="container" >
+    <div class="row event_margin">
+      <div class="col-md-2">
+        <div class="row">
+          <div class="<%= @order.state.eql?('address') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-list-alt"></span></div>
+          <div class="event_tab_title">BILLING ADDRESS</div>
+          <div class="event_divider"></div>
+        </div>
+        <div class="row">
+          <div class="<%= @order.state.eql?('payment') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-credit-card"></span></div>
+          <div class="event_tab_title">PAYMENT</div>
+          <div class="event_divider"></div>
+        </div>
+        <div class="row">
+          <div class="<%= @order.state.eql?('confirm') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-gift"></span></div>
+          <div class="event_tab_title">COMPLETE</div>
+          <div></div>
+        </div>
+      </div>
+      <div class="col-md-10">
+        <div class="create_event_bg">
+          <%= form_for @order, :url => update_checkout_path(@order.state), :html => {class: 'form_margin', :id => "checkout_form_#{@order.state}" } do |form| %>
+              <% unless @order.email? %>
+                  <div class="row">
+                    <div class="form_ce_left">
+                      <label>Email*</label>
+                      <%= form.text_field :email,class: 'from-control',placeholder: 'Email' %>
+                    </div>
+                  </div>
+              <% end %>
+              <%= render @order.state, :form => form %>
+              <% if (@order.state != 'confirm')   %>
+                  <% unless @order.state == 'address'  %>
+                      <hr>
+                      <%= render :partial => 'summary', :locals => { :order => @order } %>
+                  <% end %>
+              <% end %>
+          <% end %>
+        </div>
+        <!--placeorder end-->
+      </div>
     </div>
-    <%= form_for @order, :url => update_checkout_path(@order.state), :html => {class: 'form_margin', :id => "checkout_form_#{@order.state}" } do |form| %>
-        <% unless @order.email? %>
-            <div class="row">
-              <div class="form_ce_left">
-                <label>Email*</label>
-                <%= form.text_field :email,class: 'from-control',placeholder: 'Email' %>
-              </div>
-            </div>
-        <% end %>
-        <%= render @order.state, :form => form %>
-        <% if (@order.state != 'confirm')   %>
-            <% unless @order.state == 'address'  %>
-                <hr>
-                <%= render :partial => 'summary', :locals => { :order => @order } %>
-            <% end %>
-        <% end %>
-    <% end %>
   </div>
-
 </div>

@@ -3,6 +3,9 @@ Spree::OrdersController.class_eval do
   #Overriding populate action to add multiple items to a cart at a time
   # Adds a new item to the order (creating a new order if none already exists)
   def populate
+    # Save event id in session for further reference(shipping address etc)
+    session[:event_id] = params[:event_id]
+    session[:invitation_id] ||= params[:invitation_id]
     populator = Spree::OrderPopulator.new(current_order(create_order_if_necessary: true), current_currency)
     @flag = false
     params[:variant_id].each_with_index do |item,i|

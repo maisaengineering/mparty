@@ -1,5 +1,7 @@
 <% if @wishlist and @wishlist.wished_products.size > 0 %>
     <%= form_for :order, :url => "/orders/populate",remote: true,html: {class: 'form_margin',id: 'wishlist-add-to-cart-form'} do |f| %>
+        <%= hidden_field_tag :event_id ,@event.try(:id) %>
+        <%= hidden_field_tag :invitation_id ,@invitation.try(:id) %>
         <div class="modal fade" id="yourfriendwishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal5">
             <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>

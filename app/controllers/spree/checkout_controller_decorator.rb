@@ -9,8 +9,8 @@ Spree::CheckoutController.class_eval do
 
       if @order.completed?
         if session[:event_id]
-          invitation = Invite.find(session[:invitaion_id])
-          existing_user = Spree::User.find_by_email(invitation.recipient_email)
+          @invitation = Invite.find(session[:invitation_id])
+          existing_user = Spree::User.find_by_email(@invitation.try(:recipient_email)) || spree_current_user
           wishlist = Spree::Wishlist.find_by(event_id: session[:event_id])
           @order.variants.each do |variant|
             wp = Spree::WishedProduct.where(variant_id: variant.id, wishlist_id: wishlist.id).first
