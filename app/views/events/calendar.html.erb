@@ -1,8 +1,15 @@
-
+<div class="container"><br>
 <div id="calendar"></div>
-
+</div>
 <script>
     $('#calendar').fullCalendar({
-        events: '/events.json'
+    	header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			eventLimit: true,
+      events: '/get_my_calendar.json'
     });
+  
 </script>
