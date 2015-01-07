@@ -1,5 +1,5 @@
 class Notifier < ActionMailer::Base
-  #i nclude ApplicationHelper
+  #include ApplicationHelper
   # helper :application
 
   def invite_friend(email, invite,event)
@@ -9,9 +9,9 @@ class Notifier < ActionMailer::Base
     @token = invite.token
     @template = @event.template
     @design = @template.designs.where(id: @event.design_id).first if @template
-    @sender_name = @event.owner.full_name
+    @sender = @event.owner
     @url =  "#{spree.root_url}#{view_invitation_path(:invitation_code => invite.token)}"
-    mail(to: email, subject: "Invitation to join Mparty", from: "<#{ENV['SENDER']}>")
+    mail(to: email, subject: "Invitation to join Mparty", from: "#{@sender.full_name} <#{@sender.email}>")
   end
 
   def welcome_email(email)
