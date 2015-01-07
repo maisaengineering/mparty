@@ -12,7 +12,10 @@ Spree.config do |config|
 	config.logo = 'logo.png'
 	config.admin_interface_logo = 'logo.png'
   config.layout='spree_application'
-  config.allow_ssl_in_production = false  
+  config.allow_ssl_in_production = false
+
+  config.override_actionmailer_config = false
+  config.mails_from = "no-reply@mparty.io"
 end
 Spree::Config[:layout]='application'
 Spree::Ability.register_ability(CsrAbility)
