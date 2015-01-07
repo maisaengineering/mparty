@@ -38,6 +38,6 @@ module Invitation
   end
 
 
-	ENV['SENDER'] = "labs@maisasolutions.com"
+	ENV['SENDER'] = "no-reply@mparty.io"
 
 end
