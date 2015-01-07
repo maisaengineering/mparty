@@ -109,3 +109,5 @@ gem 'fog'
 gem 'figaro'
 gem "squeel"
 gem 'bootbox-rails', '~>0.4'
+
+gem 'gravatar_image_tag'
