@@ -13,12 +13,17 @@
             <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
           </div>
           <div class="col-md-6">
-            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Event Type*'} ,class: 'form-control' ,required: true%>
+            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Type*'} ,class: 'form-control' ,required: true%>
             <%= f.hidden_field :design_id %>
+          </div>
+          <div class="col-md-6 event_type_hide"  >
+          </div>
+          <div class="col-md-6 event_type_hide" >
+            <label></label>
+            <%= f.text_field :custom_event_type, class: 'form-control',placeholder: "Custom Event Type"%>
           </div>
           <div class="col-md-6">
             <label></label>
-
             <%= f.text_field :host_name,value:  current_spree_user.full_name.titleize , class: 'form-control',required: true ,placeholder: 'Host Name*'%>
           </div>
           <div class="col-md-6">
@@ -82,14 +87,13 @@
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.collection_select :state, Spree::Country.try(:states) || [], :id, :name, {:include_blank => 'State'}, {class: 'form-control'}  %>
+              <%= f.collection_select :state, Spree::Country.try(:states) || [], :id, :name, {:include_blank => 'Please select the Country'}, {class: 'form-control'}  %>
             </div>
             <div class="col-md-6">
               <label></label>
               <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' %>
             </div>
           </div>
-
 
 
           <% if @venue.present? %>
@@ -172,6 +176,18 @@
 </div>
 <script type="text/javascript">
 
+    if($("#event_custom_event_type").val() == ""){
+        $(".event_type_hide").hide();
+    }
+    $("#event_template_id").change(function(){
+        $("#event_custom_event_type").val("")
+        $(".event_type_hide").fadeOut("slow");
+       selected=$("#event_template_id option:selected").text()
+        if((selected == "custom") || (selected == "Custom")){
+            $(".event_type_hide").fadeIn("slow");
+            $("#event_custom_event_type").focus();
+        }
+    });
 
   $("#event_country").change(function(){
       country=$(this).val()
@@ -289,6 +305,8 @@
                 format: 'yyyy-mm-dd',
                 autoclose: true
             });
+            $('#event_start_time').val("")
+            $('#event_starts_at').val("")
             $('#event_start_time').removeAttr('readonly', false);
             $('#event_starts_at').removeAttr('readonly', false);
             $('#venue_afterchoose').remove()
@@ -369,6 +387,11 @@
         $("#new_event #event_name").keyup(function(){
             ($(this).val() == '') ?  $ele.find('.eventDesignEventName').text('Event name') : $ele.find('.eventDesignEventName').text($(this).val())
         })
+
+        $("#new_event #event_custom_event_type").keyup(function(){
+            ($(this).val() == '') ?  $ele.find('.eventDesignEventCustomType').text('') : $ele.find('.eventDesignEventCustomType').text($(this).val())
+        })
+
 
         $("#new_event #event_starts_at,#new_event #event_start_time").change(function() {
             var eventDesignEventDate = $ele.find('.eventDesignEventDate')
