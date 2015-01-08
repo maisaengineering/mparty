@@ -16,7 +16,7 @@
         = form_tag update_wished_product_quantity_path(event_id: @event.id),id: 'update-wished-product-quantity-form' ,remote: true do
           = hidden_field_tag :variant_id, product.master.id
           = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
-          %button.btn.btn-success.btn_add_quantity.update_product_quantity Add
+          %button.btn.btn-success.btn_add_quantity.update_product_quantity Update
       .col-md-2
         %h5= number_to_currency(variant.price)
       .col-md-2
