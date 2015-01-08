@@ -64,20 +64,24 @@
       <div class="venue_tab_content">
         <h4 class="review_star">Overall Rating</h4>
         <% if @venue.rates.present? %>
-           <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%= pluralize(@venue.rates.size, 'Member') %></p>
-           <%= rating_for @venue, nil, readonly: true %><%= pluralize(@venue.reviews.size, 'Review')%>
+<!--            <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on 
+  <%#= pluralize(@venue.rates.size, 'Member') %></p> -->
+          <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">
+            <%= pluralize(@venue.reviews.size, 'Review')%>
+          </p>
+           <%= rating_for @venue, nil, readonly: true %>
         <% else %>
           <%= rating_for @venue, nil, readonly: true, noRatedMsg: "No Ratings available" %><%= pluralize(@venue.reviews.size, 'Review')%>
         <% end %>
         <br>
         <ul class="nav nav-tabs" role="tablist" id="myTab">
-          <li role="presentation" class="active"><a href="#About" role="tab" data-toggle="tab">About</a></li>
-          <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab">Contact Details</a></li>
-          <li role="presentation"><a href="#Locations" role="tab" data-toggle="tab">Gallery</a></li>
+          <li role="presentation" class="active"><a href="#Locations" role="tab" data-toggle="tab">Gallery</a></li>
           <li role="presentation"><a href="#Reviews" role="tab" data-toggle="tab">Reviews</a></li>
+          <li role="presentation"><a href="#About" role="tab" data-toggle="tab">About</a></li>
+          <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab">Contact Details</a></li>
         </ul>
         <div class="tab-content venue_tab_margin">
-          <div role="tabpanel" class="tab-pane fade in  active" id="About">
+          <div role="tabpanel" class="tab-pane fade in" id="About">
             <div class="row no_margin">
               <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
               <%unless @type_of_venues.blank?%>
@@ -131,9 +135,9 @@
             </div>
           </div>
 
-          <div role="tabpanel" class="tab-pane fade" id="Locations">
+          <div role="tabpanel" class="tab-pane fade in  active" id="Locations">
             <div class="row no_margin">
-              <h4>Photos</h4>
+              <!-- <h4>Photos</h4> --><br>
               <%@pictures.each do |picture|%>
                   <div class="col-md-3 fix_image_size">
                     <a class="fancybox" href="<%= picture.image.url%>" rel="gallery1">
