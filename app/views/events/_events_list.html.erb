@@ -20,10 +20,13 @@
                       <% else %>
                           <%= e.starts_at.strftime("%d/%m/%y")%>
                       <% end %>
-                      <div class="pull-right"><%= e.start_time.try(:strftime, '%I-%M %p')%></div>
+                      <div class="pull-right"><%= e.start_time.try(:strftime, '%I:%M %p')%></div>
                     </div>
-                    <div class="event_place"><span class="glyphicon glyphicon-map-marker"></span>
-                      <%= truncate(e.location.camelcase ,length: 20) %>
+                    <div class="event_place">
+                      <div class="pull-left">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <%= truncate(e.location.camelcase ,length: 20) %>
+                      </div>
                       <!-- Only public events are allowed for joining a event -->
                       <% if e.is_public? %>
                           <% if spree_current_user and e.user_joined?(spree_current_user) %>
@@ -35,6 +38,8 @@
                                 <%= link_to "Join", "/events/#{e.id}/join" ,method: :post%>
                               </div>
                           <% end  %>
+                      <% else %>
+                          <div class="pull-right text-info"> <span class="glyphicon glyphicon-lock"></span>Private</div>
                       <% end %>
                     </div>
                   </div>
