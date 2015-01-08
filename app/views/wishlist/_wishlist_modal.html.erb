@@ -75,7 +75,7 @@
         if($(this).attr('data-ship-add-exists') == 'yes'){
             Turbolinks.visit($(this).data('url'))
         }else{ // open ship  address popup
-            alert("Please add Shipping address before continuing")
+            bootbox.alert("Please add Shipping address before continuing")
             $('#wishlist-modal').modal('hide')
             $('#wishlist-shipping-addrs-modal').modal('show')
         }

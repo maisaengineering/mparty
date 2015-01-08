@@ -1,5 +1,5 @@
 <% if @available %>
 Turbolinks.visit("/events/new?venue_id=<%= @venue.id %>")
 <%else%>
-alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
+bootbox.alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
 <%end%>	

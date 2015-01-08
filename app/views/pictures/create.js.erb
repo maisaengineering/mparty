@@ -1,5 +1,5 @@
 <% if @picture.new_record? %>
- alert("Failed to upload picture: <%= j @picture.errors.full_messages.join(', ').html_safe %>");
+bootbox.alert("Failed to upload picture: <%= j @picture.errors.full_messages.join(', ').html_safe %>");
 if ($('#number_of_files_chosen strong').length){
   $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) - 1))
   $('#number_of_files_chosen').hide().fadeIn('slow')

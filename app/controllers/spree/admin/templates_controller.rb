@@ -55,7 +55,6 @@ class Spree::Admin::TemplatesController < Spree::Admin::BaseController
   # DELETE /spree/admin/templates/1
   # DELETE /spree/admin/templates/1.json
   def destroy
-    alert('ok');
     @spree_admin_template.destroy
     respond_to do |format|
       format.html { redirect_to spree_admin_templates_url }
