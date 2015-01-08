@@ -258,7 +258,7 @@ class EventsController < ApplicationController
                                   :host_phone, :location, :description, :starts_at,
                                   :start_time, :ends_at, :end_time, :is_private,
                                   :city,:state,:country,:zip,
-                                  :image, :template_id, :design_id, pictures_attributes: [:image])
+                                  :image, :template_id, :design_id,:custom_event_type, pictures_attributes: [:image])
   end
 
   def check_for_cancel
