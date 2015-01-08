@@ -86,3 +86,5 @@ group :production do
   gem 'heroku_rails_deflate'
 end
 
+gem 'delayed_job_active_record'
+
