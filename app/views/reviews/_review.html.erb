@@ -1,7 +1,9 @@
 <div class="review">
   <div class="row review_block">
     <div class="col-md-1">
-      <%= image_tag('avatar.png') %>
+      <%=gravatar_image_tag("#{review.reviewed_by.email}", :alt => 'reviewer image',:class => 'img-circle',
+       # :gravatar =>{ :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' }
+       )%>
     </div>
     <div class="col-md-11">
       <h5><%= (current_spree_user.present? && (review.heading == current_spree_user.first_name)) ? review.heading+"(you)" : review.heading %> <%= rating_for_user(@venue, review.reviewed_by, nil, readonly: true) %></h5>

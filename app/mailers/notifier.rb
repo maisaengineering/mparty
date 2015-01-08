@@ -1,6 +1,6 @@
 class Notifier < ActionMailer::Base
-  #i nclude ApplicationHelper
-  # helper :application
+  include ActionView::Helpers::TextHelper
+  default from: "MParty <#{ENV['SENDER']}>"
 
   def invite_friend(email, invite,event)
    # from = invite.invited_by.email # for socail login users email is not mandatory
@@ -9,13 +9,13 @@ class Notifier < ActionMailer::Base
     @token = invite.token
     @template = @event.template
     @design = @template.designs.where(id: @event.design_id).first if @template
-    @sender_name = @event.owner.full_name
-    @url =  "#{spree.root_url}#{view_invitation_path(:invitation_code => invite.token)}"
-    mail(to: email, subject: "Invitation to join Mparty", from: "<#{ENV['SENDER']}>")
+    @sender = @event.owner
+    @url =  "#{view_invitation_url(:invitation_code => invite.token)}"
+    mail(to: email, subject: "Invitation to join Mparty", from: "#{@sender.full_name} <#{ENV['SENDER']}>")
   end
 
   def welcome_email(email)
-    mail(to: email, subject: "Welcome to MParty", from: "<#{ENV['SENDER']}>", reply_to: email)
+    mail(to: email, subject: "Welcome to MParty")
   end
 
 end
