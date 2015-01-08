@@ -154,12 +154,16 @@ body{
   color:#fff;
   background-color: transparent;
 }
-#wrapper .modal-content{
-  border-radius:0px;
-  background-color:rgba(0,0,0,.9);
-  top:50px;
-  opacity:0.9;
+/*.modal-content{
+   border-radius:0px;
+   background-color:rgba(0,0,0,.9);
+   top:50px;
+   opacity:0.9;
 
+}*/
+.modal_darktheme {
+  background-color:rgba(0,0,0,.9);
+  opacity:0.9;
 }
 .main-nav > li > a {
   border-bottom:2px solid transparent;
@@ -1596,7 +1600,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   text-align:center;
 }
 .ccdc_bg{
-  background-image: image-url('dc.png');
+  background-image:url(../images/dc.png);
   background-repeat: no-repeat;
   margin-left:15px;
   margin-top:10px;
@@ -1814,6 +1818,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .venue_ctc_details{
   list-style-type: none;
   padding-left:0px;
+  line-height:1.5;
 }
 .h3_or{
   margin-top:75px;
@@ -1841,27 +1846,43 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   -moz-opacity: 0;
   filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
 }
+
+.fadein {
+  position:relative;
+  height:260px;
+  width:320px;
+}
+
+.fadein img {
+  position:absolute;
+  left:0;
+  top:0;
+}
 /***************responsive**********************/
 @media (min-width: 768px) {
 
   .navbar {
     border-radius: 0px;
   }
-  #wrapper .modal-dialog {
-    width: 324px;
-    margin: 30px auto;
+  /* .modal-dialog {
+      width: 324px;
+      margin: 30px auto;
+    }*/
+  .modal1{
+    width:324px;
+    margin:30px auto;
   }
   .modal2{
     width:629px;
-    margin: 0 auto;
+    margin:30px auto;
   }
   .modal3{
     width:595px;
-    margin: 0 auto;
+    margin:30px auto;
   }
   .modal5{
     width:1170px;
-    margin:0 auto;
+    margin:30px auto;
   }
 }
 
