@@ -262,12 +262,12 @@
             selected_time=$("#event_start_time").val()
             if(selected_date == "" ) {
                 $("#venue_type").val("Venue*")
-                alert("please select Start Date")
+                bootbox.alert("please select Start Date")
                 return false;
             }
             else if(selected_time == "" ) {
                 $("#venue_type").val("Venue*")
-                alert("please select Start Time ")
+                bootbox.alert("please select Start Time ")
                 return false;
             }
 

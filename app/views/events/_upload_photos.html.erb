@@ -52,7 +52,7 @@
             }
             if(uploadErrors.length > 0) {
                 $('.loading-indicator').hide()
-                alert(uploadErrors.join("\n"));
+                bootbox.alert(uploadErrors.join("\n"));
             } else {
                 $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) + 1))
                 $('#number_of_files_chosen').hide().fadeIn('slow')
