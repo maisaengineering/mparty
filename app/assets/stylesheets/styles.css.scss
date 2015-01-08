@@ -53,11 +53,11 @@ body{
 .event_details{
   /*width:262.5px;*/
   width: 100%;  /*changed for responsive*/
-  height: auto;
+  height: 70px;
   overflow:hidden;
   background: #fff;
   border: 1px solid #cfcfcf;
-  padding:4px 0;
+  padding:4px 4px;
 }
 .event_date{
   font-size: 12px;
@@ -154,7 +154,7 @@ body{
   color:#fff;
   background-color: transparent;
 }
-.modal-content{
+#wrapper .modal-content{
   border-radius:0px;
   background-color:rgba(0,0,0,.9);
   top:50px;
@@ -207,7 +207,7 @@ body{
 .modal-header{
   border-bottom:none;
 }
-.modal-footer{
+#wrapper .modal-footer{
   border-top:none;
 }
 .modal-body a{
@@ -543,7 +543,6 @@ label{
 .wishlist_popup_center img{
   width:110px;
   padding:10px;
-  border: 1px solid #cfcfcf;
   background: #fff;
 }
 .wishlist_popup_center select{
@@ -1016,12 +1015,10 @@ label{
   color:#ffffff;
   padding:6px 8px;
 }
-
 .join_btn a{
   text-decoration:none;
   color:#fff !important;
 }
-
 .unjoin_btn{
   background-color: #e78f08;
   margin: 0 auto;
@@ -1033,7 +1030,6 @@ label{
   text-decoration:none;
   color:#fff !important;
 }
-
 .addguest_btn{
 
   background-color: #8bd92f;
@@ -1828,14 +1824,30 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .text-maybe {
   color:#f0ad4e;
 }
-
+.text-info {
+  color: #31b0d5;
+}
+.event_file_upload_button {
+  cursor: pointer;
+  height: 100%;
+  position:absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  /*This makes the button huge. If you want a bigger button, increase the font size*/
+  font-size:50px;
+  /*Opacity settings for all browsers*/
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
 /***************responsive**********************/
 @media (min-width: 768px) {
 
   .navbar {
     border-radius: 0px;
   }
-  .modal-dialog {
+  #wrapper .modal-dialog {
     width: 324px;
     margin: 30px auto;
   }
