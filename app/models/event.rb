@@ -14,6 +14,13 @@ class Event < ActiveRecord::Base
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
 
+  # After placing an order --------------------------------
+  has_many :wishlist_orders,through: :wishlist
+  has_many :orders ,through:  :wishlist
+  has_many :wished_products,through: :wishlist
+  has_many :purchased_products,through: :wishlist
+
+
   after_create :create_venue_calander
 
   accepts_nested_attributes_for :pictures
