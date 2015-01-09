@@ -47,23 +47,26 @@
               %label
               = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block'
   .col-md-6.event_right_block
-    -  @event = Event.find(session[:event_id]) if session[:event_id].present?
+    - @event = Event.find(session[:event_id]) if session[:event_id].present?
     %h4 Shipping Address
     - if @event and @event.ship_address
       - ship_address = @event.ship_address
       .row
-        .col-md-3 NAME:
-        .col-md-9 #{ship_address.full_name}
-        .col-md-3 ADDRESS:
-        .col-md-9 #{ship_address.address1} #{ship_address.address2}
-        .col-md-3 CITY:
-        .col-md-9 #{ship_address.city}
-        .col-md-3 STATE
-        .col-md-9 #{ship_address.state_text}
-        .col-md-3 COUNTRY:
-        .col-md-9 #{ship_address.country.name}
-        .col-md-3 ZIPCODE:
-        .col-md-9 #{ship_address.zipcode}
+        .col-md-12
+          %ul.venue_ctc_details
+            %li
+              %span.glyphicon.glyphicon-user
+              %b #{ship_address.full_name}
+            %li #{ship_address.address1},#{ship_address.address2},
+            %li #{ship_address.city}, #{ship_address.state.name},
+            %li #{ship_address.country.name}, #{ship_address.zipcode}
+            %li
+              %span.glyphicon.glyphicon-earphone
+              \&nbsp; #{ship_address.phone}
+            -if ship_address.alternative_phone
+              %li
+                %span.glyphicon.glyphicon-phone
+                \&nbsp; #{ship_address.alternative_phone}
 :javascript
   $("#order_bill_address_attributes_country_id").change(function(){
       country= $(this).val()

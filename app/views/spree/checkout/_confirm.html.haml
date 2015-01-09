@@ -20,34 +20,42 @@
           Billing Address
           = link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed?
         .row
-          .col-md-3 NAME:
-          .col-md-9= bill_address.full_name
-          .col-md-3 ADDRESS:
-          .col-md-9= "#{bill_address.address1} #{bill_address.address2}"
-          .col-md-3 CITY:
-          .col-md-9= bill_address.city
-          .col-md-3 STATE:
-          .col-md-9= bill_address.state_text
-          .col-md-3 COUNTRY:
-          .col-md-9= bill_address.country.name
-          .col-md-3 ZIPCODE:
-          .col-md-9= bill_address.zipcode
+          .col-md-12
+            %ul.venue_ctc_details
+              %li
+                %span.glyphicon.glyphicon-user
+              %b #{bill_address.full_name}
+              %li #{bill_address.address1},#{bill_address.address2},
+              %li #{bill_address.city}, #{bill_address.state.name},
+              %li #{bill_address.country.name}, #{bill_address.zipcode}
+              %li
+                %span.glyphicon.glyphicon-earphone
+                &nbsp;#{bill_address.phone}
+              -if bill_address.alternative_phone.present?
+                %li
+                  %span.glyphicon.glyphicon-phone
+                  &nbsp;#{bill_address.alternative_phone}
       - if @event and @event.ship_address
         - shipp_address = @event.ship_address
         %h4.mtop20 Shipping Address
         .row
-          .col-md-3 NAME:
-          .col-md-9= shipp_address.full_name
-          .col-md-3 ADDRESS:
-          .col-md-9= "#{shipp_address.address1} #{shipp_address.address2}"
-          .col-md-3 CITY:
-          .col-md-9= shipp_address.city
-          .col-md-3 STATE:
-          .col-md-9= shipp_address.state_text
-          .col-md-3 COUNTRY:
-          .col-md-9= shipp_address.country.name
-          .col-md-3 ZIPCODE:
-          .col-md-9= shipp_address.zipcode
+          .col-md-12
+            %ul.venue_ctc_details
+              %li
+                %span.glyphicon.glyphicon-user
+              %b #{shipp_address.full_name}
+              %li #{shipp_address.address1},#{shipp_address.address2},
+              %li #{shipp_address.city}, #{shipp_address.state.name},
+              %li #{shipp_address.country.name}, #{shipp_address.zipcode}
+              %li
+                %span.glyphicon.glyphicon-earphone
+                &nbsp;#{shipp_address.phone}
+              -if shipp_address.alternative_phone.present?
+                %li
+                  %span.glyphicon.glyphicon-phone
+                  &nbsp;#{shipp_address.alternative_phone}
+      - if @event and @event.ship_address
+        - shipp_address = @event.ship_address
       .row.mtop20
         .col-md-12
           %b
