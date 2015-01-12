@@ -13,8 +13,7 @@ $('#invitation_without_wishlist').html("<%= j(render('invite_without_wish_list')
 
 <% else %>
 <%
-  errors = ''
-  @event.errors.full_messages.each {|m| errors << "#{m}\n"}
+  errors = @event.errors.full_messages.to_sentence
 %>
 bootbox.alert("<%= j(errors.html_safe) %>")
 <% end %>
