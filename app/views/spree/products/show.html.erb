@@ -1,4 +1,4 @@
-<% cache [current_currency, @product] do %>
+<%# cache [current_currency, @product] do %>
     <% @body_id = 'product-details' %>
     <div class="container-fluid">
       <div class="container" >
@@ -34,8 +34,18 @@
                 <div data-hook="promotions">
                   <%= render 'promotions' %>
                 </div>
+
+                <div class="col-md-12">
+                  <h4>Price</h4>
+                   <span class="price selling" itemprop="price">
+                     <%= display_price(@product) %>
+                   </span>
+                  <span itemprop="priceCurrency" content="<%= @product.currency %>"></span>
+                </div>
                 <%#= render  'cart_form' %>
-                <%= render  'wishlist_form' %>
+                <% if spree_current_user and params[:event_id].present? and Event.find(params[:event_id]).is_owner?(spree_current_user) %>
+                    <%= render  'wishlist_form' %>
+                <% end %>
               </div>
               <div class="row">
                 <%#= render 'taxons' %>
@@ -45,4 +55,4 @@
         </div>
       </div>
     </div>
-<% end %>
+<%# end %>
