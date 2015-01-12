@@ -1,43 +1,48 @@
-<% cache [I18n.locale, current_currency, @product] do %>
-    <div class="container">
-      <br>
-      <div class="row">
-        <div class="col-xs-6 item_view_block">
-          <%= render :partial => 'image' %>
-        </div>
-        <div class="col-xs-6">
-          <h2><%= accurate_title %></h2>
-          <h4>Description :</h4>
-          <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
-        </div>
+<% cache [current_currency, @product] do %>
+    <% @body_id = 'product-details' %>
+    <div class="container-fluid">
+      <div class="container" >
+        <div class="row event_margin">
+          <div class="col-md-5">
+            <div class="product_view_big" id="product-images" data-hook="product_images">
+              <div id="main-image" data-hook>
+                <%= render 'image' %>
+              </div>
+            </div>
+            <div class="product_view_thumb">
+              <div id="thumbnails" class="row" data-hook>
+                <%= render 'thumbnails' %>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-7">
+            <div class="product_details">
+              <div class="row">
+                <div class="col-md-12">
+                  <h3 class="product-title" itemprop="name"><%= accurate_title %></h3>
+                </div>
+                <div class="col-md-12">
+                  <h4>Description</h4>
+                  <p itemprop="description" data-hook="description">
+                    <%= product_description(@product) rescue Spree.t(:product_has_no_description) %>
+                  </p>
+                </div>
+                <div data-hook="product_properties">
+                  <%= render 'properties' %>
+                </div>
 
-        <div class="col-xs-6">
-          <%= render :partial => 'properties' %>
+                <div data-hook="promotions">
+                  <%= render 'promotions' %>
+                </div>
+                <%#= render  'cart_form' %>
+                <%= render  'wishlist_form' %>
+              </div>
+              <div class="row">
+                <%#= render 'taxons' %>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div data-hook="col-xs-6">
-          <%= render :partial => 'promotions' %>
-        </div>
-
-        <%= render 'wishlist_form' %>
-
       </div>
-      <div class="row">
-        <% if (@product.images + @product.variant_images).uniq.size > 1 %>
-            <% @product.images.each do |i| %>
-                <div class="col-md-1"><%= link_to(image_tag(i.attachment.url(:mini)), i.attachment.url(:product)) %></div>
-            <% end %>
-            <% if @product.has_variants? %>
-                <% @product.variant_images.each do |i| %>
-                    <% next if @product.images.include?(i) %>
-                    <div class="col-md-1">
-                      <%= link_to(image_tag(i.attachment.url(:mini)), i.attachment.url(:product)) %>
-                    </div>
-                <% end %>
-            <% end %>
-        <% end %>
-      </div>
-      <hr>
     </div>
 <% end %>
-
