@@ -68,12 +68,18 @@
         <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed?   %>
         </h4>
         <div class="row">
-          <div class="col-md-3">NAME:</div><div class="col-md-9"><%= bill_address.full_name %></div>
-          <div class="col-md-3">ADDRESS:</div><div class="col-md-9"><%="#{bill_address.address1} #{bill_address.address2}" %></div>
-          <div class="col-md-3">CITY:</div><div class="col-md-9"><%=bill_address.city %></div>
-          <div class="col-md-3">STATE</div><div class="col-md-9"><%= bill_address.state_text %></div>
-          <div class="col-md-3">COUNTRY:</div><div class="col-md-9"><%= bill_address.country.name %></div>
-          <div class="col-md-3">ZIPCODE:</div><div class="col-md-9"><%= bill_address.zipcode %></div>
+          <div class="col-md-12">
+            <ul class="venue_ctc_details">
+              <li><span class="glyphicon glyphicon-user"></span> <b><%= bill_address.full_name %></b></li>
+              <li><%="#{bill_address.address1}, #{bill_address.address2}" %>,</li>
+              <li><%=bill_address.city %>,<%= bill_address.state.name %>,</li>
+              <li><%= bill_address.country.name %>, <%= bill_address.zipcode %></li>
+              <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= bill_address.phone %></li>
+              <% if bill_address.alternative_phone.present? %>
+              <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= bill_address.alternative_phone %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
     <% end %>
 
@@ -82,12 +88,18 @@
         <% ship_address = @event.ship_address  %>
         <h4>Shipping Address</h4>
         <div class="row">
-          <div class="col-md-3">NAME:</div><div class="col-md-9"><%= ship_address.full_name %></div>
-          <div class="col-md-3">ADDRESS:</div><div class="col-md-9"><%="#{ship_address.address1} #{ship_address.address2}" %></div>
-          <div class="col-md-3">CITY:</div><div class="col-md-9"><%=ship_address.city %></div>
-          <div class="col-md-3">STATE</div><div class="col-md-9"><%= ship_address.state_text %></div>
-          <div class="col-md-3">COUNTRY:</div><div class="col-md-9"><%= ship_address.country.name %></div>
-          <div class="col-md-3">ZIPCODE:</div><div class="col-md-9"><%= ship_address.zipcode %></div>
+          <div class="col-md-12">
+            <ul class="venue_ctc_details">
+              <li><span class="glyphicon glyphicon-user"></span> <b><%= ship_address.full_name %></b></li>
+              <li><%="#{ship_address.address1}, #{ship_address.address2}" %>,</li>
+              <li><%=ship_address.city %>,<%= ship_address.state.name %>,</li>
+              <li><%= ship_address.country.name %>, <%= ship_address.zipcode %></li>
+              <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= ship_address.phone %></li>
+              <% if ship_address.alternative_phone.present? %>
+              <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= ship_address.alternative_phone %></li>
+              <% end %>
+            </ul>
+          </div>
         </div>
     <% end %>
 

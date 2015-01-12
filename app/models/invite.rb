@@ -2,6 +2,8 @@ class Invite < ActiveRecord::Base
   belongs_to :event
   belongs_to :user, foreign_key: "user_id", class_name: "Spree::User"
   belongs_to :invited_by, foreign_key: "invited_user_id", class_name: "Spree::User"
+  # Can't send duplicate event invitation to the  same user
+  validates :user_id,  uniqueness: {scope: :event_id}
 
   before_create :generate_token
 
