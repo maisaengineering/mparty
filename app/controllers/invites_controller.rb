@@ -13,8 +13,10 @@ class InvitesController < ApplicationController
     @invitation.save
     @wishlist = @event.wishlist
     #session[:event_id] = @event.id
-    session[:invitation_id] = @invitation.id
-    flash.now[:notice] = 'Thanks for your response'
+    #session[:invitation_id] = @invitation.id
+    msg = "Thanks for your response."
+    msg << "Event has wishlist,Do you want checkout? please click on 'checkout' below" if @wishlist and not @wishlist.wished_products.blank?
+    flash.now[:success] = msg
   end
 
   private

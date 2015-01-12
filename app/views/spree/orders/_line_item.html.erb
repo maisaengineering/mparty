@@ -1,10 +1,11 @@
 <style type="text/css">
- .text_6 {
-    width: 35%;
- }
+    .text_6 {
+        width: 35%;
+    }
 </style>
 
 <% variant = line_item.variant -%>
+<% wished_product =  @wishlist ? @wishlist.wished_products.where(variant_id: variant.id ).first : nil %>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
     <div class="row wishlist_popup_center shopping_cart_wishlist_list line-item">
       <div class="col-md-2">
@@ -27,7 +28,11 @@
         <p><%= line_item_description_text(line_item.description) %></p>
       </div>
       <div class="col-md-2">
-        <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
+        <% if wished_product %>
+            <%= item_form.number_field :quantity, :min => 0,in:  0..wished_product.quantity - wished_product.quantity_purchased, :class => "line_item_quantity text_6"  %>
+        <% else %>
+            <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
+        <% end %>
       </div>
       <div class="col-md-2"><p><%= line_item.single_money.to_html %></p></div>
       <div class="col-md-2"><p><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p></div>

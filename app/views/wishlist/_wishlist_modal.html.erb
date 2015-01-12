@@ -64,7 +64,7 @@
             url: url,
             beforeSend: function(){},
             success: function(res) {
-                $('#wishlist-modal-items').html(res).hide().fadeIn('slow')
+                $('#wishlist-modal #wishlist-modal-items').html(res).hide().fadeIn('slow')
             }
         });
     })

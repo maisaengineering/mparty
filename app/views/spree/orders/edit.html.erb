@@ -1,3 +1,5 @@
+<% @event = Event.where(id: session[:event_id]).first  if session[:event_id].present? %>
+<% @wishlist = @event.wishlist if @event %>
 <% @body_id = 'cart' %>
 <div class="container-fluid">
   <div class="container" >
@@ -16,7 +18,7 @@
                 <%= render :partial => 'form', :locals => { :order_form => order_form } %>
 
                 <div class="row wishlist_popup_footer no_margin">
-                  <% if !session[:event_id].present? %>
+                  <% if @event.nil? %>
                       <div class="col-md-4"></div>
                       <div class="col-md-2">
                         <div id="empty-cart" data-hook>
