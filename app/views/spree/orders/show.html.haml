@@ -1,0 +1,133 @@
+- @event = @order.wishlist_orders.first.wishlist.event
+.container-fluid{:style => "background-color:#f1f2f7"}
+  .container
+    .row
+      .title_name
+    #OrderDetails.create_event_bg
+      .row
+        .col-md-5.event_left_block
+          .col-md-10
+            %h4= Spree.t(:order_number, :number => @order.number)
+            %table.table.orderDetails
+              %tr
+                %td.txt_bold Order Id:
+                %td= @order.number
+              %tr
+                %td.txt_bold Order Date:
+                %td= @order.created_at
+              %tr
+                %td.txt_bold Status:
+                %td= @order.state
+              - if @event
+                %tr
+                  %td.txt_bold Order To:
+                  %td= @event.owner.full_name
+                %tr
+                  %td.txt_bold Event Name:
+                  %td= @event.name
+              - if  @order.has_step?("address")
+                -if @event and @event.ship_address
+                  - shipp_address = @event.ship_address
+                  %tr
+                    %td.txt_bold{:colspan => "2"} #{Spree.t(:shipping_address)}:
+                  %tr
+                    %td{:colspan => "2"}
+                      %ul.venue_ctc_details
+                        %li
+                          %span.glyphicon.glyphicon-map-marker
+                          %b #{shipp_address.full_name}
+                        %li #{shipp_address.address1},#{shipp_address.address2},
+                        %li #{shipp_address.city}, #{shipp_address.state.name},
+                        %li #{shipp_address.country.name}, #{shipp_address.zipcode}
+                        %li
+                          %span.glyphicon.glyphicon-earphone
+                          \  #{shipp_address.phone}
+                        - if shipp_address.alternative_phone.present?
+                          %li
+                            %span.glyphicon.glyphicon-phone
+                            \  #{shipp_address.alternative_phone}
+                - bill_address = @order.bill_address
+                %tr
+                  %td.txt_bold{:colspan => "2"} #{Spree.t(:billing_address)} #{link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed? }:
+                %tr
+                  %td{:colspan => "2"}
+                    %ul.venue_ctc_details
+                      %li
+                        %span.glyphicon.glyphicon-map-marker
+                        %b #{bill_address.full_name}
+                      %li #{bill_address.address1},#{bill_address.address2},
+                      %li #{bill_address.city}, #{bill_address.state.name},
+                      %li #{bill_address.country.name}, #{bill_address.zipcode}
+                      %li
+                        %span.glyphicon.glyphicon-earphone
+                        \  #{bill_address.phone}
+                      - if bill_address.alternative_phone.present?
+                        %li
+                          %span.glyphicon.glyphicon-phone
+                          \  #{bill_address.alternative_phone}
+              - if @order.has_step?("delivery")
+                %tr
+                  %td.txt_bold{:colspan => "2"} #{Spree.t(:shipments)} #{link_to "(#{Spree.t(:edit)})", checkout_state_path(:delivery) unless @order.completed?}:
+                %tr
+                  %td{:colspan => "2"}
+                    %ul.venue_ctc_details
+                      - @order.shipments.each do |shipment|
+                        %li
+                          %i.icon-truck
+                          = Spree.t(:shipment_details, :stock_location => shipment.stock_location.name, :shipping_method => shipment.shipping_method.name)
+                = render(:partial => 'spree/shared/shipment_tracking', :locals => {:order => @order}) if @order.shipped?
+              %tr
+                %td.txt_bold{:colspan => "2"} #{Spree.t(:payment_information)} #{llink_to "(#{Spree.t(:edit)})", checkout_state_path(:payment) unless @order.completed?}:
+              %tr
+                %td{:colspan => "2"}
+                  %ul.venue_ctc_details
+                    - @order.payments.valid.each do |payment|
+                      %li= render payment
+        .col-md-7.event_right_block
+          %h4 Product Details
+          .col-md-12.txt_bold
+            .col-md-2 Item
+            .col-md-3 Item Details
+            .col-md-2 Price
+            .col-md-2 Quantity
+            .col-md-2 Total
+          -  @order.line_items.each do |item|
+            .col-md-12.orderPurchasedDetails
+              .col-md-2
+                - if item.variant.images.length == 0
+                  = link_to small_image(item.variant.product), item.variant.product
+                - else
+                  = link_to image_tag(item.variant.images.first.attachment.url(:small)), item.variant.product
+              .col-md-3.mtop30= item.variant.product.name
+              .col-md-2.mtop30= item.single_money.to_html
+              .col-md-2.mtop30= item.quantity
+              .col-md-2.mtop30= item.display_amount.to_html
+          .col-md-6.pull-right.mtop10
+            .row
+              .col-md-6 #{Spree.t(:order_total)}:
+              .col-md-6= @order.display_total.to_html
+            .row
+              .col-md-6 #{Spree.t(:subtotal)}:
+              .col-md-6= @order.display_item_total.to_html
+            - if @order.line_item_adjustments.exists?
+              - if @order.all_adjustments.promotion.eligible.exists?
+                - @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments|
+                  .row
+                    .col-md-6 #{Spree.t(:promotion) }: #{label}
+                    .col-md-6= Spree::Money.new(adjustments.sum(&:amount))
+            - if @order.all_adjustments.tax.exists?
+              - @order.all_adjustments.tax.group_by(&:label).each do |label, adjustments|
+                .row
+                  .col-md-6 #{Spree.t(:tax)}: #{ label }
+                  .col-md-6= Spree::Money.new(adjustments.sum(&:amount))
+            - @order.shipments.group_by { |s| s.shipping_method.name }.each do |name, shipments|
+              .row
+                .col-md-6 #{Spree.t(:shipping) }: #{name}
+                .col-md-6= Spree::Money.new(shipments.sum(&:discounted_cost)).to_html
+            - @order.adjustments.eligible.each do |adjustment|
+              - next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0)
+              .row
+                .col-md-6
+                  %strong= adjustment.label
+                .col-md-6
+                  %span= adjustment.display_amount.to_html

@@ -46,7 +46,7 @@ Spree::CheckoutController.class_eval do
           redirect_to  completion_route and return
         else
           session[:order_id] = nil
-          flash.notice = Spree.t(:order_processed_successfully)
+          flash[:success]= Spree.t(:order_processed_successfully)
           flash[:commerce_tracking] = "nothing special"
           redirect_to completion_route and return
         end
