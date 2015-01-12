@@ -31,7 +31,7 @@
                       <% if e.is_public? %>
                           <% if spree_current_user and e.user_joined?(spree_current_user) %>
                               <div class="pull-right unjoin_btn" >
-                                <%= link_to "Dis Join", "/events/#{e.id}/disjoin" ,method: :delete%>
+                                <%= link_to "Leave this Event", "/events/#{e.id}/disjoin" ,method: :delete%>
                               </div>
                           <% else %>
                               <div class="pull-right join_btn" >
