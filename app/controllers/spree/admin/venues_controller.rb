@@ -10,6 +10,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def new
     @venue = Venue.new
     @venue.venue_contacts.build
+    @venue.venue_videos.build
   end
 
   def create
@@ -100,7 +101,8 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def venue_params
     params.require(:venue).permit(:name, :description,:venue_type,:room_dimensions,:capacity,:price_min,
                                   :price_max,:address1,:address2 ,:city,:state,:country,:zip,
-                                  :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id])
+                                  :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id],
+                                  video_urls_attributes: [:url, :_destroy, :id])
   end
 
   def picture_params

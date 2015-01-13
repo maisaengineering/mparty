@@ -1,6 +1,13 @@
 module ApplicationHelper
 
   #alias_method :current_user, Spree::AuthenticationHelpers::spree_current_user
+   YOUTUBE_FORMATS = [
+    %r(https?://youtu\.be/(.+)),
+    %r(https?://www\.youtube\.com/watch\?v=(.*?)(&|#|$)),
+    %r(https?://www\.youtube\.com/embed/(.*?)(\?|$)),
+    %r(https?://www\.youtube\.com/v/(.*?)(#|\?|$)),
+    %r(https?://www\.youtube\.com/user/.*?#\w/\w/\w/\w/(.+)\b)
+    ]
   
   def current_user
    current_spree_user
@@ -56,6 +63,12 @@ module ApplicationHelper
         image_tag 'venue_1.jpg'
       end
     end
+  end
+
+
+  def youtube_id(video_url)
+    video_url.strip!
+    YOUTUBE_FORMATS.find { |format| video_url =~ format } and $1
   end
 
 end

@@ -152,6 +152,25 @@
             = contact_form.link_to_remove "Remove(-)"
   %div{style: 'text-align: right;margin: 5px;'}
     = f.link_to_add "Add new contact(+)", :venue_contacts, "data-target" => "#venue_contacts"
+
+  %legend Video Urls
+  #video_urls
+    = f.fields_for :video_urls do |video_form|
+      .row
+        .alpha.five.columns
+          .field
+            %label Url link
+            %span.required *
+            %br/
+            = video_form.text_field :url,class: 'fullwidth',:type=>"url"
+        .three.columns
+          .field
+            %label
+            %span.required
+            %br/
+            = video_form.link_to_remove "Remove(-)"
+  %div{style: 'text-align: right;margin: 5px;'}
+    = f.link_to_add "Add new Video(+)", :video_urls, "data-target" => "#video_urls"
   .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
     %button.icon-ok.button{:name => "button", :type => "submit"} #{button_name}
     %span.or or

@@ -12,6 +12,7 @@ class VenuesController < ApplicationController
   def show
     @venue = Venue.find(params[:id])
     @pictures = @venue.pictures
+    @videos = @venue.video_urls
     if current_spree_user.present?
       @can_rate_it = check_permission_for_rate_it(@venue, current_spree_user)
       venue_ratings = @venue.rates.first(5)
