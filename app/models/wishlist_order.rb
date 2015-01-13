@@ -8,6 +8,6 @@ class WishlistOrder < ActiveRecord::Base
   belongs_to :wishlist ,foreign_key: 'wishlist_id',class_name: "Spree::Wishlist"
   belongs_to :wished_product ,foreign_key: 'wished_product_id',class_name: "Spree::WishedProduct"
 
-  validates :order_id,:event_id,:wishlist_id,:wished_product_id,presence: true
+  validates :order_id,:wishlist_id,:wished_product_id,presence: true
 
 end

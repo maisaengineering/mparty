@@ -1518,6 +1518,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .mtop10 {
   margin-top:10px;
 }
+.mtop30 {
+  margin-top:30px;
+}
 .mbottom40 {
   margin-bottom:40px;
 }
@@ -1532,6 +1535,10 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .nopleft{
   padding-left:0px;
+}
+.nopadding {
+  padding-left:0px;
+  padding-right:0px;
 }
 .color_white {
   color:#FFFFFF !important;
@@ -1681,7 +1688,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   top:-60px;
   left:0;
   right:0;
-  width: 60%;
+  width:60%;
 }
 /*added by dinesh */
 #infscr-loading {
@@ -1858,42 +1865,48 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   left:0;
   top:0;
 }
-
+#OrderDetails .orderPurchasedDetails {
+  border:1px solid #cccccc;
+  margin-top:10px;
+}
+.txt_bold {
+  font-weight:bold;
+}
+.orderDetails tr td {
+  border:none !important;
+}
 .scroll_wishlist {
   height:270px;
   overflow-x:hidden;
   overflow-y:auto;
 
 }
-
-/***************responsive**********************/
+/***************responsive**********************
 @media (min-width: 768px) {
-
+ 
   .navbar {
     border-radius: 0px;
-  }
-  /* .modal-dialog {
-      width: 324px;
-      margin: 30px auto;
-    }*/
-  .modal1{
-    width:324px;
-    margin:30px auto;
-  }
-  .modal2{
-    width:629px;
-    margin:30px auto;
-  }
-  .modal3{
-    width:595px;
-    margin:30px auto;
-  }
-  .modal5{
-    width:1170px;
-    margin:30px auto;
-  }
 }
-
+/* .modal-dialog {
+    width: 324px;
+    margin: 30px auto;
+  }*/
+.modal1{
+  width:324px;
+  margin:30px auto;
+}
+.modal2{
+  width:629px;
+  margin:30px auto;
+}
+.modal3{
+  width:595px;
+  margin:30px auto;
+}
+.modal5{
+  width:1170px;
+  margin:30px auto;
+}
 /***************our responsive**********************/
 @media screen and (max-device-width:767px) {
   .container {

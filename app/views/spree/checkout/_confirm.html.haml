@@ -24,7 +24,7 @@
             %ul.venue_ctc_details
               %li
                 %span.glyphicon.glyphicon-user
-              %b #{bill_address.full_name}
+                  %b #{bill_address.full_name}
               %li #{bill_address.address1},#{bill_address.address2},
               %li #{bill_address.city}, #{bill_address.state.name},
               %li #{bill_address.country.name}, #{bill_address.zipcode}
@@ -43,7 +43,7 @@
             %ul.venue_ctc_details
               %li
                 %span.glyphicon.glyphicon-user
-              %b #{shipp_address.full_name}
+                  %b #{shipp_address.full_name}
               %li #{shipp_address.address1},#{shipp_address.address2},
               %li #{shipp_address.city}, #{shipp_address.state.name},
               %li #{shipp_address.country.name}, #{shipp_address.zipcode}
@@ -127,4 +127,4 @@
               -# %button.btn{:type => "submit"} CANCEL
             .col-md-4
             .col-md-4
-              = submit_tag Spree.t(:place_order), :class => 'btn btn-primary'
+              = submit_tag Spree.t(:place_order), :class => 'btn btn-primary',disable_with: 'please wait..'

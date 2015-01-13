@@ -45,7 +45,7 @@
               = hidden_field_tag 'save_user_address', '1'
             .col-md-12
               %label
-              = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block'
+              = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block',disable_with: 'please wait..'
   .col-md-6.event_right_block
     - @event = Event.find(session[:event_id]) if session[:event_id].present?
     %h4 Shipping Address
@@ -63,7 +63,7 @@
             %li
               %span.glyphicon.glyphicon-earphone
               \&nbsp; #{ship_address.phone}
-            -if ship_address.alternative_phone
+            - unless ship_address.alternative_phone.blank?
               %li
                 %span.glyphicon.glyphicon-phone
                 \&nbsp; #{ship_address.alternative_phone}
