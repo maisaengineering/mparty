@@ -1607,7 +1607,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   text-align:center;
 }
 .ccdc_bg{
-  background-image:url(../images/dc.png);
+  background-image: image-url('dc.png');
   background-repeat: no-repeat;
   margin-left:15px;
   margin-top:10px;
@@ -1830,9 +1830,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .h3_or{
   margin-top:75px;
 }
-.fb_img{
-  margin-top:60px;
-}
+
 .text-maybe {
   color:#f0ad4e;
 }
@@ -1881,6 +1879,53 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   overflow-y:auto;
 
 }
+#wishlist-modal .modal-body a {
+  color: #bc3804;
+}
+
+/* Facebook */
+.fb-icon-bg {
+  background: #354f88;
+  height: 37px;
+  margin: 0 0 -37px 0;
+  width: 41px;
+}
+
+.fb-icon-bg:after {
+  content: image-url('fb-icon-small.png');
+  display: block;
+  padding: 9px 10px 5px 15px;
+}
+
+.fb-bg {
+  background: #3b5998;
+  display: block;
+  height: 37px;
+  margin: 0 0 30px 41px;
+  width: 210px;
+  cursor:pointer;
+}
+
+.fb-bg:after {
+  color: #fff;
+  content: "sign up with facebook";
+  font-family: 'Oswald', sans-serif;
+  height: 37px;
+  left: 8%;
+  position: relative;
+  text-transform: uppercase;
+  top: 22%;
+  width: 41px;
+}
+.fb-wrap {
+  width:242px;
+  margin:20px auto;
+}
+
+.fb_img{
+  margin-top:60px;
+}
+
 /***************responsive**********************
 @media (min-width: 768px) {
  

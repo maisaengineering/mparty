@@ -26,4 +26,7 @@
           .col-md-1
             %h3.h3_or or
           .col-md-3
-            = link_to image_tag('fb_logo.png',class: 'fb_img',alt: 'Fb login'),spree.spree_user_omniauth_authorize_url(provider: 'facebook')
+            .fb_img.fb-wrap
+              = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
+                .fb-icon-bg
+                .fb-bg
