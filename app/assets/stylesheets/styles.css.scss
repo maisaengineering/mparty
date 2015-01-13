@@ -1889,6 +1889,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   height: 37px;
   margin: 0 0 -37px 0;
   width: 41px;
+  float:left;
 }
 
 .fb-icon-bg:after {
@@ -1901,25 +1902,25 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background: #3b5998;
   display: block;
   height: 37px;
-  margin: 0 0 30px 41px;
-  width: 210px;
+  margin: 0 0 0 41px;
+  width: auto;
   cursor:pointer;
+  padding:8px 12px 8px 12px;
+  color: #fff;
+  float:left;
 }
 
-.fb-bg:after {
-  color: #fff;
-  content: "sign up with facebook";
-  font-family: 'Oswald', sans-serif;
-  height: 37px;
-  left: 8%;
-  position: relative;
-  text-transform: uppercase;
-  top: 22%;
-  width: 41px;
-}
 .fb-wrap {
-  width:242px;
+  width:215px;
   margin:20px auto;
+  height:auto;
+  overflow:hidden;
+}
+.fb-wrap-loginsmall {
+  width:104px;
+  height:auto;
+  overflow:hidden;
+
 }
 
 .fb_img{
