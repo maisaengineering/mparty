@@ -151,4 +151,8 @@ Invitation::Application.routes.draw do
   #Select state by country
   get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
 
+  # Orders ------------
+  get '/account/my-orders'=>"orders#index"
+
+
 end

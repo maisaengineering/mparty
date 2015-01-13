@@ -98,6 +98,11 @@ Spree::User.class_eval do
     event_invitations(2)
   end
 
+  # Completed orders
+  def completed_orders
+    orders.complete.order('completed_at desc')
+  end
+
   #-------------------------------------------------------------------------------------
 
 end
