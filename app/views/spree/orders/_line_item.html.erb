@@ -29,7 +29,12 @@
       </div>
       <div class="col-md-2">
         <% if wished_product %>
-            <%= item_form.number_field :quantity, :min => 0,in:  0..wished_product.quantity - wished_product.quantity_purchased, :class => "line_item_quantity text_6"  %>
+            <% if wished_product.quantity_purchased >= wished_product.quantity %>
+                <p>Already Purchased</p>
+            <% else %>
+                <%= item_form.number_field :quantity, :min => 1,max: wished_product.quantity - wished_product.quantity_purchased , :class => "line_item_quantity text_6"  %>
+            <% end %>
+            
         <% else %>
             <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
         <% end %>

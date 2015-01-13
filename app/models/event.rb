@@ -99,6 +99,15 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def allow_checkout?(user)
+    return false if wishlist.nil? or is_owner?(user)
+    if is_private?
+      user_invited?(user)
+    else
+      user_invited?(user) or user_joined?(user)
+    end
+  end
+
   # cover photo
   def event_photo
     pictures.first

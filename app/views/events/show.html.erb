@@ -131,7 +131,7 @@
     </div>
 
     <% if current_spree_user and @event.show_wishlist?(current_spree_user)  %>
-        <%= render :partial => "show_wishlist", :locals => {:wishlist => @wish_list} %>
+        <%= render  "show_wishlist"  %>
     <% end %>
 
 
