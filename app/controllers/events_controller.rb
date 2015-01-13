@@ -63,7 +63,7 @@ class EventsController < ApplicationController
   def show
     @event = Event.find(params[:id])
     if @event.allow_show?(spree_current_user)
-      @wish_list = @event.wishlist
+      @wishlist = @event.wishlist
       @commentable = @event
       @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
       @comment = Comment.new

@@ -11,7 +11,7 @@
           .fb-wrap
             = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
               .fb-icon-bg
-              .fb-bg
+              .fb-bg Sign up with facebook
       .modal-body
         = form_for Spree::User.new, :as => :spree_user, :url => spree.registration_path(Spree::User.new) ,html: {class: 'form-signin'} do |f|
           .row
