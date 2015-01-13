@@ -10,6 +10,7 @@ class Venue < ActiveRecord::Base
   has_many :reviews, as: :reviewable, dependent: :destroy
   has_many :venue_contacts, inverse_of: :venue,dependent: :destroy
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
+  has_many :video_urls, as: :video_url
 
   ratyrate_rateable 
   has_many :rates, as: :rateable, dependent: :destroy
@@ -29,6 +30,7 @@ class Venue < ActiveRecord::Base
   after_validation :geocode          # auto-fetch coordinates
 
   accepts_nested_attributes_for :venue_contacts, allow_destroy: true,reject_if: proc { |attributes| attributes['full_name'].blank? }
+  accepts_nested_attributes_for :video_urls, allow_destroy: true,reject_if: proc { |attributes| attributes['url'].blank? }
 
   #Fuzzy search
   fuzzily_searchable :name
