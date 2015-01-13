@@ -26,7 +26,7 @@ class RsvpsController < ApplicationController
     end
     respond_to do |format|
       format.html{
-        flash[:success] = "You are dis-joined from event"
+        flash[:success] = "You have Left this event"
         redirect_to event_path(@event)
       }
     end

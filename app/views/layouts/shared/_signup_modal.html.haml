@@ -5,6 +5,13 @@
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
       .modal-header
         %h3#myModalLabel.modal-title Create New Account
+        - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+          .txt_center.color_white
+            %h4 Or
+          .fb-wrap
+            = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
+              .fb-icon-bg
+              .fb-bg
       .modal-body
         = form_for Spree::User.new, :as => :spree_user, :url => spree.registration_path(Spree::User.new) ,html: {class: 'form-signin'} do |f|
           .row

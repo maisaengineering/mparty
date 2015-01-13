@@ -1024,7 +1024,7 @@ label{
   color:#fff !important;
 }
 .unjoin_btn{
-  background-color: #e78f08;
+  background-color: #b22222;
   margin: 0 auto;
   text-align: center;
   color:#ffffff;
@@ -1518,6 +1518,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .mtop10 {
   margin-top:10px;
 }
+.mtop30 {
+  margin-top:30px;
+}
 .mbottom40 {
   margin-bottom:40px;
 }
@@ -1532,6 +1535,10 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .nopleft{
   padding-left:0px;
+}
+.nopadding {
+  padding-left:0px;
+  padding-right:0px;
 }
 .color_white {
   color:#FFFFFF !important;
@@ -1600,7 +1607,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   text-align:center;
 }
 .ccdc_bg{
-  background-image:url(../images/dc.png);
+  background-image: image-url('dc.png');
   background-repeat: no-repeat;
   margin-left:15px;
   margin-top:10px;
@@ -1681,7 +1688,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   top:-60px;
   left:0;
   right:0;
-  width:50%;
+  width:60%;
 }
 /*added by dinesh */
 #infscr-loading {
@@ -1823,9 +1830,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .h3_or{
   margin-top:75px;
 }
-.fb_img{
-  margin-top:60px;
-}
+
 .text-maybe {
   color:#f0ad4e;
 }
@@ -1858,34 +1863,96 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   left:0;
   top:0;
 }
-/***************responsive**********************/
-@media (min-width: 768px) {
+#OrderDetails .orderPurchasedDetails {
+  border:1px solid #cccccc;
+  margin-top:10px;
+}
+.txt_bold {
+  font-weight:bold;
+}
+.orderDetails tr td {
+  border:none !important;
+}
+.scroll_wishlist {
+  height:270px;
+  overflow-x:hidden;
+  overflow-y:auto;
 
-  .navbar {
-    border-radius: 0px;
-  }
-  /* .modal-dialog {
-      width: 324px;
-      margin: 30px auto;
-    }*/
-  .modal1{
-    width:324px;
-    margin:30px auto;
-  }
-  .modal2{
-    width:629px;
-    margin:30px auto;
-  }
-  .modal3{
-    width:595px;
-    margin:30px auto;
-  }
-  .modal5{
-    width:1170px;
-    margin:30px auto;
-  }
+}
+#wishlist-modal .modal-body a {
+  color: #bc3804;
 }
 
+/* Facebook */
+.fb-icon-bg {
+  background: #354f88;
+  height: 37px;
+  margin: 0 0 -37px 0;
+  width: 41px;
+  float:left;
+}
+
+.fb-icon-bg:after {
+  content: image-url('fb-icon-small.png');
+  display: block;
+  padding: 9px 10px 5px 15px;
+}
+
+.fb-bg {
+  background: #3b5998;
+  display: block;
+  height: 37px;
+  margin: 0 0 0 41px;
+  width: auto;
+  cursor:pointer;
+  padding:8px 12px 8px 12px;
+  color: #fff;
+  float:left;
+}
+
+.fb-wrap {
+  width:215px;
+  margin:20px auto;
+  height:auto;
+  overflow:hidden;
+}
+.fb-wrap-loginsmall {
+  width:104px;
+  height:auto;
+  overflow:hidden;
+
+}
+
+.fb_img{
+  margin-top:60px;
+}
+
+/***************responsive**********************
+@media (min-width: 768px) {
+ 
+  .navbar {
+    border-radius: 0px;
+}
+/* .modal-dialog {
+    width: 324px;
+    margin: 30px auto;
+  }*/
+.modal1{
+  width:324px;
+  margin:30px auto;
+}
+.modal2{
+  width:629px;
+  margin:30px auto;
+}
+.modal3{
+  width:595px;
+  margin:30px auto;
+}
+.modal5{
+  width:1170px;
+  margin:30px auto;
+}
 /***************our responsive**********************/
 @media screen and (max-device-width:767px) {
   .container {

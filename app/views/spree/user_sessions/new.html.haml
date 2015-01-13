@@ -22,4 +22,11 @@
               .col-md-12.ptop
                 = link_to "Forgot your password?",recover_password_path
                 = link_to "Register",signup_path,class: 'pull-right'
-/ end inner container section
+        - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+          .col-md-1
+            %h3.h3_or or
+          .col-md-3
+            .fb_img.fb-wrap
+              = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
+                .fb-icon-bg
+                .fb-bg Log in with facebook

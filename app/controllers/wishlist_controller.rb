@@ -23,9 +23,16 @@ class WishlistController < ApplicationController
     end
     wished_product.wishlist = @wishlist
     wished_product.quantity =  params[:quantity] || 1
-    wished_product.save
+    wished_product.save!
     @wishlist.event.update_attribute(:has_wishlist,true) if @wishlist and @wishlist.event
-    render nothing: true
+    respond_to do |format|
+      format.js{ render nothing: true }
+      format.html{
+        redirect_to event_wishlist_url(event_id: @event.id),notice: 'Product added to wishlist'
+      }
+    end
+
+
   end
 
   # DELETE '/event/:event_id/wishlist/remove_product'

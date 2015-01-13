@@ -13,42 +13,40 @@ Spree::CheckoutController.class_eval do
         if session[:event_id].present?
           event = Event.find(session[:event_id])
           wishlist = event.wishlist
-          @order_owner = spree_current_user
-          if @order_owner.nil? # no user => logged in as guest
+          logged_in_user = spree_current_user
+          if logged_in_user.nil? # no user => logged in as guest
             # try to fetch user from invitation if came here via invitation link
             invitation = Invite.find(session[:invitation_id])
-            @order_owner = Spree::User.find_by_email(invitation.try(:recipient_email)) if invitation
+            logged_in_user = Spree::User.find_by_email(invitation.try(:recipient_email)) if invitation
           end
           # --------
-          unless @order.variants.blank?
-            @order.variants.each do |variant|
+          unless @order.line_items.blank?
+            @order.line_items.each do |line_item|
+              variant = line_item.variant
               wished_product = Spree::WishedProduct.where(variant_id: variant.id, wishlist_id: wishlist.id).first
               if wished_product
-                wished_product.quantity_purchased = wished_product.quantity_purchased + @order.line_items.first.quantity
-                if wished_product.quantity - @order.line_items.first.quantity == 0
-                  wished_product.is_purchased = true
+                wished_product.quantity_purchased +=  line_item.quantity
+                wished_product.is_purchased = true  if wished_product.quantity >= wished_product.quantity_purchased
+                if wished_product.save
+                  # create Wishlist Orders( holds which products buy for which wislist and the quantity of products )
+                  wished_product.wishlist_orders.create(wishlist: wishlist,order: @order,quantity_purchased: line_item.quantity)
                 end
-                wished_product.save
-                #TODO create reference of wished product for this order
               end
             end
           end
-
-          if @order_owner.present?
-            @order.created_by_id = @order_owner.id
-            @order.user_id = @order_owner.id
+          if logged_in_user.present?
+            @order.created_by_id = logged_in_user.id
+            @order.user_id = logged_in_user.id
             @order.save
-            flash.notice = Spree.t(:order_processed_successfully)
-            flash[:commerce_tracking] = "nothing special"
-            # redirect_to  completion_route
-          else # Checked out as guest
-            flash[:notice] = "Order has been placed successfully. If you want to track this order please signup."
-            # redirect_to  spree.signup_path(:invite_email => @order.email)
           end
+          session[:order_id] = nil
+          session.delete(:event_id)
+          session.delete(:invitation_id)
+          flash[:success] = Spree.t(:order_processed_successfully)
           redirect_to  completion_route and return
         else
           session[:order_id] = nil
-          flash.notice = Spree.t(:order_processed_successfully)
+          flash[:success]= Spree.t(:order_processed_successfully)
           flash[:commerce_tracking] = "nothing special"
           redirect_to completion_route and return
         end

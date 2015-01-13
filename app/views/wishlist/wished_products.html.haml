@@ -1,28 +1,30 @@
-- if @wishlist.wished_products.size > 0
-  - @wishlist.wished_products.each do |wish|
-    - variant = wish.variant
-    - product = variant.product
-    .row.wishlist_popup_center.wishlist.wished_product
-      .col-md-2
-        .wishlist_img_block
-          - if variant.images.length == 0
-            = small_image(variant.product)
-          - else
-            = image_tag variant.images.first.attachment.url(:small)
-      .col-md-4
-        %h4= product.name
-        %p= truncate(product.description,length: 50)
-      .col-md-2
-        = form_tag update_wished_product_quantity_path(event_id: @event.id),id: 'update-wished-product-quantity-form' ,remote: true do
-          = hidden_field_tag :variant_id, product.master.id
-          = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
-          %button.btn.btn-success.btn_add_quantity.update_product_quantity Update
-      .col-md-2
-        %h5= number_to_currency(variant.price)
-      .col-md-2
-        - if @wishlist.event.is_owner?(spree_current_user) && wish.quantity_purchased == 0
-          = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do
-            %span.glyphicon.glyphicon-trash
+.scroll_wishlist
+  - if @wishlist.wished_products.size > 0
+    - @wishlist.wished_products.each do |wish|
+      - variant = wish.variant
+      - product = variant.product
+      - p_url = spree.product_url(product, :taxon_id => @taxon.try(:id),event_id: @event.id)
+      .row.wishlist_popup_center.wishlist.wished_product
+        .col-md-2
+          .wishlist_img_block
+            - if variant.images.length == 0
+              = link_to small_image(variant.product),p_url
+            - else
+              = link_to image_tag(variant.images.first.attachment.url(:small)),p_url
+        .col-md-4
+          %h4=  link_to product.name ,p_url
+          %p= truncate(product.description,length: 50)
+        .col-md-2
+          = form_tag update_wished_product_quantity_path(event_id: @event.id),id: 'update-wished-product-quantity-form' ,remote: true do
+            = hidden_field_tag :variant_id, product.master.id
+            = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
+            %button.btn.btn-success.btn_add_quantity.update_product_quantity Update
+        .col-md-2
+          %h5= number_to_currency(variant.price)
+        .col-md-2
+          - if @wishlist.event.is_owner?(spree_current_user) && wish.quantity_purchased == 0
+            = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do
+              %span.glyphicon.glyphicon-trash
 
 :javascript
   // before updating quantity

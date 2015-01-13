@@ -132,7 +132,7 @@ Invitation::Application.routes.draw do
 
   ## Wish list ----------------------------------------------------------------
   get '/event/:event_id/whishlist'=>"wishlist#index",as: :event_wishlist
-  post '/event/:event_id/wishlist/add_product'=>"wishlist#add_product"
+  post '/event/:event_id/wishlist/add_product'=>"wishlist#add_product",as: :add_wished_product_to_wishlist
   delete '/event/:event_id/wishlist/remove_product'=>"wishlist#remove_product",as: :remove_wished_product
   get '/event/:event_id/wishlist/wished_products'=>"wishlist#wished_products"
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
@@ -150,5 +150,9 @@ Invitation::Application.routes.draw do
 
   #Select state by country
   get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
+
+  # Orders ------------
+  get '/account/my-orders'=>"orders#index"
+
 
 end

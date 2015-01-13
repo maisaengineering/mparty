@@ -21,10 +21,10 @@
                 %form{:role => "form"}
                   .col-md-6
                     %label
-                    = ship_form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true
+                    = ship_form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
                   .col-md-6
                     %label
-                    = ship_form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true
+                    = ship_form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
                   .col-md-6
                     %label
                     = ship_form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
@@ -46,11 +46,11 @@
                     = ship_form.text_field :city, class: 'form-control' ,placeholder: 'City*' ,required: true
                   .col-md-6
                     %label
-                    = ship_form.text_field :zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*'
+                    = ship_form.text_field :zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*',pattern: "[0-9]{6}", title:"Invalid Zip Number"
                   - unless Spree::Config[:alternative_shipping_phone]
                     .col-md-6
                       %label
-                      = ship_form.phone_field :phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
+                      = ship_form.phone_field :phone ,value:  current_spree_user.phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number"
                     .col-md-6
                       %label
                       = ship_form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"

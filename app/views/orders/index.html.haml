@@ -1,0 +1,26 @@
+.container-fluid{:style => "background-color:#f1f2f7"}
+  .container
+    .row
+      .title_name= Spree.t(:my_orders)
+    .row.mtop20
+      - if @orders.present?
+        %table.order-summary.col-md-12.table.table-striped
+          %thead
+            %tr
+              %th.order-number= I18n.t(:number, :scope => 'activerecord.attributes.spree/order')
+              %th.order-date= Spree.t(:date)
+              %th.order-status= Spree.t(:status)
+              %th.order-payment-state= Spree.t(:payment_state)
+              %th.order-shipment-state= Spree.t(:shipment_state)
+              %th.order-total= Spree.t(:total)
+          %tbody
+            - @orders.each do |order|
+              %tr{class: cycle('even', 'odd')}
+                %td.order-number= link_to order.number, "/orders/#{order.number}"
+                %td.order-date= l order.completed_at.to_date
+                %td.order-status= Spree.t("order_state.#{order.state}").titleize
+                %td.order-payment-state= Spree.t("payment_states.#{order.payment_state}").titleize if order.payment_state
+                %td.order-shipment-state= Spree.t("shipment_states.#{order.shipment_state}").titleize if order.shipment_state
+                %td.order-total= order.display_total
+      - else
+        %p= Spree.t(:you_have_no_orders_yet)

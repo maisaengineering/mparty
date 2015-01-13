@@ -20,40 +20,44 @@
                   <div class="col-md-2">SELECT QUANTITY</div>
                   <div class="col-md-1">PRICE</div>
                 </div>
-                <% @wishlist.wished_products.each_with_index do |wish,i|
-                  variant = wish.variant
-                  product = variant.product %>
-                    <div class="row wishlist_popup_center event_rec_wishlist_block">
-                      <div class="col-md-2">
-                        <div class="wishlist_img_block">
-                          <% if variant.images.length == 0 %>
-                              <%= small_image(variant.product) %>
+                <div class="scroll_wishlist">
+
+                  <% @wishlist.wished_products.each_with_index do |wish,i|
+                    variant = wish.variant
+                    product = variant.product %>
+                      <% p_url = spree.product_url(product)  %>
+                      <div class="row wishlist_popup_center event_rec_wishlist_block">
+                        <div class="col-md-2">
+                          <div class="wishlist_img_block">
+                            <% if variant.images.length == 0 %>
+                                <%= link_to small_image(variant.product) ,p_url%>
+                            <% else %>
+                                <%= link_to image_tag(variant.images.first.attachment.url(:small)),p_url %>
+                            <% end %>
+                          </div>
+                        </div>
+                        <div class="col-md-2">
+                          <h4><%= link_to product.name ,p_url %></h4>
+                          <p<%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
+                        </div>
+                        <div class="col-md-2">
+                          <p><%= wish.quantity %></p>
+                        </div>
+                        <div class="col-md-2">
+                          <p><%= wish.quantity_purchased %></p>
+                        </div>
+                        <div class="col-md-2">
+                          <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
+                          <% if !wish.is_purchased %>
+                              <%= number_field_tag "quantity[#{i}]", 0, in: 0..wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
                           <% else %>
-                              <%= image_tag variant.images.first.attachment.url(:small) %>
+                              <p>Already Purchased</p>
                           <% end %>
                         </div>
+                        <div class="col-md-1"><p><%= number_to_currency(variant.price) %></p></div>
                       </div>
-                      <div class="col-md-2">
-                        <h4><%= product.name %></h4>
-                        <p<%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
-                      </div>
-                      <div class="col-md-2">
-                        <p><%= wish.quantity %></p>
-                      </div>
-                      <div class="col-md-2">
-                        <p><%= wish.quantity_purchased %></p>
-                      </div>
-                      <div class="col-md-2">
-                        <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
-                        <% if !wish.is_purchased %>
-                            <%= number_field_tag "quantity[#{i}]", 0, in: 0..wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
-                        <% else %>
-                            <p>Already Purchased</p>
-                        <% end %>
-                      </div>
-                      <div class="col-md-1"><p><%= number_to_currency(variant.price) %></p></div>
-                    </div>
-                <%end  %>
+                  <%end  %>
+                </div>
                 <div class="row wishlist_popup_footer">
                   <div class="col-md-4"></div>
                   <div class="col-md-4"></div>
