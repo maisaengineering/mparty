@@ -12,8 +12,7 @@ class EventPolicy < Struct.new(:user, :event)
   # A public event can be shown to all
   # A private event permitted to only owner and and the users who are invited
   def show?
-
-    return false if event.is_public?
+    return true if event.is_public?
     if user and (event.is_owner?(user) or event.user_invited?(user))
       true
     else
@@ -74,7 +73,7 @@ class EventPolicy < Struct.new(:user, :event)
 
   # only joined users are permitted for commenting
   def allow_commenting?
-
+    
   end
 
 
