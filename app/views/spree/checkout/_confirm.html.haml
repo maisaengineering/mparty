@@ -124,7 +124,7 @@
         .row.mtop20
           .col-md-12
             .col-md-4
-              -# %button.btn{:type => "submit"} CANCEL
+              = link_to 'CANCEL','/cart',class: 'btn btn-primary',style:  'background: #cfcfcf;border: #cfcfcf;'
             .col-md-4
             .col-md-4
               = submit_tag Spree.t(:place_order), :class => 'btn btn-primary',disable_with: 'please wait..'

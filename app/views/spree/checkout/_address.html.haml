@@ -7,10 +7,10 @@
           %form{:role => "form"}
             .col-md-6
               %label
-              = form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true
+              = form.text_field :firstname,value:   spree_current_user.try(:first_name), class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true
             .col-md-6
               %label
-              = form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true
+              = form.text_field :lastname,value: spree_current_user.try(:last_name), class: 'form-control' ,placeholder: 'Last Name*' ,required: true
             .col-md-6
               %label
               = form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true

@@ -1,0 +1,44 @@
+.container-fluid.banner_padding
+  .container
+    .row
+      .col-md-12
+        .title_name.t_left Login
+    .row
+      = render :partial => 'spree/shared/error_messages', :locals => { :target => @user }
+      = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
+        .col-md-3
+          .row
+            .col-md-12
+              %label
+              = f.email_field :email,placeholder: 'Email Address*',class: 'form-control', required: true,autofocus: true,id: 'login_email'
+            .col-md-12
+              %label
+              = f.password_field :password,placeholder: 'Password',class: 'form-control', required: true,id: 'login_password'
+          %br
+            .row
+              .col-md-12
+                = f.submit "Login", class: "btn btn-primary btn-block"
+              .col-md-12.ptop
+                = link_to "Forgot your password?",recover_password_path
+                = link_to "Register",signup_path,class: 'pull-right'
+      - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
+        .col-md-1
+          %h3.h3_or or
+        .col-md-3
+          .fb_img.fb-wrap
+            = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
+              .fb-icon-bg
+              .fb-bg Log in with facebook
+      - if Spree::Config[:allow_guest_checkout]
+        .col-md-1
+          %h3.h3_or or
+        .col-md-3
+          = form_for @order, :url => update_checkout_registration_path, :method => :put, :html => { :id => 'checkout_form_registration'} do |f|
+            - if flash[:registration_error]
+              .flash.error= flash[:registration_error]
+            .col-md-12
+              %label
+              = f.email_field :email, :class => 'form-control',placeholder: Spree.t(:guest_user_account) , required: true
+            .col-md-12
+              %label
+              = f.submit Spree.t(:continue), :class => 'btn btn-primary btn-block'
