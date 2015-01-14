@@ -89,3 +89,6 @@ end
 gem 'delayed_job_active_record'
 gem "daemons"
 
+# Authorization
+gem "pundit"
+

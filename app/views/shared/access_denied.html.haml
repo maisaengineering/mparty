@@ -1,0 +1,6 @@
+.text-center
+  %h1 #{flash[:error]}
+.alert.alert-danger.alert-dismissable
+  %h4 Access to the request page has been denied
+  %p You do not have sufficient credentials to access
+  = link_to 'Back',request.referrer || spree.root_path

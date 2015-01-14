@@ -1,9 +1,26 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
   helper_method :register_handlebars, :event_data_points
 
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def auth_user
     redirect_to spree_login_path unless signed_in?
+  end
+
+  def pundit_user
+    spree_current_user
+  end
+
+  def user_not_authorized(exception)
+    #policy_name = exception.policy.class.to_s.underscore
+    #flash[:error] = t('pundit.access_denied')
+    # render file: "public/401.html", status: :unauthorized
+    render 'shared/access_denied'
+    #flash[:error] = t "#{policy_name}.#{exception.query}", scope: "pundit", default: :default
+    #redirect_to(request.referrer || spree.root_path)
   end
 
   def register_handlebars

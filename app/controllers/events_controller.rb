@@ -62,6 +62,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    authorize @event, :show?
     if @event.allow_show?(spree_current_user)
       @wishlist = @event.wishlist
       @commentable = @event
