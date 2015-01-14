@@ -38,11 +38,13 @@ Spree::CheckoutController.class_eval do
             @order.created_by_id = logged_in_user.id
             @order.user_id = logged_in_user.id
             @order.save
+            flash[:success] = Spree.t(:order_processed_successfully)
+          else
+            flash[:success] = "Your order processed successfully,please user order nuber '#{@order.number}' to track."
           end
           session[:order_id] = nil
           session.delete(:event_id)
           session.delete(:invitation_id)
-          flash[:success] = Spree.t(:order_processed_successfully)
           redirect_to  completion_route and return
         else
           session[:order_id] = nil
