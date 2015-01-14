@@ -1,4 +1,5 @@
-- @event = @order.wishlist_orders.first.wishlist.event
+- wo = @order.wishlist_orders.first
+- @event = wo.wishlist.event if wo and wo.wishlist
 .container-fluid{:style => "background-color:#f1f2f7"}
   .container
     .row

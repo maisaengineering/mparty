@@ -34,7 +34,7 @@
             <% else %>
                 <%= item_form.number_field :quantity, :min => 1,max: wished_product.quantity - wished_product.quantity_purchased , :class => "line_item_quantity text_6"  %>
             <% end %>
-            
+
         <% else %>
             <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
         <% end %>
