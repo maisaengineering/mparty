@@ -4,6 +4,10 @@ class EventPolicy < Struct.new(:user, :event)
     user ? true : false
   end
 
+  def new?
+    user ? true : false
+  end
+
   # Only owner of the event can update
   def update?
     event.is_owner?(user)
@@ -25,8 +29,8 @@ class EventPolicy < Struct.new(:user, :event)
   def show_wishlist?
     return false if event.wishlist.nil?
     return true if event.is_owner?(user)
-    if event.is_private?.
-        event.user_invited?(user)
+    if event.is_private?
+      event.user_invited?(user)
     else
       event.user_invited?(user) or event.user_joined?(user)
     end
@@ -51,7 +55,7 @@ class EventPolicy < Struct.new(:user, :event)
     end
   end
 
-  def allow_checkout?(user)
+  def allow_checkout?
     return false if event.wishlist.nil? or event.is_owner?(user)
     if event.is_private?
       event.user_invited?(user)
@@ -73,7 +77,27 @@ class EventPolicy < Struct.new(:user, :event)
 
   # only joined users are permitted for commenting
   def allow_commenting?
-    
+    if event.user_joined?(user)
+      true
+    elsif event.is_public? or event.is_owner?(user)
+      true
+    elsif event.is_private? and user and event.user_invited?(user)
+      true
+    else
+      false
+    end
+  end
+
+  def add_ship_address?
+    event and event.wishlist and event.is_owner?(user)
+  end
+
+  def join?
+
+  end
+
+  def leave?
+    event.user_joined?(user)
   end
 
 

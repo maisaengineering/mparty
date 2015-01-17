@@ -1,7 +1,8 @@
 <div class="container-fluid">
   <div class="container" >
     <!--Add more guests modal-->
-    <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+
+    <% if policy(@event).invite? %>
         <div class="modal fade" id="add_more_guests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal2">
             <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
@@ -49,13 +50,13 @@
         <div class="row event_margin">
           <div class="col-md-12">
             <% if @event.is_public? %>
-                <% if spree_current_user and @event.user_joined?(spree_current_user) %>
+                <% if policy(@event).leave? %>
                     <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right" %>
                 <% else %>
                     <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn join_btn pull-right" %>
                 <% end  %>
             <% end %>
-            <% if current_spree_user and current_spree_user.id == @event.user_id && @event.starts_at >= Date.today %>
+            <% if policy(@event).invite? && @event.starts_at >= Date.today %>
                 <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a>
             <% end %>
           </div>
@@ -77,8 +78,7 @@
           <% end %>
         </div>
 
-
-        <% if current_spree_user and current_spree_user.id == @event.user_id  %>
+        <%  if policy(@event).update? %>
             <div class="row count_btns_margin">
               <div class="col-md-2">
                 <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
@@ -130,7 +130,7 @@
       </div>
     </div>
 
-    <% if current_spree_user and @event.show_wishlist?(current_spree_user)  %>
+    <% if policy(@event).show_wishlist? %>
         <%= render  "show_wishlist"  %>
     <% end %>
 
@@ -163,7 +163,7 @@
     <div class="row">
       <div class="col-md-12">
         <h4>Comments</h4>
-        <% if current_spree_user %>
+        <% if policy(@event).allow_commenting? %>
             <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
                 <%= hidden_field_tag :resource ,'event' %>
                 <%= hidden_field_tag :resource_id ,@event.id %>

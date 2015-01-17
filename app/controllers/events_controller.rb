@@ -26,6 +26,7 @@ class EventsController < ApplicationController
   def new
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new(session[:event_data])
+    authorize @event, :new?
     @event_templates = Spree::Admin::Template.select([:id,:name])
   end
 
@@ -47,33 +48,17 @@ class EventsController < ApplicationController
   def create
     @event = current_spree_user.events.new(event_params)
     @event_templates = Spree::Admin::Template.select([:id,:name])
-
-    # if @event.save
-    #   session.delete(:event_data) if session[:event_data]
-    #   if params[:commit] == "Create"
-    #     redirect_to events_path
-    #   else
-    #     render 'add_guests'
-    #   end
-    # else
-    #   render 'new'
-    # end
   end
 
   def show
     @event = Event.find(params[:id])
     authorize @event, :show?
-    if @event.allow_show?(spree_current_user)
-      @wishlist = @event.wishlist
-      @commentable = @event
-      @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
-      @comment = Comment.new
-      @event_template = Spree::Admin::Template.where(id: @event.template_id).first
-      @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
-    else
-      flash[:error] = "Access Denied"
-      redirect_to spree.root_url
-    end
+    @wishlist = @event.wishlist
+    @commentable = @event
+    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
+    @comment = Comment.new
+    @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
   end
 
 
@@ -111,11 +96,13 @@ class EventsController < ApplicationController
 
   def invite_with_wishlist
     @event = Event.find(params[:event_id])
+    authorize @event, :invite?
     @wished_products = @event.wishlist.wished_products if @event.wishlist
   end
 
   def send_invitation
     @event = Event.find(params[:event_id])
+    authorize @event, :invite?
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
     if params[:friend_emails].present?
       e = params[:friend_emails].split(',')
@@ -205,7 +192,7 @@ class EventsController < ApplicationController
       format.json
       format.html
     end
-  end  
+  end
 
   def remove_product_from_wishlist
     @wished_product = Spree::WishedProduct.find(params[:product_id])

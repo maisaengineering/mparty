@@ -36,7 +36,7 @@
               </div>
             </div>
         <% end %>
-        <% if spree_current_user and @event.allow_checkout?(spree_current_user) %>
+        <% if policy(@event).allow_checkout? %>
             <%= render 'wishlist/invitee_wishlist' %>
             <div class="row">
               <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal">
@@ -48,49 +48,3 @@
       </div>
     </div>
 <% end %>
-
-
-
-
-
-<!--
-<%# if wishlist.wished_products.size > 0 %>
-    <div class="form_margin">
-      <div class="row">
-        <div class="wishlist_main">
-          <div class="wishlist_header"><table width="100%">
-            <tr>
-              <td>View</td>
-              <td>Item Description</td>
-              <td>Price</td>
-              <td>Requested Qty.</td>
-              <td>Purchased Qty.</td>
-            </tr>
-          </table></div>
-          <%# wishlist.wished_products.each do |wish| %>
-<%#  variant = wish.variant  %>
-<%# product = variant.product %>
-              <div class="wishlist">
-                <div class="col-md-1 wlist">
-                  <%# if variant.images.length == 0 %>
-<%#= small_image(variant.product) %>
-<%# else %>
-<%#= image_tag variant.images.first.attachment.url(:small) %>
-<%# end %>
-                </div>
-                <div class="col-md-1 wlist_id"><%#= product.name %></div>
-                <div class="col-md-1 wlist_p"> <%#= number_to_currency(variant.price) %></div>
-                <div class="col-md-1 wlist_rq"> <%#= wish.quantity %></div>
-                <div class="col-md-1 wlist_pq"><%#= wish.quantity_purchased %></div>
-                <%# if current_spree_user.id == @event.owner.id && wish.quantity_purchased == 0 %>
-<%#= link_to "Remove", remove_product_from_wishlist_path(:product_id => wish.id), :confirm => "Are you sure?",class: 'wlist_rmv_btn' %>
-<%# end %>
-              </div>
-          <%# end %>
-        </div>
-      </div>
-    </div>
-<%# else -%>
-    <p style="margin-left: 40px;"><%#= Spree.t(:your_wishlist_is_empty) %></p>
-    <p style="margin-left: 40px;"> Do you want to send wish list? please <%#= link_to 'create', spree.new_wishlist_path(event_id: @event.id) %> one</p>
-<%# end %>-->

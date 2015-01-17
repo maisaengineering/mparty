@@ -1,13 +1,13 @@
 class WishlistController < ApplicationController
   before_filter :auth_user
   before_action :find_wishlist
-  before_action :check_authorization # only event owner can add or remove products
   skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product,:update_quantity]
 
 
   #GET '/event/:event_id/wishlist'
   def index
     @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
+    authorize @wishlist, :show?
     #session[:wishlist_id] = @wishlist.id
     @products = Spree::Product.all
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
@@ -16,6 +16,7 @@ class WishlistController < ApplicationController
 
   # POST '/event/:event_id/wishlist/add_product'
   def add_product
+    authorize @wishlist, :add_products?
     if @wishlist.include? params[:variant_id]
       wished_product = @wishlist.wished_products.detect {|wp| wp.variant_id == params[:variant_id].to_i }
     else
@@ -37,6 +38,7 @@ class WishlistController < ApplicationController
 
   # DELETE '/event/:event_id/wishlist/remove_product'
   def remove_product
+    authorize @wishlist, :remove_products?
     wished_product = @wishlist.wished_products.where(variant_id: params[:variant_id]).first
     wished_product.destroy if wished_product
     render nothing: true
@@ -44,11 +46,13 @@ class WishlistController < ApplicationController
 
   #GET /event/:event_id/wishlist/wished_products
   def wished_products
+    authorize @wishlist, :show_wished_products?
     render layout: false
   end
 
   # POST /event/:event_id/wishlist/update-product-quantity
   def update_quantity
+    authorize @wishlist, :update_quantity?
     wished_product = @wishlist.wished_products.where(variant_id: params[:variant_id].to_i).first
     if wished_product.update_attribute(:quantity, params[:quantity])
       flash.now[:success] = "Quantity updated successfully"
@@ -58,6 +62,7 @@ class WishlistController < ApplicationController
   end
 
   def shipping_address
+    authorize @event, :add_ship_address?
     if @event.shipping_address_id.present?
       @ship_address = @event.ship_address
       @ship_address.update_attributes(address_params)
@@ -90,10 +95,5 @@ class WishlistController < ApplicationController
     end
   end
 
-  def check_authorization
-    unless @event.is_owner?(spree_current_user)
-      flash[:error] = "Access Denied"
-      redirect_to spree.root_url and return
-    end
-  end
+
 end
