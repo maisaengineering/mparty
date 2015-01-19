@@ -77,6 +77,7 @@ class EventPolicy < Struct.new(:user, :event)
 
   # only joined users are permitted for commenting
   def allow_commenting?
+    return false unless user
     if event.user_joined?(user)
       true
     elsif event.is_public? or event.is_owner?(user)
@@ -97,7 +98,7 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def leave?
-    event.user_joined?(user)
+    user and event.user_joined?(user)
   end
 
 
