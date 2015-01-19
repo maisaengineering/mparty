@@ -4,7 +4,7 @@
 
 <div class="col-md-12">
   <label></label>
-  <%= text_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}",
+  <%= text_field_tag "#{param_prefix}[name]", "",
                      { id: "name_on_card_#{payment_method.id}",class: 'form-control',placeholder: "Name On Card"} %>
 </div>
 
@@ -38,3 +38,9 @@
 
 <%= hidden_field_tag "#{param_prefix}[cc_type]", '', :id => "cc_type", :class => 'ccType' %>
 
+
+<script type="text/javascript">
+    $('input#card_number').payment('formatCardNumber');
+    $('input#card_expiry').payment('formatCardExpiry');
+    $('input#card_code').payment('formatCardCVC');
+</script>
