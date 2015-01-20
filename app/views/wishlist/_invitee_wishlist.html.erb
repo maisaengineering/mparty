@@ -51,7 +51,7 @@
                           <% if wish.quantity_purchased >= wish.quantity %>
                               <p>Already Purchased</p>
                           <% else %>
-                              <%= number_field_tag "quantity[#{i}]", 0, min: 1 ,max: wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
+                              <%= number_field_tag "quantity[#{i}]", 0, min: 0 ,max: wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
                           <% end %>
                         </div>
                         <div class="col-md-1"><p><%= number_to_currency(variant.price) %></p></div>
