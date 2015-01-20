@@ -1,13 +1,24 @@
 <%= form_tag(send_invitation_path, class: 'form_margin',id: 'invite_friends_form') do %>
     <%= hidden_field_tag(:event_id, @event.id) %>
     <%= hidden_field_tag(:friend_emails) %>
+    <div class="col-md-4">
+      <label></label>
+      <a href="<%= spree.root_url%>contacts/gmail" class="btn btn-lg btn-danger btn-block">GMail</a>
+    </div>
     <div class="col-md-12 invitation_text">
       <label></label>
       <div id="tags" class="tags_wrap">
         <input type="text" name="emails_autocomplete" placeholder="Enter email with comma separated" class="biginput" id="emails_autocomplete">
       </div>
     </div>
-    <div class="col-md-4"></div>
+    <div class="col-md-12"> 
+      <% unless @contacts.blank? %>
+        <% @contacts.each do |contact| %>
+          <%= check_box("contacts", contact[:email],{checked: false}) %> <%=contact[:name]%> => <%=contact[:email]%>
+          <br>
+        <% end %>
+      <% end %>
+    </div>
     <div class="col-md-4">
       <label></label>
       <a href="<%= event_url(@event) %>" class="btn btn-lg btn-primary btn-block invite_btn_cancel" type="submit">CANCEL</a> </div>
@@ -15,7 +26,7 @@
       <label></label>
       <%= submit_tag("INVITE",class: 'btn btn-lg btn-primary btn-block upload_btn_done') %>
     </div>
-<% end  %>
+<% end %>
 
 
 
