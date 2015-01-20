@@ -1,0 +1,12 @@
+.container-fluid
+  .container
+    = render 'products/top_section'
+    #choose_products.row.mtop40
+      .col-md-3.filter{}
+        = render :partial => 'spree/shared/taxonomies'
+        = render :partial => 'spree/shared/filters' if @taxon.children.empty?
+      #taxon_products
+        = render 'spree/shared/products', products: @products, taxon: @taxon,wishlist: @wishlist
+    #taxon_children.row.mtop40
+      - unless params[:keywords].present?
+        = render :partial => 'taxon', :collection => @taxon.children

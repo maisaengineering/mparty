@@ -1,0 +1,19 @@
+.container-fluid
+  .container
+    = render 'products/top_section'
+    #choose_products.row.mtop40
+      .col-md-3.filter{}
+        - if "spree/products" == params[:controller] && @taxon
+          = render :partial => 'spree/shared/filters'
+        - else
+          = render :partial => 'spree/shared/taxonomies'
+      - if params[:keywords]
+        #search_results{"data-hook" => "search_results"}
+          - if @products.empty?
+            %h6.search-results-title= Spree.t(:no_products_found)
+          - else
+            = render 'spree/shared/products', products: @products, taxon: @taxon,wishlist: @wishlist
+      - else
+        #homepage_products
+          -#- cache(cache_key_for_products) do
+          = render 'spree/shared/products', products: @products, taxon: @taxon,wishlist: @wishlist

@@ -1,16 +1,29 @@
 class WishlistController < ApplicationController
+
+  include Spree::Core::ControllerHelpers::Auth
+  include Spree::Core::ControllerHelpers::RespondWith
+  include Spree::Core::ControllerHelpers::SSL
+  include Spree::Core::ControllerHelpers::Common
+  include Spree::Core::ControllerHelpers::Search
+  include Spree::Core::ControllerHelpers::StrongParameters
+  include Spree::Core::ControllerHelpers::Order
+
+
   before_filter :auth_user
   before_action :find_wishlist
   skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product,:update_quantity]
 
-
+  helper 'spree/taxons'
   #GET '/event/:event_id/wishlist'
   def index
     @wishlist= @event.wishlist.nil?  ? Spree::Wishlist.create(event_id: params[:event_id], name: @event.name, user_id: spree_current_user.id) :  @event.wishlist
+    session[:wishlist_id] = @wishlist.id
     authorize @wishlist, :show?
     #session[:wishlist_id] = @wishlist.id
-    @products = Spree::Product.all
+    @searcher = build_searcher(params)
+    @products = @searcher.retrieve_products
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
+    @taxonomies = Spree::Taxonomy.includes(root: :children)
   end
 
 

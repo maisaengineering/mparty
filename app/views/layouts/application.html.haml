@@ -23,5 +23,6 @@
       %div= image_tag('loading-indicator.gif')
     #wrapper
       = render 'layouts/shared/header'
+      = breadcrumbs(@taxon)
       = yield
     = render 'layouts/shared/footer'
