@@ -154,5 +154,9 @@ Invitation::Application.routes.draw do
   # Orders ------------
   get '/account/my-orders'=>"orders#index"
 
+  # mail contacts
+  get "/contacts/:provider/contact_callback" => "events#import_and_invite"
+
+
 
 end

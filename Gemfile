@@ -92,3 +92,5 @@ gem "daemons"
 # Authorization
 gem "pundit"
 
+# Mail Contacts
+gem 'omnicontacts'
