@@ -407,7 +407,7 @@ label{
   border-color: #cfcfcf;
 }
 .wishlist_header{
-  margin-top:40px;
+  margin-top:20px;
 }
 .wishlist_header input{
   border:1px solid #ccc;
@@ -1204,27 +1204,28 @@ label{
 .valid_separate a {
   color:#337ab7;
 }
+/*
 .edit_event_btn{
-  height: 30px;
-  width: 100%;
-  float: left;
-  color: #fff;
-  background-color:#ef5323;
-  text-align: center;
-  font-size: 24px;
+height: 30px;
+width: 100%;
+float: left;
+color: #fff;
+background-color:#ef5323;
+text-align: center;
+font-size: 24px;
 }
 
 .edit_event_btn h4{
-  margin-top:6px;
+	margin-top:6px;
 }
 .event_photos{
-  width: 100%;
-  position: relative;
-  top: -18px;
+width: 100%;
+position: relative;
+top: -18px;
 }
 
 .event_photos_block{
-  height:250px;
+  height:250px; 
 }
 .event_photos_block img{
   max-height: 200px;
@@ -1232,16 +1233,16 @@ label{
 .event_photo_prev,.event_photo_next{
   top: 100px;
   width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  background-color: #555;
+height: 30px;
+border-radius: 15px;
+background-color: #555;
 }
 .event_photo_prev{
   left: -72px;
 }
 .event_photo_next{
   right: -72px;
-}
+}*/
 .event_template {
   width:450px;
   height:350px;
@@ -1476,7 +1477,8 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   color:#ffffff !important;
 }
 .event_photos_block img{
-  max-height: 200px;
+  max-height: 245px;
+  width:245px;
 }
 .event_photo_prev,.event_photo_next{
   top: 100px;
@@ -1486,26 +1488,18 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   background-color: #555;
 }
 .event_photo_prev{
-  left: -72px;
+  left: -15px;
+  top:130px;
 }
 .event_photo_next{
-  right: -72px;
+  right: -5px;
+  top:130px;
 }
 /*************************/
 
 /*(15/12/2014)*/
 
 /*preset css*/
-.picCropArea {
-  border:1px dashed #cccccc;
-  width:240px;
-  height:240px;
-  margin:10px auto;
-}
-#img-preview img{
-  height: 240px;
-  width: 240px;
-}
 
 .ptopbottom {
   padding-top:5px;
@@ -1519,8 +1513,14 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .ptop_medium {
   padding-top:20px;
 }
-.mtop70{
+.mtop70 {
   margin-top:70px;
+}
+.mtop60 {
+  margin-top:60px;
+}
+.mtop50 {
+  margin-top:60px;
 }
 .mtop40 {
   margin-top:40px;
@@ -1534,6 +1534,15 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .mtop30 {
   margin-top:30px;
 }
+.mtop5 {
+  margin-top:5px;
+}
+.mright5 {
+  margin-right:5px;
+}
+.mbottom50 {
+  margin-bottom:50px;
+}
 .mbottom40 {
   margin-bottom:40px;
 }
@@ -1542,6 +1551,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .mbottom10 {
   margin-bottom:10px;
+}
+.mleft10 {
+  margin-left:10px;
 }
 .txt_center {
   text-align:center;
@@ -1584,15 +1596,31 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 #eventDesignPreview {
   position: relative;
   transform: scale(0.545);
-  transform-origin: center top;
+  transform-origin: left top;
   -webkit-transform: scale(0.545);
-  -webkit-transform-origin: center top;
+  -webkit-transform-origin: left top;
   -ms-transform: scale(0.545);
-  -ms-transform-origin: center top;
+  -ms-transform-origin: left top;
   -moz-transform: scale(0.545);
-  -moz-transform-origin: center top;
+  -moz-transform-origin: left top;
   height: 350px;
 }
+
+#eventDesignPreviewInvitee #eventDesignPreview {
+  transform: scale(1);
+  transform-origin: center top;
+  -webkit-transform: scale(1);
+  -webkit-transform-origin: center top;
+  -ms-transform: scale(1);
+  -ms-transform-origin: center top;
+  -moz-transform: scale(1);
+  -moz-transform-origin: center top;
+  height:auto;
+  overflow:hidden;
+}
+#eventDesignPreviewInvitee .eventDesignContainer {
+  margin:0 auto;}
+
 .contentplace {
   position:absolute;
   z-index:10;
@@ -1939,6 +1967,117 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .fb_img{
   margin-top:60px;
 }
+.bg_white {
+  background-color:#ffffff;
+  padding-bottom:20px;
+}
+.wishlist_eventpreview {
+  font-size:12px !important;
+}
+.wishlist_eventpreview img {
+  width:75px;
+}
+.icon-success {
+  color:#8bd92f;
+}
+.icon-warning {
+  color:#f0ad4e;
+}
+.icon-black {
+  color:#555555;
+}
+.icon-danger {
+  color:#D50E12;
+}
+.event_wishlist_table {
+  width:99%;
+  border:1px solid #cccccc;
+  padding:0 6px;
+}
+
+#f1_container {
+  position: relative;
+  margin: 10px auto;
+  width: 900px;
+  height: 643px;
+  z-index: 1;
+
+}
+#f1_container {
+  perspective: 1000;
+}
+#f1_container #f1_card {
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 1.0s linear;
+
+}
+/*#f1_container:hover #f1_card {
+  transform: rotateY(180deg);
+  box-shadow: -5px 5px 5px #aaa;
+  
+}*/
+#f1_container .hover {
+  transform: rotateY(180deg);
+  border:1px solid #eeeeee;
+
+}
+#f1_container .face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  z-index:1;
+}
+#f1_container .face.back {
+  display: block;
+  transform: rotateY(180deg);
+  box-sizing: border-box;
+  padding: 10px;
+  z-index:2;
+}
+
+.picCropArea {
+  border:1px dashed #cccccc;
+  width:240px;
+  height:240px;
+  margin:10px auto;
+}
+#eventDesignPreviewInvitee .event_photos_block img {
+  width:120px;
+  height:120px;
+}
+#eventDesignPreviewInvitee .jcarousel {
+  right:-20px;
+}
+#eventDesignPreviewInvitee .event_photo_prev {
+  top:65px;
+}
+#eventDesignPreviewInvitee .event_photo_next {
+  right:310px;
+  top:65px;
+}
+#eventDesignPreviewInvitee .event_photos_block {
+  height:130px;
+  width:480px;
+}
+#eventDesignPreviewInvitee .event_photos {
+  top:0px;
+  display:none;
+}
+ul#breadcrumbs {
+  margin:0px;
+  padding:0px;
+}
+ul#breadcrumbs li {
+  float:left;
+  list-style-type:none;
+  font-weight:bold;
+}
+ul#breadcrumbs li:last-child {
+  font-weight:inherit;
+}
 
 /***************responsive**********************
 @media (min-width: 768px) {
@@ -1966,6 +2105,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   width:1170px;
   margin:30px auto;
 }
+
 /***************our responsive**********************/
 @media screen and (max-device-width:767px) {
   .container {
