@@ -10,7 +10,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def new
     @venue = Venue.new
     @venue.venue_contacts.build
-    @venue.venue_videos.build
+    @venue.video_urls.build
   end
 
   def create
