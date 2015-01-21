@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars,only: [:update_designs,:show]
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar]
+  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
 
@@ -28,6 +28,7 @@ class EventsController < ApplicationController
     @event = current_spree_user.events.new(session[:event_data])
     authorize @event, :new?
     @event_templates = Spree::Admin::Template.select([:id,:name])
+    @contacts = request.env['omnicontacts.contacts']
   end
 
   def update_designs
@@ -48,6 +49,10 @@ class EventsController < ApplicationController
   def create
     @event = current_spree_user.events.new(event_params)
     @event_templates = Spree::Admin::Template.select([:id,:name])
+    if @event.save
+      session.delete(:event_data) if session[:event_data]
+      session[:event_id_for_import] = @event.id # for importing contancts
+    end    
   end
 
   def show
@@ -100,10 +105,25 @@ class EventsController < ApplicationController
     @wished_products = @event.wishlist.wished_products if @event.wishlist
   end
 
+  def import_and_invite
+    @event = Event.find(session[:event_id_for_import])
+    @wished_products = @event.wishlist.wished_products if @event.wishlist
+    @contacts = request.env['omnicontacts.contacts']
+  end  
+
   def send_invitation
     @event = Event.find(params[:event_id])
     authorize @event, :invite?
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
+
+    wish_emails = params[:friend_emails].split(",") # Is an Array
+    unless params[:contacts].blank?
+      params[:contacts].each_with_index do  |mails|
+       wish_emails << mails[0] if mails[1] == "1"
+      end
+    end
+    params[:friend_emails] = wish_emails.join(",")
+        
     if params[:friend_emails].present?
       e = params[:friend_emails].split(',')
       invitations = []

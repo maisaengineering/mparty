@@ -75,10 +75,12 @@ class Event < ActiveRecord::Base
   end
 
   def user_joined?(user)
+    return false unless user
     invites.where('user_id=? OR recipient_email=?', user.id, user.email).where(joined: 1).exists?
   end
 
   def user_invited?(user)
+    return false unless user
     invites.where('user_id=? OR recipient_email=?', user.id, user.email).where.not(invited_user_id: nil).exists?
   end
 

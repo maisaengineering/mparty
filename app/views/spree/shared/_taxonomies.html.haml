@@ -1,0 +1,9 @@
+- max_level = Spree::Config[:max_level_in_taxons_menu] || 1
+-#%nav#taxonomies.sidebar-item{"data-hook" => ""}
+- @taxonomies.each do |taxonomy|
+  -#- cache [taxonomy, max_level] do
+  .row
+    .col-md-12
+      .filter_shop
+        %h4.filter-title= Spree.t(:shop_by_taxonomy, :taxonomy => taxonomy.name)
+        = taxons_tree(taxonomy.root, @taxon, max_level)

@@ -37,7 +37,7 @@
             </a>
           </div>
           <div class="col-md-4">
-            <%= link_to 'Done','#',data: {url: invite_with_wishlist_path(event_id: @event.id) ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-primary btn-block addwishlist_done pull-right"%>
+            <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/invite-with-wishlist" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-primary btn-block addwishlist_done pull-right"%>
           </div>
         </div>
       </div>

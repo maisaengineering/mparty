@@ -1,0 +1,14 @@
+= hidden_field_tag :event_id ,@event.id
+/ modal boxes************************************************************
+/ add to wishlist modal box
+= render 'wishlist/wishlist_modal'
+= render 'wishlist/shipping_address_form'
+.row.wishlist_header
+  .col-md-3
+  .col-md-6.position_rel
+    = render 'spree/shared/search'
+  .col-md-3
+    %a.btn.btn-lg.btn-primary.btn-block.addwishlist_btn{"data-target" => "#wishlist-modal", "data-toggle" => "modal", :href => "#"}
+      .img-rounded.search_btn_count.position_abs
+        %p#wishlist-count= @wishlist.wished_products.count
+      ADD TO WISHLIST

@@ -9,7 +9,7 @@
           .title_bg
           .model_box_name SHIPPING ADDRESS
       .modal-body
-        = form_tag(wishlist_shipping_address_path, method: 'post',class: 'form_margin',remote: true) do
+        = form_tag("/event/#{@event.id}/shipping_address", method: 'post',class: 'form_margin',remote: true) do
           = hidden_field_tag(:event_id, @event.id)
           = hidden_field_tag(:ship_address_id, @event.ship_address ? @event.ship_address.id : nil)
           = fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form|

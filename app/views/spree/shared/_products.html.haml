@@ -1,6 +1,12 @@
-= render 'products/filters'
+- paginated_products = @searcher.retrieve_products if params.key?(:keywords)
+- paginated_products ||= products
 .col-md-9.products_list.wishable_products
+  - if products.empty?
+    = Spree.t(:no_products_found)
+  - elsif params.key?(:keywords)
+    %h6.search-results-title= Spree.t(:search_results, :keywords => h(params[:keywords]))
   - if products.any?
+    %h4= link_to taxon.name, seo_url(taxon), :class => 'breadcrumbs' if taxon
     - products.in_groups_of(3, false) do |row_products|
       .row.mbottom40
         - for product in row_products
@@ -17,6 +23,8 @@
             - else
               .product_add_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
                 %span.glyphicon.glyphicon-plus.add
+  - if paginated_products.respond_to?(:num_pages)
+    = paginate paginated_products
 :javascript
   $('.wishable_products .add_product_to_wishlist_btn').click(function (e){
     e.preventDefault()
