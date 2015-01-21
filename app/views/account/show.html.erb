@@ -1,0 +1,69 @@
+
+
+<div class="container-fluid" style="background-color:#f1f2f7">
+  <div class="container">
+    <div class="row">
+      <div class="title_name">My Account</div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <!--<div><img src="images/event_1.jpg" width="240" height="240"alt=""/>
+        </div>-->
+        <% if @user.avatar.present? %>
+            <%=  image_tag(@user.avatar.url(:preview)) %>
+        <% else %>
+            <%=  image_tag("avatar.png") %>
+        <% end %>
+        <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal">change photo</a>
+      </div>
+
+      <div class="col-md-4">
+        <h4>Personal Details</h4>
+        <div style="font-size:16px;">
+          <div class="mtop20"><span class="glyphicon glyphicon-user"></span> <%=  @user.full_name %></div>
+          <div class="mtop20"><span class="glyphicon glyphicon-envelope"></span> <%=  @user.email %></div>
+          <div class="mtop20"><span class="glyphicon glyphicon-phone"></span> <%=  @user.phone %></div>
+        </div>
+
+      </div>
+
+      <div class="col-md-5">
+        <h4>Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
+        <ul class="venue_ctc_details" id="venue_afterchoose">
+          <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %>,</b></li>
+          <li><%=  @user.city %>,</li>
+          <li><%=  @user.state %></li>
+          <li><%=  @user.country %></li>
+
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+<div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"><div class="modal-backdrop fade in" style="height: 587px;"></div>
+  <div class="modal-dialog modal5">
+    <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+      <div class="modal-header">
+        <div class="model_box_name">Change Profile Photo</div>
+      </div>
+      <div class="modal-body">
+        <%= form_for(@user, url: account_update_profile_path, html: {method: "post"}) do |f| %>
+            <button class="btn btn-primary center-block">browse</button>
+            <%= f.file_field :avatar, onchange: "image_preview(this);",class: "btn btn-primary center-block event_file_upload_button" %>
+            <div class="picCropArea" id="img-preview" >
+            </div>
+            </div>
+            <div class="modal-footer">
+              <%= f.submit "Submit",class:  "btn btn-success pull-right" %>
+            </div>
+        <% end %>
+        </div>
+  </div>
+</div>
+

@@ -37,6 +37,7 @@
 //= require pictures
 //= require reviews
 //= require venues
+//= require account
 
 
 Turbolinks.pagesCached(0);
