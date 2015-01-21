@@ -1,0 +1,60 @@
+<div class="container-fluid" style="background-color:#f1f2f7">
+  <div class="container">
+    <div class="row">
+      <div class="title_name">My Account</div>
+    </div>
+    <div class="col-md-4">
+      <div class="row">
+        <h4>Personal Details</h4>
+        <%#= form_for Spree::User.new, :as => @user, :url => spree.user_path(@user), :method => :put do |f| %>
+        <%= form_for(@user, url: account_update_profile_path, html: {method: "post"}) do |f| %>
+            <div class="ptopbottom">
+              <%= f.email_field :email,class: "form-control", placeholder:"Email Address*", required: true %>
+            </div>
+            <div class="ptopbottom">
+              <%= f.text_field :first_name,class: "form-control", required: true,autofocus: true %>
+            </div>
+            <div class="ptopbottom">
+              <%= f.text_field :last_name,class: "form-control", required: true %>
+            </div>
+            <div class="ptopbottom">
+              <%= f.phone_field :phone,class: "form-control", required: true %>
+            </div>
+            <h4>Address</h4>
+            <div class="ptopbottom">
+              <%= f.text_area :address,class: "form-control",placeholder: "Address"%>
+            </div>
+            <div class="ptopbottom">
+              <%= f.text_field :city,class: "form-control",placeholder: "City" %>
+            </div>
+            <div id="country">
+              <%= f.collection_select :country, Spree::Country.order(:name), :name,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
+            </div>
+            <div class="ptopbottom">
+              <%= f.collection_select :state, Spree::Country.try(:states) || [], :id,:name, {:include_blank => 'State'}, {class: 'form-control'}%>
+            </div>
+            <div class="ptopbottom">
+              <%= f.submit "save changes",  :class => 'btn btn-primary pull-right' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+        $("#user_country").change(function(){
+        country=$(this).val()
+        $.ajax({
+            type: "GET",
+            url: "/country/get-states/"+country,
+            success: function(json){
+                $('#user_state').empty()
+                $.each(json, function(i, value) {
+                    $('#user_state').append($('<option>').text(value.name).attr('value', value.name));
+                });
+            }
+        });
+    }).trigger('change');
+
+</script>

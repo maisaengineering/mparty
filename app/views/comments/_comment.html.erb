@@ -1,9 +1,13 @@
 <div class="comment">
   <div class="row comment_block">
     <div class="col-md-1">
-      <%=gravatar_image_tag("#{comment.user.email}", :alt => 'reviewer image',:class => 'img-circle',
-       # :gravatar =>{ :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' }
-       )%>
+      <%  if comment.user.avatar.present? %>
+         <%= image_tag(comment.user.avatar.url(:mini))%>
+      <% else %>
+         <%=gravatar_image_tag("#{comment.user.email}", :alt => 'reviewer image',:class => 'img-circle',
+         # :gravatar =>{ :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' }
+         )%>
+       <% end %>
     </div>
     <div class="col-md-11">
       <h5><%= comment.commented_by %></h5>

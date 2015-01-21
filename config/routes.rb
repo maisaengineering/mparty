@@ -94,6 +94,11 @@ Invitation::Application.routes.draw do
   #     resources :products
   #   end
 
+  get "account/show", to: "account#show"
+  get "account/edit_profile", to: "account#edit_profile"
+  post "account/update_profile", to: "account#update_profile"
+
+
   get '/events/fetch_friends'=>"events#fetch_friends"
 
   post '/events/add_ship_address'=>"events#add_ship_address", as: :add_ship_address
