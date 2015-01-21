@@ -39,8 +39,13 @@ class VenuesController < ApplicationController
   def check_availability
     @event = Event.new(session[:event_data])
     @venue = Venue.find(params[:id])
-    start_date = @event.starts_at
-    end_date = @event.ends_at.present? ? @event.ends_at : start_date
+    #start_date = @event.starts_at
+    start_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,@event.start_time.hour,@event.start_time.min,@event.start_time.sec)
+    if @event.ends_at.present? && @event.end_time.present? 
+      end_date = Time.zone.local(@event.ends_at.year,@event.ends_at.month,@event.ends_at.day,@event.end_time.hour,@event.end_time.min,@event.end_time.sec)
+    else
+      end_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,23,@event.start_time.min,@event.start_time.sec)
+    end 
     booked_venues_dates =  @venue.venue_calendars.where('(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?) ', start_date,end_date,start_date,end_date)
     if !booked_venues_dates.present?
       @available = true      
