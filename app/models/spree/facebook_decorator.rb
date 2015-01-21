@@ -3,7 +3,7 @@
 OmniAuth::Strategies::Facebook.class_eval do
   def request_phase
     # Set your permissions here....
-    options[:scope] ||= "email,user_friends"
+    options[:scope] = options[:scope] || "email,user_friends"
     #options[:display] = mobile_request? ? 'touch' : 'page'
     super
   end

@@ -9,7 +9,7 @@ Bundler.require(*Rails.groups)
 module Invitation
 	class Application < Rails::Application
 		
-		config.to_prepare do
+=begin		config.to_prepare do
 			# Load application's model / class decorators
 			Dir.glob(File.join(File.dirname(__FILE__), "../app/**/*_decorator*.rb")) do |c|
 				Rails.configuration.cache_classes ? require(c) : load(c)
@@ -20,7 +20,7 @@ module Invitation
 				Rails.configuration.cache_classes ? require(c) : load(c)
 			end
 		end
-
+=end
 		config.assets.paths << Rails.root.join("app", "assets", "fonts")
 		config.assets.initialize_on_precompile = false
 

@@ -1,10 +1,31 @@
 source 'https://rubygems.org'
 
-ruby '2.1.2'
+ruby '1.9.3', :engine => 'jruby', :engine_version => '1.7.18'
+ 
 gem 'rails', '4.0.4'
 
-gem 'pg'
-gem 'mysql2'
+platform :ruby do
+   gem 'pg'
+   gem 'mysql2'
+   gem 'thin'
+   gem 'unicorn',group: :production
+   gem "rmagick"
+   # For debugging application
+   gem 'byebug'
+   gem 'handlebars'
+end
+
+gem 'warbler'
+
+platforms :jruby do
+  gem 'bundler' # for warbler to work
+  gem 'therubyrhino'
+  gem 'jruby-openssl'
+  gem 'activerecord-jdbc-adapter', :require => false
+  gem 'activerecord-jdbcmysql-adapter'
+  gem 'activerecord-jdbcpostgresql-adapter'
+  gem 'rmagick4j', '~> 0.3.8'
+end  
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
@@ -28,9 +49,6 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-## Servers
-gem 'thin'
-gem 'unicorn',group: :production
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -40,19 +58,20 @@ end
 gem 'spree', '2.2.1'
 gem 'spree_gateway', git: 'https://github.com/spree/spree_gateway.git', branch: '2-2-stable'
 gem 'money', '6.0.1'
+
 # authentication
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: '2-2-stable'
+
 #Spree extension for Social networking login
-#gem 'spree_social', github: 'spree/spree_social', branch: 'master'
 gem "spree_social", :git => "git://github.com/spree/spree_social.git", branch: '2-2-stable'
+
 #Spree Extension for create wishlist and send it to friends
 gem 'spree_wishlist', github: 'spree/spree_wishlist', branch: '2-2-stable'
 gem 'spree_email_to_friend', github: 'spree/spree_email_to_friend', branch: '2-2-stable'
 gem 'spree_admin_roles_and_access', '~> 1.2.1'
 # End ---------- Spree ------------------------------------
 
-# For debugging application
-gem 'byebug'
+
 
 #Brainteree Payment Gateway for spree
 #gem 'spree_braintree', :path => "../spree-braintree" #:git => 'git://github.com/rortechie/spree-braintree.git' 
@@ -60,20 +79,21 @@ gem 'braintree', '~> 2.30.2'
 gem 'haml-rails'
 gem 'fullcalendar-rails'
 gem 'koala', "~> 1.8.0rc1"
+
 # For Image upload
 gem 'carrierwave'
 # For Image resizing
 # Pls run this if you get issues whil installing rmagick on Ubuntu
 # sudo apt-get install libmagickwand-dev
-gem "rmagick"
-gem 'handlebars'
+
 gem "nested_form"
 gem 'letter_opener', group: :development
 gem "geocoder"
 gem 'fuzzily'
 gem 'kaminari'
+
 # gem 'ratyrate'
-gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
+gem 'ratyrate'
 
 gem 'fog'
 gem 'figaro'

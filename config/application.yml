@@ -1,5 +1,11 @@
 development:
-  google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxx'
-  google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
+  google_storage_access_key: 'GOOGE5HJESU7XHCRXFJ2'
+  google_storage_access_secret: '6Pu/uYdzOnw6hBpM5QAc/Hl/v+ahh7Fk5kxi1GIR'
   GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
   IS_HEROKU: 'yes'
+
+production:
+  google_storage_access_key: 'GOOGE5HJESU7XHCRXFJ2'
+  google_storage_access_secret: '6Pu/uYdzOnw6hBpM5QAc/Hl/v+ahh7Fk5kxi1GIR'
+  GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
+  IS_HEROKU: 'yes'  
