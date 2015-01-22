@@ -1,211 +1,219 @@
 <div class="container-fluid">
-  <div class="container" >
-    <!--Add more guests modal-->
+<div class="container bg_white">
 
-    <% if policy(@event).invite? %>
-        <div class="modal fade" id="add_more_guests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal2">
-            <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
-              <div class="modal-header">
-                <div class="title_trending">
-                  <div class="title_bg"></div>
-                  <div class="model_box_name">Add Guests</div>
-                </div>
-              </div>
-              <div class="modal-body">
+<% if policy(@event).invite? %>
+    <div class="modal fade" id="add_more_guests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal2">
+        <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+          <div class="modal-header">
+            <div class="title_trending">
+              <div class="title_bg"></div>
+              <div class="model_box_name">Add Guests</div>
+            </div>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <%= render 'invite_form' %>
-                      </div>
-                    </div>
+                    <%= render 'invite_form' %>
                   </div>
                 </div>
               </div>
-              <div class="modal-footer"> </div>
             </div>
           </div>
+          <div class="modal-footer"> </div>
         </div>
-    <% end %>
-
-    <div class="row">
-      <div class="title_name"><%=@event.name.titleize%></div>
+      </div>
     </div>
+<% end %>
 
-    <!--event description-->
-
-    <div class="row event_margin">
-      <% if @event_design %>
-          <div class="col-md-12">
-            <div class="inv_preview_bg">
-              <div id="eventDesignPreview">
-                <% c_design = @handlebars.compile(@event_design.content) %>
-                <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-              </div>
-            </div>
-          </div>
-      <% end %>
-      <div class="col-md-12 event_preview_right">
-        <div class="row event_margin">
-          <div class="col-md-12">
-            <% if @event.is_public? %>
-                <% if policy(@event).leave? %>
-                    <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right" %>
-                <% else %>
-                    <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn join_btn pull-right" %>
-                <% end  %>
-            <% end %>
-            <% if policy(@event).invite? && @event.starts_at >= Date.today %>
-                <a href="#" class="btn btn-success pull-right" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a>
-            <% end %>
-          </div>
-        </div>
-
-
-
-        <div class="row">
-          <div class="col-md-3"><h4>Description</h4></div>
-          <div class="col-md-9"><h5><%=simple_format(@event.description)%></h5></div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3"><h4>Venue</h4></div>
-          <% if @event.venue.present? %>
-              <div class="col-md-9"><h5><%= @event.venue.name%>(<%=  @event.full_address %>)</h5></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="title_name"><%=@event.name%>
+      <% if @event.is_public? %>
+          <% if policy(@event).leave? %>
+              <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right mright5" %>
           <% else %>
-              <div class="col-md-9"><h5><%=  @event.full_address %></h5></div>
+              <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn join_btn pull-right mright5" %>
+          <% end  %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--event description-->
+
+<div class="row">
+  <div class="col-md-6" style="width:55%;">
+    <div class="col-md-12 event_preview_right">
+      <div class="row">
+        <div class="col-md-3">
+          <h4>Description:</h4>
+        </div>
+        <div class="col-md-9">
+          <h5>
+            <p><%=simple_format(@event.description)%></p>
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <h4>Date:</h4>
+        </div>
+        <div class="col-md-9">
+          <h5>
+            <p>
+              <% if @event.starts_at== Date.today %>
+                  Today <%= @event.start_time.try(:strftime, '%I:%M %p')%>
+              <% else %>
+                  <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" "#{@event.start_time.try(:strftime, '%I:%M%p')}"%>
+              <% end %>
+            </p>
+          </h5>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <h4>Venue:</h4>
+        </div>
+        <div class="col-md-9">
+          <h5><%=  @event.full_address %></h5>
+        </div>
+      </div>
+      <div class="row" id="event_address">
+        <div class="col-md-12"> <button class="btn"> <span class="glyphicon glyphicon-map-marker"></span>Show Venue in Google Map</button></div>
+      </div>
+
+      <div class="row" id="hide_button">
+        <div class="col-md-12"> <button class="btn"> Hide Map</button></div>
+      </div>
+
+      <div class="row" id="event_address_map">
+        <div class="col-md-12">
+          <label></label>
+          <div class="location_block">
+            <% if @event.venue.present? %>
+                <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.location  %> "></iframe>
+            <%else%>
+                <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="row count_btns_margin">
+        <div class="col-md-6">
+          <div><span class="glyphicon glyphicon-ok-sign icon-success"></span> <span class="txt_bold icon-success"><%= @event.attendees('accepted') %></span> members attending</div>
+        </div>
+        <div class="col-md-6">
+          <div><span class="glyphicon glyphicon-question-sign icon-warning"></span> <span class="txt_bold icon-warning"><%= @event.attendees('maybe') %></span> members maybe attending</div>
+        </div>
+        <div class="col-md-6">
+          <div><span class="glyphicon glyphicon-exclamation-sign icon-black"></span> <span class="txt_bold icon-black"><%= @event.attendees('pending') %></span> members pending</div>
+        </div>
+        <div class="col-md-6">
+          <div><span class="glyphicon glyphicon-remove-sign icon-danger"></span> <span class="txt_bold icon-danger"><%= @event.attendees('rejected') %></span> member rejected</div>
+        </div>
+        <div class="col-md-12 mtop20">
+          <span class="txt_bold icon-success"><%= @event.invites.count%> </span> Members are invited for this Event
+        </div>
+        <div class="col-md-12 mtop10">
+          <% if policy(@event).invite? && @event.starts_at >= Date.today %>
+              <a href="" class="btn btn-success" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</a>
           <% end %>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <%  if policy(@event).update? %>
-            <div class="row count_btns_margin">
-              <div class="col-md-2">
-                <div class="inv_count_btn accept_count_btn"><span class="glyphicon glyphicon-ok-sign"></span></div>
-                <div class="accept_count">
-                  <h4><%= @event.attendees('accepted') %></h4>
-                  <p><%= "accepted" %></p>
-                </div>
+  <% if @event_design %>
+      <div class="col-md-6" style="width:45%;">
+        <div id="eventDesignPreview">
+          <% c_design = @handlebars.compile(@event_design.content) %>
+          <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+        </div>
+      </div>
+  <% end %>
+
+</div>
+
+
+<div class="row mtop40">
+
+  <% if policy(@event).show_wishlist? %>
+      <%= render  "show_wishlist"  %>
+  <% end %>
+
+  <div class="col-md-6" style="width:45%;">
+    <% unless @event.pictures.blank? %>
+        <h4>Photos</h4>
+        <div class="gallery event_photos" id="myCarousel">
+          <div class="jcarousel event_photos_block" data-jcarousel="false">
+            <ul style="left: 0px; top: 0px;">
+              <% @event.pictures.each do |p| %>
+                  <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+              <% end%>
+            </ul>
+          </div>
+          <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
+          <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
+          <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
+          <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
+        </div>
+    <% end %>
+  </div>
+
+
+
+
+
+</div>
+
+
+<!--comments-->
+
+<div class="row">
+  <div class="col-md-12">
+    <h4>Comments</h4>
+    <% if policy(@event).allow_commenting? %>
+        <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+            <%= hidden_field_tag :resource ,'event' %>
+            <%= hidden_field_tag :resource_id ,@event.id %>
+            <div class="row comment_block_btn">
+              <div class="col-md-9">
+                <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
               </div>
-              <div class="col-md-2">
-                <div class="inv_count_btn maybe_count_btn"><span class="glyphicon glyphicon-question-sign"></span></div>
-                <div class="accept_count">
-                  <h4><%= @event.attendees('maybe') %></h4>
-                  <p><%= "may be" %></p>
-                </div>
+              <div class="col-md-3">
+                <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
               </div>
-              <div class="col-md-2">
-                <div class="inv_count_btn pending_count_btn"><span class="glyphicon glyphicon-exclamation-sign"></span></div>
-                <div class="accept_count">
-                  <h4><%= @event.attendees('pending') %></h4>
-                  <p><%= "pending" %></p>
-                </div>
-              </div>
-              <div class="col-md-2">
-                <div class="inv_count_btn rejected_count_btn"><span class="glyphicon glyphicon-remove-sign"></span></div>
-                <div class="accept_count">
-                  <h4><%= @event.attendees('rejected') %></h4>
-                  <p><%= "rejected" %></p>
-                </div>
-              </div>
-              <img id='my_source' src="http://mparty.herokuapp.com/<%=request.path%>" alt='' width="auto" height="auto" onclick="share_on_fb(this)"/>
-              <div class="fb-wrap-loginsmall pull-right">
-                <div class="fb-icon-bg"></div>
-                <div class="fb-bg" id="share_fb_button">Share</div>
-              </div>              
             </div>
         <% end %>
-
-      </div>
-    </div>
-    <!--event description end-->
-    <!--location-->
-    <div class="row">
-      <div class="col-md-12">
-        <label></label>
-        <div class="location_block">
-          <% if @event.venue.present? %>
-              <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.location  %> "></iframe>
-          <%else%>
-              <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
-          <% end %>
-        </div>
-      </div>
-    </div>
-
-    <% if policy(@event).show_wishlist? %>
-        <%= render  "show_wishlist"  %>
     <% end %>
-
-
-    <!--event photos-->
-    <% unless @event.pictures.blank? %>
-        <div class="row">
-          <div class="col-md-12">
-            <h4>Photos</h4>
-            <div class="gallery event_photos" id="myCarousel">
-              <div class="jcarousel event_photos_block" data-jcarousel="false">
-                <ul style="left: 0px; top: 0px;">
-                  <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
-                  <% end%>
-                </ul>
-              </div>
-              <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
-              <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
-              <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
-              <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
-            </div>
+  </div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-md-12">
+    <% if @comments.blank? %>
+        <div id="no_comment">No comments</div>
+    <% else%>
+        <div id="comments">
+          <div class="page">
+            <% unless @comments.blank? %>
+                <% @comments.each do |comment| %>
+                    <%= render 'comments/comment',comment: comment %>
+                <% end %>
+            <% end %>
           </div>
         </div>
     <% end %>
-
-    <!--event photos end-->
-    <!--comments-->
-
-    <div class="row">
-      <div class="col-md-12">
-        <h4>Comments</h4>
-        <% if policy(@event).allow_commenting? %>
-            <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
-                <%= hidden_field_tag :resource ,'event' %>
-                <%= hidden_field_tag :resource_id ,@event.id %>
-                <div class="row comment_block_btn">
-                  <div class="col-md-9">
-                    <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
-                  </div>
-                  <div class="col-md-3">
-                    <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
-                  </div>
-                </div>
-            <% end %>
-        <% end %>
-      </div>
-    </div>
-    <br/>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="comment_block">
-          <% if @comments.blank? %>
-              <div id="no_comment">No comments</div>
-          <% else%>
-              <div id="comments">
-                <div class="page">
-                  <% unless @comments.blank? %>
-                      <% @comments.each do |comment| %>
-                          <%= render 'comments/comment',comment: comment %>
-                      <% end %>
-                  <% end %>
-                </div>
-              </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <!--comments end-->
   </div>
+</div>
+<!--comments end-->
+
 </div>
 </div>
 <%= paginate @comments %>
@@ -216,16 +224,18 @@
     $(".row .comment_block").removeClass("comment_block")
     <% end%>
     $("#submit").click(function(){
-        $("#no_comment").empty().addClass("comment_block");
+        $("#no_comment").empty().addClass("comment_block")
     });
-
-  function share_on_fb(TheImg) {
-    u=TheImg.src;
-    t="M-Party Invitation.";
-    // t=TheImg.getAttribute('alt');
-    window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;
-    }
-    $("#share_fb_button").click( function() {
-    $("#my_source").trigger("click"); 
-  })
+    $("#event_address").hide()
+    //$("#event_address_map").css("display", "none")
+    $("#event_address").click(function(){
+        $("#event_address_map").fadeIn("slow").css("display", "block");
+        $("#event_address").fadeOut("slow").css("display", "none")
+        $("#hide_button").show()
+    });
+    $("#hide_button").click(function() {
+        $("#hide_button").hide()
+        $("#event_address_map").fadeOut("slow").css("display", "none")
+        $("#event_address").fadeIn("slow").css("display", "block")
+    });
 </script>
