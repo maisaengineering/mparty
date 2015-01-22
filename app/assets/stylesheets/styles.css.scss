@@ -321,7 +321,7 @@ label{
 
 }
 .event_left_block{
-  border-right:2px solid #cecfd0;
+  border-right:1px solid #cecfd0;
   min-height: 540px;
   overflow:hidden;
 }
@@ -370,12 +370,17 @@ label{
 #upload_photos{
   display: none;
 }
+
+#confirm_wishlist_invitation {
+  display:none}
+
 #invitation_without_wishlist{
   display:none;
 }
 #invitation_with_wishlist{
   display:none;
 }
+
 .inv_wishlist{
   border: 1px solid #ccc;
   width: 444px;
@@ -395,11 +400,10 @@ label{
   margin: 0 auto;
 }
 .wishlist_text{
-  margin-top:30px;
 }
 .wishlist_text h4{
   text-align:center;
-  line-height:3em;
+  line-height:1em;
 
 }
 .invite_btn_cancel{
@@ -1133,10 +1137,10 @@ label{
   border:1px solid #ccc;
   padding:5px;
   font-family:Arial;
-  min-height:240px;
+  min-height:210px;
   overflow:hidden;
   width:100%;
-  margin-top:20px;
+  margin-top:10px;
 }
 #tags span.tag{
   cursor:pointer;
@@ -1539,6 +1543,15 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .mright5 {
   margin-right:5px;
+}
+.mright10 {
+  margin-right:10px;
+}
+.mleft5 {
+  margin-left:5px;
+}
+.mleft10 {
+  margin-left:10px;
 }
 .mbottom50 {
   margin-bottom:50px;
@@ -2084,7 +2097,28 @@ ul#breadcrumbs li {
 ul#breadcrumbs li:last-child {
   font-weight:inherit;
 }
-
+.well {
+  z-index:10;
+}
+ul#import_contact_list {
+  list-style-type:none;
+  margin:0px;
+  padding:0px;
+  max-height:250px;
+  overflow:auto;
+}
+ul#import_contact_list li {
+  list-style-type:none;
+  background-color:#f5f5f5;
+  margin:6px 0;
+  padding:6px 2px 6px 6px;
+  border:1px solid #dddddd;
+}
+.event_wishlist_table .scroll_wishlist_table {
+  height:200px;
+  overflow:auto;
+  overflow-x:hidden;
+}
 /***************responsive**********************
 @media (min-width: 768px) {
  
@@ -2110,6 +2144,9 @@ ul#breadcrumbs li:last-child {
 .modal5{
   width:1170px;
   margin:30px auto;
+}
+.event_preview_right .fb-bg {
+  height:34px;
 }
 
 /***************our responsive**********************/
@@ -2167,4 +2204,3 @@ and (max-device-width : 480px) {
   .event_search { width: 280px;
   }
 }
-

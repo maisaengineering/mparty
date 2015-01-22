@@ -9,7 +9,9 @@ class InvitesController < ApplicationController
 
   def update_invitation
     @invitation.joined = params[:status]
-    @invitation.user_id = spree_current_user.id if spree_current_user
+    if spree_current_user and spree_current_user.email.eql?(@invitation.recipient_email)
+      @invitation.user_id = spree_current_user.id
+    end
     @invitation.save
     @wishlist = @event.wishlist
     #session[:event_id] = @event.id
