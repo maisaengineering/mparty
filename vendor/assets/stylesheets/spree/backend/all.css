@@ -8,6 +8,7 @@
 
  *= require_self
  *= require_tree .
+ *= require date_time_picker
 */
 
 

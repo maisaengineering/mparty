@@ -10,3 +10,4 @@
 //= require spree/backend
 //= require jquery_nested_form
 //= require_tree .
+//= require datetime_picker
