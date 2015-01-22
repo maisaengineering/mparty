@@ -108,6 +108,11 @@
                   <p><%= "rejected" %></p>
                 </div>
               </div>
+              <img id='my_source' src="http://mparty.herokuapp.com/<%=request.path%>" alt='' width="auto" height="auto" onclick="share_on_fb(this)"/>
+              <div class="fb-wrap-loginsmall pull-right">
+                <div class="fb-icon-bg"></div>
+                <div class="fb-bg" id="share_fb_button">Share</div>
+              </div>              
             </div>
         <% end %>
 
@@ -213,4 +218,14 @@
     $("#submit").click(function(){
         $("#no_comment").empty().addClass("comment_block");
     });
+
+  function share_on_fb(TheImg) {
+    u=TheImg.src;
+    t="M-Party Invitation.";
+    // t=TheImg.getAttribute('alt');
+    window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;
+    }
+    $("#share_fb_button").click( function() {
+    $("#my_source").trigger("click"); 
+  })
 </script>
