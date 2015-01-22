@@ -18,7 +18,7 @@
               - if spree_current_user.avatar.present?
                 = image_tag(spree_current_user.avatar.url(:small),class: 'img-rounded bg_img')
               - else
-                = image_tag('bg_pic.jpg',class: 'img-rounded bg_img')
+                = image_tag('default-avatar-small.png',class: 'img-rounded bg_img')
               #{current_spree_user.full_name}
               =# image_tag('bg_pic.jpg',class: 'img-rounded bg_img')
               %span.caret

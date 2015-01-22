@@ -4,9 +4,7 @@
       <%  if comment.user.avatar.present? %>
          <%= image_tag(comment.user.avatar.url(:mini))%>
       <% else %>
-         <%=gravatar_image_tag("#{comment.user.email}", :alt => 'reviewer image',:class => 'img-circle',
-         # :gravatar =>{ :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' }
-         )%>
+          <%=  image_tag("default-avatar-comment.png") %>
        <% end %>
     </div>
     <div class="col-md-11">
