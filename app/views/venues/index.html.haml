@@ -16,7 +16,9 @@
           %p Advanced Search
         = render 'adv_search_form'
   - if params[:from_event]
-    = link_to('Back To event Page', new_event_path)      
+    .row
+      .col-md-12.ptop
+        = link_to('Back To Event Creation Page', new_event_path,{:class => 'btn btn-primary pull-right'})      
   - if params[:query] and !@venues.blank?
     %hr/
     %h2 search results
