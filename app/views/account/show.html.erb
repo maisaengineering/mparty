@@ -50,11 +50,11 @@
 
 
 
-<div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"><div class="modal-backdrop fade in" style="height: 587px;"></div>
+<div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"><div class="modal-backdrop fade in"></div>
   <div class="modal-dialog modal5">
     <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
       <div class="modal-header">
-        <div class="model_box_name">Change Profile Photo</div>
+        <h3 class="txt_center">Change Profile Photo</h3>
       </div>
       <div class="modal-body">
         <%= form_for(@user, url: account_update_profile_path, html: {method: "post"}) do |f| %>
