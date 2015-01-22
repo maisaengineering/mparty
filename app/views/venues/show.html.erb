@@ -54,6 +54,7 @@
         </div>
         <div class="row">
           <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
+              <%= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false")%>
               <div class="btn_orange quote_btn">
                 <%= link_to "Choose", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event"}%>
               </div>
@@ -240,6 +241,7 @@
                         right: 'next'
                     },
                     eventColor: '#ef5323',
+                    eventLimit: 1,
                     events: data
                 });
             }
