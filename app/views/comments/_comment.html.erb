@@ -2,9 +2,9 @@
   <div class="row comment_block">
     <div class="col-md-1">
       <%  if comment.user.avatar.present? %>
-         <%= image_tag(comment.user.avatar.url(:mini))%>
+         <%= image_tag(comment.user.avatar.url(:mini),:class => 'img-circle')%>
       <% else %>
-          <%=  image_tag("default-avatar-comment.png") %>
+          <%=  image_tag("default-avatar-comment.png",:class => 'img-circle') %>
        <% end %>
     </div>
     <div class="col-md-11">
