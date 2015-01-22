@@ -1,4 +1,3 @@
-<script data-turbolinks-track="true" src="/assets/datetime_picker.js"></script>
 <% content_for :page_actions do %>
   <li>
     <%= button_link_to 'Back to Venue',  edit_admin_venue_url(@venue), icon: 'icon-arrow-left' %>
@@ -34,10 +33,10 @@
         <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id(cl) %>">
           <td class="no-border"></td>
           <td>
-            <%= cl.start_date.strftime("%m/%d/%Y") %>
+            <%= cl.start_date.strftime("%m/%d/%Y %H:%M") %>
           </td>
           <td>
-            <%= cl.end_date.strftime("%m/%d/%Y") %>
+            <%= cl.end_date.strftime("%m/%d/%Y %H:%M") %>
           </td>
           <td class="actions">
             <%= link_to_with_icon 'icon-trash', 'Delete', remove_venue_slot_admin_venue_path(@venue, :calendar_id => cl.id), method: :delete,confirm: 'Are you sure?' %>
@@ -55,11 +54,11 @@
         <div class="nine columns alpha">
           <div class="field">
             <label for="start_date">Start Date</label>
-            <%= f.text_field :start_date, :class => 'datepicker' ,:readonly => "readonly"%>
+            <%= f.text_field :start_date, :class => 'datetimepicker' ,:readonly => "readonly"%>
           </div>
           <div class="field">
             <label for="end_date">End Date  </label>
-            <%= f.text_field :end_date, :class => 'datepicker',:readonly => "readonly" %>
+            <%= f.text_field :end_date, :class => 'datetimepicker',:readonly => "readonly" %>
           </div>
         </div>
       </div>
@@ -77,14 +76,17 @@
 
 <script type="text/javascript">
   //Restrict to select a past date from date picker on venue process
-  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datepicker({
+  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datetimepicker({
     minDate: new Date(),
     dateFormat: "yy-mm-dd"
-
   });  
 
-
-        $('.datepicker').datepicker();
+  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datetimepicker({
+    allowTimes:['00:00','00:30','01:00','01:30','02:30','03:00','03:30','04:00','04:30','05:00','05:30',
+    '06:00','06:30','07:00','07:30','08:30','08:30','09:00','09:30','10:00','10:30','11:00','11:30',
+    '12:00 ','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30',
+    '18:00','  18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30',
+    '23:00','23:30']
+  });
+  $('.datepicker').datetimepicker();
 </script>
-
-<link href="/assets/date_time_picker.css" media="screen" rel="stylesheet" />
