@@ -9,7 +9,9 @@
 				right: 'month,agendaWeek,agendaDay'
 			},
 			eventLimit: true,
-      events: '/get_my_calendar.json'
-    });
-  
+      events: '/get_my_calendar.json',
+      eventRender: function(event, element) {
+        element.attr('title', event.tooltip);
+    }
+    });  
 </script>
