@@ -1,3 +1,4 @@
+<%= render :partial => 'spree/shared/error_messages', :locals => { :target => @user }%>
 <div class="container-fluid" style="background-color:#f1f2f7">
   <div class="container">
     <div class="row">
@@ -18,7 +19,7 @@
               <%= f.text_field :last_name,class: "form-control",placeholder:"Last Name*", required: true %>
             </div>
             <div class="ptopbottom">
-              <%= f.phone_field :phone,class: "form-control",placeholder:"Phone", required: true %>
+              <%= f.phone_field :phone,class: "form-control",placeholder:"Phone", required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number",:maxlength => 10 %>
             </div>
             <h4>Address</h4>
             <div class="ptopbottom">
@@ -34,7 +35,8 @@
               <%= f.collection_select :state, Spree::Country.try(:states) || [], :id,:name, {:include_blank => 'State'}, {class: 'form-control'}%>
             </div>
             <div class="ptopbottom">
-              <%= f.submit "save changes",  :class => 'btn btn-primary pull-right' %>
+              <button class= 'btn' onclick="window.location('account_show_path')">Back</button>
+              <%= f.submit "save changes",  :class => 'btn btn-success pull-right' %>
             </div>
         <% end %>
       </div>
