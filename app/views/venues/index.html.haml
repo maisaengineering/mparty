@@ -19,9 +19,12 @@
     .row
       .col-md-12.ptop
         = link_to('Back To Event Creation Page', new_event_path,{:class => 'btn btn-primary pull-right'})      
-  - if params[:query] and !@venues.blank?
+  - if (params[:query] || params[:city]) and !@venues.blank?
     %hr/
-    %h2 search results
+    -if params[:city]
+      %h2 suggesions results
+    -else
+      %h2 search results
     = render 'venues',venues: @venues
   %hr/
   - unless @top_five.blank?

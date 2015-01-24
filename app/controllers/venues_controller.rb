@@ -6,6 +6,17 @@ class VenuesController < ApplicationController
     if params[:query].present?
       @top_five= @top_five.to_a-@venues.to_a
     end
+    if params[:city].present?
+      @venues =  Venue.where("city = ?", params[:city]).to_a
+      selected_rate__venues_array =  Venue.joins(:rating_cache).where("rating_caches.avg" => params[:rating]).to_a
+      unless selected_rate__venues_array.blank?
+        selected_rate__venues_array.each do |venue_obj|
+          @venues << venue_obj
+        end
+      end
+      @top_five= @top_five.to_a-@venues
+      flash.now[:notice] = "Please select another venue."
+    end
     flash.now[:error] = "No results found for '#{params[:query]}'" if params[:query] and  @venues.blank?
   end
 

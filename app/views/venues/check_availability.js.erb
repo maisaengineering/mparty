@@ -1,5 +1,29 @@
 <% if @available %>
 Turbolinks.visit("/events/new?venue_id=<%= @venue.id %>")
 <%else%>
-bootbox.alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
+// bootbox.alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
+bootbox.dialog({
+    title: "Sugessions.",
+    message:
+    '<div class="row" style="background:#cc">' +
+    '<hr>' +
+        '<div class="col-md-12"> ' +
+            '<form class="form-horizontal" action="/venues" method="get"> ' +
+                '<div class="form-group"> ' +
+                    '<label class="col-md-12" for="name" style="color:#000">This Venue is not available for your Scheduled Date "<%=@event.starts_at%>"  </label> ' +
+                    '<div class="col-md-4"> ' +
+                        '<input id="name" name="city" type="hidden" value="<%=@venue.city%>"> ' +
+                        '<input id="name" name="from_event" type="hidden" value="true"> ' +
+                    '</div> ' +
+                '</div> ' +
+                '<button class="btn btn-primary pull-right">Get Sugessions</button>'+
+            '</form>'+
+        '</div>'+
+    '</div>' +
+    '<style type="text/css">'+
+'.modal-title {color:#000;}'+
+'.modal-body{padding:0 15px 15px 15px;}'+
+'hr {margin-top:0px;}' +
+'</style>'
+ });
 <%end%>	
