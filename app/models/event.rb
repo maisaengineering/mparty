@@ -146,7 +146,7 @@ class Event < ActiveRecord::Base
      end  
      venue_calendar.end_date = end_date
      if !venue_calendar.valid?
-      errors.add(:event, "Invalid Start and End dates.")
+      errors.add(:event, "Invalid Start and End dates/time for selected Venue slot.")
      else
       venue_calendar.save 
      end 

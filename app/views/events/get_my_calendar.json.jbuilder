@@ -13,13 +13,13 @@ json.array!(@events) do |event|
          json.tooltip 'Pending Invitation'
       elsif inv.joined == 1
          json.color '#8BD92F'
-         json.tooltip 'Attending Invitation'
+         json.tooltip 'Attending Event'
       elsif inv.joined == 2
          json.color '#d50e12'
          json.tooltip 'Rejected Invitation'
       elsif inv.joined == 3
          json.color '#F0AD4E'
-         json.tooltip 'May be Attending Invitation'
+         json.tooltip 'May be Attending Event'
       end
     end
   else
