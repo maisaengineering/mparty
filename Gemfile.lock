@@ -204,6 +204,7 @@ GEM
       rack (>= 1.4.5)
     highline (1.6.21)
     hike (1.2.3)
+    hpricot (0.8.6)
     httparty (0.13.1)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -469,6 +470,7 @@ DEPENDENCIES
   haml-rails
   handlebars
   heroku_rails_deflate
+  hpricot
   jbuilder (~> 1.2)
   jquery-fileupload-rails
   jquery-rails
