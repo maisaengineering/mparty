@@ -74,7 +74,7 @@ gem "geocoder"
 gem 'fuzzily'
 gem 'kaminari'
 # gem 'ratyrate'
-gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
+gem 'ratyrate', :github => 'maisaengineering/ratyrate'
 
 gem 'fog'
 gem 'figaro'

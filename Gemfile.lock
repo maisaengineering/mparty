@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/maisaengineering/ratyrate.git
+  revision: 7560a8d3d2a11d3a4e4f123d7b7a14822767ed72
+  specs:
+    ratyrate (1.2.2.alpha)
+
+GIT
   remote: git://github.com/spree/spree_auth_devise.git
   revision: 81a0fbb2db15efbbb50d0d139bbc41aee7fa58a1
   branch: 2-2-stable
@@ -49,11 +55,6 @@ GIT
   specs:
     spree_gateway (2.2.1)
       spree_core (~> 2.2.0)
-
-PATH
-  remote: lib/ratyrate-1.2.2.alpha
-  specs:
-    ratyrate (1.2.2.alpha)
 
 GEM
   remote: https://rubygems.org/

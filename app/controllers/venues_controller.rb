@@ -36,7 +36,7 @@ class VenuesController < ApplicationController
       end  
     else
       @can_rate_it = false
-    end  
+    end 
     @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contacts = @venue.venue_contacts
     if @contacts.present?
@@ -74,31 +74,16 @@ class VenuesController < ApplicationController
   end 
 
   def check_permission_for_rate_it(venue, user)
-    invitation = Invite.where(joined: 1, user_id: user.id)
-    venue_id = nil
-    past_invitation = false
-    if invitation.present?
-       venue_id = invitation.first.event.venue_id
-       past_invitation = true if invitation.first.event.starts_at < DateTime.now
-    end    
-
-    owner_venue_id = nil
-    is_owner_of_event = Invite.where(invited_user_id: user.id)
-    past_event = false
-    if is_owner_of_event.present?
-       owner_venue_id = is_owner_of_event.first.event.venue_id
-       past_event = true if is_owner_of_event.first.event.starts_at < DateTime.now
-    end   
-
-    if (owner_venue_id == venue.id && past_event) || (invitation.present? && venue_id == venue.id && past_invitation)
-      if user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).size.zero?
-         return true
-      else
-         return false
-      end   
+    has_events_with_venue = Event.past.where(:venue_id => venue.id, :user_id => user.id)
+    past_events = Event.past.where(:venue_id => venue.id).ids
+    has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
+    if ( has_events_with_venue.present? || has_invitation_with_venue.present? )
+       has_ratings = user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).size.zero?
+       return has_ratings ? true : false
     else
       return false
-    end  
-  end 
+    end 
 
+  end 
+  
 end
