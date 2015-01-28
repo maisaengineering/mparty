@@ -188,6 +188,7 @@ GEM
     fuzzily (0.3.2)
       activerecord (>= 2.3.17)
     geocoder (1.2.2)
+    geoip (1.4.0)
     gravatar_image_tag (1.2.0)
     haml (4.1.0.beta.1)
       tilt
@@ -471,6 +472,7 @@ DEPENDENCIES
   fullcalendar-rails (= 2.1.1.0)
   fuzzily
   geocoder
+  geoip
   gravatar_image_tag
   haml-rails
   handlebars

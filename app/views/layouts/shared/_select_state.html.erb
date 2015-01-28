@@ -1,0 +1,5 @@
+<form action="/" >
+<%= select_tag 'user_city', options_for_select([['Hyderabad','Hyderabad'],['Bangalore','Bangalore'],
+	['Chennai','Chennai'],['Mumbai','Mumbai']], :selected=> @city), :onchange => "this.form.submit();"%>
+</form>
+<% session.delete(:current_city)%>
