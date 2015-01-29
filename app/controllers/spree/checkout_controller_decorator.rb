@@ -38,8 +38,10 @@ Spree::CheckoutController.class_eval do
             @order.created_by_id = logged_in_user.id
             @order.user_id = logged_in_user.id
             @order.save
+            send_order_info_to_users(@order)
             flash[:success] = Spree.t(:order_processed_successfully)
           else
+            send_order_info_to_users(@order)
             flash[:success] = "Your order processed successfully,please user order nuber '#{@order.number}' to track."
           end
           session[:order_id] = nil
@@ -75,4 +77,16 @@ Spree::CheckoutController.class_eval do
       end
     end
   end
+
+  #sending emails to user and invited users
+ private
+  def send_order_info_to_users(order)
+    event = Event.find(order.wishlist_orders.first.wishlist.event_id)
+    InvitationNotifier.email_after_purchase_to_inviter(event,order).deliver
+    @invites_list = event.invites.where.not("joined =? OR recipient_email =? ",2,order.email)
+    @invites_list.each do |invitee|
+     InvitationNotifier.email_after_purchase_to_invitees(event,order,invitee).deliver
+    end
+  end
+
 end
