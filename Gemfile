@@ -16,7 +16,7 @@ gem 'coffee-rails', '~> 4.0.0'
 # gem 'therubyracer', platforms: :ruby
 
 ## Jquery -------------------------------------
-gem 'jquery-rails'
+gem 'jquery-rails', '3.1.1'
 gem 'jquery-ui-rails'
 gem 'jquery-fileupload-rails'
 gem 'jquery-turbolinks'
@@ -58,7 +58,8 @@ gem 'byebug'
 #gem 'spree_braintree', :path => "../spree-braintree" #:git => 'git://github.com/rortechie/spree-braintree.git' 
 gem 'braintree', '~> 2.30.2'
 gem 'haml-rails'
-gem 'fullcalendar-rails'
+gem 'momentjs-rails', '~> 2.8'
+gem 'fullcalendar-rails', '2.1.1.0'
 gem 'koala', "~> 1.8.0rc1"
 # For Image upload
 gem 'carrierwave'
@@ -73,7 +74,7 @@ gem "geocoder"
 gem 'fuzzily'
 gem 'kaminari'
 # gem 'ratyrate'
-gem 'ratyrate', :path => 'lib/ratyrate-1.2.2.alpha'
+gem 'ratyrate', :github => 'maisaengineering/ratyrate'
 
 gem 'fog'
 gem 'figaro'
@@ -94,3 +95,7 @@ gem "pundit"
 
 # Mail Contacts
 gem 'omnicontacts'
+
+# url content and get video image in VenueUrl for venues
+gem 'hpricot'
+gem 'geoip' #https://github.com/cjheath/geoip

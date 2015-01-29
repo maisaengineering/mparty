@@ -155,15 +155,16 @@
               <%end%>
             </div>
             <div class="row no_margin event_margin">
-              <!-- <h4>Videos</h4> -->
+              <h4>Videos</h4>
               <%@videos.each do |video|%>
               <div class="col-md-3">
                 <a class="fancybox-media" href="<%=video.url%>">
-                  <img src="https://i.ytimg.com/vi/<%= youtube_id(video.url)%>/hqdefault.jpg" width="220px">
+                  <img src="<%=video.image_url%>" alt="missing_image" width="220px" height="185px">
                 </a>
               </div>
               <%end%>
             </div>
+                <br>
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="Reviews">
@@ -248,7 +249,7 @@
                               right: 'next'
                     },
                     eventColor: '#ef5323',
-                    eventLimit: true,
+                    eventLimit: 1,
                     events: data
                 });
             }

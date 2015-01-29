@@ -63,6 +63,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
   def add_calendar
     @venue = Venue.find(params[:id])
+    @events_without_venue = Event.upcoming.where(venue_id: nil,custom_event_type: nil).to_a
   end 
 
   # def book_venue
@@ -75,7 +76,10 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
    @new_venue_calendar = @venue.venue_calendars.build(venue_calendar_params)
    @new_venue_calendar.user_id = current_spree_user.id
-   if @new_venue_calendar.save 
+   if @new_venue_calendar.save
+     #update_event = @new_venue_calendar.event
+     #update_event.venue_id = @new_venue_calendar.venue_id
+     #update_event.save(validate: false)
      redirect_to add_calendar_admin_venue_url(@venue), notice: 'Your Slot Booked successfully.'     
    else
      flash[:error] = @new_venue_calendar.errors.full_messages.to_sentence
@@ -102,7 +106,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
     params.require(:venue).permit(:name, :description,:venue_type,:room_dimensions,:capacity,:price_min,
                                   :price_max,:address1,:address2 ,:city,:state,:country,:zip,
                                   :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id],
-                                  video_urls_attributes: [:url, :_destroy, :id])
+                                  video_urls_attributes: [:url, :image_url,:_destroy, :id])
   end
 
   def picture_params
@@ -110,7 +114,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   end
 
   def venue_calendar_params
-    params.require(:venue_calendar).permit(:start_date,:end_date, :user_id)
+    params.require(:venue_calendar).permit(:start_date,:end_date, :event_id,:venue_id, :user_id)
   end
 
   def model_class

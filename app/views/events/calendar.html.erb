@@ -8,7 +8,7 @@
 				center: 'title',
 				right: 'month,agendaWeek,agendaDay'
 			},
-			eventLimit: true,
+			eventLimit: 3,
       events: '/get_my_calendar.json',
       eventRender: function(event, element) {
         element.attr('title', event.tooltip);

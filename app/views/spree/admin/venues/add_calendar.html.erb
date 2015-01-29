@@ -13,33 +13,41 @@
 <% else %>
   <table class="index sortable" data-hook="images_table" data-sortable-link="#">
     <colgroup>
+      <col style="width: 15%"></col>
+      <col style="width: 15%"></col>
+      <col style="width: 15%"></col>
       <col style="width: 5%"></col>
-      <col style="width: 30%"></col>
-      <col style="width: 45%"></col>
     </colgroup>
     <thead>
       <tr>
-        <th colspan="2">
+         <th>
+          <%= Spree.t(:event) %>
+        </th>
+        <th>
           <%= Spree.t(:start_date) %>
         </th>
-        <th colspan="2">
+        <th>
           <%= Spree.t(:end_date) %>
         </th>
-        <th class="actions"></th>
+        <th>
+          <%= Spree.t(:action) %>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <% @venue.venue_calendars.each do |cl| %>
+      <% @venue.venue_calendars.order(start_date: :asc).each do |cl| %>
         <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id(cl) %>">
-          <td class="no-border"></td>
+          <td>
+            <%= cl.event.present? ? cl.event.name : "Created by Venue admin" %>
+          </td>
           <td>
             <%= cl.start_date.strftime("%m/%d/%Y %H:%M") %>
           </td>
           <td>
             <%= cl.end_date.strftime("%m/%d/%Y %H:%M") %>
           </td>
-          <td class="actions">
-            <%= link_to_with_icon 'icon-trash', 'Delete', remove_venue_slot_admin_venue_path(@venue, :calendar_id => cl.id), method: :delete,confirm: 'Are you sure?' %>
+          <td>
+            <%= link_to_with_icon 'icon-trash', 'Delete', remove_venue_slot_admin_venue_path(@venue, :calendar_id => cl.id), method: :delete, data: { confirm: 'Are you sure?' }%>
           </td>
         </tr>
       <% end %>
@@ -52,6 +60,10 @@
       <legend align="center">Book Slot</legend>
       <div>
         <div class="nine columns alpha">
+          <div class="field">
+            <!--<label for="select_event">Events</label>
+            <%#= f.select :event_id, @events_without_venue.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Select Event'} ,class: 'form-control' ,required: true%>
+          </div>-->
           <div class="field">
             <label for="start_date">Start Date</label>
             <%= f.text_field :start_date, :class => 'datetimepicker' ,:readonly => "readonly"%>
@@ -88,5 +100,4 @@
     '18:00','  18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30',
     '23:00','23:30']
   });
-  $('.datepicker').datetimepicker();
 </script>

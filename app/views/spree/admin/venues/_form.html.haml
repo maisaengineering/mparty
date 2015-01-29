@@ -160,7 +160,8 @@
         .alpha.five.columns
           .field
             %label Url link
-            %span.required *
+            %span.required * 
+            %sup{style: 'color:#a1c820'} (Youtube & Vimeo videos only)
             %br/
             = video_form.text_field :url,class: 'fullwidth',:type=>"url"
         .three.columns
