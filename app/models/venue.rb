@@ -38,7 +38,7 @@ class Venue < ActiveRecord::Base
 
   # Venue advance search
   def self.advance_search(query)
-      where("name LIKE ? OR city LIKE ? OR state LIKE ? OR zip LIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+      where("name iLIKE ? OR city iLIKE ? OR state iLIKE ? OR zip iLIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 
 
