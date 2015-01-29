@@ -16,6 +16,7 @@ class InvitationNotifier < ActionMailer::Base
     @event = Event.includes(:wishlist).find(event.id)
     @inviter = Spree::User.find(@event.user_id)
     @order=order
+    @url="#{spree.root_url}#{event_path(:id => @event.id)}"
     if order.user_id.nil?
       @invitee = order.email
     else
@@ -28,6 +29,7 @@ class InvitationNotifier < ActionMailer::Base
     @event = Event.includes(:wishlist).find(event.id)
     @order=order
     @inviter = Spree::User.find(@event.user_id)
+
 
     if invitee.user_id.present?
       @invitee = Spree::User.find_by_email(invitee.recipient_email)
@@ -42,7 +44,17 @@ class InvitationNotifier < ActionMailer::Base
       @purchaser_name = Spree::User.find(order.user_id).full_name
     end
     mail(to: invitee.recipient_email, subject: "Products Purchased")
+  end
 
+  def send_remainder_mail(event,invite)
+    @event = event
+    @invite_email = invite.recipient_email
+    @token = invite.token
+    @template = @event.template
+    @design = @template.designs.where(id: @event.design_id).first if @template
+    @sender_name = @event.owner.full_name
+    @url =  "#{spree.root_url}#{view_invitation_path(:invitation_code => invite.token)}"
+    mail(to: @invite_email, subject: "Remainder mail from #{@event.user.full_name} to join #{@event.name}", from: "<#{ENV['SENDER']}>")
   end
 
 end
