@@ -1,7 +1,6 @@
 class VenuesController < ApplicationController
   def index
-    #@top_five = Venue.top_five
-    @top_five = Venue.top_rated.present? ? Venue.top_rated : Venue.top_five
+    @top_five = Venue.top_five
     @venues=Venue.advance_search(params[:query])
     if params[:query].present?
       @top_five= @top_five.to_a-@venues.to_a

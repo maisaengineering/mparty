@@ -17,7 +17,7 @@ class Venue < ActiveRecord::Base
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories 
   #Scopes ------------------
-  scope :top_five,-> {where(promote: true).order(priority: :desc).limit(5)}
+  scope :top_five,-> {where(promote: true).order(priority: :asc).limit(5)}
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here
@@ -38,7 +38,7 @@ class Venue < ActiveRecord::Base
 
   # Venue advance search
   def self.advance_search(query)
-      where("name iLIKE ? OR city iLIKE ? OR state iLIKE ? OR zip iLIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+      where("name LIKE ? OR city LIKE ? OR state LIKE ? OR zip LIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 
 
