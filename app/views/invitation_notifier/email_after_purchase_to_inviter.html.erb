@@ -32,5 +32,9 @@
   <br>
   <br>
 
-  <div style="width:210px; margin:0 auto;"><button style="background-color:#ef5323; padding:10px 0; width:210px; margin:0 auto; border:none; color:#ffffff; cursor:pointer; outline:none; margin-top:30px; font-size:16px;">CHECK YOUR WISHLIST</button></div>
+  <div style="width:210px; margin:0 auto;">
+    <button onclick="window.location.href = '<%="#{spree.root_url + "events/#{@event.id}"}"%>'"
+            style="background-color:#ef5323; padding:10px 0; width:210px; margin:0 auto; border:none; color:#ffffff; cursor:pointer; outline:none; margin-top:30px; font-size:16px;">
+    CHECK YOUR WISHLIST</button></div>
+
 </div>
