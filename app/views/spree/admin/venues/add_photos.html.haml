@@ -32,10 +32,10 @@
           .field
             %label{:for => "image_Filename"} Filename
             %br/
-            = f.file_field :image
+            = f.file_field :image, :required => true
       .clear
       .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
         %button.icon-refresh.button{:name => "button", :type => "submit"} Update
         %span.or or
         %a#cancel_link.button.icon_link.with-tip.icon-remove{:href => "#{edit_admin_venue_url(@venue)}"}
-          %span.text Cancel
+          %span.text Cancel  
