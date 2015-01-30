@@ -12,7 +12,7 @@
                     <br/>
                     <div class="col-md-1 wlist_cart_item">
                       <%= truncate(product.name, :length => 50) %>
-                      <br><%= number_to_currency(product.price) %></div>
+                      <br><%= number_to_currency(product.price, unit: get_currency_symbol) %></div>
                   </div>
                 </a>
             <% end %>

@@ -29,7 +29,7 @@
           <%= link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),data: {id: venue.id}, class: 'btn btn-primary add_this_venue_to_event') if params[:from_event] %>
         <%end%>
         <span class="pull-right">
-          <%=number_to_currency(venue.price_min)%> - <%= number_to_currency(venue.price_max)%>
+          <%=number_to_currency(venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(venue.price_max, unit: get_currency_symbol)%>
         </span>
       </p>
       <p></p>

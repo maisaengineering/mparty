@@ -71,4 +71,8 @@ module ApplicationHelper
     YOUTUBE_FORMATS.find { |format| video_url =~ format } and $1
   end
 
+  def get_currency_symbol
+    Money::Currency.find(Spree::Config.currency).symbol
+  end  
+
 end

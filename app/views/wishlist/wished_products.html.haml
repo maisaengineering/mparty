@@ -20,7 +20,7 @@
             = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
             %button.btn.btn-success.btn_add_quantity.update_product_quantity Update
         .col-md-2
-          %h5= number_to_currency(variant.price)
+          %h5= number_to_currency(variant.price, unit: get_currency_symbol)
         .col-md-2
           - if @wishlist.event.is_owner?(spree_current_user) && wish.quantity_purchased == 0
             = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do

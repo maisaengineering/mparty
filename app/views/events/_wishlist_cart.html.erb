@@ -44,7 +44,7 @@
                       <!--<p><%= variant_options variant %></p>-->
                       <!--<p><%= truncate(product.description, :length => 100, :omission => "...") %></p>-->
                     </div>
-                    <div class="col-md-1 wlist_p"><%= number_to_currency(variant.price) %></div>
+                    <div class="col-md-1 wlist_p"><%= number_to_currency(variant.price,unit: get_currency_symbol) %></div>
                     <div class="col-md-1 wlist_rq"><%= wish.quantity %></div>
                     <div class="col-md-1 wlist_pq"><%= wish.quantity_purchased %></div>
                     <div class="col-md-1 sel_qty">

@@ -28,7 +28,7 @@
                     <p>Requested Quantity <%= wish.quantity %></p>
                   </div>
                   <div class="col-md-2">
-                    <h5><%= number_to_currency(variant.price) %></h5>
+                    <h5><%= number_to_currency(variant.price,unit: get_currency_symbol) %></h5>
                   </div>
                 </div>
             <% end %>

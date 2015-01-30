@@ -16,7 +16,7 @@
               .product_block
                 %h4= truncate(product.name, :length => 50)
                 = large_image(product, :itemprop => "image")
-                %p= number_to_currency(product.price)
+                %p= number_to_currency(product.price, unit: get_currency_symbol)
             - if wishlist.include?(product.id)
               .product_added_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
                 %span.glyphicon.glyphicon-ok.remove

@@ -34,7 +34,7 @@
         <p><%= wish.quantity_purchased %></p>
       </div>
       <div class="col-md-1">
-        <p><%= number_to_currency(variant.price) %></p>
+        <p><%= number_to_currency(variant.price,unit: get_currency_symbol) %></p>
       </div>
     </div>
     <% end %>

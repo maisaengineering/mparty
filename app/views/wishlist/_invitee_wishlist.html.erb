@@ -54,7 +54,7 @@
                               <%= number_field_tag "quantity[#{i}]", 0, min: 0 ,max: wish.quantity - wish.quantity_purchased,class: 'form-control addcart_select' %>
                           <% end %>
                         </div>
-                        <div class="col-md-1"><p><%= number_to_currency(variant.price) %></p></div>
+                        <div class="col-md-1"><p><%= number_to_currency(variant.price, unit: get_currency_symbol) %></p></div>
                       </div>
                   <%end  %>
                 </div>
