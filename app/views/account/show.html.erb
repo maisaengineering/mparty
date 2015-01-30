@@ -12,10 +12,10 @@
         </div>-->
         <% if @user.avatar.present? %>
             <%=  image_tag(@user.avatar.url(:preview)) %>
-            <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal">Change photo</a>
+            <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Change photo</a>
         <% else %>
             <%=  image_tag("default-avatar-big.png") %>
-            <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal">Add photo</a>
+            <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Add photo</a>
         <% end %>
 
       </div>
@@ -57,9 +57,12 @@
       </div>
       <div class="modal-body">
         <%= form_for(@user, url: account_update_avatar_path, html: {method: "post",class: 'update_avatar'}) do |f| %>
-            <%= f.file_field :avatar,onchange: "image_preview(this);",class: "btn btn-primary center-block event_file_upload_button" %>
-            <button class="btn btn-primary center-block">browse</button>
+            <div class="center-block position_rel browse_width">
+            <%= f.file_field :avatar,onchange: "image_preview(this);",class: "btn adbf btn-primary center-block event_file_upload_button" %>
+            <button class="btn btn-primary center-block">browse photo</button>
+
             <div class="picCropArea" id="img-preview" >
+            </div>
             </div>
             </div>
             <div class="modal-footer">
@@ -82,6 +85,10 @@
             bootbox.alert('Choose Image')
             return false;
         }
+    })
+
+    $("#user_photo").click(function(){
+        $('#img-preview').empty();
     })
 </script>
 

@@ -12,9 +12,16 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  end
+   def store_dir
+     dir = "#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+     Rails.env.production? ? dir : "uploads/#{dir}"
+   end
+
+   def fog_directory
+     if Rails.env.production?
+       ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_pictures786' : 'mparty_pictures786'
+     end
+   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
