@@ -44,7 +44,7 @@
             <%= cl.start_date.strftime("%m/%d/%Y %H:%M") %>
           </td>
           <td>
-            <%= cl.end_date.strftime("%m/%d/%Y %H:%M") %>
+            <%= cl.end_date.strftime("%m/%d/%Y %H:%M")%>
           </td>
           <td>
             <%= link_to_with_icon 'icon-trash', 'Delete', remove_venue_slot_admin_venue_path(@venue, :calendar_id => cl.id), method: :delete, data: { confirm: 'Are you sure?' }%>
@@ -66,11 +66,11 @@
           </div>-->
           <div class="field">
             <label for="start_date">Start Date</label>
-            <%= f.text_field :start_date, :class => 'datetimepicker' ,:readonly => "readonly"%>
+            <%= f.text_field :start_date, :class => 'datetimepicker', :readonly => true%>
           </div>
           <div class="field">
             <label for="end_date">End Date  </label>
-            <%= f.text_field :end_date, :class => 'datetimepicker',:readonly => "readonly" %>
+            <%= f.text_field :end_date, :class => 'datetimepicker', :readonly => true%>
           </div>
         </div>
       </div>
@@ -88,16 +88,62 @@
 
 <script type="text/javascript">
   //Restrict to select a past date from date picker on venue process
-  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datetimepicker({
+  jQuery('#venue_calendar_start_date').datetimepicker({
     minDate: new Date(),
-    dateFormat: "yy-mm-dd"
+    dateFormat: "yy-mm-dd",
+    onShow:function( ct ){
+           this.setOptions({
+                 minTime:new Date(),
+                 step: 30,
+                 roundTime: 'floor',
+                 maxDate: $('#venue_calendar_end_date').val()? new Date($('#venue_calendar_end_date').val()) :false
+           })
+    },
+    onSelectDate:function(ct){ 
+                this.setOptions({
+                   minTime: SetTimeValue("#venue_calendar_start_date"),
+                   step: 30,
+                   roundTime: 'floor'
+                 })  
+    }
+  });
+
+  jQuery('#venue_calendar_end_date').datetimepicker({
+    minDate: new Date(),
+    dateFormat: "yy-mm-dd",
+    onShow:function( ct ){
+           this.setOptions({
+                 minTime:new Date(),
+                 step: 30,
+                 roundTime: 'floor',
+                 minDate: $('#venue_calendar_start_date').val() ? new Date($('#venue_calendar_start_date').val()) : false
+           })
+    },
+    onSelectDate:function(ct){ 
+                this.setOptions({
+                   minTime: SetTimeValue("#venue_calendar_end_date"),
+                   step: 30,
+                   roundTime:'floor'
+                 })  
+    }
   });  
 
-  jQuery('#venue_calendar_start_date,#venue_calendar_end_date').datetimepicker({
-    allowTimes:['00:00','00:30','01:00','01:30','02:30','03:00','03:30','04:00','04:30','05:00','05:30',
-    '06:00','06:30','07:00','07:30','08:30','08:30','09:00','09:30','10:00','10:30','11:00','11:30',
-    '12:00 ','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30',
-    '18:00','  18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00','22:30',
-    '23:00','23:30']
-  });
+function SetTimeValue(selected_date_id){
+  var selectedDate = new Date($(selected_date_id).val());
+  selectedDate.setHours(0);
+  selectedDate.setMinutes(0);
+  selectedDate.setSeconds(0);
+    
+  var today = new Date();
+  today.setHours(0);
+  today.setMinutes(0);
+  today.setSeconds(0);
+
+  if(Date.parse(today) == Date.parse(selectedDate)){
+      return new Date();
+  }else{
+     return false;
+  }
+
+}
 </script>
