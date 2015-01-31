@@ -1890,13 +1890,14 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 }
 .event_file_upload_button {
   cursor: pointer;
-  height: 100%;
+  height: 110px;
+  width: 100%;
   position:absolute;
   top: 0;
   right: 0;
   z-index: 99;
   /*This makes the button huge. If you want a bigger button, increase the font size*/
-  font-size:50px;
+  /*font-size:50px;*/
   /*Opacity settings for all browsers*/
   opacity: 0;
   -moz-opacity: 0;
@@ -2149,6 +2150,10 @@ ul#import_contact_list li {
   width:240px;
 }
 
+.upload_browse_width {
+  width: 120px;
+  margin: 0 auto;
+}
 /***************responsive**********************
 @media (min-width: 768px) {
  

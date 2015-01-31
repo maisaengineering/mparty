@@ -5,11 +5,13 @@
           <%= hidden_field_tag :resource_id  %>
           <%= hidden_field_tag :resource ,'event' %>
           <div class="col-md-12 upload_btn">
-            <label></label>
-            <%= f.file_field :image,multiple: true, name: "picture[image]",:class => "event_file_upload_button"%>
-            <span class="glyphicon glyphicon-picture"></span>
-            <br>
-            <button class="btn btn-primary" id="btnUploadPhotos">Upload Photos</button>  
+            <div class="upload_browse_width position_rel">
+              <label></label>
+              <%= f.file_field :image,multiple: true, name: "picture[image]",:class => "event_file_upload_button"%>
+              <span class="glyphicon glyphicon-picture"></span>
+              <br>
+              <button class="btn btn-primary" id="btnUploadPhotos">Upload Photos</button> 
+            </div> 
             <div id="number_of_files_chosen" style="margin: 10px;display: none;">
               <strong>0</strong> files selected
             </div>

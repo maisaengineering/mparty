@@ -18,7 +18,7 @@
   - if params[:from_event]
     .row
       .col-md-12.ptop
-        = link_to('Back To Event Creation Page', new_event_path,{:class => 'btn btn-primary pull-right'})      
+        =link_to('<span class="glyphicon glyphicon-chevron-left"></span> Back to create Event'.html_safe, new_event_path,class: 'btn btn-warning')         
   - if (params[:query] || params[:city]) and !@venues.blank?
     %hr/
     -if params[:city]
