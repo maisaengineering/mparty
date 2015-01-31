@@ -5,6 +5,9 @@
 = render 'wishlist/shipping_address_form'
 .row.wishlist_header
   .col-md-3
+    = link_to "/event/#{@event.id}/invite-with-wishlist", class:"btn btn-warning" do
+      %span.glyphicon.glyphicon-chevron-left
+      Back
   .col-md-6.position_rel
     = render 'spree/shared/search'
   .col-md-3

@@ -8,7 +8,13 @@
 
 <div class="col-md-6 event_right_block">
   <div class="row">
-    <% unless @wished_products.blank? %>
+    <% if @wished_products.blank? %>
+        <div class="inv_wislist_right">
+          <div class="col-md-12">
+            <h4>Your wishlist is empty</h4>
+          </div>
+        </div>
+    <% else %>
         <div class="inv_wislist_right">
           <div class="col-md-12">
             <h4>Wishlist</h4>
@@ -34,12 +40,12 @@
             <% end %>
           </div>
         </div>
-        <div class="col-md-12 inv_addmore">
-          <a href="<%=event_wishlist_path(event_id: @event.id) %>" id="inv_addmore_prdts">
-            <div class="wishlist_add_btn"><span class="glyphicon glyphicon-plus"></span></div>
-            <h4>Add More Products</h4>
-          </a>
-        </div>
     <% end %>
+    <div class="col-md-12 inv_addmore">
+      <a href="<%=event_wishlist_path(event_id: @event.id) %>" id="inv_addmore_prdts">
+        <div class="wishlist_add_btn"><span class="glyphicon glyphicon-plus"></span></div>
+        <h4>Add More Products</h4>
+      </a>
+    </div>
   </div>
 </div>
