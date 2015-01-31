@@ -22,7 +22,7 @@ class VenueCalendar < ActiveRecord::Base
 	end
 
 	def valid_slots
-		if venue.present? && venue.venue_calendars.where('(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?) ', self.start_date,self.end_date,self.start_date,self.end_date).exists?
+		if venue.present? && venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",self.start_date,self.start_date,self.end_date,self.end_date).exists?
 			errors.add(:venue, "is already exist with this Schedule.") 
 		end 
 	end	
