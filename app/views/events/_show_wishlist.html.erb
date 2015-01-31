@@ -24,16 +24,16 @@
           <% end %>
         </div>
       </div>
-      <div class="col-md-3">
-        <h5><%= product.name %></h5>
+      <div class="col-md-3 mtop30">
+        <p><%= product.name %></p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 mtop30">
         <p><%= wish.quantity %></p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-2 mtop30">
         <p><%= wish.quantity_purchased %></p>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-1 mtop30">
         <p><%= number_to_currency(variant.price,unit: get_currency_symbol) %></p>
       </div>
     </div>

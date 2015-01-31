@@ -43,7 +43,11 @@
           <h4>Venue:</h4>
         </div>
         <div class="col-md-9">
-          <h5><%=  @event.full_address %></h5>
+          <h5>
+            <% if @event.venue.present? %>
+                <%= @event.venue.name %>,
+            <% end %>
+            <%=  @event.full_address %></h5>
         </div>
       </div>
       <div class="row" id="event_address">

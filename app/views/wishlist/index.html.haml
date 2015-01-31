@@ -1,7 +1,7 @@
 .container-fluid
   .container
     = render 'products/top_section'
-    #choose_products.row.mtop40
+    #choose_products.row.mtop20
       .col-md-3.filter{}
         - if "wishlist" == params[:controller] && @taxon
           = render :partial => 'spree/shared/filters'
