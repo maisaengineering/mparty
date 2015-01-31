@@ -20,7 +20,7 @@ Spree::HomeController.class_eval do
     if available_cities.include?(@city) and (@city != 'Others')
       @trending_events = Event.includes(:pictures).upcoming.where(city: @city)
     elsif @city == 'Others'
-    @trending_events = Event.where.not(:city => ['Hyderabad','Bangalore','Mumbai','Chennai'])
+    @trending_events = Event.upcoming.where.not(:city => ['Hyderabad','Bangalore','Mumbai','Chennai'])
     else
       @city = 'Hyderabad'    # @city to selectd state in layout/shared/_select_sate partial
       @trending_events = Event.includes(:pictures).upcoming.where(city: 'Hyderabad')
