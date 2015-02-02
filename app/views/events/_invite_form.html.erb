@@ -1,9 +1,13 @@
 <%= form_tag(send_invitation_path, class: 'form_margin',id: 'invite_friends_form') do %>
     <%= hidden_field_tag(:event_id, @event.id) %>
     <%= hidden_field_tag(:friend_emails) %>
-    <div class="col-md-4">
+<!--     <div class="col-md-4">
       <label></label>
-      <a href="<%= spree.root_url%>contacts/gmail" class="btn btn-lg btn-danger btn-block">GMail</a>
+      <a href="<%#= spree.root_url%>contacts/gmail" class="btn btn-lg btn-danger btn-block">GMail</a>
+    </div> -->
+    <div class="col-md-12">
+      <a href="event_preview_v2.html" class="btn btn-primary pull-right btn-sm mright10" type="submit">EVENT PREVIEW</a>
+      <button id="ImportContactsBtn" class="btn pull-right btn-primary btn-sm mright5" data-toggle="popover" data-placement="top"> IMPORT CONTACTS</button>
     </div>
     <div class="col-md-12 invitation_text">
       <label></label>
@@ -78,6 +82,19 @@
     $('#friend_emails').val(emails.join()) 
   })
 
+var temp = '<a class="btn btn-default btn-block" href="<%= spree.root_url%>contacts/gmail"><img src="/assets/import/logo_gmail.png" width="100" height="35" alt=""/></a>';
+
+$("#ImportContactsBtn").click(function (e) {
+  e.preventDefault();
+})
+
+$("#ImportContactsBtn").popover({  
+    animation:true,
+    content: temp,
+    html:true,
+    trigger:'hide',
+    container:'body'
+  });
 </script>
 
 <style type="text/css">
