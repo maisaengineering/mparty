@@ -16,12 +16,16 @@
       </div>
     </div>
     <div class="col-md-12"> 
+      <ul id="import_contact_list">
       <% unless @contacts.blank? %>
         <% @contacts.each do |contact| %>
+        <li>
           <%= check_box("contacts", contact[:email],{checked: false}) %> <%=contact[:name]%> => <%=contact[:email]%>
           <br>
+           </li>
         <% end %>
       <% end %>
+      </ul>
     </div>
     <div class="col-md-4">
       <label></label>

@@ -63,6 +63,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    session[:event_id_for_import] = @event.id
     authorize @event, :show?
     @wishlist = @event.wishlist
     @commentable = @event
