@@ -39,7 +39,8 @@ class Event < ActiveRecord::Base
   scope :public, -> { where(is_private:  false) }
   scope :private, -> { where(is_private:  true) }
   scope :past, -> { where("starts_at < ?", Date.today)}
-  scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
+  #scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
+  scope :upcoming, -> { where("start_time >=? AND starts_at =? OR starts_at >?",Time.now+5.5.hour,Date.today,Date.today).order(starts_at: :asc,start_time: :asc)}
   scope :invited, ->(email) { where(id: Invite.where(recipient_email: email).map(&:event_id))}
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
@@ -125,9 +126,9 @@ class Event < ActiveRecord::Base
   end
 
   private
-  
+
   def validate_duplicate_event_name
-    if(Event.public.where('name LIKE ?',self.name).where("starts_at>=?" ,Date.today).exists? && self.is_private == false )
+    if(Event.public.where('name LIKE ?',self.name).upcoming.exists? && self.is_private == false )
       errors.add(:Event_Name,"Already exists ")
     end
   end

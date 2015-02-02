@@ -1,5 +1,1 @@
-$("#listing_events").html("<%= j(render 'events/events_list',events: @events ) %> ")
-
-/*
-$("#events .page").append("<%#= j(render 'events/events_list',events: @events ) %>");
-$('#pagination-custom').("<%#= paginate @events ,params: {type: params[:type]   } %>")*/
+$("#listing_events").html("<%= j(render 'events/my_events',events: @events ) %> ")

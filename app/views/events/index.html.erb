@@ -16,13 +16,20 @@
         </li>
       </ul>
 
+    <% if params[:scope].eql?('attending') %>
+      <div class="mtop10 mbottom10 pull-right" >
+        <button class="btn btn-warning" id="btnIncludeMaybe"><input type="checkbox" id="checkIncludeMaybe" value="maybe"> include Maybe</button>
+        <button id="btnIncludeRejected" class="btn btn-danger"> <input type="checkbox" id="checkIncludeRejected" value="reject"> include Rejected </button>
+      </div>
+    <% end %>
+
       <!-- Tab panes -->
       <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="tab1">
           <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12" id="listing_events">
               <div style="position:relative;">
-                <%= render 'my_events',events: @events,type: params[:type] || 'organizing' %>
+                <%= render 'my_events',events: @events %>
               </div>
             </div>
           </div>
@@ -31,3 +38,72 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    $("#btnIncludeMaybe").click(function() {
+        $("#checkIncludeMaybe").trigger("click");
+        $("#checkIncludeMaybe").click(function(e) {
+            e.stopPropagation();
+        });
+    });
+    $("#btnIncludeRejected").click(function() {
+        $("#checkIncludeRejected").trigger("click");
+        $("#checkIncludeRejected").click(function(e) {
+            e.stopPropagation();
+        });
+    });
+    var maybe_count = 0,reject_count = 0,data = ""
+    $("#checkIncludeMaybe").click(function(){
+         if(maybe_count == 0){
+           maybe_count = 1
+         }
+        else{
+             maybe_count = 0
+         }
+        if( maybe_count == 0 && reject_count == 0){
+           data = "attending"
+        }
+        else if(maybe_count == 1 && reject_count == 0){
+            data = "include_only_maybe"
+        }
+        else if(maybe_count == 0 && reject_count == 1){
+            data = "include_only_rejected"
+        }
+        else{
+            data = "include_both_maybe_rejected"
+        }
+        $.ajax({
+            url: "/events",
+            type: "GET",
+            data: {scope: data}
+        })
+        //alert(data)
+    })
+    $("#checkIncludeRejected").click(function(){
+        if(reject_count == 0){
+            reject_count = 1
+        }
+        else{
+            reject_count = 0
+        }
+        if( maybe_count == 0 && reject_count == 0){
+            data = "attending"
+        }
+        else if(maybe_count == 1 && reject_count == 0){
+            data = "include_only_maybe"
+        }
+        else if(maybe_count == 0 && reject_count == 1){
+            data = "include_only_rejected"
+        }
+        else{
+            data = "include_both_maybe_rejected"
+        }
+        $.ajax({
+            url: "/events",
+            type: "GET",
+            data: {scope: data}
+        })
+        //alert(data)
+    })
+
+</script>
