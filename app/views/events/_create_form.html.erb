@@ -272,8 +272,14 @@
         $('#event_starts_at').attr('readonly','readonly');
         $('#event_ends_at').attr('readonly','readonly');
         $('#event_end_time').attr('readonly','readonly');
-        $(".btn_add_endtime").remove();
-        $(".btn_remove_endtime").remove();
+        $('#event_starts_at').datepicker( "destroy" );
+        $('#event_starts_at').removeClass('date start');
+        $('#event_starts_at').unbind();
+        $('#event_ends_at').datepicker( "destroy" );
+        $('#event_ends_at').removeClass('date end');
+        $('#event_ends_at').unbind();
+        $('#event_start_time').timepicker('remove');
+        $('#event_end_time').timepicker('remove');
     }else{
         $('#datepairExample .date').datepicker({
             startDate: new Date(),
