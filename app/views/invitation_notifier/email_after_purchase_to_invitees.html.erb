@@ -21,7 +21,7 @@
           <span>Purchased Quantity <%= item.quantity %></span><br><br>
         </div>
         <div style="float:right; margin-top:40px; padding-right:10px;">
-          Rs.500/-
+          <%= number_to_currency(item.variant.price,unit: Money::Currency.find(Spree::Config.currency).symbol) %>
         </div>
 
       </div>
