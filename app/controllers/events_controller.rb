@@ -9,6 +9,12 @@ class EventsController < ApplicationController
   def index
     @events =  if params[:scope].eql?('attending')
                  spree_current_user.attending_events
+               elsif  params[:scope].eql?('include_only_maybe')
+                 spree_current_user.attending_events_or_maybe_events
+               elsif params[:scope].eql?('include_only_rejected')
+                 spree_current_user.attending_events_or_rejected_events
+               elsif params[:scope].eql?('include_both_maybe_rejected')
+                 spree_current_user.attending_events_or_maybe_events_or_rejected_events
                else
                  spree_current_user.organizing_events
                end
