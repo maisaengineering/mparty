@@ -49,7 +49,7 @@ Spree::ToFriendMailer.class_eval do
   end
 end	
 
-if Rails.env.production?
+=beginif Rails.env.production?
 
 attachment_config = {
   :storage => :fog,
@@ -73,3 +73,4 @@ attachment_config.each do |key, value|
 end
 
 end
+=end
