@@ -32,30 +32,22 @@
           </div>
           <div id="datepairExample">
             <div class="row no_margin">
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label></label>
                 <%= f.text_field :starts_at , class: 'form-control date start' ,required: true ,placeholder: 'Start Date*' %>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-6">
                 <label></label>
                 <%= f.text_field :start_time , class: 'form-control time start' ,required: true ,placeholder: 'Start Time*' %>
               </div>
-              <div class="col-md-4 nopleft">
-                <div class="mtop20 btn_add_endtime"> <a href="#"> <span class="btn btn-xs btn-success glyphicon glyphicon-plus"></span> Add end time </a></div>
-              </div>
-            </div>
-            <div id="endtime" class="row no_margin">
-              <div class="col-md-4">
-                <label></label>
-                <%= f.text_field :ends_at , class: 'form-control date end' ,placeholder: 'End Date*' %>
-              </div>
-              <div class="col-md-4">
-                <label></label>
-                <%= f.text_field :end_time , class: 'form-control time end',placeholder: 'End Time*' %>
-              </div>
-              <div class="col-md-4 nopleft">
 
-                <div class="mtop20 btn_remove_endtime"> <a href="#"> <span class="btn btn-xs btn-danger glyphicon glyphicon-minus"></span> Remove end time </a></div>
+              <div class="col-md-6">
+                <label></label>
+                <%= f.text_field :ends_at , class: 'form-control date end' ,placeholder: 'End Date*',required: true %>
+              </div>
+              <div class="col-md-6">
+                <label></label>
+                <%= f.text_field :end_time , class: 'form-control time end',placeholder: 'End Time*',required: true %>
               </div>
             </div>
           </div>
@@ -227,7 +219,7 @@
    $("#event_starts_at").datepicker({
        startDate: new Date(),
        format: 'yyyy-mm-dd',
-       autoclose: true,
+       autoclose: true
     }).on('changeDate', function (selected) {
        var startDate = new Date(selected.date.valueOf());
        $('#event_ends_at').datepicker('setStartDate', startDate);
