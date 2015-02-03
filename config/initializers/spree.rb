@@ -16,6 +16,33 @@ Spree.config do |config|
 
   config.override_actionmailer_config = false
   config.mails_from = "no-reply@mparty.io"
+
+  if Rails.env.production?
+
+     attachment_config = {
+         :storage => :fog,
+         :fog_credentials => {provider: 'google',
+                       google_storage_access_key_id: ENV['google_storage_access_key'],
+                       google_storage_secret_access_key: ENV['google_storage_access_secret'],
+         :fog_directory => ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_products' : 'mparty_products', 
+         :bucket => ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_products' : 'mparty_products',
+         styles: {
+                  mini:     "48x48>",
+                  small:    "100x100>",
+                  product:  "240x240>",
+                  large:    "600x600>"
+         },
+
+         path:           "/spree/:class/:id/:style/:basename.:extension",
+         default_url:    "/spree/:class/:id/:style/:basename.:extension",
+         default_style:  "product"
+     }
+
+     attachment_config.each do |key, value|
+         Spree::Image.attachment_definitions[:attachment][key.to_sym] = value
+     end
+
+  end 
 end
 Spree::Config[:layout]='application'
 Spree::Ability.register_ability(CsrAbility)
@@ -49,28 +76,3 @@ Spree::ToFriendMailer.class_eval do
   end
 end
 
-=begin if Rails.env.production?
-
-attachment_config = {
-  :storage => :fog,
-  :fog_credentials => "#{Rails.root}/config/gce.yml",
-  :fog_directory => ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_products' : 'mparty_products', 
-
-  styles: {
-      mini:     "48x48>",
-      small:    "100x100>",
-      product:  "240x240>",
-      large:    "600x600>"
-  },
-
-  path:           "/spree/:class/:id/:style/:basename.:extension",
-  default_url:    "/spree/:class/:id/:style/:basename.:extension",
-  default_style:  "product"
-}
-
-attachment_config.each do |key, value|
-  Spree::Image.attachment_definitions[:attachment][key.to_sym] = value
-end
-
-end	
-=end
