@@ -23,9 +23,9 @@ Spree.config do |config|
          :storage => :fog,
          :fog_credentials => {provider: 'google',
                        google_storage_access_key_id: ENV['google_storage_access_key'],
-                       google_storage_secret_access_key: ENV['google_storage_access_secret'],
-         :fog_directory => 'test_mparty_products', 
-         :bucket => 'test_mparty_products',
+                       google_storage_secret_access_key: ENV['google_storage_access_secret']},
+         :fog_directory => ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_products' : 'mparty_products', 
+         :bucket => ENV['IS_HEROKU'].eql?('yes') ? 'test_mparty_products' : 'mparty_products',
          styles: {
                   mini:     "48x48>",
                   small:    "100x100>",
