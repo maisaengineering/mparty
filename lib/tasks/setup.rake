@@ -23,6 +23,7 @@ namespace :db do
    # ActiveRecord::Base.connection.execute(delete_except_first('spree_line_items',2))
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_wished_products;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE spree_wishlists;")
+    ActiveRecord::Base.connection.execute("TRUNCATE TABLE wishlist_orders;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE venues;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE trigrams;")
     ActiveRecord::Base.connection.execute("TRUNCATE TABLE venue_calendars;")
