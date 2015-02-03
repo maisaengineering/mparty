@@ -22,7 +22,7 @@
   - if (params[:query] || params[:city]) and !@venues.blank?
     %hr/
     -if params[:city]
-      %h2 suggesions results
+      %h2 suggestions results
     -else
       %h2 search results
     = render 'venues',venues: @venues

@@ -1,2 +1,6 @@
 Hello <%= @invited_by.full_name %>,
-Your invitation to an event "<%= @event.name %>" is Accepted by '<%= @accepted_by %>'
+<%if @invite.invited_user_id.blank?%>
+	"<%= @accepted_by %>" has shown interest in joining your event "<%= @event.name %>".
+<%else%>
+	Your invitation to an event "<%= @event.name %>" is Accepted by '<%= @accepted_by %>'
+<%end%>
