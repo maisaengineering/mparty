@@ -18,8 +18,8 @@
 
     <% if params[:scope].eql?('attending') %>
       <div class="mtop10 mbottom10 pull-right" >
-        <button class="btn btn-warning" id="btnIncludeMaybe"><input type="checkbox" id="checkIncludeMaybe" value="maybe"> include Maybe</button>
-        <button id="btnIncludeRejected" class="btn btn-danger"> <input type="checkbox" id="checkIncludeRejected" value="reject"> include Rejected </button>
+        <button class="btn btn-warning" id="btnIncludeMaybe"><input type="checkbox" id="checkIncludeMaybe" value="maybe"> Display Maybe</button>
+        <button id="btnIncludeRejected" class="btn btn-danger"> <input type="checkbox" id="checkIncludeRejected" value="reject"> Display Rejected </button>
       </div>
     <% end %>
 
@@ -64,13 +64,13 @@
            data = "attending"
         }
         else if(maybe_count == 1 && reject_count == 0){
-            data = "include_only_maybe"
+            data = "display_only_maybe"
         }
         else if(maybe_count == 0 && reject_count == 1){
-            data = "include_only_rejected"
+            data = "display_only_rejected"
         }
         else{
-            data = "include_both_maybe_rejected"
+            data = "display_both_maybe_rejected"
         }
         $.ajax({
             url: "/events",
@@ -90,13 +90,13 @@
             data = "attending"
         }
         else if(maybe_count == 1 && reject_count == 0){
-            data = "include_only_maybe"
+            data = "display_only_maybe"
         }
         else if(maybe_count == 0 && reject_count == 1){
-            data = "include_only_rejected"
+            data = "display_only_rejected"
         }
         else{
-            data = "include_both_maybe_rejected"
+            data = "display_both_maybe_rejected"
         }
         $.ajax({
             url: "/events",
