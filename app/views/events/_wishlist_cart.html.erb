@@ -7,7 +7,7 @@
   <h4 class="heading_h4">Your friend likes following gifts</h4>
 
 
-  <% if @wishlist.wished_products.size > 0 %>
+  <% if @wishlist.wished_products.length > 0 %>
       <%= form_for :order, :url => "/orders/populate",html: {class: 'form_margin'} do |f| %>
           <h3><%= @wishlist.name %></h3>
           <div class="row">

@@ -1,4 +1,4 @@
-<% if @wishlist.wished_products.size > 0 %>
+<% if @wishlist.wished_products.length > 0 %>
     <% @wishlist.wished_products.each do |wish| %>
         <%  variant = wish.variant  %>
         <% product = variant.product %>
