@@ -1,7 +1,7 @@
 <%if request.path == '/'%>
 	<form action="/" class="pull-right" style="margin-top:1em">
 	<%= select_tag 'user_city', options_for_select([['Hyderabad','Hyderabad'],['Bangalore','Bangalore'],
-		['Chennai','Chennai'],['Mumbai','Mumbai'],['Others','Others']], :selected=> @city), :onchange => "this.form.submit();",
+		['Chennai','Chennai'],['Mumbai','Mumbai'],['ALL','ALL']], :selected=> @city), :onchange => "this.form.submit();",
 		:class => 'form-control'%>
 	</form>
 	<% session.delete(:current_city)%>
