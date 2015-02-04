@@ -29,14 +29,16 @@
                       </div>
                       <!-- Only public events are allowed for joining a event -->
                       <% if e.is_public? %>
-                          <% if spree_current_user and e.user_joined?(spree_current_user) %>
-                              <div class="pull-right unjoin_btn" >
-                                <%= link_to "Leave this Event", "/events/#{e.id}/disjoin" ,method: :delete%>
-                              </div>
-                          <% else %>
-                              <div class="pull-right join_btn" >
-                                <%= link_to "Join", "/events/#{e.id}/join" ,method: :post%>
-                              </div>
+                          <% if e.user.id != current_spree_user.id  %>
+                              <% if spree_current_user and e.user_joined?(spree_current_user) %>
+                                  <div class="pull-right unjoin_btn" >
+                                    <%= link_to "Leave this Event", "/events/#{e.id}/disjoin" ,method: :delete%>
+                                  </div>
+                              <% else %>
+                                  <div class="pull-right join_btn" >
+                                    <%= link_to "Join", "/events/#{e.id}/join" ,method: :post%>
+                                  </div>
+                              <% end  %>
                           <% end  %>
                       <% else %>
                           <div class="pull-right text-info"> <span class="glyphicon glyphicon-lock"></span>Private</div>
