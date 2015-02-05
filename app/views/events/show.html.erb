@@ -31,7 +31,7 @@
 <div class="row">
   <div class="col-md-12">
     <div class="title_name"><%=@event.name%>
-      <% if @event.is_public? && @event.user.id != current_spree_user.id %>
+      <% if @event.is_public? && spree_current_user && @event.user.id != current_spree_user.id %>
           <% if policy(@event).leave? %>
               <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right mright5" %>
           <% else %>
