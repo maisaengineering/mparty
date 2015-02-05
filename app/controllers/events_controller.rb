@@ -2,19 +2,19 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars,only: [:update_designs,:show]
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
+  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
 
   def index
     @events =  if params[:scope].eql?('attending')
                  spree_current_user.attending_events
-               elsif  params[:scope].eql?('include_only_maybe')
-                 spree_current_user.attending_events_or_maybe_events
-               elsif params[:scope].eql?('include_only_rejected')
-                 spree_current_user.attending_events_or_rejected_events
-               elsif params[:scope].eql?('include_both_maybe_rejected')
-                 spree_current_user.attending_events_or_maybe_events_or_rejected_events
+               elsif  params[:scope].eql?('display_only_maybe')
+                 spree_current_user.maybe_events
+               elsif params[:scope].eql?('display_only_rejected')
+                 spree_current_user.rejected_events
+               elsif params[:scope].eql?('display_both_maybe_rejected')
+                 spree_current_user.maybe_events_or_rejected_events
                else
                  spree_current_user.organizing_events
                end
