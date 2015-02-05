@@ -77,7 +77,7 @@ class VenuesController < ApplicationController
     past_events = Event.past.where(:venue_id => venue.id).ids
     has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
     if ( has_events_with_venue.present? || has_invitation_with_venue.present? )
-       has_ratings = user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).size.zero?
+       has_ratings = user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).count.zero?
        return has_ratings ? true : false
     else
       return false
