@@ -23,7 +23,7 @@
           %h5= number_to_currency(variant.price, unit: get_currency_symbol)
         .col-md-2
           - if @wishlist.event.is_owner?(spree_current_user) && wish.quantity_purchased == 0
-            = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do
+            = link_to remove_wished_product_path(event_id: @event.id,variant_id: product.master.id),method: :delete,data: {variant_id: product.master.id},confirm: 'Are you sure?',class: 'remove-wished-product',remote: true do
               %span.glyphicon.glyphicon-trash
 
 :javascript
@@ -37,4 +37,6 @@
   $("#wishlist-modal-items .remove-wished-product").bind('ajax:beforeSend', function() {
      $(this).parents('.wished_product').first().fadeOut(500, function() { $(this).remove(); })
      $("#wishlist-count").text(parseInt($("#wishlist-count").text()) - 1)
+     $('.wishable_products #product_'+$(this).attr('data-variant-id')+' .add_product_to_wishlist_btn').removeClass('product_added_btn').addClass('product_add_btn')
+     $('.wishable_products #product_'+$(this).attr('data-variant-id')).find('span:first').removeClass('glyphicon-ok remove').addClass('glyphicon-plus add');
   })
