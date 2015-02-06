@@ -14,7 +14,7 @@
           <br>
           <%= rating_for venue, nil, readonly: true %>&nbsp;<%= pluralize(venue.reviews.count, 'Review')%>
         <% else %>
-          <%= rating_for venue, nil, readonly: true, noRatedMsg: "No Ratings available"%> <%= pluralize(venue.reviews.length, 'Review')%>
+          <%= rating_for venue, nil, readonly: true, noRatedMsg: "No Ratings available"%> <%= pluralize(venue.reviews.size, 'Review')%>
         <% end %>
       </div> 
       </div>
