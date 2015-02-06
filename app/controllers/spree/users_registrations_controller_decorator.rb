@@ -22,7 +22,7 @@ Spree::UserRegistrationsController.class_eval do
       invitations = Invite.where(recipient_email: user.email)
      
       # Update purcahsed orders 
-      if orders.size > 0
+      if orders.count > 0
         orders.each do |order|
           order.created_by_id = user.id
           order.user_id = user.id
@@ -31,7 +31,7 @@ Spree::UserRegistrationsController.class_eval do
       end
 
       # Update Invitations
-      if invitations.size > 0
+      if invitations.count > 0
         invitations.each do |invite|
           invite.user_id = user.id  
         end

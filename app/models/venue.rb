@@ -4,7 +4,7 @@ class Venue < ActiveRecord::Base
   VENUE_TYPES = ['Conference Centres','Convention Centres','Retreats','Banquet','Hotels']
 
   #--------- Relations
-  has_many :venue_calendars
+  has_many :venue_calendars,dependent: :destroy
   has_many :events, through: :venue_calendars
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :reviews, as: :reviewable, dependent: :destroy
@@ -67,7 +67,7 @@ class Venue < ActiveRecord::Base
     past_events = Event.past.where(:venue_id => self.id).ids
     has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)  
     if (has_events_with_venue.present? || has_invitation_with_venue.present?)
-       has_reviews = user.reviews.where(reviewable_id: self.id, reviewable_type: self.class.name).size.zero?
+       has_reviews = user.reviews.where(reviewable_id: self.id, reviewable_type: self.class.name).count.zero?
        return has_reviews ? true : false 
     else
       return false

@@ -2,7 +2,7 @@
   window.location.reload(true);
   /* $("#review_block").remove();
    $("#no_reviews").remove();
-   <% if @venue.present? && current_spree_user.ratings_given.where(dimension: nil, rateable_id: @venue.id, rateable_type: @venue.class.name).size.zero? %>
+   <% if @venue.present? && current_spree_user.ratings_given.where(dimension: nil, rateable_id: @venue.id, rateable_type: @venue.class.name).count.zero? %>
      $("#first_rate_text").remove(); 
      $(".star").remove();
    <% end %>

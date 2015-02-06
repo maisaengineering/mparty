@@ -13,7 +13,10 @@
               <%= f.email_field :email,class: "form-control", placeholder:"Email Address*", required: true %>
             </div>
             <div class="ptopbottom">
-              <%= f.text_field :first_name,class: "form-control",placeholder:"First Name*", required: true,autofocus: true %>
+              <%= f.text_field :nickname,class: "form-control",placeholder:"Nick Name*",autofocus: true %>
+            </div>
+            <div class="ptopbottom">
+              <%= f.text_field :first_name,class: "form-control",placeholder:"First Name*", required: true %>
             </div>
             <div class="ptopbottom">
               <%= f.text_field :last_name,class: "form-control",placeholder:"Last Name*", required: true %>
@@ -21,7 +24,7 @@
             <div class="ptopbottom">
               <%= f.phone_field :phone,class: "form-control",placeholder:"Phone", required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number",:maxlength => 10 %>
             </div>
-            <h4>Address</h4>
+            <h4>Home Address</h4>
             <div class="ptopbottom">
               <%= f.text_area :address,class: "form-control",placeholder: "Address"%>
             </div>

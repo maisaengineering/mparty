@@ -13,6 +13,10 @@
         <% if @user.avatar.present? %>
             <%=  image_tag(@user.avatar.url(:preview)) %>
             <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Change photo</a>
+        <% elsif spree_current_user.user_authentications.find_by_provider("facebook").present?%>
+            <% uid = spree_current_user.user_authentications.find_by_provider("facebook").uid%>
+            <img src="http://graph.facebook.com/<%=uid%>/picture?type=large" height="220" width="220">
+            <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Change photo</a>
         <% else %>
             <%=  image_tag("default-avatar-big.png") %>
             <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Add photo</a>
@@ -23,7 +27,8 @@
       <div class="col-md-4">
         <h4>Personal Details</h4>
         <div style="font-size:16px;">
-          <div class="mtop20"><span class="glyphicon glyphicon-user"></span> <%=  @user.full_name %></div>
+          <div class="mtop20"><%=  image_tag("imgo.jpeg", height: '16', width: '16') %> <%=  @user.nickname %></div>
+          <div class="mtop20"> <span class="glyphicon glyphicon-user"></span> <%=  @user.full_name %></div>
           <div class="mtop20"><span class="glyphicon glyphicon-envelope"></span> <%=  @user.email %></div>
           <div class="mtop20"><span class="glyphicon glyphicon-phone"></span> <%=  @user.phone %></div>
         </div>
@@ -51,7 +56,7 @@
 
 <div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"><div class="modal-backdrop fade in"></div>
   <div class="modal-dialog modal5">
-    <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+    <div class="modal-content modal_wishlist_bg">
       <div class="modal-header">
         <h3 class="txt_center">Change Profile Photo</h3>
       </div>
@@ -66,6 +71,7 @@
             </div>
             </div>
             <div class="modal-footer">
+              <a href="/"><span class="btn btn-info mright5" data-dismiss="modal">Cancel</span></a>
               <%= f.submit "Save",class:  "btn btn-success pull-right",id: 'image_submit' %>
             </div>
         <% end %>

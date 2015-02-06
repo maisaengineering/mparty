@@ -18,6 +18,9 @@
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               - if spree_current_user.avatar.present?
                 = image_tag(spree_current_user.avatar.url(:small),class: 'img-rounded bg_img')
+              - elsif spree_current_user.user_authentications.find_by_provider("facebook").present?
+                - uid = spree_current_user.user_authentications.find_by_provider("facebook").uid
+                = image_tag("http://graph.facebook.com/#{uid}/picture",class: 'img-rounded bg_img')
               - else
                 = image_tag('default-avatar-small.png',class: 'img-rounded bg_img')
               #{current_spree_user.full_name}

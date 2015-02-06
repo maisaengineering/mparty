@@ -114,6 +114,10 @@ Spree::User.class_eval do
     my_event_invitations(1,2)
   end
 
+  def maybe_events_or_rejected_events
+    my_event_invitations(3,2)
+  end
+
   def attending_events_or_maybe_events_or_rejected_events
     events = Event.joins(:invites).where(invites: {recipient_email: self.email})
     events = events.where("invites.joined = ? OR invites.joined  = ? OR invites.joined  = ?",1,2,3)

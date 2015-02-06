@@ -1,4 +1,4 @@
-<% if @wishlist and @wishlist.wished_products.size > 0 %>
+<% if @wishlist and @wishlist.wished_products.length > 0 %>
     <%= form_for :order, :url => "/orders/populate",remote: true,html: {class: 'form_margin',id: 'wishlist-add-to-cart-form'} do |f| %>
         <%= hidden_field_tag :event_id ,@event.try(:id) %>
         <%= hidden_field_tag :invitation_id ,@invitation.try(:id) %>

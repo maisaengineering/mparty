@@ -73,13 +73,13 @@
         <h4 class="review_star">Overall Rating</h4>
         <% if @venue.rates.present? %>
 <!--            <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on 
-  <%#= pluralize(@venue.rates.size, 'Member') %></p> -->
+  <%#= pluralize(@venue.rates.count, 'Member') %></p> -->
           <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">
-            <%= pluralize(@venue.reviews.size, 'Review')%>
+            <%= pluralize(@venue.reviews.count, 'Review')%>
           </p>
            <%= rating_for @venue, nil, readonly: true %>
         <% else %>
-          <%= rating_for @venue, nil, readonly: true, noRatedMsg: "No Ratings available" %><%= pluralize(@venue.reviews.size, 'Review')%>
+          <%= rating_for @venue, nil, readonly: true, noRatedMsg: "No Ratings available" %><%= pluralize(@venue.reviews.count, 'Review')%>
         <% end %>
         <br>
         <ul class="nav nav-tabs" role="tablist" id="myTab">
@@ -124,6 +124,7 @@
                   <li><%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
+                  <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
                   <% if @contacts.present? %>
                     <% if @land_numbers.present? %>
                       <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
@@ -208,7 +209,7 @@
                         <div id="reviews">
                           <div class="page">
                             <% @reviews.each_with_index do |review, index| %>
-                                <% index = @reviews.size - index %>
+                                <% index = @reviews.count - index %>
                                 <%= render 'reviews/review',review: review, index: index %>
                             <% end %>
                           </div>
