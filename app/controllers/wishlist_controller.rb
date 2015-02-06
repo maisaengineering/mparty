@@ -20,6 +20,7 @@ class WishlistController < ApplicationController
     session[:wishlist_id] = @wishlist.id
     authorize @wishlist, :show?
     #session[:wishlist_id] = @wishlist.id
+    @s_address = spree_current_user.events.order(created_at: :desc).offset(1).first.try(:shipping_address)
     @searcher = build_searcher(params)
     @products = @searcher.retrieve_products
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
