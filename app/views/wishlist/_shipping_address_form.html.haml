@@ -12,8 +12,17 @@
         = form_tag("/event/#{@event.id}/shipping_address", method: 'post',class: 'form_margin',remote: true) do
           = hidden_field_tag(:event_id, @event.id)
           = hidden_field_tag(:ship_address_id, @event.ship_address ? @event.ship_address.id : nil)
-          = fields_for(:ship_address, (@event.ship_address || Spree::Address.default(@event, "ship"))) do |ship_form|
-            - address = Spree::Address.default(@event, "ship")
+          = fields_for(:ship_address, (@s_address || Spree::Address.default(@event, "ship"))) do |ship_form|
+            -# address = Spree::Address.default(@event, "ship")
+            - address = @s_address || Spree::Address.default(@event, "ship")
+            - if @s_address.present?
+              - first_name = @s_address.firstname
+              - last_name  = @s_address.lastname
+              - phone =      @s_address.phone
+            - else
+              - first_name = spree_current_user.first_name
+              - last_name  = spree_current_user.last_name
+              - phone = spree_current_user.phone
             - address_type = 'shipping'
             - address_id = address_type.chars.first
             .row.shipping_address_form
@@ -21,10 +30,10 @@
                 %form{:role => "form"}
                   .col-md-6
                     %label
-                    = ship_form.text_field :firstname,value: spree_current_user.first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
+                    = ship_form.text_field :firstname,value: first_name, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
                   .col-md-6
                     %label
-                    = ship_form.text_field :lastname,value: spree_current_user.last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
+                    = ship_form.text_field :lastname,value: last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
                   .col-md-6
                     %label
                     = ship_form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
@@ -50,7 +59,7 @@
                   - unless Spree::Config[:alternative_shipping_phone]
                     .col-md-6
                       %label
-                      = ship_form.phone_field :phone ,value:  current_spree_user.phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number"
+                      = ship_form.phone_field :phone ,value:  phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number"
                     .col-md-6
                       %label
                       = ship_form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"

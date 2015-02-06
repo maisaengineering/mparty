@@ -13,6 +13,8 @@ Spree.config do |config|
 	config.admin_interface_logo = 'logo.png'
   config.layout='spree_application'
   config.allow_ssl_in_production = false
+  country = Spree::Country.find_by_name('India')
+  config.default_country_id = country.id if country.present?
 
   config.override_actionmailer_config = false
   config.mails_from = "no-reply@mparty.io"
