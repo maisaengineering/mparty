@@ -22,6 +22,8 @@ class Venue < ActiveRecord::Base
 
   #--------- Validations goes here
   validates :name,:address1, :address2, :state, :city, :country,:zip,presence: true
+  validates :room_dimensions,:capacity,:price_min ,:price_max, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
+  validates :priority,numericality: { greater_than_or_equal_to: 0 }
   #validates_associated :venue_calendars, :venue_contacts
 
   #--------  Callbacks goes here

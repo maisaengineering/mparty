@@ -23,14 +23,14 @@
         %label Room Dimensions
         %span.required
         %br/
-        = f.number_field :room_dimensions ,placeholder: 'in sq feet',class: 'fullwidth'
+        = f.number_field :room_dimensions ,placeholder: 'in sq feet',min: '1', class: 'fullwidth'
         = f.error_message_on :room_dimensions
     .omega.eight.columns
       .field
         %label Capacity
         %span.required
         %br/
-        = f.number_field :capacity, class: 'fullwidth',placeholder: 'members'
+        = f.number_field :capacity, class: 'fullwidth',min: '1',placeholder: 'members'
         = f.error_message_on :capacity
   .align-center.row
     .alpha.eight.columns
@@ -38,14 +38,14 @@
         %label Price min
         %span.required
         %br/
-        = f.number_field :price_min  , class: 'fullwidth'
+        = f.number_field :price_min, min: '1',class: 'fullwidth'
         = f.error_message_on :price_min
     .omega.eight.columns
       .field
         %label Price max
         %span.required
         %br/
-        = f.number_field :price_max, class: 'fullwidth'
+        = f.number_field :price_max, min: '1', class: 'fullwidth'
         = f.error_message_on :price_max
   .align-center.row
     .alpha.eight.columns
@@ -53,7 +53,7 @@
         %label Priority
         %span.required
         %br/
-        = f.number_field :priority  , class: 'fullwidth'
+        = f.number_field :priority ,min: '0', class: 'fullwidth'
         = f.error_message_on :priority
     .omega.eight.columns
       .field
