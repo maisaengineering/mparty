@@ -12,8 +12,8 @@
     / Collect the nav links, forms, and other content for toggling
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.top-nav.nav.navbar-nav.navbar-right
+        = render 'layouts/shared/select_state'
         - if signed_in?
-          = render 'layouts/shared/select_state'
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               - if spree_current_user.avatar.present?
