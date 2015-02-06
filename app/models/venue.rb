@@ -17,7 +17,7 @@ class Venue < ActiveRecord::Base
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories 
   #Scopes ------------------
-  scope :top_five,-> {where(promote: true).order(priority: :asc).limit(5)}
+  scope :top_five,-> {where(promote: true).order(priority: :asc).limit(6)}
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here

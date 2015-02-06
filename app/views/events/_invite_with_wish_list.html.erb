@@ -23,7 +23,7 @@
                    product = variant.product %>
                 <div class="row inv_wishlist">
                   <div class="col-md-3">
-                    <% if variant.images.length == 0 %>
+                    <% if variant.images.size == 0 %>
                         <%= small_image(variant.product) %>
                     <% else %>
                         <%= image_tag variant.images.first.attachment.url(:small) %>

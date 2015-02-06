@@ -1,4 +1,4 @@
-<% if @wishlist.wished_products.length > 0 %>
+<% if @wishlist.wished_products.size > 0 %>
 <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
   <h4>Wishlist</h4>
   <div class="event_wishlist_table">
@@ -17,7 +17,7 @@
     <div class="row wishlist_popup_center event_pre_wishlist_block">
       <div class="col-md-2">
         <div class="wishlist_img_block">
-          <% if variant.images.length == 0 %>
+          <% if variant.images.size == 0 %>
               <%= small_image(variant.product) %>
           <% else %>
               <%= image_tag variant.images.first.attachment.url(:small) %>
