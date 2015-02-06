@@ -14,6 +14,7 @@ class InvitesController < ApplicationController
     end
     @invitation.save
     @wishlist = @event.wishlist
+    session[:invitee_email] = params[:email].strip if  params[:email].present? and @wishlist
     #session[:event_id] = @event.id
     #session[:invitation_id] = @invitation.id
     msg = "Thanks for your response."

@@ -5,6 +5,16 @@
     .row
       .title_name
     #OrderDetails.create_event_bg
+      - if params[:token].present? # suggest login
+        .alert.alert-success.alert-dismissible.fade.in{style: 'margin-top: -21px;'}
+          %button.close{"data-dismiss" => "alert", :type => "button"}
+            %span{"aria-hidden" => "true"} ×
+            %span.sr-only Close
+          Thank you for placing order, to track your order
+          %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} sign up
+          or
+          %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} login
+          with your account
       .row
         .col-md-5.event_left_block
           .col-md-10

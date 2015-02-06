@@ -1,5 +1,5 @@
 Spree::ProductsController.class_eval do
-  before_action :check_wishlist
+  before_action :check_wishlist,except: [:show]
 
   private
   def check_wishlist
