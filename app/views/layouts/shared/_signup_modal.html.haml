@@ -13,7 +13,13 @@
               .fb-icon-bg
               .fb-bg Sign up with facebook
       .modal-body
-        = form_for Spree::User.new, :as => :spree_user, :url => spree.registration_path(Spree::User.new) ,html: {class: 'form-signin'} do |f|
+        - user = Spree::User.new
+        - if @order and @order.bill_address# if checked out as guest
+          - user.email = @order.email
+          - user.first_name = @order.bill_address.firstname
+          - user.last_name = @order.bill_address.lastname
+          - user.phone = @order.bill_address.phone
+        = form_for user, :as => :spree_user, :url => spree.registration_path(Spree::User.new) ,html: {class: 'form-signin'} do |f|
           .row
             .col-md-6
               = f.text_field :first_name ,placeholder: 'First Name*' ,class: 'form-control', required: true,autofocus: true
@@ -23,6 +29,7 @@
           %br/
           .row
             .col-md-12
+              - email_value = params[:controller] == 'spree/orders' ?  session[:invitee_email] : ''
               = f.email_field :email ,placeholder: 'Email Address*' ,class: 'form-control', required: true
           %br/
           .row

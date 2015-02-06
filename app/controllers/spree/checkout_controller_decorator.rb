@@ -42,7 +42,8 @@ Spree::CheckoutController.class_eval do
             flash[:success] = Spree.t(:order_processed_successfully)
           else
             send_order_info_to_users(@order)
-            flash[:success] = "Your order processed successfully,please user order nuber '#{@order.number}' to track."
+            session.delete(:invitee_email)
+            # flash[:success] = "Thank you for placing order(#{@order.number}), to track your order sign up or login with your account."
           end
           session[:order_id] = nil
           session.delete(:event_id)

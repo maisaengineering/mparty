@@ -38,7 +38,7 @@
               .flash.error= flash[:registration_error]
             .col-md-12
               %label
-              = f.email_field :email, :class => 'form-control',placeholder: Spree.t(:guest_user_account) , required: true
+              = f.email_field :email,value: session[:invitee_email], :class => 'form-control',placeholder: Spree.t(:guest_user_account) , required: true
             .col-md-12
               %label
               = f.submit Spree.t(:continue), :class => 'btn btn-primary btn-block'
