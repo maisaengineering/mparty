@@ -54,15 +54,15 @@
         <div class="row">
           <div class="col-md-12 ptop">
           <div class="row">
-          <div class="col-md-2"></div>
+          <!-- <div class="col-md-2"></div> -->
           <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
           <div class="col-md-10">
-              <%= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false"), {:class => "btn btn-success"}%>
-                <%= link_to "Add this Venue to Event", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-primary"}%>
+              <%#= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false"), {:class => "btn btn-success"}%>
+                <%= link_to "Add this Venue to Event", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-primary pull-left"}%>
           </div>      
           <% else %>
           <div class="col-md-10">
-            <%= link_to "Venues List", venues_path, {:class => "btn btn-success"}%>
+            <%#= link_to "Venues List", venues_path, {:class => "btn btn-success"}%>
           </div>  
           <% end %>
           </div>
@@ -263,5 +263,11 @@
           $.ajax({url: action})
         }) 
     }
+
+$(function(){
+    $('.carousel').carousel({
+      interval: 2000
+    });
+});    
 </script>
 
