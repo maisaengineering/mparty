@@ -124,6 +124,7 @@
                   <li><%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
+                  <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
                   <% if @contacts.present? %>
                     <% if @land_numbers.present? %>
                       <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>

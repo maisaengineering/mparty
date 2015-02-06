@@ -109,6 +109,14 @@
         %br/
         = f.text_field :zip, class: 'fullwidth'
         = f.error_message_on :zip
+    .align-center.row
+      .alpha.eight.columns
+        .field
+          %label Email
+          %span.required
+          %br/
+          = f.email_field :email  , class: 'fullwidth'
+          = f.error_message_on :email
   .field
     %label About
     %span.required
