@@ -25,3 +25,4 @@
             =  venue.name
           %td.actions
             = link_to '',edit_admin_venue_path(venue) ,class: 'edit icon_link with-tip icon-edit no-text'
+            = link_to '', admin_venue_path(venue.id), class: 'delete-resource icon_link with-tip icon-trash no-text',method: :delete, data: { confirm: 'Are you sure?' }

@@ -4,7 +4,7 @@ class Venue < ActiveRecord::Base
   VENUE_TYPES = ['Conference Centres','Convention Centres','Retreats','Banquet','Hotels']
 
   #--------- Relations
-  has_many :venue_calendars
+  has_many :venue_calendars,dependent: :destroy
   has_many :events, through: :venue_calendars
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :reviews, as: :reviewable, dependent: :destroy
