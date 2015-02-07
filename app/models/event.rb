@@ -30,7 +30,7 @@ class Event < ActiveRecord::Base
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
-  validate :validate_duplicate_event_name
+  #validate :validate_duplicate_event_name
 
   validates :name,:template_id, :starts_at,:start_time,:ends_at,:end_time,:description,:city,:state,:country,:zip, presence: true
   validates_presence_of :location, :unless => :venue_id?
@@ -128,11 +128,13 @@ class Event < ActiveRecord::Base
 
   private
 
+=begin
   def validate_duplicate_event_name
     if(Event.public.where('name LIKE ?',self.name).upcoming.exists? && self.is_private == false )
       errors.add(:Event_Name,"Already exists ")
     end
   end
+=end
 
   def create_venue_calander
    if self.venue_id.present?
