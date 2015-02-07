@@ -17,9 +17,9 @@ class InvitesController < ApplicationController
     session[:invitee_email] = params[:email].strip if  params[:email].present? and @wishlist
     #session[:event_id] = @event.id
     #session[:invitation_id] = @invitation.id
-    msg = "Thanks for your response."
-    msg << "Event has wishlist,Do you want checkout? please click on 'checkout' below" if @wishlist and not @wishlist.wished_products.blank?
-    flash.now[:success] = msg
+    #msg = "Thanks for your response."
+    #msg << "Event has wishlist,Do you want checkout? please click on 'checkout' below" if @wishlist and not @wishlist.wished_products.blank?
+    #flash.now[:success] = msg
   end
 
   private
