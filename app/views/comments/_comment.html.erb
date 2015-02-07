@@ -6,7 +6,6 @@
       <% elsif comment.user.user_authentications.find_by_provider("facebook").present?%>
         <% uid = comment.user.user_authentications.find_by_provider("facebook").uid%>
         <img src="http://graph.facebook.com/<%=uid%>/picture" class="img-circle">
-        <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Change photo</a>
       <% else %>
         <%=  image_tag("default-avatar-comment.png",:class => 'img-circle') %>
       <% end %>
