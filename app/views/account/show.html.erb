@@ -37,14 +37,14 @@
 
       <div class="col-md-5">
         <h4>Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
-        <% if @user.address.present? %>
             <ul class="venue_ctc_details" id="venue_afterchoose">
               <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %>,</b></li>
               <li><%=  @user.city %>,</li>
-              <li><%=  @user.state %></li>
-              <li><%=  @user.country %></li>
+              <% if @user.country_id && @user.state_id %>
+                  <li><%=  Spree::Country.find(@user.country_id).states.find(@user.state_id).name %>,</li>
+                  <li><%= "#{Spree::Country.find(@user.country_id)}" ',' " #{@user.zipcode}" %></li>
+              <% end %>
             </ul>
-        <% end %>
       </div>
 
 

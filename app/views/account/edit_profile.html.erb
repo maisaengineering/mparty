@@ -7,7 +7,6 @@
     <div class="col-md-4">
       <div class="row">
         <h4>Personal Details</h4>
-        <%#= form_for Spree::User.new, :as => @user, :url => spree.user_path(@user), :method => :put do |f| %>
         <%= form_for(@user, url: account_update_profile_path, html: {method: "post"}) do |f| %>
             <div class="ptopbottom">
               <%= f.email_field :email,class: "form-control", placeholder:"Email Address*", required: true %>
@@ -32,14 +31,17 @@
               <%= f.text_field :city,class: "form-control",placeholder: "City" %>
             </div>
             <div id="country">
-              <%= f.collection_select :country, Spree::Country.order(:name), :name,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
+              <%= f.collection_select :country_id, available_countries, :id,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
             </div>
             <div class="ptopbottom">
-              <% if @user.country.present? %>
-                  <%= f.collection_select :state, Spree::Country.find_by_name(@user.country).states || [], :name,:name, {:include_blank => 'State'}, {class: 'form-control'}%>
+              <% if @user.country_id.present? %>
+                  <%= f.collection_select :state_id, Spree::Country.find(@user.country_id).states || [], :id,:name, {:include_blank => 'Select State'}, {class: 'form-control'}%>
               <% else %>
-                  <%= f.collection_select :state, Spree::Country.try(:states) || [], :id,:name, {:include_blank => 'State'}, {class: 'form-control'}%>
+                  <%= f.collection_select :state_id, Spree::Country.try(:states) || [], :id,:name, {:include_blank => 'Select State'}, {class: 'form-control'}%>
               <% end %>
+            </div>
+            <div class="ptopbottom">
+              <%= f.text_field :zipcode,class: "form-control",placeholder: "Zip Code" %>
             </div>
             <div class="ptopbottom">
               <button class= 'btn' onclick="window.location('account_show_path')">Back</button>
@@ -53,18 +55,25 @@
 
 <script type="text/javascript">
 
-        $("#user_country").change(function(){
+        $("#user_country_id").change(function(){
         country=$(this).val()
-        $.ajax({
-            type: "GET",
-            url: "/country/get-states/"+country,
-            success: function(json){
-                $('#user_state').empty()
-                $.each(json, function(i, value) {
-                    $('#user_state').append($('<option>').text(value.name).attr('value', value.name));
-                });
-            }
-        });
+        if(country){
+            $.ajax({
+                type: "GET",
+                url: "/country/get-states/" + country,
+                success: function (json) {
+                    $('#user_state_id').empty()
+                    $.each(json, function (i, value) {
+                        $('#user_state_id').append($('<option>').text(value.name).attr('value', value.id));
+                    });
+                }
+            });
+        }
+        else {
+            $('#user_state_id').empty()
+        }
     });
+
+
 
 </script>
