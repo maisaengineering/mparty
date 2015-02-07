@@ -37,8 +37,8 @@
                           </div>
                         </div>
                         <div class="col-md-2">
-                          <h4><%= link_to product.name ,p_url %></h4>
-                          <p<%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
+                          <h4><%= link_to product.name ,p_url,style: "color: #484848"%></h4>
+                          <p><%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
                         </div>
                         <div class="col-md-2">
                           <p><%= wish.quantity %></p>
