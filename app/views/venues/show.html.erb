@@ -39,7 +39,7 @@
               <% @pictures.each_with_index do |picture, index|%>
                   <div class="item" id="venue_picture" >
                     <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
-                    <div class="carousel-caption"> Picture <%= index+1%> </div>
+                    <!-- <div class="carousel-caption"> Picture <%#= index+1%> </div> -->
                   </div>
               <%end%>
           <% end %>

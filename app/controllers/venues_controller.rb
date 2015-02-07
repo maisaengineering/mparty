@@ -1,11 +1,19 @@
 class VenuesController < ApplicationController
   def index
-    @top_five = Venue.top_five
+    not_avlble_venus= []
+    @top_five = Venue.top_five.to_a
     @venues=Venue.advance_search(params[:query])
     if params[:query].present?
-      @top_five= @top_five.to_a-@venues.to_a
+      @top_five= @top_five-@venues.to_a
     end
     if params[:city].present?
+      # not_avlble_venus= @top_five + not_avlble_venus
+      sd = session[:event_data][:starts_at]
+      st = Time.parse(session[:event_data][:start_time]).strftime(" %H:%m:%S")
+      start_date = sd + st
+      ed = session[:event_data][:ends_at]
+      et = Time.parse(session[:event_data][:end_time]).strftime(" %H:%m:%S")
+      end_date = ed + et
       @venues =  Venue.where("city = ?", params[:city]).to_a
       selected_rate__venues_array =  Venue.joins(:rating_cache).where("rating_caches.avg" => params[:rating]).to_a
       unless selected_rate__venues_array.blank?
@@ -13,7 +21,14 @@ class VenuesController < ApplicationController
           @venues << venue_obj
         end
       end
-      @top_five= @top_five.to_a-@venues
+      unless @venues.blank?
+        @venues.each do |venue|
+          not_avlble_venus << venue if venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date).present?
+        end
+      end
+      @venues = @venues - not_avlble_venus
+      @top_five= @top_five-@venues
+      @top_five= @top_five-not_avlble_venus
       flash.now[:notice] = "Please select another venue."
     end
     flash.now[:error] = "No results found for '#{params[:query]}'" if params[:query] and  @venues.blank?
@@ -50,13 +65,22 @@ class VenuesController < ApplicationController
     @event = Event.new(session[:event_data])
     @venue = Venue.find(params[:id])
     #start_date = @event.starts_at
-    start_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,@event.start_time.hour,@event.start_time.min,@event.start_time.sec)
-    if @event.ends_at.present? && @event.end_time.present? 
-      end_date = Time.zone.local(@event.ends_at.year,@event.ends_at.month,@event.ends_at.day,@event.end_time.hour,@event.end_time.min,@event.end_time.sec)
-    else
-      end_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,23,@event.start_time.min,@event.start_time.sec)
-    end 
-    booked_venues_dates =  @venue.venue_calendars.where('(start_date BETWEEN ? AND ?) OR (end_date BETWEEN ? AND ?) ', start_date,end_date,start_date,end_date)
+    ed = @event.ends_at.strftime("%Y-%m-%d")
+    et = @event.end_time.strftime(" %T")
+
+    @start_date = start_date = ed + et
+
+    sd = @event.starts_at.strftime("%Y-%m-%d")
+    st = @event.start_time.strftime(" %T")
+
+    @end_date = end_date = sd + st
+    # start_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,@event.start_time.hour,@event.start_time.min,@event.start_time.sec)
+    # if @event.ends_at.present? && @event.end_time.present?
+    #   end_date = Time.zone.local(@event.ends_at.year,@event.ends_at.month,@event.ends_at.day,@event.end_time.hour,@event.end_time.min,@event.end_time.sec)
+    # else
+    #   end_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,23,@event.start_time.min,@event.start_time.sec)
+    # end
+    booked_venues_dates =  @venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date)
     if !booked_venues_dates.present?
       @available = true      
     else      
