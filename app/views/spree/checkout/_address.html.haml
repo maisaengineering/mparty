@@ -2,15 +2,27 @@
   .col-md-6.event_left_block
     = form.fields_for :bill_address do |form|
       - address_type = 'billing'; address = @order.bill_address
+      - if not @order.bill_address.persisted? and spree_current_user
+        - bill_add = spree_current_user.billing_address
+        - form.object.firstname = bill_add ? bill_add.firstname :  spree_current_user.first_name
+        - form.object.lastname = bill_add ? bill_add.lasttname :  spree_current_user.last_name
+        - form.object.address1  = bill_add ? bill_add.address1  :  spree_current_user.address
+        - form.object.address2 = bill_add ? bill_add.address2   :  nil
+        - form.object.country_id = bill_add ? bill_add.country_id :  spree_current_user.country_id || Spree::Address.default().country_id
+        - form.object.state_id = bill_add ? bill_add.state_id :  spree_current_user.state_id
+        - form.object.city  = bill_add ? bill_add.city  :  spree_current_user.city
+        - form.object.zipcode  = bill_add ? bill_add.zipcode  : spree_current_user.zipcode
+        - form.object.phone  = bill_add ? bill_add.phone  :  spree_current_user.phone
+        - form.object.alternative_phone  = bill_add ? bill_add.alternative_phone  :  nil
       .row
         .col-md-12
           %form{:role => "form"}
             .col-md-6
               %label
-              = form.text_field :firstname,value:   spree_current_user.try(:first_name), class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
+              = form.text_field :firstname, class: 'form-control' ,placeholder: 'First Name*' ,required: true ,autofocus: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
             .col-md-6
               %label
-              = form.text_field :lastname,value: spree_current_user.try(:last_name), class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
+              = form.text_field :lastname, class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
             .col-md-6
               %label
               = form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
