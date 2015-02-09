@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars,only: [:update_designs,:show]
-  layout 'spree_application',except: [:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
+  layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
 
@@ -110,6 +110,16 @@ class EventsController < ApplicationController
     @event = Event.find(params[:event_id])
     authorize @event, :invite?
     @wished_products = @event.wishlist.wished_products if @event.wishlist
+  end
+
+  def inv_request
+    @event = Event.find(params[:id])
+    authorize @event, :allow_inv_request?
+    if Notifier.ask_host_to_invite(current_spree_user,@event).deliver
+      inv_request = InvRequest.create(user_id: current_spree_user.id,event_id: @event.id)
+      flash[:notice] = "Request sent successfully"
+      redirect_to '/'
+    end
   end
 
   def import_and_invite
