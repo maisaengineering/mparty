@@ -116,6 +116,9 @@ class EventsController < ApplicationController
     @event = Event.find(session[:event_id_for_import])
     @wished_products = @event.wishlist.wished_products if @event.wishlist
     @contacts = request.env['omnicontacts.contacts']
+    if request.path.include?("/failure")
+      flash[:error] = "Import your contacts again."
+    end    
   end  
 
   def send_invitation

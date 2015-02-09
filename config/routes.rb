@@ -163,7 +163,6 @@ Invitation::Application.routes.draw do
 
   # mail contacts
   get "/contacts/:provider/contact_callback" => "events#import_and_invite"
-
-
+  get "/contacts/failure" => "events#import_and_invite"
 
 end
