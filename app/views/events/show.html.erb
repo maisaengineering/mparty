@@ -120,7 +120,7 @@
       </div>
 
       <div class="row count_btns_margin">
-        <% if policy(@event).invite? && @event.starts_at >= Date.today %>
+        <% if policy(@event).invite? &&  @event.ends_at >= Date.today %>
             <div class="col-md-6">
               <div><span class="glyphicon glyphicon-ok-sign icon-success"></span> <span class="txt_bold icon-success"><%= @event.attendees('accepted') %></span> members attending</div>
             </div>
@@ -240,6 +240,11 @@
 
 
 <script type="text/javascript">
+  <% if @event.pictures.count == 1 %>
+  $(".jcarousel-control-prev").remove()
+  $(".jcarousel-control-next").remove()
+  <% end %>
+
     <% if @comments.blank? %>
     $(".row .comment_block").removeClass("comment_block")
     <% end%>
