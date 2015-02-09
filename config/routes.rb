@@ -117,6 +117,9 @@ Invitation::Application.routes.draw do
 
   resources :comments
 
+  # request host for invitation to join for private event
+  get '/events/:id/inv-request', to: "events#inv_request", as: "ask_host_to_invite"
+
   post '/events/invite-friends'=>"events#send_invitation", as: :send_invitation
 
   get '/events/add_guests/:event_id'=>"events#add_guests", as: :add_guests

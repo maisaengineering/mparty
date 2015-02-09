@@ -13,6 +13,7 @@ class Event < ActiveRecord::Base
   has_one :wishlist , class_name: "Spree::Wishlist", :validate => true
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :inv_requests, dependent: :destroy
 
   # After placing an order --------------------------------
   has_many :wishlist_orders,through: :wishlist
@@ -66,6 +67,10 @@ class Event < ActiveRecord::Base
     elsif status.eql?('rejected')
       self.invites.where(joined: 2).count
     end
+  end
+
+  def inv_requested?(user)
+   user and inv_requests.where(user_id: user.id).exists?
   end
 
   def is_owner?(user=nil)

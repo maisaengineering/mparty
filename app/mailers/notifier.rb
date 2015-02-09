@@ -18,4 +18,10 @@ class Notifier < ActionMailer::Base
     mail(to: email, subject: "Welcome to MParty")
   end
 
+  def ask_host_to_invite(user,event)
+    @user = user
+    @event = event
+    mail(to:  @event.user.email, subject: "asking Request to join #{@event.name}", from: "#{@user.full_name} <#{@user.email}>")
+  end
+
 end
