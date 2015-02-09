@@ -17,23 +17,20 @@ class EventPolicy < Struct.new(:user, :event)
   # A private event permitted to only owner and and the users who are invited
   def show?
     return true if event.is_public?
-    if user and (event.is_owner?(user) or event.user_invited?(user))
-      true
-    else
-      false
-    end
+    event.is_private? and user and (event.is_owner?(user) or event.user_invited?(user)) #or event.user_joined?(user))
   end
 
   # Public event : show wishlist for only joined users(attending)
   # Private event : show wishlist for invited/joined users
   def show_wishlist?
-    return false if event.wishlist.nil?
-    return true if event.is_owner?(user)
-    if event.is_private?
-      event.user_invited?(user)
-    else
-      event.user_invited?(user) or event.user_joined?(user)
-    end
+    # return false if event.wishlist.nil?
+    # return true if event.is_owner?(user)
+    # if event.is_private?
+    #   event.user_invited?(user)
+    # else
+    #   event.user_invited?(user) or event.user_joined?(user)
+    # end
+    event.is_public? and event.wishlist
   end
 
   # only owner can invite others
@@ -56,37 +53,25 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def allow_checkout?
-    return false if event.wishlist.nil? or event.is_owner?(user)
-    if event.is_private?
-      event.user_invited?(user)
-    else
-      event.user_invited?(user) or event.user_joined?(user)
-    end
+    return false if user.nil? or  event.is_owner?(user)  or event.wishlist.nil?
+    event.user_invited?(user) or event.user_joined?(user)
   end
 
 
   # only owner can edit/update the event
   def edit?
-    (user and event.owner?(user)) ? true : false
+    user and event.owner?(user)
   end
 
   # only owner can delete the event
   def delete?
-    (user and event.is_owner?(user)) ? true : false
+    user and event.is_owner?(user)
   end
 
   # only joined users are permitted for commenting
   def allow_commenting?
     return false unless user
-    if event.user_joined?(user)
-      true
-    elsif event.is_public? or event.is_owner?(user)
-      true
-    elsif event.is_private? and user and event.user_invited?(user)
-      true
-    else
-      false
-    end
+    event.user_joined?(user) or  event.is_owner?(user) or event.user_invited?(user)
   end
 
   def add_ship_address?
@@ -94,11 +79,16 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def join?
-
+    return true if user.nil?
+    user and event.is_public? and !event.is_owner?(user) and !event.user_joined?(user)
   end
 
   def leave?
-    user and event.user_joined?(user)
+    event.is_public?  and user  and event.user_joined?(user)
+  end
+
+  def allow_inv_request?
+    event.is_private? and user and !event.is_owner?(user) and !event.inv_requested?(user)
   end
 
 
