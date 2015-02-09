@@ -5,6 +5,7 @@ class InvitesController < ApplicationController
 
   def show
     @comments = @event.comments.order('created_at DESC').limit(10)
+    @wishlist = @event.wishlist
   end
 
   def update_invitation
