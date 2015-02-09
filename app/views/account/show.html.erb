@@ -37,14 +37,16 @@
 
       <div class="col-md-5">
         <h4>Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
-            <ul class="venue_ctc_details" id="venue_afterchoose">
+        <ul class="venue_ctc_details" id="venue_afterchoose">
+          <% if @user.address.present? %>
               <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %>,</b></li>
               <li><%=  @user.city %>,</li>
-              <% if @user.country_id && @user.state_id %>
-                  <li><%=  Spree::Country.find(@user.country_id).states.find(@user.state_id).name %>,</li>
-                  <li><%= "#{Spree::Country.find(@user.country_id)}" ',' " #{@user.zipcode}" %></li>
-              <% end %>
-            </ul>
+          <% end  %>
+          <% if @user.country_id && @user.state_id %>
+              <li><%=  Spree::Country.find(@user.country_id).states.find(@user.state_id).name %>,</li>
+              <li><%= "#{Spree::Country.find(@user.country_id)}" ',' " #{@user.zipcode}" %></li>
+          <% end %>
+        </ul>
       </div>
 
 
@@ -63,11 +65,11 @@
       <div class="modal-body">
         <%= form_for(@user, url: account_update_avatar_path, html: {method: "post",class: 'update_avatar'}) do |f| %>
             <div class="center-block position_rel browse_width">
-            <%= f.file_field :avatar,onchange: "image_preview(this);",class: "btn adbf btn-primary center-block event_file_upload_button" %>
-            <button class="btn btn-primary center-block">browse photo</button>
+              <%= f.file_field :avatar,onchange: "image_preview(this);",class: "btn adbf btn-primary center-block event_file_upload_button" %>
+              <button class="btn btn-primary center-block">browse photo</button>
 
-            <div class="picCropArea" id="img-preview" >
-            </div>
+              <div class="picCropArea" id="img-preview" >
+              </div>
             </div>
             </div>
             <div class="modal-footer">
