@@ -39,12 +39,12 @@
                             <%= link_to "Join", "/events/#{e.id}/join" ,method: :post%>
                           </div>
                       <% end  %>
-
+                      <% if e.is_private? %>
                       <div class="pull-right text-info"> <span class="glyphicon glyphicon-lock"></span>Private</div><br>
+                          <% end %>
                       <% if policy(e).allow_inv_request? %>
                           <div><%= link_to "Ask host to invite", "/events/#{e.id}/inv-request",class: "pull-right text-info"%></div>
                       <% end %>
-
                     </div>
                   </div>
                 </div>
