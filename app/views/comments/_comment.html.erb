@@ -1,14 +1,7 @@
 <div class="comment">
   <div class="row comment_block">
     <div class="col-md-1">
-      <%  if comment.user.avatar.present? %>
-        <%= image_tag(comment.user.avatar.url(:mini),:class => 'img-circle')%>
-      <% elsif comment.user.user_authentications.find_by_provider("facebook").present?%>
-        <% uid = comment.user.user_authentications.find_by_provider("facebook").uid%>
-        <img src="http://graph.facebook.com/<%=uid%>/picture" class="img-circle">
-      <% else %>
-        <%=  image_tag("default-avatar-comment.png",:class => 'img-circle') %>
-      <% end %>
+      <%= mini_avatar_image_tag(comment.user) %>
     </div>
     <div class="col-md-11">
       <h5><%= comment.commented_by %></h5>

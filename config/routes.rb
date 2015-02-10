@@ -147,6 +147,8 @@ Invitation::Application.routes.draw do
   get '/event/:event_id/wishlist/wished_products'=>"wishlist#wished_products"
   get '/event/:event_id/invite-with-wishlist'=>"events#invite_with_wishlist",as: :invite_with_wishlist
   post '/event/:event_id/shipping_address'=>"wishlist#shipping_address",as: :wishlist_shipping_address
+  get '/my-wish-lists'=> 'wishlist#my_wish_lists'
+  get '/wishlist/:wl_id/wished-product/:wp_id/purchased-users'=>'wishlist#purchased_users',as: :wishlist_purchases
 
 
 

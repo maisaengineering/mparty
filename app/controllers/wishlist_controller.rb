@@ -10,7 +10,7 @@ class WishlistController < ApplicationController
 
 
   before_filter :auth_user
-  before_action :find_wishlist
+  before_action :find_wishlist,except: [:my_wish_lists,:purchased_users]
   skip_before_filter :verify_authenticity_token, only: [:add_product,:remove_product,:update_quantity]
 
   helper 'spree/taxons'
@@ -89,6 +89,15 @@ class WishlistController < ApplicationController
     else
       flash.now[:success] = "Shipping address updated successfully"
     end
+  end
+
+  def my_wish_lists
+    @events = spree_current_user.events.includes(wishlist: :wished_products)
+  end
+
+  def purchased_users
+    @wishlist_orders = WishlistOrder.includes(:order=>:created_by).where(wishlist_id: params[:wl_id],wished_product_id: params[:wp_id])
+    render layout: false
   end
 
   private
