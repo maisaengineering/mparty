@@ -3,8 +3,7 @@ Spree::HomeController.class_eval do
 
   def index
     if Rails.env == "development"
-      current_city = ['Chennai','Hyderabad','Bangalore','Mumbai','Pune']
-      @city = current_city.sample(1)[0]
+      @city = "ALL"
     end
 
     if Rails.env == "production"    
@@ -19,11 +18,9 @@ Spree::HomeController.class_eval do
     @city = session[:current_city] if session[:current_city]
     if available_cities.include?(@city) and (@city != 'ALL')
       @trending_events = Event.includes(:pictures).upcoming.where(city: @city)
-    elsif @city == 'ALL'
-    @trending_events = Event.upcoming
     else
-      @city = 'Hyderabad'    # @city to selectd state in layout/shared/_select_sate partial
-      @trending_events = Event.includes(:pictures).upcoming.where(city: 'Hyderabad')
+     @city = "ALL"
+     @trending_events = Event.upcoming
     end
     # @trending_events = Event.includes(:pictures).upcoming
     if params[:query].present?
