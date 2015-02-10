@@ -79,7 +79,7 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def join?
-    return true if user.nil?
+    return true if user.nil? and event.is_public?
     user and event.is_public? and !event.is_owner?(user) and !event.user_joined?(user)
   end
 
@@ -88,7 +88,7 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def allow_inv_request?
-    event.is_private? and user and !event.is_owner?(user) and !event.inv_requested?(user)
+    event.is_private? and  !event.is_owner?(user) and !event.inv_requested?(user)
   end
 
 
