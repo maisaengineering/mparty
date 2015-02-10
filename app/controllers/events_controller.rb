@@ -58,7 +58,7 @@ class EventsController < ApplicationController
     if @event.save
       session.delete(:event_data) if session[:event_data]
       session[:event_id_for_import] = @event.id # for importing contancts
-    end    
+    end
   end
 
   def show
@@ -115,11 +115,8 @@ class EventsController < ApplicationController
   def inv_request
     @event = Event.find(params[:id])
     authorize @event, :allow_inv_request?
-    if Notifier.ask_host_to_invite(current_spree_user,@event).deliver
-      inv_request = InvRequest.create(user_id: current_spree_user.id,event_id: @event.id)
-      flash[:notice] = "Request sent successfully"
-      redirect_to '/'
-    end
+    InvRequest.create(user_id: current_spree_user.id,event_id: @event.id)
+    render nothing: true
   end
 
   def import_and_invite
@@ -128,8 +125,8 @@ class EventsController < ApplicationController
     @contacts = request.env['omnicontacts.contacts']
     if request.path.include?("/failure")
       flash[:error] = "Import your contacts again."
-    end    
-  end  
+    end
+  end
 
   def send_invitation
     @event = Event.find(params[:event_id])
@@ -143,7 +140,7 @@ class EventsController < ApplicationController
       end
     end
     params[:friend_emails] = wish_emails.join(",")
-        
+
     if params[:friend_emails].present?
       e = params[:friend_emails].split(',')
       invitations = []
