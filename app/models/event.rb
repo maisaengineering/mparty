@@ -42,7 +42,7 @@ class Event < ActiveRecord::Base
   scope :past, -> { where("end_time < ? AND ends_at <=?",Time.now,Date.today)}
   #scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
   #scope :upcoming, -> { where("start_time >=? AND starts_at =? OR starts_at >?",Time.now+5.5.hour,Date.today,Date.today).order(starts_at: :asc,start_time: :asc)}
-  scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order(starts_at: :asc,start_time: :asc,name: :asc)}
+  scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
   scope :invited, ->(email) { where(id: Invite.where(recipient_email: email).map(&:event_id))}
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
