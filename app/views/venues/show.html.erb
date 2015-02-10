@@ -22,27 +22,27 @@
       <h3 class="t_left"><%=@venue.name.titleize%></h3>
       <%= hidden_field_tag :venue_id,@venue.id %>
       <div id="carousel-example-generic" class="carousel slide venue_slider" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
 
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <% if @pictures.blank? %>
-              <div class="item">
-                <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
-                <!-- <div class="carousel-caption"> venue three </div> -->
-              </div>
+            <div class="item">
+              <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
+              <!-- <div class="carousel-caption"> venue three </div> -->
+            </div>
           <% else %>
-              <% @pictures.each_with_index do |picture, index|%>
-                  <div class="item" id="venue_picture" >
-                    <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
-                    <!-- <div class="carousel-caption"> Picture <%#= index+1%> </div> -->
-                  </div>
+            <% @pictures.each_with_index do |picture, index|%>
+              <div class="item" id="venue_picture" >
+                <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
+                <!-- <div class="carousel-caption"> Picture <%#= index+1%> </div> -->
+              </div>
+            <%end%>
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <%@pictures.each_with_index do |picture_dot, index|%>
+                <li data-target="#carousel-example-generic" data-slide-to="<%=index+1%>"></li>
               <%end%>
+            </ol>
           <% end %>
         </div>
 
@@ -147,6 +147,9 @@
 
           <div role="tabpanel" class="tab-pane fade in  active" id="Locations">
             <div class="row no_margin">
+              <%if @pictures.count == 0%>
+                <h4>Photos coming soon</h4>
+              <%end%>
               <!-- <h4>Photos</h4> --><br>
               <%@pictures.each do |picture|%>
                   <div class="col-md-3 fix_image_size">
@@ -157,7 +160,11 @@
               <%end%>
             </div>
             <div class="row no_margin event_margin">
+              <%if @videos.count == 0%>
+                <h4>Videos coming soon</h4>
+              <%else%>
               <h4>Videos</h4>
+              <%end%>
               <%@videos.each do |video|%>
               <div class="col-md-3 fix_image_size">
                 <a class="fancybox-media" href="<%=video.url%>">
@@ -229,6 +236,7 @@
 </div>
 <script type="text/javascript">
     $(".carousel-inner div:first-child").addClass("active");
+    $(".carousel-indicators li:first-child").addClass("active");
     $("#large-image").html("<img src="+$(".jcarousel ul li ").eq(0).find('img').attr('src')+">");
     $(".jcarousel a").click(function(e){
         $("#large-image").html("<img src="+$(this).find('img').attr('src')+">");
