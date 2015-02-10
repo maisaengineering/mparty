@@ -14,6 +14,7 @@
         height: 165px;
         width: 220px;
     }
+    .fix_image_size{height: 180px}
 </style>
 <div id="wrapper">
   <div class="container-fluid">
@@ -33,7 +34,7 @@
           <% if @pictures.blank? %>
               <div class="item">
                 <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
-                <div class="carousel-caption"> venue three </div>
+                <!-- <div class="carousel-caption"> venue three </div> -->
               </div>
           <% else %>
               <% @pictures.each_with_index do |picture, index|%>
@@ -158,7 +159,7 @@
             <div class="row no_margin event_margin">
               <h4>Videos</h4>
               <%@videos.each do |video|%>
-              <div class="col-md-3">
+              <div class="col-md-3 fix_image_size">
                 <a class="fancybox-media" href="<%=video.url%>">
                   <img src="<%=video.image_url%>" alt="missing_image" width="220px" height="185px">
                 </a>
