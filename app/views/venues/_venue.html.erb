@@ -3,8 +3,8 @@
     <%= cover_photo(venue,:preview) %>
     <div class="caption">
       <div class="row">
-      <h3 class="col-md-6" style="text-align: left;">
-        <%= venue.name %>
+      <h3 class="col-md-6" style="text-align: left;" data-toggle="tooltip" data-original-title="<%=venue.name%>">
+        <%= truncate(venue.name,:length => 15) %>
       </h3>
       <div class="col-md-6">
 
@@ -41,4 +41,13 @@
 img.raty-cancel {
   display: none;
 }
+div.tooltip-inner {font-size: 18px; }
 </style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip({
+      placement : 'top'
+  });
+});
+</script>
