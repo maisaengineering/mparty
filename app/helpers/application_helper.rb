@@ -1,18 +1,18 @@
 module ApplicationHelper
 
   #alias_method :current_user, Spree::AuthenticationHelpers::spree_current_user
-   YOUTUBE_FORMATS = [
-    %r(https?://youtu\.be/(.+)),
-    %r(https?://www\.youtube\.com/watch\?v=(.*?)(&|#|$)),
-    %r(https?://www\.youtube\.com/embed/(.*?)(\?|$)),
-    %r(https?://www\.youtube\.com/v/(.*?)(#|\?|$)),
-    %r(https?://www\.youtube\.com/user/.*?#\w/\w/\w/\w/(.+)\b)
-    ]
-  
+  YOUTUBE_FORMATS = [
+      %r(https?://youtu\.be/(.+)),
+      %r(https?://www\.youtube\.com/watch\?v=(.*?)(&|#|$)),
+      %r(https?://www\.youtube\.com/embed/(.*?)(\?|$)),
+      %r(https?://www\.youtube\.com/v/(.*?)(#|\?|$)),
+      %r(https?://www\.youtube\.com/user/.*?#\w/\w/\w/\w/(.+)\b)
+  ]
+
   def current_user
-   current_spree_user
+    current_spree_user
   end
-    
+
   def title
     controller = params[:controller]
     case controller
@@ -73,6 +73,18 @@ module ApplicationHelper
 
   def get_currency_symbol
     Money::Currency.find(Spree::Config.currency).symbol
-  end  
+  end
+
+  def mini_avatar_image_tag(user=nil)
+    return image_tag('default-avatar-small.png',class: 'img-circle') if user.nil?
+    if user.avatar.present?
+      image_tag(user.avatar.url(:mini),class: 'img-circle')
+    elsif user.user_authentications.find_by_provider("facebook").present?
+      uid = user.user_authentications.find_by_provider("facebook").uid
+      image_tag "http://graph.facebook.com/#{uid}/picture?type=small",class: 'img-circle'
+    else
+      image_tag('default-avatar-small.png',class: 'img-circle')
+    end
+  end
 
 end

@@ -2174,6 +2174,11 @@ ul#import_contact_list li {
   margin:30px auto;
 }
 
+.list-group-item {
+  height:auto;
+  overflow:hidden;
+}
+
 /***************our responsive**********************/
 @media screen and (max-device-width:767px) {
   .container {

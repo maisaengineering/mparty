@@ -75,5 +75,10 @@ renderFlashMessage = function(){
         , 4000)
 }
 
+// popover and tooltip
+$(function () {
+    $('[data-toggle="popover"]').popover()
+    $('[data-toggle="tooltip"]').tooltip()
+})
 
 
