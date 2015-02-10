@@ -78,7 +78,7 @@ module ApplicationHelper
   def mini_avatar_image_tag(user=nil)
     return image_tag('default-avatar-small.png',class: 'img-circle') if user.nil?
     if user.avatar.present?
-      image_tag(comment.user.avatar.url(:mini),class: 'img-circle')
+      image_tag(user.avatar.url(:mini),class: 'img-circle')
     elsif user.user_authentications.find_by_provider("facebook").present?
       uid = user.user_authentications.find_by_provider("facebook").uid
       image_tag "http://graph.facebook.com/#{uid}/picture?type=small",class: 'img-circle'
