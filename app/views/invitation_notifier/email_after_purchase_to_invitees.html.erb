@@ -3,7 +3,7 @@
   <br>
   <span>Hello <%= @invitee_name  %>,</span> <br>
   <br>
-  <span><%= @purchaser_name %> purchased below products for <b><i><%= @event.name %> </i></b> invited by <%= @inviter.full_name %></span> <br>
+  <span><%= @purchaser_name %> purchased below products for <%= link_to "#{@event.name}", "#{spree.root_url + "events/#{@event.id}"}" %> invited by <%= @inviter.full_name %></span> <br>
   <br>
   <!-- invitation -->
 
