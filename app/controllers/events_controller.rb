@@ -65,6 +65,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     session[:event_id_for_import] = @event.id
     authorize @event, :show?
+    @invited_user = @event.invites.where("mail_sent =?",true)
     @wishlist = @event.wishlist
     @commentable = @event
     @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
