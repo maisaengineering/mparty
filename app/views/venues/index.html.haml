@@ -22,9 +22,9 @@
   - if (params[:query] || params[:city]) and !@venues.blank?
     %hr/
     -if params[:city]
-      %h2 suggestions results
+      %h2 Suggestions Results
     -else
-      %h2 search results
+      %h2 Search Results
     = render 'venues',venues: @venues
   %hr/
   - unless @top_five.blank?
