@@ -18,7 +18,7 @@ Spree::User.class_eval do
   #TODO uncomment below after admin has been created
   validates :first_name, :last_name, :phone, presence: true, allow_blank: true
 
-  # validates :phone, uniqueness: true,numericality: true,  length: { is: 10},format: {with: /\d{10}/}
+  validates :phone, uniqueness: true,numericality: true,  length: { is: 10},format: {with: /\d{10}/},allow_blank: true
 
   def attending?(event)
   	rsvp = self.rsvps.where(:event_id => event.id).first
