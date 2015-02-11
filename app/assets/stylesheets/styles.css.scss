@@ -2079,16 +2079,16 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   top:0px;
   display:none;
 }
-ul#breadcrumbs {
-  margin:0px;
-  padding:0px;
+nav#breadcrumbs {
+  margin: 0 0 0 51px;
+  padding: 10px;
 }
-ul#breadcrumbs li {
+nav#breadcrumbs li {
   float:left;
   list-style-type:none;
   font-weight:bold;
 }
-ul#breadcrumbs li:last-child {
+nav#breadcrumbs li:last-child {
   font-weight:inherit;
 }
 .well {
