@@ -135,7 +135,7 @@
         <div class="col-md-12 mtop20">
           <span class="txt_bold icon-success"><%= pluralize(@invited_user.count,'person')  %> </span>  invited for this Event
         </div>
-        <% if policy(@event).invite? &&  @event.ends_at >= Date.today %>
+        <% if policy(@event).event_expiration?  %>
             <div class="col-md-12 mtop10">
               <button href="" class="btn btn-success pull-left mright5" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</button>
 
