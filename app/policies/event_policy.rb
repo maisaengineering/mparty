@@ -91,5 +91,9 @@ class EventPolicy < Struct.new(:user, :event)
     event.is_private? and  !event.is_owner?(user) and !event.inv_requested?(user)
   end
 
+  def event_expiration?
+    invite? and  (event.end_time.strftime("%T") >= Time.now.strftime("%T") and event.ends_at == Date.today or event.ends_at > Date.today)
+  end
+
 
 end

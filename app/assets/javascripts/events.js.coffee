@@ -28,12 +28,11 @@ $(document).ready ->
     itemSelector: "#past_events div.past_event"
 
   $('.ask_host_to_invite').bind('ajax:beforeSend', ->
-    $('.loading-indicator').fadeIn 'slow'
+    bootbox.alert 'Request Sent successfully'
+    $(this).remove()
     return
   ).bind('ajax:success', (e,data, status, xhr) ->
     $('.loading-indicator').hide()
-    bootbox.alert 'Request Sent successfully'
-    $(this).remove()
     return
   )
 
