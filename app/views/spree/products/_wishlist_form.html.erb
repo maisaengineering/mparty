@@ -2,7 +2,7 @@
     <%= hidden_field_tag :variant_id, @product.master.id %>
     <div class="col-md-12">
       <h4>Quantity</h4>
-      <%= number_field_tag :quantity, 1,class: 'form-control addcart_select text_6',min: 1 %>
+      <%= number_field_tag :quantity, 1,class: 'form-control addcart_select text_6',min: 1,required: true %>
     </div>
     <div class="col-md-12">&nbsp;</div>
     <div class="col-md-12">

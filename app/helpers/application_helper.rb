@@ -75,15 +75,15 @@ module ApplicationHelper
     Money::Currency.find(Spree::Config.currency).symbol
   end
 
-  def mini_avatar_image_tag(user=nil)
-    return image_tag('default-avatar-small.png',class: 'img-circle') if user.nil?
+  def mini_avatar_image_tag(user=nil,width=80,height=80)
+    return image_tag('default-avatar-small.png',class: 'img-circle',width: width,height: height) if user.nil?
     if user.avatar.present?
-      image_tag(user.avatar.url(:mini),class: 'img-circle')
+      image_tag(user.avatar.url(:mini),class: 'img-circle',width: width,height: height)
     elsif user.user_authentications.find_by_provider("facebook").present?
       uid = user.user_authentications.find_by_provider("facebook").uid
-      image_tag "http://graph.facebook.com/#{uid}/picture?type=small",class: 'img-circle'
+      image_tag "http://graph.facebook.com/#{uid}/picture?type=small",class: 'img-circle',width: width,height: height
     else
-      image_tag('default-avatar-small.png',class: 'img-circle')
+      image_tag('default-avatar-small.png',class: 'img-circle',width: width,height: height)
     end
   end
 
