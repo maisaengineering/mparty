@@ -22,6 +22,9 @@ Invitation::Application.configure do
   # Raise an error on page load if there are pending migrations
   #config.active_record.migration_error = :page_load
 
+  # SET DEFAULT TIMEZONE FOR ACTIVE RECORD QUERYING
+  config.active_record.default_timezone = :local
+  
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.

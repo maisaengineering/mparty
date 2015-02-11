@@ -22,7 +22,8 @@
               %li.list-group-item
                 .col-md-2
                   =  mini_avatar_image_tag(user)
-                .col-md-4.mtop10= user ? user.full_name : wo.order.email
+                - name =  user ? user.full_name : wo.order.email
+                .col-md-4.mtop10{data: {placement: 'right',toggle: 'tooltip'},title: name}=  truncate(name ,length: 23)
                 .col-md-3.mtop10= wo.quantity_purchased
                 .col-md-3.mtop10= l(wo.created_at.to_date)
         .modal-footer
