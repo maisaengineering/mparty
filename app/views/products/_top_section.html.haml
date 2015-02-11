@@ -17,12 +17,12 @@
       ADD TO WISHLIST
 :javascript
   $('.back_button').click(function (e){
-            products = $("#wishlist-count").text()
-            address = "#{@event.ship_address}"
-            if (products != 0 && !address){
-             e.preventDefault()
-              bootbox.alert("Please add Shipping address before continuing")
-                          $('#wishlist-modal').modal('hide')
-                          $('#wishlist-shipping-addrs-modal').modal('show')
-            }
-      })
+      products = $("#wishlist-count").text()
+      address = "#{@event.ship_address}"
+      if (products != 0 && !address){
+       e.preventDefault()
+        bootbox.alert("Please add Shipping address before continuing")
+                    $('#wishlist-modal').modal('hide')
+                    $('#wishlist-shipping-addrs-modal').modal('show')
+      }
+  })
