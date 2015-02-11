@@ -37,6 +37,7 @@
   $("#wishlist-modal-items .remove-wished-product").bind('ajax:beforeSend', function() {
      $(this).parents('.wished_product').first().fadeOut(500, function() { $(this).remove(); })
      $("#wishlist-count").text(parseInt($("#wishlist-count").text()) - 1)
+     $(".wishlist_modal_count").text(parseInt($(".wishlist_modal_count").text()) - 1)
      $('.wishable_products #product_'+$(this).attr('data-variant-id')+' .add_product_to_wishlist_btn').removeClass('product_added_btn').addClass('product_add_btn')
      $('.wishable_products #product_'+$(this).attr('data-variant-id')).find('span:first').removeClass('glyphicon-ok remove').addClass('glyphicon-plus add');
   })
