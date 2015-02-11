@@ -50,5 +50,6 @@
         $('.loading-indicator').hide();
         $('#wishlistPurchasedUsers').html(xhr.responseText)
         $('#wishlistPurchasedUsersModal').modal('show');
+        $('[data-toggle="tooltip"]').tooltip()
       })
 
