@@ -11,7 +11,7 @@
       .row.mbottom40
         - for product in row_products
           - url = spree.product_url(product, :taxon_id => @taxon.try(:id),event_id: @event.id)
-          .col-md-4.product{id: "product_#{ product.id}"}
+          .col-md-4.product{id: "product_#{ product.master.id}"}
             %a{:href => "#{url}"}
               .product_block
                 %h4= truncate(product.name, :length => 50)
