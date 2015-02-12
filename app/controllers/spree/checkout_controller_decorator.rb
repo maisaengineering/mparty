@@ -3,7 +3,7 @@ Spree::CheckoutController.class_eval do
   before_filter :register_handlebars,only: [:edit]
   def update
     if @order.update_from_params(params, permitted_checkout_attributes)
-      persist_user_address
+      # persist_user_address
       unless @order.next
         flash[:error] = @order.errors.full_messages.join("\n")
         redirect_to checkout_state_path(@order.state) and return
@@ -38,6 +38,7 @@ Spree::CheckoutController.class_eval do
             @order.created_by_id = logged_in_user.id
             @order.user_id = logged_in_user.id
             @order.save
+            logged_in_user.update_attribute(:bill_address_id, @order.bill_address.id) if @order.bill_address
             send_order_info_to_users(@order)
             flash[:success] = Spree.t(:order_processed_successfully)
           else

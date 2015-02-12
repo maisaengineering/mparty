@@ -82,7 +82,10 @@ class WishlistController < ApplicationController
       @ship_address.update_attributes(address_params)
     else
       @ship_address =  Spree::Address.new(address_params)
-      @event.update_attribute(:shipping_address_id,@ship_address.id) if @ship_address.save
+       if @ship_address.save
+         @event.update_attribute(:shipping_address_id,@ship_address.id)
+         spree_current_user.update_attribute(:ship_address_id,@ship_address.id) if spree_current_user
+       end
     end
     if @ship_address.errors.any?
       flash.now[:error] = "Errors: #{@ship_address.errors.full_messages.to_sentence}"
