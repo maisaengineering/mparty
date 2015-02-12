@@ -92,6 +92,11 @@
           <li role="presentation"><a href="#Reviews" role="tab" data-toggle="tab">Reviews</a></li>
           <li role="presentation"><a href="#About" role="tab" data-toggle="tab">About</a></li>
           <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab"  onclick="show_map()">Contact Details</a></li>
+          <span class="pull-right">
+            <h4 class="review_star" style="color:#890000">
+              <%=number_to_currency(@venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(@venue.price_max, unit: get_currency_symbol)%>
+            </h4>
+          </span>
         </ul>
         <div class="tab-content venue_tab_margin">
           <div role="tabpanel" class="tab-pane fade in" id="About">
