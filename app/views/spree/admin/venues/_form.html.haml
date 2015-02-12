@@ -89,19 +89,19 @@
         = f.error_message_on :city
     .omega.eight.columns
       .field
-        %label State
-        %span.required
-        %br/
-        = f.text_field :state, class: 'fullwidth'
-        = f.error_message_on :state
-  .align-center.row
-    .alpha.eight.columns
-      .field
         %label Country
         %span.required
         %br/
-        = f.text_field :country  , class: 'fullwidth'
+        = f.collection_select :country, Spree::Country.order(:name), :name,:name, {selected: (@venue.country ? @venue.country : Spree::Address.default().country.name)}, {class: 'fullwidth'}
         = f.error_message_on :country
+  .align-center.row
+    .alpha.eight.columns
+      .field
+        %label State
+        %span.required
+        %br/
+        =f.collection_select :state, (@venue.country ? Spree::Country.find_by_name(@venue.country).states : Spree::Address.default().country.states), :name, :name, {}, {class: 'fullwidth'}
+        = f.error_message_on :state
     .omega.eight.columns
       .field
         %label Zip
@@ -185,3 +185,17 @@
     %span.or or
     %a.button.icon_link.with-tip.icon-remove{:href => "#{admin_venues_path}"}
       %span.text Cancel
+:javascript
+  $("#venue_country").change(function(){
+        country=$(this).val()
+        $.ajax({
+            type: "GET",
+            url: "/country/get-states/"+country,
+            success: function(json){
+                $('#venue_state').empty()
+                $.each(json, function(i, value) {
+                    $('#venue_state').append($('<option>').text(value.name).attr('value',value.name));
+                });
+            }
+        });
+    });
