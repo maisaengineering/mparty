@@ -1,0 +1,80 @@
+#delivery.row
+  .col-md-6.event_left_block
+    = form.fields_for :shipments do |ship_form|
+      .row.mleft10
+        %h4.stock-location
+          = Spree.t(:package_from)
+          %strong.stock-location-name{"data-hook" => "stock-location-name"}= ship_form.object.stock_location.name
+      .row
+        .col-md-12.txt_bold
+          .col-md-3 Item
+          .col-md-3
+          .col-md-3 Quantity
+          .col-md-3 Price
+        - ship_form.object.manifest.each do |item|
+          .col-md-12
+            .deliveryDetails.mleft10{:style => "width:100%; height:auto; overflow:hidden;"}
+              .col-md-3
+                = small_image(item.variant)
+              .col-md-3.mtop30= item.variant.name
+              .col-md-3.mtop30= item.quantity
+              .col-md-3.mtop30= display_price(item.variant)
+      .row.mtop20
+        .col-md-12
+          .col-md-12.txt_bold.mbottom10= Spree.t(:shipping_method)
+          - ship_form.object.shipping_rates.each do |rate|
+            .col-md-12
+              = ship_form.radio_button :selected_shipping_rate_id, rate.id
+              %span.rate-name= rate.name
+              %span.rate-cost= rate.display_cost
+      - if Spree::Config[:shipping_instructions]
+        .row.mtop20.mleft10
+          .col-md-12
+            = form.label :special_instructions, Spree.t(:shipping_instructions)
+            %br/
+            = form.text_area :special_instructions, :cols => 40, :rows => 7
+      .row.mtop20
+        .col-md-12
+          = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-success pull-right btn-lg'
+
+    - if @differentiator.try(:missing?)
+      .row.mtop20.mleft10
+        %h4.stock-location= Spree.t(:unshippable_items)
+      .row.mtop20
+        .col-md-12.txt_bold
+          .col-md-3 Item
+          .col-md-3
+          .col-md-3 Quantity
+          .col-md-3 Price
+        - @differentiator.missing.each do |variant, quantity|
+          .col-md-12
+            .deliveryDetails.mleft10{:style => "width:100%; height:auto; overflow:hidden;"}
+              .col-md-3
+                = small_image(variant)
+              .col-md-3.mtop30= variant.name
+              .col-md-3.mtop30= quantity
+              .col-md-3.mtop30= display_price(variant)
+
+  .col-md-6.event_right_block
+    - @event = Event.find(session[:event_id]) if session[:event_id].present?
+    %h4 Shipping Address
+    - if @event and @event.ship_address
+      - ship_address = @event.ship_address
+      .row
+        .col-md-12
+          %ul.venue_ctc_details
+            %li
+              %span.glyphicon.glyphicon-user
+              %b #{ship_address.full_name}
+            %li #{ship_address.address1},#{ship_address.address2},
+            %li #{ship_address.city}, #{ship_address.state.name},
+            %li #{ship_address.country.name}, #{ship_address.zipcode}
+            %li
+              %span.glyphicon.glyphicon-earphone
+              \&nbsp; #{ship_address.phone}
+            - unless ship_address.alternative_phone.blank?
+              %li
+                %span.glyphicon.glyphicon-phone
+                \&nbsp; #{ship_address.alternative_phone}
+    %h4 Order Summary
+    = render 'summary',order: @order

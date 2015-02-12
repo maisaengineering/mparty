@@ -1,0 +1,32 @@
+.row
+  .col-md-6
+    %b= Spree.t(:subtotal)
+  .col-md-6= @order.display_item_total.to_html
+- if @order.line_item_adjustments.exists?
+  - if @order.all_adjustments.promotion.eligible.exists?
+    - @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments|
+      .row
+        .col-md-6
+          %b= "#{Spree.t(:promotion)} : #{label}"
+        .col-md-6= Spree::Money.new(adjustments.sum(&:amount))
+- if @order.all_adjustments.tax.exists?
+  - @order.all_adjustments.tax.group_by(&:label).each do |label, adjustments|
+    .row
+      .col-md-6
+        %b= "#{Spree.t(:tax)} : #{label}"
+      .col-md-6= Spree::Money.new(adjustments.sum(&:amount))
+- @order.shipments.group_by { |s| s.shipping_method.name }.each do |name, shipments|
+  .row
+    .col-md-6
+      %b= "#{ Spree.t(:shipping)} : #{name}"
+    .col-md-6= Spree::Money.new(shipments.sum(&:discounted_cost)).to_html
+- @order.adjustments.eligible.each do |adjustment|
+  - next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0)
+  .row
+    .col-md-6
+      %b= adjustment.label
+    .col-md-6= adjustment.display_amount.to_html
+.row
+  .col-md-6.text-success
+    %b= Spree.t(:order_total)
+  .col-md-6.text-success= @order.display_total.to_html
