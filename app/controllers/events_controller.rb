@@ -120,6 +120,14 @@ class EventsController < ApplicationController
     render nothing: true
   end
 
+  def invited_users_list
+    event = Event.find(params[:id])
+    @invites = event.invites.includes(:user).where("invites.mail_sent =?",true) if !params[:joined].present?
+    @invites = event.invites.includes(:user).where("invites.mail_sent =? AND invites.joined =?",true,params[:joined]) if params[:joined].present? and params[:joined] != "1"
+    @invites = event.invites.includes(:user).where("invites.joined =?",params[:joined]) if params[:joined].present? and params[:joined] == "1"
+    render layout: false
+  end
+
   def import_and_invite
     @event = Event.find(session[:event_id_for_import])
     @wished_products = @event.wishlist.wished_products if @event.wishlist
