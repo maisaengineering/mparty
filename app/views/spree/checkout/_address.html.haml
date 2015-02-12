@@ -79,6 +79,8 @@
               %li
                 %span.glyphicon.glyphicon-phone
                 \&nbsp; #{ship_address.alternative_phone}
+    -#%h4 Order Summary
+    -#= render 'summary',order: @order
 :javascript
   $("#order_bill_address_attributes_country_id").change(function(){
       country= $(this).val()

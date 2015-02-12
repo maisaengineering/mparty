@@ -39,6 +39,7 @@
 //= require reviews
 //= require venues
 //= require account
+//= require wishlist_cart
 
 
 Turbolinks.pagesCached(0);
