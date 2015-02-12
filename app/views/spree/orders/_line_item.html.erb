@@ -27,6 +27,7 @@
         <% end %>
         <p><%= line_item_description_text(line_item.description) %></p>
       </div>
+      <div class="col-md-2"><p><%= line_item.single_money.to_html %></p></div>
       <div class="col-md-2">
         <% if wished_product %>
             <% if wished_product.quantity_purchased >= wished_product.quantity %>
@@ -39,7 +40,6 @@
             <%= item_form.number_field :quantity, :min => 0, :class => "line_item_quantity text_6"  %>
         <% end %>
       </div>
-      <div class="col-md-2"><p><%= line_item.single_money.to_html %></p></div>
       <div class="col-md-2"><p><%= line_item.display_amount.to_html unless line_item.quantity.nil? %></p></div>
       <div class="col-md-1">
         <%#- if !session[:event_id].present? %>

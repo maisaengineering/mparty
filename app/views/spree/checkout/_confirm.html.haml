@@ -82,49 +82,12 @@
                 %p= item.single_money.to_html
               .col-md-2
                 %h5= item.display_amount.to_html
-      .col-md-12
-        .row
+        .col-md-12
+          = render 'summary',order: @order
+      .row.mtop20
+        .col-md-12
           .col-md-4
-          .col-md-5
-            %b= Spree.t(:subtotal)
-          .col-md-3= @order.display_item_total.to_html
-        - if @order.line_item_adjustments.exists?
-          - if @order.all_adjustments.promotion.eligible.exists?
-            - @order.all_adjustments.promotion.eligible.group_by(&:label).each do |label, adjustments|
-              .row
-                .col-md-4
-                .col-md-5
-                  %b= "#{Spree.t(:promotion)} : #{label}"
-                .col-md-3= Spree::Money.new(adjustments.sum(&:amount))
-        - if @order.all_adjustments.tax.exists?
-          - @order.all_adjustments.tax.group_by(&:label).each do |label, adjustments|
-            .row
-              .col-md-4
-              .col-md-5
-                %b= "#{Spree.t(:tax)} : #{label}"
-              .col-md-3= Spree::Money.new(adjustments.sum(&:amount))
-        - @order.shipments.group_by { |s| s.shipping_method.name }.each do |name, shipments|
-          .row
-            .col-md-4
-            .col-md-5
-              %b= "#{ Spree.t(:shipping)} : #{name}"
-            .col-md-3= Spree::Money.new(shipments.sum(&:discounted_cost)).to_html
-        - @order.adjustments.eligible.each do |adjustment|
-          - next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0)
-          .row
-            .col-md-4
-            .col-md-5
-              %b= adjustment.label
-            .col-md-3= adjustment.display_amount.to_html
-        .row
+            = link_to 'CANCEL','/cart',class: 'btn btn-primary',style:  'background: #cfcfcf;border: #cfcfcf;'
           .col-md-4
-          .col-md-5
-            %b= Spree.t(:order_total)
-          .col-md-3= @order.display_total.to_html
-        .row.mtop20
-          .col-md-12
-            .col-md-4
-              = link_to 'CANCEL','/cart',class: 'btn btn-primary',style:  'background: #cfcfcf;border: #cfcfcf;'
-            .col-md-4
-            .col-md-4
-              = submit_tag Spree.t(:place_order), :class => 'btn btn-primary',disable_with: 'please wait..'
+          .col-md-4
+            = submit_tag Spree.t(:place_order), :class => 'btn btn-primary',disable_with: 'please wait..'

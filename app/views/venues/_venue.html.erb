@@ -4,7 +4,7 @@
     <div class="caption">
       <div class="row">
       <h3 class="col-md-6" style="text-align: left;" data-toggle="tooltip" data-original-title="<%=venue.name%>">
-        <%= truncate(venue.name,:length => 14) %>
+        <%= truncate(venue.name,:length => 13) %>
       </h3>
       <div class="col-md-6">
 
@@ -28,9 +28,9 @@
         <%if params[:from_event]%> 
           <%= link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),data: {id: venue.id}, class: 'btn btn-primary add_this_venue_to_event') if params[:from_event] %>
         <%end%>
-        <span class="pull-right">
-          <%=number_to_currency(venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(venue.price_max, unit: get_currency_symbol)%>
-        </span>
+       <!-- <span class="pull-right"> -->
+          <!-- <%#=number_to_currency(venue.price_min, unit: get_currency_symbol)%> - <%#= number_to_currency(venue.price_max, unit: get_currency_symbol)%> -->
+        <!-- </span> -->
       </p>
       <p></p>
     </div>

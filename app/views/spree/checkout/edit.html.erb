@@ -14,6 +14,11 @@
           <div class="event_divider"></div>
         </div>
         <div class="row">
+          <div class="<%= @order.state.eql?('delivery') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-shopping-cart"></span></div>
+          <div class="event_tab_title">DELIVERY</div>
+          <div class="event_divider"></div>
+        </div>
+        <div class="row">
           <div class="<%= @order.state.eql?('payment') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-credit-card"></span></div>
           <div class="event_tab_title">PAYMENT</div>
           <div class="event_divider"></div>
@@ -37,7 +42,7 @@
               <% end %>
               <%= render @order.state, :form => form %>
               <% if (@order.state != 'confirm' )   %>
-                  <% unless @order.state == 'address' or @order.state == 'payment'  %>
+                  <% unless @order.state == 'address' or @order.state == 'payment' or @order.state == 'delivery'  %>
                       <hr>
                       <%= render :partial => 'summary', :locals => { :order => @order } %>
                   <% end %>
