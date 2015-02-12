@@ -21,8 +21,11 @@
                   <div class="col-md-1">PRICE</div>
                 </div>
                 <div class="scroll_wishlist">
-
+                  <% req_qnty = 0 %>
+                  <% purc_qnty = 0 %>
                   <% @wishlist.wished_products.each_with_index do |wish,i|
+                     req_qnty +=  wish.quantity
+                     purc_qnty += wish.quantity_purchased
                     variant = wish.variant
                     product = variant.product %>
                       <% p_url = spree.product_url(product)  %>
@@ -62,7 +65,12 @@
                   <div class="col-md-4"></div>
                   <div class="col-md-4"></div>
                   <div class="col-md-4">
-                    <%= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
+                    <%#= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
+                    <% if purc_qnty >= req_qnty %>
+                         <br><div class="text-success pull-right">All Items are already purchased</div>
+                    <% else  %>
+                        <%= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
+                    <% end  %>
                   </div>
                 </div>
               </div>
