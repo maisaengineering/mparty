@@ -11,13 +11,13 @@
       .row.mbottom40
         - for product in row_products
           - url = spree.product_url(product, :taxon_id => @taxon.try(:id),event_id: @event.id)
-          .col-md-4.product{id: "product_#{ product.id}"}
+          .col-md-4.product{id: "product_#{ product.master.id}"}
             %a{:href => "#{url}"}
               .product_block
                 %h4= truncate(product.name, :length => 50)
                 = large_image(product, :itemprop => "image")
                 %p= number_to_currency(product.price, unit: get_currency_symbol)
-            - if wishlist.include?(product.id)
+            - if wishlist.wished_products.where(variant_id: product.master.id).exists?
               .product_added_btn.add_product_to_wishlist_btn{data: {event_id: @event.id,variant_id: product.master.id}}
                 %span.glyphicon.glyphicon-ok.remove
             - else
@@ -42,6 +42,7 @@
             $this.removeClass('product_add_btn').addClass('product_added_btn')
             $this.find('span:first').removeClass('glyphicon-plus add').addClass('glyphicon-ok remove');
             $("#wishlist-count").text(parseInt($("#wishlist-count").text()) + 1);
+            $(".wishlist_modal_count").text(parseInt($(".wishlist_modal_count").text()) + 1)
              $('.loading-indicator').hide()
           }
       });
@@ -57,6 +58,7 @@
             $this.removeClass('product_added_btn').addClass('product_add_btn')
             $this.find('span:first').removeClass('glyphicon-ok remove').addClass('glyphicon-plus add');
             $("#wishlist-count").text(parseInt($("#wishlist-count").text()) - 1);
+            $(".wishlist_modal_count").text(parseInt($(".wishlist_modal_count").text()) - 1)
              $('.loading-indicator').hide()
           }
       });

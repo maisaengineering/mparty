@@ -1,6 +1,7 @@
 class VenuesController < ApplicationController
   def index
     not_avlble_venus= []
+    not_available_top_venues= []
     @top_five = Venue.top_five.to_a
     @venues=Venue.advance_search(params[:query])
     if params[:query].present?
@@ -26,9 +27,13 @@ class VenuesController < ApplicationController
           not_avlble_venus << venue if venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date).present?
         end
       end
+      unless @top_five.blank?
+        @top_five.each do |top_venue|
+          not_available_top_venues << top_venue if top_venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date).present?
+        end
+      end
       @venues = @venues - not_avlble_venus
-      @top_five= @top_five-@venues
-      @top_five= @top_five-not_avlble_venus
+      @top_five= @top_five - not_available_top_venues
       flash.now[:notice] = "Please select another venue."
     end
     flash.now[:error] = "No results found for '#{params[:query]}'" if params[:query] and  @venues.blank?
