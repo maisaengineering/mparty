@@ -116,9 +116,6 @@
               .col-md-2.mtop30= item.display_amount.to_html
           .col-md-6.pull-right.mtop10
             .row
-              .col-md-6 #{Spree.t(:order_total)}:
-              .col-md-6= @order.display_total.to_html
-            .row
               .col-md-6 #{Spree.t(:subtotal)}:
               .col-md-6= @order.display_item_total.to_html
             - if @order.line_item_adjustments.exists?
@@ -143,3 +140,6 @@
                   %strong= adjustment.label
                 .col-md-6
                   %span= adjustment.display_amount.to_html
+            .row
+              .col-md-6.txt_bold #{Spree.t(:order_total)}:
+              .col-md-6.txt_bold= @order.display_total.to_html
