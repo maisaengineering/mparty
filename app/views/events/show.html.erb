@@ -119,21 +119,33 @@
       </div>
 
       <div class="row count_btns_margin">
-
         <div class="col-md-6">
-          <div><span class="glyphicon glyphicon-ok-sign icon-success"></span> <span class="txt_bold icon-success"><%= pluralize(@event.attendees('accepted'), 'person')  %></span>  attending</div>
+          <span class="glyphicon glyphicon-ok-sign icon-success"></span>
+          <%= link_to_invited_users('success','accepted',1) %>
+          attending
         </div>
         <div class="col-md-6">
-          <div><span class="glyphicon glyphicon-question-sign icon-warning"></span> <span class="txt_bold icon-warning"><%= pluralize(@event.attendees('maybe'), 'person')   %></span>  maybe attending</div>
+          <div><span class="glyphicon glyphicon-question-sign icon-warning"></span>
+            <%= link_to_invited_users('warning','maybe',3) %>
+            maybe attending
+          </div>
         </div>
         <div class="col-md-6">
-          <div><span class="glyphicon glyphicon-exclamation-sign icon-black"></span> <span class="txt_bold icon-black"><%= pluralize(@event.attendees('pending'), 'person')   %></span>  pending</div>
+          <div>
+            <span class="glyphicon glyphicon-exclamation-sign icon-black"></span>
+            <%= link_to_invited_users('black','pending',0) %>
+            pending
+          </div>
         </div>
         <div class="col-md-6">
-          <div><span class="glyphicon glyphicon-remove-sign icon-danger"></span> <span class="txt_bold icon-danger"><%= pluralize(@event.attendees('rejected'), 'person')   %></span>  rejected</div>
+          <div><span class="glyphicon glyphicon-remove-sign icon-danger"></span>
+            <%= link_to_invited_users('danger','rejected',2) %>
+            rejected
+          </div>
         </div>
         <div class="col-md-12 mtop20">
-          <span class="txt_bold icon-success"><%= pluralize(@invited_user.count,'person')  %> </span>  invited for this Event
+          <%= link_to_if policy(@event).invite?, pluralize(@invited_user.count,'person'),invited_users_list_path(@event.id),remote: true,title: 'click here to view users list',class: 'txt_bold icon-success invited_users_list'%>
+          invited for this Event
         </div>
         <% if policy(@event).event_expiration?  %>
             <div class="col-md-12 mtop10">
@@ -146,6 +158,7 @@
               </div>
             </div>
         <% end %>
+        <div id="invitedUsersList"></div>
       </div>
     </div>
   </div>
@@ -240,6 +253,15 @@
 
 
 <script type="text/javascript">
+
+    $(".invited_users_list")
+            .bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
+            .bind('ajax:success', function(e,data, status, xhr) {
+                $('#invitedUsersList').html(xhr.responseText)
+                $('#invitedUsersListModal').modal('show');
+                $('.loading-indicator').hide();
+            })
+
     <% if @event.pictures.count == 1 %>
     $(".jcarousel-control-prev").remove()
     $(".jcarousel-control-next").remove()

@@ -75,11 +75,11 @@
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.collection_select :country, Spree::Country.order(:name), :name,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
+              <%= f.collection_select :country, Spree::Country.order(:name), :name,:name, {selected: Spree::Address.default().country.name}, {class: 'form-control'}%>
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.collection_select :state, Spree::Country.try(:states) || [], :id, :name, {:include_blank => 'Please select the Country'}, {class: 'form-control'}  %>
+              <%= f.collection_select :state, Spree::Address.default().country.states, :name, :name, {}, {class: 'form-control'}  %>
             </div>
             <div class="col-md-6">
               <label></label>
@@ -222,6 +222,10 @@
        autoclose: true
     }).on('changeDate', function (selected) {
        var startDate = new Date(selected.date.valueOf());
+       if($("#event_starts_at").val() >  $('#event_ends_at').val()) {
+           $('#event_ends_at').val("")
+           $('#event_end_time').val("")
+       }
        $('#event_ends_at').datepicker('setStartDate', startDate);
        var selectedDate = $('#event_starts_at').datepicker('getDate');
        var today = new Date();
@@ -264,28 +268,39 @@
         $('#event_end_time').timepicker('remove');
         $('#event_end_time').timepicker();
        }
-
    });
 
+
     if($('#venue_afterchoose').length){
-        $('#event_start_time').attr('readonly','readonly');
-        $('#event_starts_at').attr('readonly','readonly');
-        $('#event_ends_at').attr('readonly','readonly');
-        $('#event_end_time').attr('readonly','readonly');
-        $('#event_starts_at').datepicker( "destroy" );
-        $('#event_starts_at').removeClass('date start');
-        $('#event_starts_at').unbind();
-        $('#event_ends_at').datepicker( "destroy" );
-        $('#event_ends_at').removeClass('date end');
-        $('#event_ends_at').unbind();
-        $('#event_start_time').timepicker('remove');
-        $('#event_end_time').timepicker('remove');
-    }else{
-        $('#datepairExample .date').datepicker({
-            startDate: new Date(),
-            format: 'yyyy-mm-dd',
-            autoclose: true
-        });
+        var event_start_date = $("#event_starts_at").val()
+        var event_end_date = $("#event_ends_at").val()
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth()+1;
+        var today_date = date.getFullYear() + '-' +
+                ((''+month).length<2 ? '0' : '') + month + '-' +
+                ((''+day).length<2 ? '0' : '') + day;
+
+         if (event_start_date == today_date){
+             $('#event_start_time').timepicker({
+                 'timeFormat': 'g:ia',
+                 'minTime': new Date(),
+                 'maxTime': '11:59:59pm',
+                 'forceRoundTime': true
+             });
+         }else{
+             $('#event_start_time').timepicker();
+         }
+        if (event_end_date == today_date){
+            $('#event_end_time').timepicker({
+                'timeFormat': 'g:ia',
+                'minTime': new Date(),
+                'maxTime': '11:59:59pm',
+                'forceRoundTime': true
+            });
+        }else{
+            $('#event_end_time').timepicker();
+        }
     }
 
 
@@ -322,16 +337,14 @@
                 format: 'yyyy-mm-dd',
                 autoclose: true
             });
-            $('#event_start_time').removeAttr('readonly', false);
-            $('#event_starts_at').removeAttr('readonly', false);
             $('#venue_afterchoose').remove()
             $('#venue_dform').fadeIn('slow')
             $('#venue_name').remove()
             $('#event_venue_id').val('')
             $('#event_location').val('')
             $('#event_city').val('')
-            $('#event_state').val('')
-            $('#event_country').val('')
+            //$('#event_state').val('')
+            //$('#event_country').val('')
             $('#event_zip').val('')
             $("#venus_hidden_fields").empty()
 
@@ -359,10 +372,6 @@
         $('.btn_add_endtime').hide()
         $(".btn_remove_endtime").fadeIn("slow");
     }
-
-    /*if($('#event_venue_id').val() != ''){
-     $('#venue_dform').show()
-     }*/
 
 
     function invokeDesign(template_id,design_id){
@@ -394,7 +403,7 @@
         $ele = $('#event_template_designs')
         if($('#event_host_name').val() !== '') $ele.find('.eventDesignHostname').text($('#event_host_name').val())
         if($('#event_name').val() !== '') $ele.find('.eventDesignEventName').text($('#event_name').val())
-        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val());
+        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val() +' '+ $('#event_ends_at').val() +' '+ $('#event_end_time').val());
         // if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
         $("#new_event #event_host_name").keyup(function(){
             ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
@@ -408,9 +417,9 @@
         })
 
 
-        $("#new_event #event_starts_at,#new_event #event_start_time").change(function() {
+        $("#new_event #event_starts_at,#new_event #event_start_time,#new_event #event_ends_at,#new_event #event_end_time").change(function() {
             var eventDesignEventDate = $ele.find('.eventDesignEventDate')
-            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() );
+            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() +' '+ $('#event_ends_at').val() +' '+ $('#event_end_time').val());
         });
 
         /*$("#new_event #event_description").keyup(function() {
