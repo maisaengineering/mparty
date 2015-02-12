@@ -31,20 +31,17 @@
               <%= f.text_field :city,class: "form-control",placeholder: "City" %>
             </div>
             <div id="country">
-              <%= f.collection_select :country_id, available_countries, :id,:name, {:include_blank => 'Country'}, {class: 'form-control'}%>
+              <%= f.collection_select :country_id, Spree::Country.order(:name), :id,:name, {selected: (@user.country_id ? @user.country_id : Spree::Address.default().country.id)}, {class: 'form-control'}%>
             </div>
             <div class="ptopbottom">
-              <% if @user.country_id.present? %>
-                  <%= f.collection_select :state_id, Spree::Country.find(@user.country_id).states || [], :id,:name, {:include_blank => 'Select State'}, {class: 'form-control'}%>
-              <% else %>
-                  <%= f.collection_select :state_id, Spree::Country.try(:states) || [], :id,:name, {:include_blank => 'Select State'}, {class: 'form-control'}%>
-              <% end %>
+              <%= f.collection_select :state_id,(@user.state_id ? Spree::Country.find(@user.country_id).states : Spree::Address.default().country.states), :id, :name, {}, {class: 'form-control'}  %>
             </div>
             <div class="ptopbottom">
               <%= f.text_field :zipcode,class: "form-control",placeholder: "Zip Code" %>
             </div>
             <div class="ptopbottom">
-              <button class= 'btn' onclick="window.location('account_show_path')">Back</button>
+
+              <%= link_to "Back", account_show_path,class: "btn btn-gray" %>
               <%= f.submit "save changes",  :class => 'btn btn-success pull-right' %>
             </div>
         <% end %>
@@ -54,10 +51,8 @@
 </div>
 
 <script type="text/javascript">
-
         $("#user_country_id").change(function(){
         country=$(this).val()
-        if(country){
             $.ajax({
                 type: "GET",
                 url: "/country/get-states/" + country,
@@ -68,12 +63,5 @@
                     });
                 }
             });
-        }
-        else {
-            $('#user_state_id').empty()
-        }
     });
-
-
-
 </script>

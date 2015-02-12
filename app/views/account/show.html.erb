@@ -36,16 +36,15 @@
       </div>
 
       <div class="col-md-5">
-        <h4>Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
+        <h4>Home Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
         <ul class="venue_ctc_details" id="venue_afterchoose">
-          <% if @user.address.present? %>
-              <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %>,</b></li>
-              <li><%=  @user.city %>,</li>
-          <% end  %>
-          <% if @user.country_id && @user.state_id %>
-              <li><%=  Spree::Country.find(@user.country_id).states.find(@user.state_id).name %>,</li>
-              <li><%= "#{Spree::Country.find(@user.country_id)}" ',' " #{@user.zipcode}" %></li>
+          <%  %>
+          <% if @user.address.present?  %>
+              <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %></b></li>
           <% end %>
+              <li><%=  "#{@user.city}" ',' if @user.city.present? %></li>
+              <li><%=  "#{Spree::State.find(@user.state_id)}" ","  if @user.country_id.present? %></li>
+              <li><%=  "#{Spree::Country.find(@user.country_id)}" "," if @user.country_id %> <%= "#{@user.zipcode}"%></li>
         </ul>
       </div>
 
@@ -73,7 +72,7 @@
             </div>
             </div>
             <div class="modal-footer">
-              <a href="/"><span class="btn btn-info mright5" data-dismiss="modal">Cancel</span></a>
+              <a href="/"><span class="btn btn-gray mright5" data-dismiss="modal">Cancel</span></a>
               <%= f.submit "Save",class:  "btn btn-success pull-right",id: 'image_submit' %>
             </div>
         <% end %>
