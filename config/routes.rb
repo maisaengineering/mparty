@@ -150,7 +150,8 @@ Invitation::Application.routes.draw do
   get '/my-wish-lists'=> 'wishlist#my_wish_lists'
   get '/wishlist/:wl_id/wished-product/:wp_id/purchased-users'=>'wishlist#purchased_users',as: :wishlist_purchases
 
-
+  ## Invited Users List
+  get '/event/:id/invited_users_list/', to: "events#invited_users_list", as: :invited_users_list
 
   # Update quantity of wished product(event is mandatory)
   post '/event/:event_id/wishlist/update-product-quantity'=>"wishlist#update_quantity",as: :update_wished_product_quantity
