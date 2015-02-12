@@ -8,4 +8,9 @@ Spree::Wishlist.class_eval do
 	# has_many :wished_products,through: :wishlist_orders,class_name: "Spree::WishedProduct"
 	has_many :purchased_products,through: :wishlist_orders,source: :wished_product,class_name: "Spree::WishedProduct"
 
+
+  def all_items_purchased?
+    wished_products.sum("quantity_purchased")  >=  wished_products.sum("quantity")
+  end
+
 end
