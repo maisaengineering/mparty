@@ -38,7 +38,8 @@ Spree::CheckoutController.class_eval do
             @order.created_by_id = logged_in_user.id
             @order.user_id = logged_in_user.id
             @order.save
-            logged_in_user.update_attribute(:bill_address_id, @order.bill_address.id) if @order.bill_address
+            puts "####################### #{@order.bill_address.inspect}"
+            logged_in_user.update_attribute(:bill_address_id,@order.bill_address.id)
             send_order_info_to_users(@order)
             flash[:success] = Spree.t(:order_processed_successfully)
           else
@@ -68,7 +69,6 @@ Spree::CheckoutController.class_eval do
   # to avoid triggering validations on shipping address
   def before_address
     @order.bill_address ||= Spree::Address.default(try_spree_current_user, "bill")
-
     if @order.checkout_steps.include? "delivery"
       if session[:event_id].present?
         event = Event.find(session[:event_id])
