@@ -18,7 +18,7 @@
     .hide-class{display: none;}
 </style>
 <div id="map" class="hide-class">
-<iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_API_KEY'] %>&q=<%= @venue.name + @venue.address1  %> "></iframe>
+<iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_API_KEY'] %>&q=<%= @venue.full_address  %> "></iframe>
 </div>
 <div id="wrapper">
   <div class="container-fluid">
