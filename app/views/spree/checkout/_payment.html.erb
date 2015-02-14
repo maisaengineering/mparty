@@ -89,7 +89,7 @@
         </div>
     <% end %>
 
-    <% @event = Event.find(session[:event_id]) if session[:event_id].present? %>
+    <% @event = @order.event %>
     <% if @event and @event.ship_address %>
         <% ship_address = @event.ship_address  %>
         <h4>Shipping Address</h4>

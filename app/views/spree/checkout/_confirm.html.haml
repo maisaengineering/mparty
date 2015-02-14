@@ -1,4 +1,4 @@
-- @event = Event.find(session[:event_id]) if session[:event_id].present?
+- @event = @order.event
 - @event_template = Spree::Admin::Template.where(id: @event.template_id).first if @event
 - @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
 :css

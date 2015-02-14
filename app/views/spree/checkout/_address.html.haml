@@ -59,7 +59,7 @@
               %label
               = submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block',disable_with: 'please wait..'
   .col-md-6.event_right_block
-    - @event = Event.find(session[:event_id]) if session[:event_id].present?
+    - @event = @order.event
     %h4 Shipping Address
     - if @event and @event.ship_address
       - ship_address = @event.ship_address
