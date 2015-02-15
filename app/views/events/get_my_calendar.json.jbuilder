@@ -2,8 +2,10 @@ json.prettify!
 json.array!(@events) do |event|
   json.extract! event, :id, :description
   json.title event.name
-  json.start event.starts_at.iso8601
-  json.end event.ends_at.iso8601
+   starts_at = event.starts_at + event.start_time.hour.hours + event.start_time.min.minutes
+   ends_at = event.ends_at + event.end_time.hour.hours + event.end_time.min.minutes
+  json.start starts_at.iso8601
+  json.end   ends_at.iso8601
   json.url event_url(event, format: :html)
   if !event.is_owner?(current_spree_user)
     inv = event.invites.where(user_id: current_spree_user.id).first
@@ -26,7 +28,7 @@ json.array!(@events) do |event|
      json.color '#edb311'
      json.tooltip 'Your Event'  
   end
-  if event.end_time - event.start_time >= 23
+  if (ends_at - starts_at) >= 24.hours.to_i
     json.allDay true
   else
     json.allDay false

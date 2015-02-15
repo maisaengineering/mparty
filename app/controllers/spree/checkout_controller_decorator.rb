@@ -10,14 +10,16 @@ Spree::CheckoutController.class_eval do
       end
 
       if @order.completed?
-        if session[:event_id].present?
-          event = Event.find(session[:event_id])
+        if @order.event
+          event = @order.event
           wishlist = event.wishlist
           logged_in_user = spree_current_user
           if logged_in_user.nil? # no user => logged in as guest
             # try to fetch user from invitation if came here via invitation link
-            invitation = Invite.find(session[:invitation_id])
-            logged_in_user = Spree::User.find_by_email(invitation.try(:recipient_email)) if invitation
+            if session[:invitation_id]
+              invitation = Invite.find(session[:invitation_id])
+              logged_in_user = Spree::User.find_by_email(invitation.try(:recipient_email)) if invitation
+            end
           end
           # --------
           unless @order.line_items.blank?
@@ -38,7 +40,6 @@ Spree::CheckoutController.class_eval do
             @order.created_by_id = logged_in_user.id
             @order.user_id = logged_in_user.id
             @order.save
-            puts "####################### #{@order.bill_address.inspect}"
             logged_in_user.update_attribute(:bill_address_id,@order.bill_address.id)
             send_order_info_to_users(@order)
             flash[:success] = Spree.t(:order_processed_successfully)
@@ -48,7 +49,6 @@ Spree::CheckoutController.class_eval do
             # flash[:success] = "Thank you for placing order(#{@order.number}), to track your order sign up or login with your account."
           end
           session[:order_id] = nil
-          session.delete(:event_id)
           session.delete(:invitation_id)
           redirect_to  completion_route and return
         else
@@ -70,9 +70,8 @@ Spree::CheckoutController.class_eval do
   def before_address
     @order.bill_address ||= Spree::Address.default(try_spree_current_user, "bill")
     if @order.checkout_steps.include? "delivery"
-      if session[:event_id].present?
-        event = Event.find(session[:event_id])
-        ship_address = event.shipping_address
+      if @order.event
+        ship_address = @order.event.shipping_address
         @order.ship_address = ship_address
       else
         @order.ship_address ||= Spree::Address.default(try_spree_current_user, "ship")
@@ -81,14 +80,16 @@ Spree::CheckoutController.class_eval do
   end
 
   #sending emails to user and invited users
- private
+  private
   def send_order_info_to_users(order)
-    event = Event.find(order.wishlist_orders.first.wishlist.event_id)
+    event = Event.find(order.event_id)
     InvitationNotifier.email_after_purchase_to_inviter(event,order).deliver
     @invites_list = event.invites.where.not("joined =? OR recipient_email =? ",2,order.email)
     @invites_list.each do |invitee|
-     InvitationNotifier.email_after_purchase_to_invitees(event,order,invitee).deliver
+      InvitationNotifier.email_after_purchase_to_invitees(event,order,invitee).deliver
     end
   end
+
+
 
 end

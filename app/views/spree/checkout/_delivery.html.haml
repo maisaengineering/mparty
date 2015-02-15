@@ -56,7 +56,7 @@
               .col-md-3.mtop30= display_price(variant)
 
   .col-md-6.event_right_block
-    - @event = Event.find(session[:event_id]) if session[:event_id].present?
+    - @event = @order.event
     %h4 Shipping Address
     - if @event and @event.ship_address
       - ship_address = @event.ship_address

@@ -39,7 +39,7 @@ class Event < ActiveRecord::Base
   #scopes
   scope :public, -> { where(is_private:  false) }
   scope :private, -> { where(is_private:  true) }
-  scope :past, -> { where("end_time < ? AND ends_at <=?",Time.now,Date.today)}
+  scope :past, -> {where.not("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
   #scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
   #scope :upcoming, -> { where("start_time >=? AND starts_at =? OR starts_at >?",Time.now+5.5.hour,Date.today,Date.today).order(starts_at: :asc,start_time: :asc)}
   scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}

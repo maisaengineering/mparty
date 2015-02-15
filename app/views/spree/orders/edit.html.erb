@@ -1,11 +1,11 @@
-<% @event = Event.where(id: session[:event_id]).first  if session[:event_id].present? %>
+<% @event = @order.event %>
 <% @wishlist = @event.wishlist if @event %>
 <% @body_id = 'cart' %>
 <div class="container-fluid">
   <div class="container" >
     <div class="title_trending">
       <div class="title_bg"></div>
-      <div class="title_name"><%= Spree.t(:shopping_cart) %></div>
+      <div class="title_name"><%= Spree.t(:shopping_cart) %> <%= " (#{@event.name})" if @event %></div>
     </div>
     <div class="row">
       <div class="col-md-12">

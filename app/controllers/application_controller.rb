@@ -23,6 +23,19 @@ class ApplicationController < ActionController::Base
     #redirect_to(request.referrer || spree.root_path)
   end
 
+  # Overriden from module Spree::Core::ControllerHelpers::Order because we are not using spree layout
+  # Used in the link_to_cart helper.
+  def simple_current_order
+    @order ||= Spree::Order.find_by(id: session[:order_id], currency: current_currency)
+  end
+
+  def current_currency
+    Spree::Config[:currency]
+  end
+
+  helper_method :simple_current_order,:current_currency
+
+
   def register_handlebars
     @handlebars = Handlebars::Context.new
     @handlebars.register_helper(:ifEqual) do |context, v1,v2, block|

@@ -5,7 +5,7 @@
     </div>
 
 
-    <% if !session[:event_id].present? %>
+    <% if @order.event.nil? %>
         <% if order.has_step?("delivery") %>
             <div class="row">
               <h3><%= Spree.t(:shipping_address) %></h3> <%= link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed? %>
@@ -91,7 +91,7 @@
     <% @order.adjustments.eligible.each do |adjustment| %>
         <% next if (adjustment.source_type == 'Spree::TaxRate') and (adjustment.amount == 0) %>
 
-        <div class="total_order_text"> <strong><%= adjustment.label %></strong> &nbp; <span><%= adjustment.display_amount.to_html %></span></div>
+        <div class="total_order_text"> <strong><%= adjustment.label %></strong> &nsbp; <span><%= adjustment.display_amount.to_html %></span></div>
 
     <% end %>
   </div>
