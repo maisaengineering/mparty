@@ -57,6 +57,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def future_event?
+    self.end_time.strftime("%T") >= Time.now.strftime("%T") and self.ends_at == Date.today or self.ends_at > Date.today
+  end
+
   def attendees(status)
     if status.eql?('pending')
       self.invites.where(joined: 0).count

@@ -16,15 +16,15 @@
       <div class="row nomargin">
         <div class="col-md-12"><h2>Thanks for your response.</h2></div>
       </div>
-      <% if @wishlist and @wishlist.wished_products.size > 0 %>
+      <% if policy(@event).allow_checkout_from_invitation_mail? %>
           <div class="row nomargin">
             <div class="col-md-12"><h3>This event has a wishlist. Do you want to check it out?</h3></div>
           </div>
           <div class="row nomargin event_margin">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-              <a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal">
-                <span class="glyphicon glyphicon-gift"></span>Checkout</a>
+                  <a href="#" class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#yourfriendwishlist" data-dismiss="modal">
+                    <span class="glyphicon glyphicon-gift"></span>Checkout</a>
             </div>
             <div class="col-md-4"></div>
           </div>

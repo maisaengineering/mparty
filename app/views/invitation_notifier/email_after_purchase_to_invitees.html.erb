@@ -1,36 +1,38 @@
 
 <div style="width:600px;margin:0 auto; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:14px;color:#555;">
-  <br>
-  <span>Hello <%= @invitee_name  %>,</span> <br>
-  <br>
-  <span><%= @purchaser_name %> purchased below products for <%= link_to "#{@event.name}", "#{spree.root_url + "events/#{@event.id}"}" %> invited by <%= @inviter.full_name %></span> <br>
-  <br>
-  <!-- invitation -->
+  <div style="width:100%; height:auto; overflow:hidden;">
+    <br>
+    <span>Hello <%= @invitee_name  %>,</span> <br>
+    <br>
+    <span><%= @purchaser_name %> purchased below products for <%= link_to "#{@event.name}", "#{spree.root_url + "events/#{@event.id}"}" %> invited by <%= @inviter.full_name %></span> <br>
+    <br>
+    <!-- invitation -->
 
-  <% @order.line_items.each do |item| %>
-      <div style="width:100%; float:left; border:1px solid #cccccc;  height:auto; margin-top:20px; padding:10px 0;">
+    <% @order.line_items.each do |item| %>
+        <div style="width:100%; float:left; border:1px solid #cccccc;  height:auto; margin-top:20px; padding:10px 0;">
 
-        <% image = item.variant.images.first %>
-        <div style="float:left; width:120px; padding-left:10px;">
-          <%= image_tag image.attachment.url(:small) %>
+          <% image = item.variant.images.first %>
+          <div style="float:left; width:120px; padding-left:10px;">
+            <%= image_tag image.attachment.url(:small) %>
+          </div>
+          <div style="float:left;">
+            <span><%= item.name %></span><br><br>
+            <% rq = @event.wishlist.wished_products.where(variant_id: item.variant_id).first.quantity%>
+            <span>Requested Quantity <%= rq %></span><br><br>
+            <span>Purchased Quantity <%= item.quantity %></span><br><br>
+          </div>
+          <div style="float:right; margin-top:40px; padding-right:10px;">
+            <%= number_to_currency(item.variant.price,unit: Money::Currency.find(Spree::Config.currency).symbol) %>
+          </div>
+
         </div>
-        <div style="float:left;">
-          <span><%= item.name %></span><br><br>
-          <% rq = @event.wishlist.wished_products.where(variant_id: item.variant_id).first.quantity%>
-          <span>Requested Quantity <%= rq %></span><br><br>
-          <span>Purchased Quantity <%= item.quantity %></span><br><br>
-        </div>
-        <div style="float:right; margin-top:40px; padding-right:10px;">
-          <%= number_to_currency(item.variant.price,unit: Money::Currency.find(Spree::Config.currency).symbol) %>
-        </div>
-
-      </div>
-  <% end %>
+    <% end %>
 
 
-  <br>
-  <br>
-
-  <div style="width:160px; margin:0 auto;"><button style="background-color:#ef5323; padding:10px 0; width:160px; margin:0 auto; border:none; color:#ffffff; cursor:pointer; outline:none; margin-top:30px; font-size:16px;">PURCHASE NOW</button></div>
-
+    <br>
+    <br>
+  </div>
+</div>
+<div style="text-align:center; margin-top: 20px;">
+  <%= link_to "PURCHASE NOW", "#{spree.root_url + "events/#{@event.id}"}?show_wishlist=true", style: "background-color:#ef5323; padding:10px 15px; width:210px; margin:30 auto;  border:none; color:#ffffff; text-decoration:none; cursor:pointer; outline:none; margin-top:30px; font-size:16px;" %>
 </div>

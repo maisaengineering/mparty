@@ -1,0 +1,39 @@
+/ Model
+/ Modal
+#invitedUsersListModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "invitedUsersListLabel", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+        %h4#invitedUsersListLabel.modal-title{style: 'color: #000; text-align: center;'} Users
+      .modal-body
+        %ul.list-group
+          %li.list-group-item
+            .col-md-2
+            .col-md-6.txt_bold Name
+            .col-md-3.txt_bold Status
+          - if @invites.empty?
+            %li.list-group-item
+              .col-md-12.txt_center No users
+          - else
+            - @invites.each do |invite|
+              - user = invite.user
+              %li.list-group-item
+                .col-md-2
+                  =  mini_avatar_image_tag(user,45,45)
+                - name =  user ? user.full_name : invite.recipient_email
+                .col-md-6.mtop10{data: {placement: 'right',toggle: 'tooltip'},title: name}=  truncate(name ,length: 32)
+                .col-md-3.mtop10
+                  - if invite.joined == 0
+                    %span.text-info  Pending
+                  - elsif invite.joined == 1 and invite.mail_sent == true
+                    %span.icon-success  Attending
+                  - elsif invite.joined == 1 and invite.mail_sent == false
+                    %span.icon-warning Self Attending
+                  - elsif invite.joined == 2
+                    %span.icon-danger  Rejected
+                  - elsif invite.joined == 3
+                    %span.icon-warning  Maybe
+        .modal-footer
+          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} OK

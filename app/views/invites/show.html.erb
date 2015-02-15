@@ -74,7 +74,7 @@
       </div>
 
       <div class="row count_btns_margin">
-
+      <% if @event.future_event? %>
         <div class="col-md-2">
           <a class="btn btn-success" href = "<%=inv_respond_url(1,@invitation.token,params[:email])%>">ACCEPT</a>
         </div>
@@ -86,6 +86,7 @@
         <div class="col-md-2">
           <a class="btn btn-danger" href = "<%=inv_respond_url(2,@invitation.token,params[:email]) %>">REJECT</a>
         </div>
+      <% end  %>
 
       </div>
     </div>

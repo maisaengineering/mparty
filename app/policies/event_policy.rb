@@ -57,6 +57,10 @@ class EventPolicy < Struct.new(:user, :event)
     event.user_invited?(user) or event.user_joined?(user)
   end
 
+  def allow_checkout_from_invitation_mail?
+    !event.is_owner?(user)  and !event.wishlist.nil? and event.future_event?
+  end
+
 
   # only owner can edit/update the event
   def edit?
