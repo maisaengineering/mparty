@@ -1,5 +1,1 @@
 $("#picture_<%= params[:id] %>").fadeOut(300, function() { $(this).remove(); });
-if ($('#number_of_files_chosen strong').length){
-    $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) - 1))
-    $('#number_of_files_chosen').hide().fadeIn('slow')
-}
