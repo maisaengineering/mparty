@@ -1,0 +1,93 @@
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to 'Back to Venue',  edit_admin_venue_url(@venue), icon: 'icon-arrow-left' %>
+  </li>
+  <li>
+    <%#= button_link_to 'Add New Venue', new_admin_venue_url, icon: 'icon-plus' %>
+  </li>
+<% end %>
+<% unless @venue.venue_seating_types.any? %>
+  <div class="no-objects-found">
+    <%= "No Images" %>
+  </div>
+<% else %>
+  <table class="index sortable" data-hook="images_table" data-sortable-link="#">
+    <colgroup>
+      <col style="width: 5%"></col>
+      <col style="width: 30%"></col>
+      <col style="width: 45%"></col>
+    </colgroup>
+    <thead>
+      <tr>
+        <th colspan="2">
+          <%= Spree.t(:seating_type) %>
+        </th>  
+        <th colspan="2">
+          <%= Spree.t(:name) %>
+        </th>
+        <th class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @venue.venue_seating_types.each do |image| %>
+        <tr class="<%= cycle('odd', 'even') %>" id="<%= spree_dom_id(image) %>">
+          <td class="no-border">
+            <span class="handle"></span>
+          </td>
+          <td style="height:40px">
+            <%= link_to image_tag(image.seating_image_url(:thumb)), image.name%>
+          </td>
+          <td style="text-align:center">
+            <%= image.name%>
+          </td>
+          <td style="text-align:center">
+            <%= link_to_with_icon 'icon-trash', 'Delete', remove_seating_photo_admin_venue_path(@venue,venue_seating_type_id: image.id), method: :delete,confirm: 'Are you sure?' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>
+<div id="images">
+  <%= form_for VenueSeatingType.new,url: save_seating_images_admin_venue_url(@venue) do |f| %>
+    <fieldset>
+      <legend align="center">Upload New Image</legend>
+      <div>
+        <div class="nine columns alpha">
+
+          <div class="field">
+            <label for="image_Filename">Filename</label>
+            <br/>
+            <%= f.text_field :name, :required => true %>
+          </div>
+
+          <div class="field">
+            <label for="image_Filename">Filename</label>
+            <br/>
+            <%= f.file_field :seating_image, :required => true %>
+          </div>
+
+          <div class="field">
+            <label for="image_Filename">min capacity</label>
+            <br/>
+            <%= f.number_field :capacity_min %>
+          </div>
+
+          <div class="field">
+            <label for="image_Filename">max capacity</label>
+            <br/>
+            <%= f.number_field :capacity_max %>
+          </div>          
+
+
+        </div>
+      </div>
+      <div class="clear"></div>
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <button class="icon-refresh button" name="button" type="submit">Create</button>
+        <span class="or">or</span>
+        <a class="button icon_link with-tip icon-remove" href="<%= edit_admin_venue_url(@venue) %>" id="cancel_link"> Cancle</a>
+      </div>
+    </fieldset>
+  <% end %>
+</div>

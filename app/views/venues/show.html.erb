@@ -124,6 +124,32 @@
                 <%= @venue.description%>
               </div>
             </div>
+            <div class="row no_margin">
+              <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
+              </div>
+              <%unless @venue.venue_seating_types.blank?%>
+                <% @venue.venue_seating_types.each do |seating_type| %>
+                    <div class="col-md-3" align="center">
+                      <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
+                      <img src="<%= seating_type.seating_image.url(:thumb) %>" class="img-rounded">
+                      </a>
+                      <h4><%= seating_type.name%></h4>
+                      <h4>
+                        <%if seating_type.capacity_min.present?%>
+                          Min:<%= seating_type.capacity_min%>
+                        <%else%>
+                         <h4 style="color:#fff">range</h4>
+                        <%end%>
+                        <%if seating_type.capacity_max.present?%>
+                         Max:<%=seating_type.capacity_max%>
+                        <%else%>
+                         <h4 style="color:#fff">range</h4>
+                        <%end%>
+                      </h4>
+                    </div>
+                  <%end%>
+                <%end%>
+              </div>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="ContactDetails">
             <div class="row no_margin">
