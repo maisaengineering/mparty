@@ -92,11 +92,6 @@
           <li role="presentation"><a href="#Reviews" role="tab" data-toggle="tab">Reviews</a></li>
           <li role="presentation"><a href="#About" role="tab" data-toggle="tab">About</a></li>
           <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab"  onclick="show_map()">Contact Details</a></li>
-          <span class="pull-right">
-            <h4 class="review_star" style="color:#890000">
-              <%=number_to_currency(@venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(@venue.price_max, unit: get_currency_symbol)%>
-            </h4>
-          </span>
         </ul>
         <div class="tab-content venue_tab_margin">
           <div role="tabpanel" class="tab-pane fade in" id="About">
@@ -120,10 +115,41 @@
               </div>
             </div>
             <div class="row no_margin">
+              <div class="col-md-12"> <b>Range:</b> &nbsp;
+                <%=number_to_currency(@venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(@venue.price_max, unit: get_currency_symbol)%>
+              </div>
+            </div>   
+            <div class="row no_margin">
               <div class="col-md-12"> <b>Description:</b> &nbsp;
                 <%= @venue.description%>
               </div>
             </div>
+            <div class="row no_margin">
+              <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
+              </div>
+              <%unless @venue.venue_seating_types.blank?%>
+                <% @venue.venue_seating_types.each do |seating_type| %>
+                    <div class="col-md-3" align="center">
+                      <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
+                      <img src="<%= seating_type.seating_image.url(:thumb) %>" class="img-rounded">
+                      </a>
+                      <h4><%= seating_type.name%></h4>
+                      <h4>
+                        <%if seating_type.capacity_min.present?%>
+                          Min:<%= seating_type.capacity_min%>
+                        <%else%>
+                         <h4 style="color:#fff">range</h4>
+                        <%end%>
+                        <%if seating_type.capacity_max.present?%>
+                         Max:<%=seating_type.capacity_max%>
+                        <%else%>
+                         <h4 style="color:#fff">range</h4>
+                        <%end%>
+                      </h4>
+                    </div>
+                  <%end%>
+                <%end%>
+              </div>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="ContactDetails">
             <div class="row no_margin">
@@ -189,7 +215,7 @@
             <% if @can_rate_it %>
                 <% if !@venue.rates.present? %>
                      <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-                         <p style="position:relative;text-align:left;font-size:12px;">Be the First to Rate it</p>
+                         <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
                      </div>
                      <%= rating_for @venue, nil, disable_after_rate: true %>
                 <% else %>
@@ -198,6 +224,17 @@
                      </div>
                 <% end %>
             <% end %>
+            <div class="pull-left">
+              <%if @venue.rates.where(:rater_id => current_spree_user).present? %>
+                <p style="position:relative;font-size:15px;color:#878484;font-weight:normal;">
+                You Rated:
+                  <span style="color:#878484">
+                    <%= @venue.rates.where(:rater_id => current_spree_user).first.stars.round%>/5
+                  </span>
+                </p>
+              <%= rating_for_user @venue,current_spree_user%>
+              <%end%>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12">
@@ -290,4 +327,7 @@ $(function(){
 function show_map (){
   document.getElementById('insert_google_map').innerHTML = document.getElementById('map').innerHTML
 }
+$(".star").click(function () {
+  $(".firstrate").remove();
+})
 </script>

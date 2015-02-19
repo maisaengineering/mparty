@@ -7,8 +7,13 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def auth_user
-    redirect_to spree_login_path unless signed_in?
+    if request.xhr?
+      render js: "window.location = '/login'"  unless signed_in?
+    else
+      redirect_to spree_login_path unless signed_in?
+    end
   end
+
 
   def pundit_user
     spree_current_user

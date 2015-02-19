@@ -4,6 +4,8 @@
     = button_link_to 'Add Images', add_photos_admin_venue_path(@venue), { icon: 'icon-plus', id: 'admin_new_photo' }
   %li
     = button_link_to 'Book Venue', add_calendar_admin_venue_path(@venue), { icon: 'icon-plus', id: 'admin_new_photo' }  
+  %li
+    = button_link_to 'add venue seating images', add_venue_seating_images_admin_venue_path(@venue), { icon: 'icon-plus'}
   - if can?(:create, Venue)
     %li#new_venue_link
       = button_link_to 'New Venue', new_admin_venue_url, { icon: 'icon-plus', id: 'admin_new_venue' }

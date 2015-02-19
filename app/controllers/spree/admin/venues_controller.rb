@@ -66,6 +66,23 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
     @events_without_venue = Event.upcoming.where(venue_id: nil,custom_event_type: nil).to_a
   end 
 
+   def add_venue_seating_images
+    @venue = Venue.find(params[:id])
+  end
+
+    def save_seating_images
+    @venue = Venue.find(params[:id])
+    @seating_pic = VenueSeatingType.new({venue_id: @venue.id}.merge!(seating_image_params))
+    @seating_pic.save
+    redirect_to add_venue_seating_images_admin_venue_path(@venue), notice: 'Seating type uploaded successfully.'
+  end
+
+  def remove_seating_photo
+    @venue = Venue.find(params[:id])
+    @seating_pic = VenueSeatingType.find(params[:venue_seating_type_id])
+    @seating_pic.delete
+    redirect_to add_venue_seating_images_admin_venue_url(@venue), notice: "Deleted seating arragement successfully"
+  end
   # def book_venue
   #   @venue = Venue.find(params[:id])
   #   @venue.venue_calendars.create(venue_calendar_params)
@@ -111,6 +128,10 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
   def picture_params
     params.require(:picture).permit(:image,:name)
+  end
+
+  def seating_image_params
+    params.require(:venue_seating_type).permit(:name,:seating_image,:capacity_min,:capacity_max)
   end
 
   def venue_calendar_params

@@ -99,5 +99,9 @@ class EventPolicy < Struct.new(:user, :event)
     invite? and  (event.end_time.strftime("%T") >= Time.now.strftime("%T") and event.ends_at == Date.today or event.ends_at > Date.today)
   end
 
+  def post_event_on_fb?
+    return false unless user
+    event.user_joined?(user) or  event.is_owner?(user) or event.user_invited?(user)
+  end
 
 end

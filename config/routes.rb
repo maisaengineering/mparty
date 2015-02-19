@@ -12,6 +12,9 @@ Invitation::Application.routes.draw do
           post 'upload_photos'
           delete 'remove_photo'
           get 'add_calendar'
+          get 'add_venue_seating_images'
+          post 'save_seating_images'
+          delete 'remove_seating_photo'
           post 'book_venue'
           delete 'remove_venue_slot'
         end
@@ -149,6 +152,9 @@ Invitation::Application.routes.draw do
   post '/event/:event_id/shipping_address'=>"wishlist#shipping_address",as: :wishlist_shipping_address
   get '/my-wish-lists'=> 'wishlist#my_wish_lists'
   get '/wishlist/:wl_id/wished-product/:wp_id/purchased-users'=>'wishlist#purchased_users',as: :wishlist_purchases
+
+  get '/event/:event_id/add-photos'=>"events#add_photos",as: :add_photos_event
+  get '/event/:event_id/invite-friends'=>"events#invite_without_wishlist",as: :invite_without_wishlist
 
   ## Invited Users List
   get '/event/:id/invited_users_list/', to: "events#invited_users_list", as: :invited_users_list

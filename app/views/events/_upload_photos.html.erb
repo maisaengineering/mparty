@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-12">
       <%= form_for Picture.new do |f| %>
-          <%= hidden_field_tag :resource_id  %>
+          <%= hidden_field_tag :resource_id ,@event.id %>
           <%= hidden_field_tag :resource ,'event' %>
           <div class="col-md-12 upload_btn">
             <div class="upload_browse_width position_rel">
@@ -10,25 +10,55 @@
               <%= f.file_field :image,multiple: true, name: "picture[image]",:class => "event_file_upload_button"%>
               <span class="glyphicon glyphicon-picture"></span>
               <br>
-              <button class="btn btn-primary" id="btnUploadPhotos">Upload Photos</button> 
-            </div> 
-            <div id="number_of_files_chosen" style="margin: 10px;display: none;">
-              <strong>0</strong> files selected
+              <button class="btn btn-primary" id="btnUploadPhotos">Upload Photos</button>
+            </div>
+            <div id="number_of_files_chosen" class='number_of_files' style="margin: 10px;display: none;">
+              <strong>0</strong> chosen
+            </div>
+            <div id="number_of_files_progress" class='number_of_files'  style="margin: 10px;display: none;">
+              <strong>0</strong> in progress
+            </div>
+            <div id="number_of_files_uploaded" class='number_of_files'  style="margin: 10px;display: none;">
+              <strong>0</strong> uploaded successfully.
+            </div>
+            <div id="number_of_files_failed" class='number_of_files'  style="margin: 10px;display: none;">
+              <strong>0</strong> failed.
             </div>
           </div>
 
-          <div class="col-md-12 mtop70">
-            <button class="btn btn-lg btn-success pull-right upload_btn_done" type="submit">DONE</button>
-            <button class="btn btn-lg btn-gray pull-right mright10 upload_btn_skip" type="submit">SKIP</button>
+          <div class="col-md-12 upload-progress-bars">
+
+          </div>
+
+          <div class="col-md-4">
+            <% if @event.pictures.blank? %>
+              <%= link_to 'SKIP',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-primary btn-block upload_btn_skip' %>
+            <% end %>
+          </div>
+          <div class="col-md-4">
+             <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-primary btn-block upload_btn_done mtop70' %>
           </div>
       <% end %>
     </div>
   </div>
+  <script id="template-upload" type="text/x-tmpl">
+    <div class="upload">
+      {%=o.name%}
+      <div class="progress">
+        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
+      </div>
+    </div>
+  </script>
 </div>
 <div class="col-md-6 event_right_block">
   <div class="photos_block">
     <h4>Event Photos</h4>
     <div class="row nomargin nomargin_left" id="pictures">
+      <% unless @event.pictures.blank? %>
+          <% @event.pictures.each do |p| %>
+              <%= render 'pictures/picture',picture: p %>
+          <% end %>
+      <% end %>
     </div>
   </div>
   <div class="col-md-4"></div>
@@ -37,32 +67,57 @@
 </div>
 
 <script type="text/javascript">
+    $('#picture_image').on('change',function(){
+        $('.number_of_files strong').text(0)
+        $('.upload').remove()
+    })
     $('#new_picture').fileupload({
         dataType: "script",
         add: function(e, data) {
             $('.loading-indicator').show()
             var uploadErrors = [];
             var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
-            if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
-                uploadErrors.push('Not an accepted file type');
+            types = /(\.|\/)(gif|jpe?g|png)$/i
+            file = data.files[0]
+            if(!types.test(file.type) || !types.test(file.name)){
+                uploadErrors.push(file.name+"- is not a gif, jpeg, or png image file");
             }
-            if(data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > 500000) {
-                uploadErrors.push('Filesize is too big');
+            if (file.size && file.size >  5000000) { //5mb
+                uploadErrors.push(file.name+"- filesize is too big");
             }
+
             if(uploadErrors.length > 0) {
-                $('.loading-indicator').hide()
-                bootbox.alert(uploadErrors.join("\n"));
+                $('#number_of_files_failed strong').text(parseInt(parseInt($("#number_of_files_failed strong").text()) + 1))
+                bootbox.alert(uploadErrors.join("\n"))
             } else {
-                $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) + 1))
-                $('#number_of_files_chosen').hide().fadeIn('slow')
-                data.submit();
+                $('.loading-indicator').show()
+                data.context = $(tmpl("template-upload", file))
+                $('.upload-progress-bars').append(data.context)
+                data.submit()
             }
         },
         progress: function(e, data) {
-           // $('.loading-indicator').fadeIn('slow')
+            if(data.context){
+                $('.loading-indicator').show()
+                progress = parseInt(data.loaded / data.total * 100, 10)
+                data.context.find('.progress-bar').css('width', progress + '%')
+            }
         },
-        fail:function(e, data){
-            // Something has gone wrong!
+        send: function(e,data){
+            if( parseInt(parseInt($("#number_of_files_failed strong").text())) >=1){
+                $('.loading-indicator').hide()
+                return false;
+            }
+        },
+        done: function(e,data){
+            $('#number_of_files_uploaded strong').text(parseInt(parseInt($("#number_of_files_uploaded strong").text()) + 1))
+            $('#number_of_files_uploaded').show()
+            $('#number_of_files_progress strong').text(parseInt(parseInt($("#number_of_files_progress strong").text()) - 1))
+        },
+        fail: function(e,data){
+            // data.errorThrown
+            // data.textStatus;
+            // data.jqXHR;
         }
     });
 
@@ -74,29 +129,41 @@
             pic_ids[pic_ids.length] = $(this).data('id');
         });
         if(pic_ids.length == 0){
-            switchTabFromUploadToInvite()
+            Turbolinks.visit('<%= invite_without_wishlist_path(@event.id) %>')
         }else{
             $.ajax({
                 type: "POST",
                 url: '/pictures/remove_all',
                 data: {"_method": 'delete',ids: pic_ids},
-                beforeSend: function( ){ switchTabFromUploadToInvite() },
+                beforeSend: function( ){  $('.loading-indicator').show() },
                 success: function(res) { }
             });
+            Turbolinks.visit('<%= invite_without_wishlist_path(@event.id) %>')
         }
 
     })
 
-    $('.upload_btn_done').click(function(e){
-      e.preventDefault()
+   /* $('.upload_btn_done').click(function(e){
+        e.preventDefault()
         switchTabFromUploadToInvite()
-    })
+    })*/
 
-    function switchTabFromUploadToInvite(){
+    /*function switchTabFromUploadToInvite(){
         $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
         $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
         $("#upload_photos").css("display", "none")
         $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
-    }
+    }*/
+
+    // jquery file upload callbacks
+    $('#new_picture')
+            .bind('fileuploadadd', function (e, data) {
+                $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) + 1))
+                $('#number_of_files_chosen').show()
+            })
+            .bind('fileuploadsubmit', function (e, data) {
+                $('#number_of_files_progress strong').text(parseInt(parseInt($("#number_of_files_progress strong").text()) + 1))
+                $('#number_of_files_progress').show()
+            })
 
 </script>

@@ -1,12 +1,28 @@
-<div class="container-fluid">
-  <div class="container container_stlye">
+<style type="text/css">
+    #create_form{
+        display: none;
+    }
+    #upload_photos{
+        display: none;
+    }
+    #invitation_without_wishlist{
+        display: block;
+    }
+    #invitation_with_wishlist{
+        display: none;
+    }
+
+</style>
+
+<div class="container-fluid" style="background-color:#f1f2f7">
+  <div class="container" >
     <div class="row">
-      <div class="title_name">Create Event</div>
+      <div class="title_name"><%= @event.name %></div>
     </div>
     <div class="row event_margin">
       <div class="col-md-2">
         <div class="row">
-          <div id='create_event_tab' class="event_tab_active"><span class="glyphicon glyphicon-star"></span></div>
+          <div id='create_event_tab' class="event_tab"><span class="glyphicon glyphicon-star"></span></div>
           <div class="event_tab_title">CREATE EVENTS</div>
           <div class="event_divider"></div>
         </div>
@@ -16,7 +32,7 @@
           <div class="event_divider"></div>
         </div>
         <div class="row">
-          <div id='send_invitations_tab' class="event_tab"><span class="glyphicon glyphicon-envelope"></span></div>
+          <div id='send_invitations_tab' class="event_tab_active"><span class="glyphicon glyphicon-envelope"></span></div>
           <div class="event_tab_title">SEND INVITATIONS</div>
           <div></div>
         </div>
@@ -25,7 +41,7 @@
         <div class="create_event_bg">
           <!--create event form start-->
           <div class="row" id="create_form">
-            <%= render 'create_form' %>
+            <%#= render 'create_form' %>
             <div class="col-md-6 event_right_block" id="event_template_designs">
               <%#= render 'design_selection' %>
             </div>
@@ -34,12 +50,13 @@
 
           <!--upload photos start-->
           <div class="row" id="upload_photos">
-            <%#= render 'upload_photos' %>
+            <%= render 'upload_photos' %>
           </div>
           <!--upload photos end-->
 
           <!--invitations start-->
           <div class="row" id="invitation_without_wishlist">
+            <%= render 'invite_without_wish_list' %>
           </div>
           <!--invitation end-->
           <!--invitations start-->
