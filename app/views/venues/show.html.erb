@@ -215,7 +215,7 @@
             <% if @can_rate_it %>
                 <% if !@venue.rates.present? %>
                      <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-                         <p style="position:relative;text-align:left;font-size:12px;">Be the First to Rate it</p>
+                         <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
                      </div>
                      <%= rating_for @venue, nil, disable_after_rate: true %>
                 <% else %>
@@ -224,6 +224,17 @@
                      </div>
                 <% end %>
             <% end %>
+            <div class="pull-left">
+              <%if @venue.rates.where(:rater_id => current_spree_user).present? %>
+                <p style="position:relative;font-size:15px;color:#878484;font-weight:normal;">
+                You Rated:
+                  <span style="color:#878484">
+                    <%= @venue.rates.where(:rater_id => current_spree_user).first.stars.round%>/5
+                  </span>
+                </p>
+              <%= rating_for_user @venue,current_spree_user%>
+              <%end%>
+            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12">
@@ -316,4 +327,7 @@ $(function(){
 function show_map (){
   document.getElementById('insert_google_map').innerHTML = document.getElementById('map').innerHTML
 }
+$(".star").click(function () {
+  $(".firstrate").remove();
+})
 </script>
