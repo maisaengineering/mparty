@@ -151,17 +151,21 @@
             <div class="col-md-12 mtop10">
               <button href="" class="btn btn-success pull-left mright5" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</button>
 
-              <img id='my_source' src="http://mparty.herokuapp.com/<%=request.path%>"  style="display: none;" width="auto" height="auto" onclick="share_on_fb(this)"/>
-              <div class="fb-wrap-loginsmall">
-                <div class="fb-icon-bg"></div>
-                <div class="fb-bg" id="share_fb_button">Share</div>
-              </div>
             </div>
         <% end %>
         <div id="invitedUsersList"></div>
       </div>
     </div>
   </div>
+            <% if policy(@event).post_event_on_fb?%>
+              <img id='my_source' src="http://mparty.herokuapp.com/<%=request.path%>"  style="display: none;" width="auto" height="auto" onclick="share_on_fb(this)"/>
+              <div class="fb-wrap-loginsmall mbottom10 pull-right mright20">
+                <div id="share_fb_button">
+                  <div class="fb-icon-bg"></div>
+                  <div class="fb-bg">Share</div>
+                </div>
+              </div>
+           <%end%>
 
   <% if @event_design %>
       <div class="col-md-6" style="width:45%;">
@@ -198,11 +202,6 @@
         </div>
     <% end %>
   </div>
-
-
-
-
-
 </div>
 
 
