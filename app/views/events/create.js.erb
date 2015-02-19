@@ -2,12 +2,5 @@
 <% errors = @event.errors.full_messages.to_sentence %>
 bootbox.alert("<%= j(errors.html_safe) %>")
 <% else %>
-$("#create_form").css("display", "none");
-$("#upload_photos").css("display", "block").hide().fadeIn('slow');
-$('#create_event_tab').removeClass('event_tab_active').addClass('event_tab')
-$('#upload_photos_tab').removeClass('event_tab').addClass('event_tab_active')
-// update resource id to upload photos
-$('#resource_id').val('<%= @event.id %>')
-// update invite without wishlist
-$('#invitation_without_wishlist').html("<%= j(render('invite_without_wish_list')) %>").hide()
+Turbolinks.visit("<%= add_photos_event_path(@event.id) %>")
 <% end %>

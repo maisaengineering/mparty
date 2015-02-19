@@ -153,6 +153,9 @@ Invitation::Application.routes.draw do
   get '/my-wish-lists'=> 'wishlist#my_wish_lists'
   get '/wishlist/:wl_id/wished-product/:wp_id/purchased-users'=>'wishlist#purchased_users',as: :wishlist_purchases
 
+  get '/event/:event_id/add-photos'=>"events#add_photos",as: :add_photos_event
+  get '/event/:event_id/invite-friends'=>"events#invite_without_wishlist",as: :invite_without_wishlist
+
   ## Invited Users List
   get '/event/:id/invited_users_list/', to: "events#invited_users_list", as: :invited_users_list
 

@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
   before_filter :register_handlebars,only: [:update_designs,:show]
-  layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
+  #layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
 
@@ -113,6 +113,11 @@ class EventsController < ApplicationController
     @wished_products = @event.wishlist.wished_products if @event.wishlist
   end
 
+  def invite_without_wishlist
+    @event = Event.find(params[:event_id])
+    authorize @event, :invite?
+  end
+
   def inv_request
     @event = Event.find(params[:id])
     authorize @event, :allow_inv_request?
@@ -218,6 +223,14 @@ class EventsController < ApplicationController
     @event = Event.find(params[:event_id])
     @wish_list = Spree::Wishlist.find_by_event_id(@event.id)
   end
+
+  #GET /event/:event_id/add_photos
+  def add_photos
+    @event = Event.find(params[:event_id])
+    authorize @event, :invite?
+  end
+
+
 
   def add_products
     @event = Event.find(params[:event_id])
