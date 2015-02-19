@@ -82,7 +82,7 @@
             if(!types.test(file.type) || !types.test(file.name)){
                 uploadErrors.push(file.name+"- is not a gif, jpeg, or png image file");
             }
-            if (file.size && file.size >  500000) { //5mb
+            if (file.size && file.size >  5000000) { //5mb
                 uploadErrors.push(file.name+"- filesize is too big");
             }
 
