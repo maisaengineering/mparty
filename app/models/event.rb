@@ -21,8 +21,8 @@ class Event < ActiveRecord::Base
   has_many :wished_products,through: :wishlist
   has_many :purchased_products,through: :wishlist
 
-
-  before_create :fill_end_date_and_time
+  before_validation :start_date_end_date_validate_slot_available
+  # before_create :fill_end_date_and_time
   after_create :create_venue_calander
 
   accepts_nested_attributes_for :pictures
@@ -164,6 +164,19 @@ class Event < ActiveRecord::Base
       venue_calendar.save
      end
    end
+  end
+
+  def start_date_end_date_validate_slot_available
+    s_time = self.starts_at + self.start_time.hour.hours + self.start_time.min.minutes
+    e_time = self.ends_at + self.end_time.hour.hours + self.end_time.min.minutes
+
+    if s_time > e_time
+      errors.add(:start_date, "is not less than the end date")
+    end
+
+    if venue and venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",s_time,s_time,e_time,e_time).exists?
+      errors.add(:slot, "is not available for this dates")
+    end
   end
 
   def fill_end_date_and_time
