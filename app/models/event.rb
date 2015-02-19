@@ -174,7 +174,7 @@ class Event < ActiveRecord::Base
       errors.add(:start_date, "is not less than the end date")
     end
 
-    if venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",s_time,s_time,e_time,e_time).exists?
+    if venue and venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",s_time,s_time,e_time,e_time).exists?
       errors.add(:slot, "is not available for this dates")
     end
   end
