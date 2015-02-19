@@ -4,9 +4,14 @@ html {
 a{
   color:#555;
 }
+
 body{
-  background-color:#f1f2f7;
+  /*background-color:#ffffff;*/
   height:100%;
+  background-image: image-url('body_pattrns.png');
+  background-repeat:repeat;
+  color:#666666;
+  font-family: 'Open Sans', sans-serif;
 }
 .social_icons{
   padding:20px;
@@ -74,18 +79,29 @@ body{
 .event_margin{
   margin-top:20px;
 }
-.btn_orange{
-  width:294px;
+.btn-createevent {
+  width:300px;
+  border-radius:30px;
+  -moz-border-radius:30px;
+  -webkit-border-radius:30px;
   height:50px;
-  background-color:#ef5323;
+  background-color:#8bd92f;
+  border:1px solid #4cae4c;
   margin:0 auto;
   padding:10px;
-  margin-top:40px;
   text-decoration: none;
   color: #fff !important;
   font-size: 20px;
-  border: 0px;
+  display:block;
+  text-transform:uppercase;
+  outline:none;
 }
+.btn-createevent:hover {
+  background-color: #449d44;
+  border-color: #398439;
+  text-decoration:none;
+}
+
 .create_event{
   text-align:center;
 }
@@ -95,8 +111,6 @@ body{
   font-size:20px;
 }
 .title_trending{
-  position:relative;
-  top:46px;
 }
 .title_bg{
   /*border:1px dotted #555;*/
@@ -115,20 +129,21 @@ body{
 }
 
 .navbar-default{
-  background-image: image-url('menu_bg.jpg');
+  background-image: image-url('menu_bg.png');
   border-top: 6px solid #edb311;
   background-repeat:no-repeat;
   background-size:100% 100%;
   height:68px;
+  //background-color:#c72a3a;
 }
 .navbar{
   border:none;
-  border-top: 6px solid #edb311;
+  border-top: 3px solid #f3ec60;
   border-radius:0px;
 }
 
 .navbar-brand{
-  padding:10px 15px;
+  padding:6px 15px;
 }
 
 .bg_img{
@@ -228,11 +243,11 @@ label{
   font-weight:normal;
 }
 .btn{
-  border-radius:0px;
+  border-radius:15px;
 }
 .btn-primary{
-  background-color:#ef5323;
-  border-color:#ef5323;
+  background-color:#F7838E;
+  border-color:#D37079;
 }
 .btn-primary{
   color:#FFFFFF !important;
@@ -243,19 +258,24 @@ label{
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
-  background-color: #ef5323;
-  border-color: #ef5323;
+  background-color: #DA515D;
+  border-color: #CB4B56;
 }
 .modal-body .form-control{
   background-color:transparent;
   border:1px solid #fff;
   border-radius:0px;
   color:#ffffff;
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
 }
 .form-control{
   background-color:#FFFFFF;
   border:1px solid #bbbbbb;
-  border-radius:0px;
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
   color:#000000;
 }
 .modal_wishlist_bg .form-control {
@@ -277,14 +297,13 @@ label{
   font-size:18px;
 }
 .create_event_bg{
-  background:#fff;
   min-height:580px;
   overflow:hidden;
   padding-bottom:20px;
   padding-top:20px;
 }
 .event_tab_active{
-  background:#E8C11F;
+  background-color:#8bd92f;
   width:90px;
   height:90px;
   border-radius:45px;
@@ -313,7 +332,7 @@ label{
 }
 .event_divider{
   width:4px;
-  height:114px;
+  height:70px;
   background:#cecfd0;
   margin-left:43px;
   margin:0 auto;
@@ -353,24 +372,19 @@ label{
   line-height: 1.5em;
 }
 .upload_btn_skip{
-  background:#cfcfcf;
-  border-color: #cfcfcf;
-  margin-top:70px;
 }
 .photos_block{
   height:430px;
 }
 .upload_btn_done{
-  background:#8bd92f;
-  border-color: #8bd92f;
+
 }
 #create_form{
-  display: block;
+  display:block;
 }
 #upload_photos{
-  display: none;
+  display:none;
 }
-
 #confirm_wishlist_invitation {
   display:none}
 
@@ -407,8 +421,6 @@ label{
 
 }
 .invite_btn_cancel{
-  background:#cfcfcf;
-  border-color: #cfcfcf;
 }
 .wishlist_header{
   margin-top:20px;
@@ -419,10 +431,6 @@ label{
 
 }
 .addwishlist_btn{
-  background: #8bd92f;
-  border-color: #8bd92f;
-  height:34px;
-  padding:6px;
 }
 .search_btn{
   right: 21px;
@@ -431,15 +439,18 @@ label{
   border:none;
 }
 .search_btn_count{
-  width:28px;
+  width:40px;
   height:28px;
   background-color:#ffffff;
-  border-radius:14px;
+  border-radius:12px;
   border:2px solid #ffffff;
   top: 3px;
+  left:20px;
 }
 .search_btn_count p{
   color:#000;
+  padding-top:2px;
+  font-weight:bold;
 
 }
 
@@ -543,7 +554,7 @@ label{
   width: 225px;
 }
 .wishlist_popup_header{
-  border-bottom:1px solid #bc3804;
+  border-bottom:1px solid #bbbbbb;
 }
 .wishlist_popup_center{
   margin-top:20px;
@@ -565,7 +576,7 @@ label{
   text-align:center;
 }
 .wishlist_popup_footer{
-  border-top:1px solid #bc3804;
+  border-top:1px solid #bbbbbb;
   margin-top:20px;
 
 }
@@ -573,7 +584,7 @@ label{
   width: 40px;
   height: 40px;
   border-radius: 20px;
-  background: #ef5323;
+  background-color: #8bd92f;
   text-align:center;
   margin-top:20px;
   position:absolute;
@@ -592,13 +603,7 @@ label{
   color:#555;
 }
 .addwishlist_done{
-  margin-top:25px;
-  width:150px;
-  background: #8bd92f;
-  border-color: #8bd92f;
-  height:34px;
-  padding:6px;
-  color:#fff;
+
 }
 .shipping_address_form label{
   color:#000;
@@ -637,10 +642,6 @@ label{
 }
 
 .add_qty_btn{
-  width:250px;
-  height:40px;
-  background: #8bd92f;
-  border-color: #8bd92f;
 }
 .nav-tabs {
   border-bottom: 3px solid #edb311;
@@ -771,18 +772,18 @@ label{
   width:100%;   /*15-12*/
   height:48px;  /*15-12*/
   resize:none;
+  border-radius:30px;
+  -moz-border-radius:30px;
+  -webkit-border-radius:30px;
+  outline:none;
+  text-indent:20px;
+  padding-top:5px;
 }
 .comment_time{
   font-style:italic;
   color:#555;
 }
 .comment_btn_post{
-  background: #8bd92f;
-  border-color: #8bd92f;
-  height: 45px;
-  padding: 6px;
-  color: #fff;
-  font-size:22px;
 }
 .accepte_btn{
   background: #8bd92f;
@@ -818,35 +819,20 @@ label{
   margin-top:40px;
 }
 .shopping_cart_footer{
-  border-top: 1px solid #bc3804;
+  border-top: 1px solid #bbbbbb;
   margin-top:20px;
 }
 .coupon_input{
-  margin-top: 25px;
-  background: #fff;
-  border:1px solid #cfcfcf;
+  width:auto;
 }
 .btn_checkout{
-  margin-top: 25px;
-  width: 150px;
-  background: #8bd92f;
-  border-color: #8bd92f;
-  height: 34px;
-  padding: 6px;
-  color: #fff;
 }
 .btn_checkout_update{
-  background-color: #ef5323;
-  margin-top: 25px;
-  width: 150px;
-  border-color: #ef5323;
-  height: 34px;
-  padding: 6px;
-  color: #fff;
+
 }
 
 .billing_tab_active {
-  background: #E8C11F;
+  background-color: #8bd92f;
   width: 90px;
   height: 90px;
   border-radius: 45px;
@@ -867,8 +853,6 @@ label{
   margin: 0 auto;
 }
 .pay_now_btn{
-  background: #8bd92f;
-  border-color: #8bd92f;
 }
 .place_order_right{
   height: 388px;
@@ -1014,11 +998,16 @@ label{
 }
 .join_btn{
   width: 50px;
-  background-color: #ef5323;
+  background-color: #F7838E;
+  border:1px solid #D37079;
   margin: 0 auto;
   text-align: center;
   color:#ffffff;
   padding:6px 8px;
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+
 }
 .join_btn a{
   text-decoration:none;
@@ -1041,6 +1030,9 @@ label{
   margin: 0 auto;
   padding:6px 10px;
   text-align: center;
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
 }
 .addguest_btn a{
   text-decoration:none;
@@ -1072,8 +1064,11 @@ label{
   color: #fff;
   background:#000;
   opacity:0.8;
-  border: 1px solid #ccc;
-
+  outline:none;
+  border: 2px solid #ffffff;
+  border-radius:30px;
+  -moz-border-radius:30px;
+  -webkit-border-radius:30px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
   -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
@@ -1085,11 +1080,12 @@ label{
   margin: 0 auto;
 }
 .whatsup_search{
-  position:absolute;top:240px;
+  position:absolute;
+
 }
 .whatsup_src_icon{
   position: absolute;
-  left: 570px;
+  left: 565px;
   top: 12px;
   color: #fff;
   z-index:1;
@@ -1757,7 +1753,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 /****************/
 
 .text_6{
-  width: 25%;
+  width: 40%;
   height: 30px;
 }
 
@@ -1830,6 +1826,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 .btn-success {
   background-color:#8bd92f;
+  color:#FFFFFF !important;
 }
 .btn_add_quantity {
   height:30px;
@@ -1884,6 +1881,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 
 .text-maybe {
   color:#f0ad4e;
+}
+.text-success {
+  color:#4cae4c;
 }
 .text-info {
   color: #31b0d5;
@@ -2083,8 +2083,10 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   top:0px;
   display:none;
 }
+
+
 nav#breadcrumbs {
-  margin: 0 0 0 51px;
+  margin: 0 0 0 0;
   padding: 10px;
 }
 nav#breadcrumbs li {
@@ -2146,14 +2148,112 @@ ul#import_contact_list li {
   height:36px;
   width:100%;
   font-size:inherit;
+  width:112px;
+  left:0;
 }
 .browse_width {
-  width:112px;
+  width:240px;
 }
-
 .btn-gray {
   background-color:#dddddd;
+  border:1px solid #cccccc;
+  color:#555555 !important;
 }
+.btn-gray:hover {
+  background-color:#bbbbbb;
+
+}
+ul.notification-list {
+  list-style-type:none;
+  margin:0px;
+  padding:0px;
+  width:220px;
+}
+ul.notification-list li {
+  padding:6px 2px;
+  font-size:12px;
+  border-bottom:1px solid #eeeeee;
+}
+.time_ago {
+  font-size:10px;
+  color:#aaaaaa;
+}
+.badge {
+  position: relative;
+  right: -38px;
+  z-index: 2;
+  top: -22px;
+  background-color:#F50900;
+}
+#NotificationBtn {
+  outline:none;
+}
+.upload_browse_width {
+  width: 120px;
+  margin: 0 auto;
+}
+
+.city_select {
+  background-color:transparent;
+  background-image: image-url('select-city-arrow.png');
+  background-position:90% center;
+  background-repeat:no-repeat;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right:30px;
+  color:#ffffff;
+  border:none;
+}
+
+.request_invite {
+  position:absolute;
+  right:5px;
+  top:5px;
+}
+
+.list-group-item {
+  height:auto;
+  overflow:hidden;
+}
+
+.navbar-brand img {
+  width:220px;
+  height:53px;
+}
+.container_stlye {
+  background-color:#ffffff;
+  border-right:1px solid #cccccc;
+  border-left:1px solid #cccccc;
+  padding-bottom:30px;
+}
+.btn-lg {
+  border-radius:30px;
+}
+.border_product_shoppingcart {
+  border:1px solid #cccccc;
+  padding:10px;
+}
+.banner-image {
+  background-image: image-url('banner_2.jpg');
+  max-width:100%;
+  height:550px;
+  background-repeat:no-repeat;
+  background-size:100%;
+
+}
+.btn-lg {
+  padding:8px 20px;
+}
+
+.homepage_title {
+  margin:0px; text-align:center; padding:60px 0; color:#ffffff;
+  text-shadow:1px 1px 2px #111111;
+}
+
+
+
+
+
 
 /***************responsive**********************
 @media (min-width: 768px) {
@@ -2182,10 +2282,6 @@ ul#import_contact_list li {
   margin:30px auto;
 }
 
-.list-group-item {
-  height:auto;
-  overflow:hidden;
-}
 
 /***************our responsive**********************/
 @media screen and (max-device-width:767px) {
@@ -2242,4 +2338,3 @@ and (max-device-width : 480px) {
   .event_search { width: 280px;
   }
 }
-
