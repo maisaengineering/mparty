@@ -14,7 +14,8 @@ class Notifier < ActionMailer::Base
     mail(to: email, subject: "Invitation to join Mparty", from: "#{@sender.full_name} <#{ENV['SENDER']}>")
   end
 
-  def welcome_email(email)
+  def welcome_email(email,full_name)
+    @full_name = full_name
     mail(to: email, subject: "Welcome to MParty")
   end
 
