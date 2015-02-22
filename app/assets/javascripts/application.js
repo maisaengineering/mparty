@@ -28,9 +28,7 @@
 //= require jquery.infinitescroll
 //= require moment
 //= require fullcalendar
-//= require jquery.raty
-//= require ratyrate
-
+//= require jquery.rateit
 
 //= require cart
 //= require events

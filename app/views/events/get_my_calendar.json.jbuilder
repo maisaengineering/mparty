@@ -28,9 +28,9 @@ json.array!(@events) do |event|
      json.color '#edb311'
      json.tooltip 'Your Event'  
   end
-  # if (ends_at - starts_at) >= 24.hours.to_i
-  #   json.allDay true
-  # else
-  #   json.allDay false
-  # end
+  if (ends_at - starts_at) >= 24.hours.to_i
+    json.allDay true
+  else
+    json.allDay false
+  end
 end

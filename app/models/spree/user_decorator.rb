@@ -11,7 +11,6 @@ Spree::User.class_eval do
 
   mount_uploader :avatar, AvatarUploader
 
-  ratyrate_rater
 
   after_create :send_email
 

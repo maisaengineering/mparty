@@ -12,7 +12,7 @@
         <% if venue.rates.present? %>
           <!--  <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on <%#= pluralize(venue.rates.count, 'Member') %></p> -->
           <br>
-          <%= rating_for venue, nil, readonly: true %>&nbsp;<%= pluralize(venue.reviews.count, 'Review')%>
+          <%#= rating_for venue, nil, readonly: true %>&nbsp;<%= pluralize(venue.reviews.count, 'Review')%>
         <% else %>
           <%= rating_for venue, nil, readonly: true, noRatedMsg: "No Ratings available"%> <%= pluralize(venue.reviews.size, 'Review')%>
         <% end %>

@@ -13,7 +13,6 @@ class Venue < ActiveRecord::Base
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
   has_many :video_urls, as: :video_url
 
-  ratyrate_rateable 
   has_many :rates, as: :rateable, dependent: :destroy
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories 
@@ -75,6 +74,10 @@ class Venue < ActiveRecord::Base
     else
       return false
     end  
-  end  
+  end
+
+  def average_rating
+    reviews.sum(:rating) / reviews.size
+  end
   
 end

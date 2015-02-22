@@ -1,29 +1,34 @@
 class ReviewsController < ApplicationController
-  before_filter :load_commentable
+  before_filter :auth_user
+  before_filter :load_reviewable
 
   def index
-    @reviews = @commentable.reviews
+    @reviews = @reviewable.reviews
   end
 
   def new
-    @review = @commentable.reviews.new
+    @review = @reviewable.reviews.build
   end
 
   def create
-    @review = @commentable.reviews.build(user_id: current_spree_user.id,description: params[:description],heading: current_spree_user.first_name)
-    @venue = Venue.find(params[:venue_id])
-    if @venue.present? && @venue.reviews.present?
-      @index = nil
+    @review = @reviewable.reviews.build(review_params)
+    if @review.save
+      flash.now[:success] = "Your Review posted successfully."
     else
-      @index = 1 
-    end  
+      flash.now[:error] = "Errors: #{@review.errors.full_messages.to_sentence}"  unless @review.save
+    end
+
   end
 
   private
 
-  def load_commentable
-    resource, id = params[:resource] ,params[:venue_id]
-    @commentable = resource.singularize.classify.constantize.find(id)
+  def load_reviewable
+    resource, id = params[:resource_type] ,params[:resource_id]
+    @reviewable = resource.singularize.classify.constantize.find(id)
+  end
+
+  def review_params
+    params.require(:review).permit(:user_id,:heading,:description,:rating)
   end
 
 end

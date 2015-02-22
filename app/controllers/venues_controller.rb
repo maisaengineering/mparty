@@ -56,7 +56,7 @@ class VenuesController < ApplicationController
     else
       @can_rate_it = false
     end 
-    @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
+    @reviews = @venue.reviews.order(created_at: :desc)#.page(params[:page]).per(4)
     @contacts = @venue.venue_contacts
     if @contacts.present?
       @land_numbers = @contacts.map(&:land_number).reject(&:empty?)
@@ -64,6 +64,7 @@ class VenuesController < ApplicationController
       @contact_emails = nil #need to add email column to venue_contacts table
     end  
     @type_of_venues = @venue.venue_categories.map(&:venue_type).reject(&:empty?) if @venue.venue_categories.present?
+    render layout: false if request.xhr?
   end 
 
   def check_availability
@@ -101,17 +102,16 @@ class VenuesController < ApplicationController
     end 
   end 
 
-  def check_permission_for_rate_it(venue, user)
+  def check_permission_for_rate_it(venue, user) 
     has_events_with_venue = Event.past.where(:venue_id => venue.id, :user_id => user.id)
     past_events = Event.past.where(:venue_id => venue.id).ids
     has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
     if ( has_events_with_venue.present? || has_invitation_with_venue.present? )
-       has_ratings = user.ratings_given.where(dimension: nil, rateable_id: venue.id, rateable_type: venue.class.name).count.zero?
+       has_ratings =  venue.reviews.where(user_id: user.id).count.zero?
        return has_ratings ? true : false
     else
       return false
-    end 
-
-  end 
+    end
+  end
   
 end
