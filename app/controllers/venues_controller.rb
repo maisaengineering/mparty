@@ -102,7 +102,7 @@ class VenuesController < ApplicationController
     end 
   end 
 
-  def check_permission_for_rate_it(venue, user) 
+  def check_permission_for_rate_it(venue, user)
     has_events_with_venue = Event.past.where(:venue_id => venue.id, :user_id => user.id)
     past_events = Event.past.where(:venue_id => venue.id).ids
     has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
