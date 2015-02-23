@@ -150,7 +150,11 @@
                 <br>
                 <ul class="venue_ctc_details">
                   <li><b><%=@venue.name.titleize%></b></li>
-                  <li><%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%></li>
+                  <li><%=@venue.address1%>,
+                    <%unless @venue.address2.blank?%>
+                      <%= @venue.address2 %>,
+                    <%end%>
+                    <%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
                   <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
