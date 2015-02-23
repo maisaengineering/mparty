@@ -308,6 +308,8 @@
         if($(this).val() == 'choose'){
             selected_date=$("#event_starts_at").val()
             selected_time=$("#event_start_time").val()
+            selected_end_date=$("#event_ends_at").val()
+            selected_end_time=$("#event_end_time").val()
             if(selected_date == "" ) {
                 $("#venue_type").val("Venue*")
                 bootbox.alert("please select Start Date")
@@ -316,6 +318,17 @@
             else if(selected_time == "" ) {
                 $("#venue_type").val("Venue*")
                 bootbox.alert("please select Start Time ")
+                return false;
+            }
+            // SELECT END DATE & END TIME
+            else if(selected_end_date == "" ) {
+                $("#venue_type").val("Venue*")
+                bootbox.alert("please select End Date ")
+                return false;
+            }
+            else if(selected_end_time == "" ) {
+                $("#venue_type").val("Venue*")
+                bootbox.alert("please select End Time ")
                 return false;
             }
 
