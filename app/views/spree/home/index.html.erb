@@ -5,19 +5,19 @@
       <h1 class="homepage_title">Celebrate your Event with Heart Likes Gifts</h1>
       <%#= image_tag('banner_2.jpg' ,class: 'img-responsive') %>
     <div class="whatsup_src_block">
-      <div class="form-group whatsup_search">
-        <%= form_tag("/",method: :get) do%>
-            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events by name or city' %>
-            <button class="whatsup_src_icon"><span class="glyphicon glyphicon-search pull-left"></span></button>
-        <%end %>
-        <div class="create_event mtop70">
+        <div class="create_event">
           <% if spree_current_user  %>
-              <%= link_to 'Create Event','/events/new',class: "btn-createevent" %>
+            <%= link_to 'Create Event','/events/new',class: "btn-createevent" %>
           <% else %>
-              <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" href="" class="btn-createevent">Create Event</a>
+            <a data-dismiss="modal" data-target="#login_modal" data-toggle="modal" class="btn-createevent">Create Event</a>
           <% end %>
         </div>
-      </div>
+        <div class="form-group whatsup_search">
+          <%= form_tag("/",method: :get) do%>
+            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events by name or city' %>
+              <button class="whatsup_src_icon"><span class="glyphicon glyphicon-search pull-left"></span></button>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
