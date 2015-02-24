@@ -5,8 +5,8 @@
         %span.glyphicon.glyphicon-remove.pull-right.modal_box_x{"data-dismiss" => "modal"}
       .modal-header.mtop20
         - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
-          = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
-            .fb-wrap-loginsmall.pull-right
+          .fb-wrap-loginsmall.pull-right
+            = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
               .fb-icon-bg
               .fb-bg Login
         %h3.modal-title.pull-left Login
