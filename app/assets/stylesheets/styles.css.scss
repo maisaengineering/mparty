@@ -128,7 +128,7 @@ body{
 }
 
 .navbar-default{
-  background-image: image-url('menu_bg.jpg');
+  background-image: url('/assets/menu_bg.png');
   border-top: 6px solid #edb311;
   background-repeat:no-repeat;
   background-size:100% 100%;
@@ -218,26 +218,25 @@ body{
   border:none;
 }
 
-.login_and_signup_modal .modal-title{
+.modal-title{
   color:#fff;
 }
-.login_and_signup_modal .modal-header{
+.modal-header{
   border-bottom:none;
 }
 #wrapper .modal-footer{
   border-top:none;
 }
-
-.login_and_signup_modal  .modal-body a{
+.modal-body a{
   text-decoration:none;
   color:#fff;
 }
-.login_and_signup_modal  .modal_box_x{
+.modal_box_x{
   color:#fff;
   margin: 6px;
 }
 
-.login_and_signup_modal label{
+label{
   color:#fff;
   font-weight:normal;
 }
@@ -245,6 +244,9 @@ body{
   border-radius:15px;
   -moz-border-radius:15px;
   -webkit-border-radius:15px;
+}
+.btn:focus {
+  outline:none!important
 }
 .btn-primary{
   background-color:#F7838E;
@@ -262,7 +264,7 @@ body{
   background-color: #DA515D;
   border-color: #CB4B56;
 }
-.login_and_signup_modal .modal-body .form-control{
+.modal-body .form-control{
   background-color:transparent;
   border:1px solid #fff;
   border-radius:0px;
@@ -271,7 +273,7 @@ body{
   -moz-border-radius:15px;
   -webkit-border-radius:15px;
 }
-.login_and_signup_modal .form-control{
+.form-control{
   background-color:#FFFFFF;
   border:1px solid #bbbbbb;
   border-radius:15px;
@@ -279,10 +281,11 @@ body{
   -webkit-border-radius:15px;
   color:#000000;
 }
-.login_and_signup_modal .modal_wishlist_bg .form-control {
-  background-color:#FFFFFF;
-  border:1px solid #bbbbbb;
-  border-radius:0px;
+.modal_wishlist_bg .form-control {
+  background-color:#FFFFFF;border:1px solid #bbbbbb;
+ border-radius:15px;
+ -moz-border-radius:15px;
+ -webkit-border-radius:15px;
   color:#000000;}
 
 .reset_modal{
@@ -400,6 +403,8 @@ body{
   border: 1px solid #ccc;
   width: 444px;
   margin: 0px;
+  margin-top: 5px;
+  padding-top: 5px;
 }
 .inv_wislist_right{
   height:440px;
@@ -555,7 +560,11 @@ body{
   width: 225px;
 }
 .wishlist_popup_header{
-  border-bottom:1px solid #bbbbbb;
+  border-bottom:1px solid #dddddd;
+  background-color: #f1f1f1;
+  padding: 10px 0;
+  font-weight: bold;
+  border-top:1px solid #dddddd;
 }
 .wishlist_popup_center{
   margin-top:20px;
@@ -878,8 +887,8 @@ body{
   color:#fff;
 }
 .venue_src_icon{
-  position:absolute; left:460px; top:11px;
-  background-color:	transparent;
+  position:absolute; left:560px; top:11px;
+  background-color: transparent;
   border:none;
 }
 .form_search{
@@ -944,12 +953,13 @@ body{
   background:#fff;
 }
 .venue_slider{
-  width: 64%;
+  width: 48%;
   float: left;
 }
 .venue_right{
   float:right;
   background:#ffffff;
+  width: 50%;
 }
 .venue_right h4{
   float: left;
@@ -1080,6 +1090,7 @@ body{
 }
 .whatsup_search{
   position:absolute;
+  margin-top: 120px;
 }
 .whatsup_src_icon{
   position: absolute;
@@ -1211,7 +1222,7 @@ font-size: 24px;
 }
 
 .edit_event_btn h4{
-	margin-top:6px;
+  margin-top:6px;
 }
 .event_photos{
 width: 100%;
@@ -1759,6 +1770,11 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .text_6{
   width: 40%;
   height: 30px;
+  border-radius: 15px;
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border: 1px solid #cccccc;
+  padding: 5px;
 }
 
 
@@ -1949,6 +1965,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   margin: 0 0 -37px 0;
   width: 41px;
   float:left;
+  border-radius:15px 0 0 15px;
+ -moz-border-radius:15px 0 0 15px;
+ -webkit-border-radius:15px 0 0 15px;
 }
 
 .fb-icon-bg:after {
@@ -1967,6 +1986,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   padding:8px 12px 8px 12px;
   color: #fff;
   float:left;
+  border-radius: 0 15px 15px 0;
+ -moz-border-radius: 0 15px 15px 0;
+ -webkit-border-radius: 0 15px 15px 0;
 }
 
 .fb-wrap {
@@ -2251,6 +2273,7 @@ ul.notification-list li {
 .homepage_title {
   margin:0px; text-align:center; padding:60px 0; color:#ffffff;
   text-shadow:1px 1px 2px #111111;
+  padding: 80px 0px;
 }
 .light_bg {
   background-color:#f1f1f1;
@@ -2265,6 +2288,7 @@ ul.notification-list li {
 }
 .progress {
   height:12px;
+  margin-bottom: 5px;
 }
 .progress-box {
   min-height:150px;
@@ -2274,7 +2298,6 @@ ul.notification-list li {
   font-size:13px;
 }
 
-/**************css for unresponsive****************/
 .modal1{
   width:324px;
   margin:30px auto;
@@ -2291,6 +2314,8 @@ ul.notification-list li {
   width:1170px;
   margin:30px auto;
 }
+
+/**************start esponsive css****************/
 
 body.unresponsive {
   min-width: 1200px;
@@ -2512,3 +2537,28 @@ body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus
 }
 
 /**************end unresponsive css****************/
+
+.btn-createevent:focus{
+    outline:none!important
+}
+a:focus{
+    outline:none!important;
+ text-decoration:none!important
+}
+#venue_calendar_style .fc-day-grid {
+ height:330px !important;
+}
+#venue_calendar_style .fc-view-container table {
+ overflow:hidden;
+ }
+#venue_calendar_style .fc-toolbar .fc-left {
+ padding: 8px 10px;
+}
+#venue_calendar_style .fc-toolbar .fc-right {
+ padding:8px 0;
+}   
+
+#venue_calendar_style .venue_right button {
+ width:60px !important;
+ 
+}

@@ -15,7 +15,7 @@
         = render 'layouts/shared/select_state'
         - if signed_in?
           %li.dropdown
-            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button",:class => 'pull-right'}
               - if spree_current_user.avatar.present?
                 = image_tag(spree_current_user.avatar.url(:small),class: 'img-rounded bg_img')
               - elsif spree_current_user.user_authentications.find_by_provider("facebook").present?

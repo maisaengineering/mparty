@@ -20,7 +20,7 @@
         <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : "false"),class: 'btn btn-primary' %>
 
         <%if params[:from_event]%>
-            <%= link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),data: {id: venue.id}, class: 'btn btn-primary add_this_venue_to_event') if params[:from_event] %>
+            <%= link_to('Add this Venue to Event',new_event_path(venue_id: venue.id),data: {id: venue.id}, class: 'btn btn-success add_this_venue_to_event pull-right') if params[:from_event] %>
         <%end%>
       </p>
       <p></p>
