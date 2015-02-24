@@ -206,16 +206,15 @@
                 $('#event_start_time').val(set_start_time)
             }
             $('#event_start_time').timepicker({
-                'timeFormat': 'H:i:s',
+                 'timeFormat': 'g:ia',
                 'minTime': new Date(),
                 'maxTime': '11:59:59pm',
                 'forceRoundTime': true,
-                'step': 1
             });
         }else{
             $('#event_start_time').timepicker('remove');
             $('#event_start_time').timepicker({
-                'timeFormat': 'H:i:s'
+                 'timeFormat': 'g:ia'
             });
         }
     });
@@ -246,16 +245,15 @@
                 $('#event_end_time').val($("#event_start_time").val())
             }
             $('#event_end_time').timepicker({
-                'timeFormat': 'H:i:s',
+                 'timeFormat': 'g:ia',
                 'minTime': $("#event_start_time").val(),
                 'maxTime': '11:59:59pm',
                 'forceRoundTime': true,
-                'step': 1
             });
         }else{
             $("#event_end_time").timepicker('remove');
             $('#event_end_time').timepicker({
-                'timeFormat': 'H:i:s'
+                 'timeFormat': 'g:ia'
             });
         }
     });
@@ -265,11 +263,10 @@
             $("#event_end_time").timepicker('remove');
             $('#event_end_time').val($("#event_start_time").val())
             $('#event_end_time').timepicker({
-                'timeFormat': 'H:i:s',
+                 'timeFormat': 'g:ia',
                 'minTime': $("#event_start_time").val(),
                 'maxTime': '11:59:59pm',
                 'forceRoundTime': true,
-                'step': 1
             });
         }
     })
