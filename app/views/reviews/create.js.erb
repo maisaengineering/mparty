@@ -1,14 +1,9 @@
-<% if @review.save %>
-  window.location.reload(true);
-  /* $("#review_block").remove();
-   $("#no_reviews").remove();
-   <% if @venue.present? && current_spree_user.ratings_given.where(dimension: nil, rateable_id: @venue.id, rateable_type: @venue.class.name).count.zero? %>
-     $("#first_rate_text").remove(); 
-     $(".star").remove();
-   <% end %>
-   <% if @venue.present? && @venue.reviews.present? %>
-      $('.review_block:first').before("<%#= j render('reviews/review',review: @review, index: @index) %>")
-   <% else %>
-      $('.comment_block').append("<%#= j render('reviews/review',review: @review, index: @index) %>")
-   <% end %>*/
+<% unless @review.errors.any? %>
+$("#vote_for_venue").remove();
+$('#overall_rating').html("<%= j overall_rating(@reviewable.average_rating,@reviewable.reviews.count) %>").hide().fadeIn('slow')
+$('#reviews .page:first').before("<%= j render('reviews/review',review: @review) %>").hide().slideDown("slow")
+$('div.rateit').rateit();
+$('#reviewItModal').modal('hide');
 <% end %>
+$("#flash_messages").html("<%= j(render partial: "shared/flash_messages", flash: flash) %>")
+renderFlashMessage()

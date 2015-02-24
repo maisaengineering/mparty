@@ -87,4 +87,13 @@ module ApplicationHelper
     end
   end
 
+  def overall_rating(avg,count)
+    "<div class='rateit' data-rateit-value='#{avg}' data-rateit-ispreset='true' data-rateit-readonly='true'></div>
+    <p>#{ pluralize(count, 'Review')}</p>".html_safe
+  end
+
+  def rating_for(rating)
+    "<div class='rateit' data-rateit-value='#{rating}' data-rateit-ispreset='true' data-rateit-readonly='true'></div>".html_safe
+  end
+
 end

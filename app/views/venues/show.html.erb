@@ -18,7 +18,7 @@
     .hide-class{display: none;}
 </style>
 <div id="map" class="hide-class">
-<iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_API_KEY'] %>&q=<%= @venue.full_address  %> "></iframe>
+  <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_API_KEY'] %>&q=<%= @venue.full_address  %> "></iframe>
 </div>
 <div id="wrapper">
   <div class="container-fluid">
@@ -30,23 +30,23 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
           <% if @pictures.blank? %>
-            <div class="item">
-              <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
-              <!-- <div class="carousel-caption"> venue three </div> -->
-            </div>
-          <% else %>
-            <% @pictures.each_with_index do |picture, index|%>
-              <div class="item" id="venue_picture" >
-                <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
-                <!-- <div class="carousel-caption"> Picture <%#= index+1%> </div> -->
+              <div class="item">
+                <%= image_tag 'venue_1.jpg',width: 600,height: 500 %>
+                <!-- <div class="carousel-caption"> venue three </div> -->
               </div>
-            <%end%>
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-              <%@pictures.each_with_index do |picture_dot, index|%>
-                <li data-target="#carousel-example-generic" data-slide-to="<%=index+1%>"></li>
+          <% else %>
+              <% @pictures.each_with_index do |picture, index|%>
+                  <div class="item" id="venue_picture" >
+                    <img src="<%=picture.image.url%>" alt="..."  width="600" height="500" >
+                    <!-- <div class="carousel-caption"> Picture <%#= index+1%> </div> -->
+                  </div>
               <%end%>
-            </ol>
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <%@pictures.each_with_index do |picture_dot, index|%>
+                    <li data-target="#carousel-example-generic" data-slide-to="<%=index+1%>"></li>
+                <%end%>
+              </ol>
           <% end %>
         </div>
 
@@ -58,34 +58,27 @@
         </div>
         <div class="row">
           <div class="col-md-12 ptop">
-          <div class="row">
-          <!-- <div class="col-md-2"></div> -->
-          <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
-          <div class="col-md-10">
-              <%#= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false"), {:class => "btn btn-success"}%>
-                <%= link_to "Add this Venue to Event", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-primary pull-left"}%>
-          </div>      
-          <% else %>
-          <div class="col-md-10">
-            <%#= link_to "Venues List", venues_path, {:class => "btn btn-success"}%>
-          </div>  
-          <% end %>
-          </div>
+            <div class="row">
+              <!-- <div class="col-md-2"></div> -->
+              <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
+                  <div class="col-md-10">
+                    <%#= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false"), {:class => "btn btn-success"}%>
+                    <%= link_to "Add this Venue to Event", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-primary pull-left"}%>
+                  </div>
+              <% else %>
+                  <div class="col-md-10">
+                    <%#= link_to "Venues List", venues_path, {:class => "btn btn-success"}%>
+                  </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
       <div class="venue_tab_content">
         <h4 class="review_star">Overall Rating</h4>
-        <% if @venue.rates.present? %>
-<!--            <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">Based on 
-  <%#= pluralize(@venue.rates.count, 'Member') %></p> -->
-          <p style="position:relative;font-size:12px;color:#878484;margin-top:2px;font-weight:normal;">
-            <%= pluralize(@venue.reviews.count, 'Review')%>
-          </p>
-           <%= rating_for @venue, nil, readonly: true %>
-        <% else %>
-          <%= rating_for @venue, nil, readonly: true, noRatedMsg: "No Ratings available" %><%= pluralize(@venue.reviews.count, 'Review')%>
-        <% end %>
+        <div id="overall_rating">
+          <%= overall_rating(@venue.average_rating,@venue.reviews.count) %>
+        </div>
         <br>
         <ul class="nav nav-tabs" role="tablist" id="myTab">
           <li role="presentation" class="active"><a href="#Locations" role="tab" data-toggle="tab">Gallery</a></li>
@@ -97,11 +90,11 @@
           <div role="tabpanel" class="tab-pane fade in" id="About">
             <div class="row no_margin">
               <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
-              <%unless @type_of_venues.blank?%>
-                   <%= @type_of_venues.join(',')%>
-              <%else%>
-                 Not Available. Please Contact Management.
-               <%end%>
+                <%unless @type_of_venues.blank?%>
+                    <%= @type_of_venues.join(',')%>
+                <%else%>
+                    Not Available. Please Contact Management.
+                <%end%>
               </div>
             </div>
 
@@ -118,7 +111,7 @@
               <div class="col-md-12"> <b>Range:</b> &nbsp;
                 <%=number_to_currency(@venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(@venue.price_max, unit: get_currency_symbol)%>
               </div>
-            </div>   
+            </div>
             <div class="row no_margin">
               <div class="col-md-12"> <b>Description:</b> &nbsp;
                 <%= @venue.description%>
@@ -128,28 +121,28 @@
               <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
               </div>
               <%unless @venue.venue_seating_types.blank?%>
-                <% @venue.venue_seating_types.each do |seating_type| %>
-                    <div class="col-md-3" align="center">
-                      <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
-                      <img src="<%= seating_type.seating_image.url(:thumb) %>" class="img-rounded">
-                      </a>
-                      <h4><%= seating_type.name%></h4>
-                      <h4>
-                        <%if seating_type.capacity_min.present?%>
-                          Min:<%= seating_type.capacity_min%>
-                        <%else%>
-                         <h4 style="color:#fff">range</h4>
-                        <%end%>
-                        <%if seating_type.capacity_max.present?%>
-                         Max:<%=seating_type.capacity_max%>
-                        <%else%>
-                         <h4 style="color:#fff">range</h4>
-                        <%end%>
-                      </h4>
-                    </div>
+                  <% @venue.venue_seating_types.each do |seating_type| %>
+                      <div class="col-md-3" align="center">
+                        <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
+                          <img src="<%= seating_type.seating_image.url(:thumb) %>" class="img-rounded">
+                        </a>
+                        <h4><%= seating_type.name%></h4>
+                        <h4>
+                          <%if seating_type.capacity_min.present?%>
+                              Min:<%= seating_type.capacity_min%>
+                          <%else%>
+                              <h4 style="color:#fff">range</h4>
+                          <%end%>
+                          <%if seating_type.capacity_max.present?%>
+                              Max:<%=seating_type.capacity_max%>
+                          <%else%>
+                              <h4 style="color:#fff">range</h4>
+                          <%end%>
+                        </h4>
+                      </div>
                   <%end%>
-                <%end%>
-              </div>
+              <%end%>
+            </div>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="ContactDetails">
             <div class="row no_margin">
@@ -157,20 +150,24 @@
                 <br>
                 <ul class="venue_ctc_details">
                   <li><b><%=@venue.name.titleize%></b></li>
-                  <li><%=@venue.address1%>,<%= @venue.address2 %>,<%=@venue.city%></li>
+                  <li><%=@venue.address1%>,
+                    <%unless @venue.address2.blank?%>
+                      <%= @venue.address2 %>,
+                    <%end%>
+                    <%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
                   <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
                   <% if @contacts.present? %>
-                    <% if @land_numbers.present? %>
-                      <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
-                    <% end %>
-                    <% if @mobile_numbers.present? %>  
-                      <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>
-                    <% end %>
-                    <% if @contact_emails.present? %>
-                      <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%= @contact_emails.join(",") %></li>
-                    <% end %>  
+                      <% if @land_numbers.present? %>
+                          <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
+                      <% end %>
+                      <% if @mobile_numbers.present? %>
+                          <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>
+                      <% end %>
+                      <% if @contact_emails.present? %>
+                          <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%= @contact_emails.join(",") %></li>
+                      <% end %>
                   <% end %>
                 </ul>
               </div>
@@ -183,7 +180,7 @@
           <div role="tabpanel" class="tab-pane fade in  active" id="Locations">
             <div class="row no_margin">
               <%if @pictures.count == 0%>
-                <h4>Photos coming soon</h4>
+                  <h4>Photos coming soon</h4>
               <%end%>
               <!-- <h4>Photos</h4> --><br>
               <%@pictures.each do |picture|%>
@@ -196,81 +193,54 @@
             </div>
             <div class="row no_margin event_margin">
               <%if @videos.count == 0%>
-                <h4>Videos coming soon</h4>
+                  <h4>Videos coming soon</h4>
               <%else%>
-              <h4>Videos</h4>
+                  <h4>Videos</h4>
               <%end%>
               <%@videos.each do |video|%>
-              <div class="col-md-3 fix_image_size">
-                <a class="fancybox-media" href="<%=video.url%>">
-                  <img src="<%=video.image_url%>" alt="missing_image" width="220px" height="185px">
-                </a>
-              </div>
+                  <div class="col-md-3 fix_image_size">
+                    <a class="fancybox-media" href="<%=video.url%>">
+                      <img src="<%=video.image_url%>" alt="missing_image" width="220px" height="185px">
+                    </a>
+                  </div>
               <%end%>
             </div>
-                <br>
+            <br>
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="Reviews">
             <% if @can_rate_it %>
-                <% if !@venue.rates.present? %>
-                     <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
-                         <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
-                     </div>
-                     <%= rating_for @venue, nil, disable_after_rate: true %>
-                <% else %>
-                     <div id="first_rate_text">
-                       <h4>Rate It:</h4><%= rating_for @venue, nil, disable_after_rate: true %>
-                     </div>
-                <% end %>
+                <div id="vote_for_venue">
+                  <% if @venue.reviews.blank? %>
+                      <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
+                        <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
+                      </div>
+                      <button data-toggle="modal" data-target="#reviewItModal">Wrire Review</button>
+                      <%= render 'reviews/form',review: @venue.reviews.build,resource_type: @venue.class,resource_id: @venue.id %>
+                  <% else %>
+                      <div id="first_rate_text">
+                        <button data-toggle="modal" data-target="#reviewItModal">Wrire Review</button>
+                        <%= render 'reviews/form' ,review: @venue.reviews.build ,resource_type: @venue.class,resource_id: @venue.id %>
+                      </div>
+                  <% end %>
+                </div>
             <% end %>
-            <div class="pull-left">
-              <%if @venue.rates.where(:rater_id => current_spree_user).present? %>
-                <p style="position:relative;font-size:15px;color:#878484;font-weight:normal;">
-                You Rated:
-                  <span style="color:#878484">
-                    <%= @venue.rates.where(:rater_id => current_spree_user).first.stars.round%>/5
-                  </span>
-                </p>
-              <%= rating_for_user @venue,current_spree_user%>
-              <%end%>
-            </div>
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12">
-                  <div class="row comment_block_btn">
-                    <% if current_spree_user && @venue.can_review?(current_spree_user) %>
-                        <% place_holder = @reviews.blank? ? "Be the First to Review it" : "Write your Review" %>
-                        <div id="review_block" >
-                        <div class="col-md-9">
-                          <%= form_tag reviews_path ,remote: true,id: 'review_form' do %>
-                              <%= text_area_tag :description,'',id: 'review_content',cols: 95,rows: 2 , placeholder: place_holder %>
-                              <%= hidden_field_tag :resource ,'venue' %>
-                              <%= hidden_field_tag :venue_id ,@venue.id %>
-                        </div>
-                        <div class="col-md-3">
-                          <%= submit_tag 'WRITE REVIEW',class: 'btn btn-lg btn-success btn-block  ' %>
-                        </div>
-                        <% end %>
-                        </div>
-                        
-                    <% end %>
-                  </div>
-                  <div class="comment_block">
-                    <% if @reviews.blank? %>
-                        <div id="no_reviews">No Reviews</div>
-                    <% else%>
-                        <div id="reviews">
-                          <div class="page">
+                  <div class="review_block">
+                    <div id="reviews">
+                      <div class="page">
+                        <% unless @reviews.blank? %>
                             <% @reviews.each_with_index do |review, index| %>
                                 <% index = @reviews.count - index %>
                                 <%= render 'reviews/review',review: review, index: index %>
                             <% end %>
-                          </div>
-                        </div>
-                    <% end %>
+                        <% end %>
+                      </div>
+                    </div>
                   </div>
-                  <%= paginate @reviews %>
+                  <%#= paginate @reviews %>
                 </div>
               </div>
             </div>
@@ -302,8 +272,8 @@
             success: function(data){
                 $('#calendar').fullCalendar({
                     header: { left: 'prev',
-                              center: 'title',
-                              right: 'next'
+                        center: 'title',
+                        right: 'next'
                     },
                     eventColor: '#ef5323',
                     eventLimit: 3,
@@ -313,21 +283,19 @@
         });
 
         $(".add_this_venue_to_event").click(function(e) {
-          e.preventDefault();
-          action = '/venues/'+$("#venue_id").val()+'/check_availability'
-          $.ajax({url: action})
-        }) 
+            e.preventDefault();
+            action = '/venues/'+$("#venue_id").val()+'/check_availability'
+            $.ajax({url: action})
+        })
     }
 
-$(function(){
-    $('.carousel').carousel({
-      interval: 2000
+    $(function(){
+        $('.carousel').carousel({
+            interval: 2000
+        });
     });
-});    
-function show_map (){
-  document.getElementById('insert_google_map').innerHTML = document.getElementById('map').innerHTML
-}
-$(".star").click(function () {
-  $(".firstrate").remove();
-})
+    function show_map (){
+        document.getElementById('insert_google_map').innerHTML = document.getElementById('map').innerHTML
+    }
+
 </script>

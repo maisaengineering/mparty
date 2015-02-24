@@ -73,8 +73,8 @@ gem 'letter_opener', group: :development
 gem "geocoder"
 gem 'fuzzily'
 gem 'kaminari'
-# gem 'ratyrate'
-gem 'ratyrate', :github => 'maisaengineering/ratyrate'
+#gem 'ratyrate', :github => 'maisaengineering/ratyrate'
+gem 'rails-rateit'
 
 gem 'fog'
 gem 'figaro'

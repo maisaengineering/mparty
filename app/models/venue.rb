@@ -13,7 +13,6 @@ class Venue < ActiveRecord::Base
   belongs_to :created_by, foreign_key: "user_id", class_name: "Spree::User" # event created user
   has_many :video_urls, as: :video_url
 
-  ratyrate_rateable 
   has_many :rates, as: :rateable, dependent: :destroy
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories 
@@ -22,7 +21,7 @@ class Venue < ActiveRecord::Base
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here
-  validates :name,:address1, :address2, :state, :city, :country,:zip,presence: true
+  validates :name,:address1, :state, :city, :country,:zip,presence: true
   validates :room_dimensions,:capacity,:price_min ,:price_max, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
   #validates_associated :venue_calendars, :venue_contacts
@@ -49,7 +48,11 @@ class Venue < ActiveRecord::Base
 
   #---------- Instance Methods
   def full_address
+    if address2 == ""
+    "#{address1}, #{city}, #{state}, #{country}, #{zip}"
+    else
     "#{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
+    end
   end
 
   # cover photo
@@ -75,6 +78,10 @@ class Venue < ActiveRecord::Base
     else
       return false
     end  
-  end  
+  end
+
+  def average_rating
+    reviews.sum(:rating) / reviews.size
+  end
   
 end

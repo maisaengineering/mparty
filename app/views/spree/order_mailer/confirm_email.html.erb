@@ -1,12 +1,21 @@
- <div style="width:600px;margin:0 auto; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:15px;color:#555;">
-  <!--main header-->
-  <div style="width:100%;height:56px;background-image:url(<%= asset_url('menu_bg.jpg') %>); background-repeat:no-repeat; border-top: 6px solid #edb311;">
-    <img src="<%= asset_url('logo.png') %>" style="margin:10px; margin-top:8px;">
-  </div>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Untitled Document</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body style="width:100%; height:100%; overflow:hidden; background-color:#c72a3a; font-family: 'Open Sans', sans-serif;">
+
+    <div style="width:700px; margin:20px auto; height:70px;"> <img src="https://lh5.googleusercontent.com/-SdYD8IW7vFA/VOSV2UJyv7I/AAAAAAAAASc/jC4tvvDm3lE/w220-h53-no/logo-2.png" style="margin:10px; margin-top:8px;"> 
+    </div>
+  <!-- content  row -->
+<div style="width:600px;margin:0 auto; font-size:18px;color:#555; background-color:#ffffff; padding:40px 50px; "> 
 <br>
 <div>
 <% if @order.user %>
-  <span style="color:#555;">Dear <%= @order.user.full_name %>,</span>
+  <span style="color:#555;">Dear <i><b><%= @order.user.full_name %>,</i></b></span>
 <% else %>
 <span style="color:#555;"><%= Spree.t('order_mailer.confirm_email.dear_customer') %></span>
 <% end %>
@@ -30,3 +39,12 @@
 <div><%= Spree.t('order_mailer.confirm_email.total', :total => @order.display_total) %></div><br>
 
 <div><%= Spree.t('order_mailer.confirm_email.thanks') %></div>
+</div>
+    <!-- footer -->
+    <div style="width:700px; margin:0 auto;margin-top:30px; margin-bottom:20px; text-align:center; 
+        font-size:12px;color:#eeeeee;">
+      <p><img src="https://lh4.googleusercontent.com/-oqI1N40qC6s/VOSV1DC-UzI/AAAAAAAAASg/N4jHsNDNMbE/s128-no/Facebook-128.png" width="32" height="32" alt=""/> &nbsp; <img src="https://lh6.googleusercontent.com/-0FlRHbxRmfA/VOSV1WKvvcI/AAAAAAAAAR0/VkYhmVhO3Kg/s128-no/Twitter-128.png" width="32" height="32" alt=""/> &nbsp; <img src="https://lh4.googleusercontent.com/--0vUgW06UvE/VOSV1ONYHfI/AAAAAAAAAR8/BZ63L5C5zZk/s128-no/YouTube-128.png" width="32" height="32" alt=""/> </p>
+      <p><a href="#" style="color:#ffffff;">www.mparty.io</a></p>
+      <p style="margin:0px;">© Copyright 2015, Mparty. All rights reserved.</p>
+    </div>
+</body>

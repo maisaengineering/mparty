@@ -218,25 +218,26 @@ body{
   border:none;
 }
 
-.modal-title{
+.login_and_signup_modal .modal-title{
   color:#fff;
 }
-.modal-header{
+.login_and_signup_modal .modal-header{
   border-bottom:none;
 }
 #wrapper .modal-footer{
   border-top:none;
 }
-.modal-body a{
+
+.login_and_signup_modal  .modal-body a{
   text-decoration:none;
   color:#fff;
 }
-.modal_box_x{
+.login_and_signup_modal  .modal_box_x{
   color:#fff;
   margin: 6px;
 }
 
-label{
+.login_and_signup_modal label{
   color:#fff;
   font-weight:normal;
 }
@@ -261,7 +262,7 @@ label{
   background-color: #DA515D;
   border-color: #CB4B56;
 }
-.modal-body .form-control{
+.login_and_signup_modal .modal-body .form-control{
   background-color:transparent;
   border:1px solid #fff;
   border-radius:0px;
@@ -270,7 +271,7 @@ label{
   -moz-border-radius:15px;
   -webkit-border-radius:15px;
 }
-.form-control{
+.login_and_signup_modal .form-control{
   background-color:#FFFFFF;
   border:1px solid #bbbbbb;
   border-radius:15px;
@@ -278,7 +279,7 @@ label{
   -webkit-border-radius:15px;
   color:#000000;
 }
-.modal_wishlist_bg .form-control {
+.login_and_signup_modal .modal_wishlist_bg .form-control {
   background-color:#FFFFFF;
   border:1px solid #bbbbbb;
   border-radius:0px;

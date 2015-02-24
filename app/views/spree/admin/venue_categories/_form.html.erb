@@ -1,6 +1,7 @@
  <%= form_for [:admin, @venue_category] do |f| %>
+  <br>
 <fieldset data-hook="new_property">
-  <legend align="center"><%= Spree.t(:new_venue_type) %></legend>
+  <!-- <legend align="center"><%#= Spree.t(:new_venue_type) %></legend> -->
   
 
 <div data-hook="admin_property_form" class="align-center row">
@@ -14,8 +15,5 @@
 </div>
 
 <%=f.submit%>
-
-  <div class="filter-actions">
-  </div>
 </fieldset>
 <% end %>

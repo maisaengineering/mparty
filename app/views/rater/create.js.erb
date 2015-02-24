@@ -1,0 +1,5 @@
+<% if @rateable.is_a?(Venue) %>
+    $('#venue_overall_rating').html("<%= j(render 'venues/overall_rating',venue: @rateable) %>")//.hide().fadeIn('slow')
+    //$('#my_rating_for_venue').html("<%= j(render 'venues/my_rating',venue: @rateable) %>").hide().fadeIn('slow')
+    applyRaty()
+<% end %>

@@ -11,7 +11,6 @@ Spree::User.class_eval do
 
   mount_uploader :avatar, AvatarUploader
 
-  ratyrate_rater
 
   after_create :send_email
 
@@ -56,7 +55,7 @@ Spree::User.class_eval do
   end 
 
   def send_email
-    Notifier.welcome_email(email).deliver
+    Notifier.welcome_email(email,full_name).deliver
   end
 
   def wishlist
