@@ -1,5 +1,6 @@
 <% unless @review.errors.any? %>
 $("#vote_for_venue").remove();
+$("#no_reviews").remove();
 $('#overall_rating').html("<%= j overall_rating(@reviewable.average_rating,@reviewable.reviews.count) %>").hide().fadeIn('slow')
 $('#reviews .page:first').before("<%= j render('reviews/review',review: @review) %>").hide().slideDown("slow")
 $('div.rateit').rateit();

@@ -152,7 +152,7 @@
                   <li><b><%=@venue.name.titleize%></b></li>
                   <li><%=@venue.address1%>,
                     <%unless @venue.address2.blank?%>
-                      <%= @venue.address2 %>,
+                        <%= @venue.address2 %>,
                     <%end%>
                     <%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
@@ -209,17 +209,17 @@
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="Reviews">
-            <% if @can_rate_it %>
+            <% if not @can_rate_it %>
                 <div id="vote_for_venue">
                   <% if @venue.reviews.blank? %>
                       <div id="first_rate_text"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
                         <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
                       </div>
-                      <button data-toggle="modal" data-target="#reviewItModal">Wrire Review</button>
+                      <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5">Wrire Review</button>
                       <%= render 'reviews/form',review: @venue.reviews.build,resource_type: @venue.class,resource_id: @venue.id %>
                   <% else %>
                       <div id="first_rate_text">
-                        <button data-toggle="modal" data-target="#reviewItModal">Wrire Review</button>
+                        <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5">Wrire Review</button>
                         <%= render 'reviews/form' ,review: @venue.reviews.build ,resource_type: @venue.class,resource_id: @venue.id %>
                       </div>
                   <% end %>
@@ -231,7 +231,9 @@
                   <div class="review_block">
                     <div id="reviews">
                       <div class="page">
-                        <% unless @reviews.blank? %>
+                        <% if @reviews.blank? %>
+                        <div id="no_reviews">No Reviews yet</div>
+                        <% else %>
                             <% @reviews.each_with_index do |review, index| %>
                                 <% index = @reviews.count - index %>
                                 <%= render 'reviews/review',review: review, index: index %>
