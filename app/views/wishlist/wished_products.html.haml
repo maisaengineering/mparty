@@ -43,7 +43,7 @@
   })
 
   $(".update_product_quantity").hide()
-  $(".w_product").change(function(){
+  $(".w_product").click(function(){
      var clicked_id =  $(this).attr('id')
      var show_id = "#button_" + clicked_id
      $(show_id).fadeIn()
