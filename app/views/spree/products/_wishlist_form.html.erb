@@ -7,7 +7,7 @@
     <div class="col-md-12">&nbsp;</div>
     <div class="col-md-12">
       <% if @product.master.can_supply? %>
-          <button type="submit" class="btn btn-lg btn-primary btn-block add_qty_btn">
+          <button type="submit" class="btn btn-lg btn-success add_qty_btn">
             <%= Spree.t(:add_to_wishlist) %>
           </button>
       <% else %>

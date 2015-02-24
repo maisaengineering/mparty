@@ -7,8 +7,11 @@
     = favicon_link_tag "favicon.ico?v=2"
     %title Mparty
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    %link{:href => "http://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet", :type => "text/css"}
     - if Rails.env.production?
       %script{:src => "https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places", :type => "text/javascript"}
+      /<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     / HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries
     / WARNING: Respond.js doesn't work if you view the page via file://
     /[if lt IE 9]

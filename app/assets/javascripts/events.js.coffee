@@ -27,14 +27,14 @@ $(document).ready ->
     nextSelector: "nav.pagination a[rel=next]" # selector for the NEXT link (to page 2)
     itemSelector: "#past_events div.past_event"
 
-  $('.ask_host_to_invite').bind('ajax:beforeSend', ->
+  $(document).on 'ajax:beforeSend', '.ask_host_to_invite', ->
     bootbox.alert 'Request Sent successfully'
     $(this).remove()
     return
-  ).bind('ajax:success', (e,data, status, xhr) ->
+  $(document).on 'ajax:success', '.ask_host_to_invite', ->
     $('.loading-indicator').hide()
     return
-  )
+
 
 
 

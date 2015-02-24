@@ -4,8 +4,6 @@
   .modal-dialog
     .modal-content
       .modal-header
-        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
-          %span{"aria-hidden" => "true"} ×
         %h4#invitedUsersListLabel.modal-title{style: 'color: #000; text-align: center;'} Users
       .modal-body
         %ul.list-group
@@ -36,4 +34,4 @@
                   - elsif invite.joined == 3
                     %span.icon-warning  Maybe
         .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} OK
+          %button.btn.btn-success{"data-dismiss" => "modal", :type => "button"} OK

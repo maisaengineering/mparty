@@ -30,13 +30,11 @@
 
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-12 mtop70">
+            <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
             <% if @event.pictures.blank? %>
-              <%= link_to 'SKIP',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-primary btn-block upload_btn_skip' %>
+              <%= link_to 'SKIP',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip' %>
             <% end %>
-          </div>
-          <div class="col-md-4">
-             <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-primary btn-block upload_btn_done mtop70' %>
           </div>
       <% end %>
     </div>

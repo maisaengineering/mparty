@@ -5,13 +5,13 @@
 = render 'wishlist/shipping_address_form'
 .row.wishlist_header
   .col-md-3
-    = link_to "/event/#{@event.id}/invite-with-wishlist", class:"btn btn-warning back_button" do
+    = link_to "/event/#{@event.id}/invite-with-wishlist", class:"btn btn-gray back_button" do
       %span.glyphicon.glyphicon-chevron-left
       Back
   .col-md-6.position_rel
     = render 'spree/shared/search'
   .col-md-3
-    %a.btn.btn-lg.btn-primary.btn-block.addwishlist_btn{"data-target" => "#wishlist-modal", "data-toggle" => "modal", :href => "#"}
+    %a.btn.btn-success.btn-block.addwishlist_btn{"data-target" => "#wishlist-modal", "data-toggle" => "modal", :href => "#"}
       .img-rounded.search_btn_count.position_abs
         %p#wishlist-count= @wishlist.wished_products.count
       ADD TO WISHLIST

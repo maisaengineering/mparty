@@ -2,7 +2,7 @@
   <div class="page">
     <% if events.present? %>
         <% events.each do |e| %>
-            <div class="col-xs-12 col-sm-6 col-md-3 event">
+            <div class="col-md-3 event">
               <div class=" row nomargin event_margin">
                 <div class="event_img">
                   <% if e.pictures.present? %>
@@ -25,7 +25,11 @@
                     <div class="event_place">
                       <div class="pull-left">
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        <%= truncate(e.location.camelcase ,length: 20) %>
+                        <% if e.venue %>
+                            <%= truncate(e.venue.name.camelcase ,length: 20) %>
+                        <% else %>
+                            <%= truncate(e.location.camelcase ,length: 20) %>
+                        <% end %>
                       </div>
                       <!-- Only public events are allowed for joining a event -->
 

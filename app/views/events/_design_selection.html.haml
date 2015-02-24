@@ -22,9 +22,10 @@
 
    // set design id for template
     $('#new_event #event_design_id').val($('#eventDesignsCarousel').find('.design_template').first().data("design-id"))
-
+    $("#event_design_id").val($('#eventDesignsCarousel').find('.design_template').first().data("design-id"));
     $('#eventDesignsCarousel .design_template').click(function (e){
       $('#new_event #event_design_id').val($(this).data("design-id"))
+      $("#event_design_id").val($(this).data("design-id"));
     })
 
 

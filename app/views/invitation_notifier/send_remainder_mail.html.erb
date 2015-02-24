@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= @event.name %></title>
+</head>
+<body>
+<div style="width:600px;margin:0 auto; font-family:Gotham, 'Helvetica Neue', Helvetica, Arial, sans-serif;font-size:18px;color:#555;">
+  <!--main header-->
+  <div style="width:100%;height:56px;background-image:url(<%= asset_url('menu_bg.jpg') %>); background-repeat:no-repeat; border-top: 6px solid #edb311;">
+    <img src="<%= asset_url('logo.png') %>" style="margin:10px; margin-top:8px;">
+  </div>
+  <!--main header end-->
+  <br>
+  <span>Hello,</span> <br>
+  <br>
+  <span>You are invited to an event by '<%= @sender_name %>'</span> <br>
+  <br>
+  <!-- invitation -->
+  <p><strong>Event :</strong> <%= @event.name %></p>
+  <p><strong>Location :</strong> <%= @event.full_address %></p>
+  <p><strong>Date :</strong> <%= @event.starts_at.strftime('%d-%b-%Y')  %></p>
+  <br>
+  <br>
+
+
+  <div style="text-align:center;">
+    <%= link_to "View Invitation",  @url,style: "text-decoration:none; color:#ffffff; padding:14px 18px; background-color:#ef5323;text-align:center;margin:0 auto;" %>
+  </div>
+
+</div>
+</body>
+</html>
+

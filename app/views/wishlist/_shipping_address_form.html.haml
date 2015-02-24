@@ -1,8 +1,6 @@
 #wishlist-shipping-addrs-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
   .modal-dialog.modal2
     .modal-content.modal_wishlist_bg
-      %a{:href => "/"}
-        %span.glyphicon.glyphicon-remove.pull-right.modal_wishlist_x{"data-dismiss" => "modal"}
       %br/
       .modal-header
         .title_trending
@@ -14,15 +12,25 @@
           = hidden_field_tag(:ship_address_id, @event.ship_address ? @event.ship_address.id : nil)
           = fields_for(:ship_address, (@s_address || Spree::Address.default(@event, "ship"))) do |ship_form|
             -# address = Spree::Address.default(@event, "ship")
-            - address = @s_address || Spree::Address.default(@event, "ship")
-            - if @s_address.present?
-              - first_name = @s_address.firstname
-              - last_name  = @s_address.lastname
-              - phone =      @s_address.phone
-            - else
-              - first_name = spree_current_user.first_name
-              - last_name  = spree_current_user.last_name
-              - phone = spree_current_user.phone
+            - address = @s_address.present? ? Spree::Country.find(@s_address.country_id) : ( spree_current_user.country_id ? Spree::Country.find(spree_current_user.country_id)  : Spree::Address.default().country)
+            -#- if @s_address.present?
+            -#  - first_name = @s_address.firstname
+            -#  - last_name  = @s_address.lastname
+            -#  - phone =      @s_address.phone
+            -#- else
+            -#  - first_name = spree_current_user.first_name
+            -#  - last_name  = spree_current_user.last_name
+            -#  - phone = spree_current_user.phone
+            - first_name = @s_address.present? ? @s_address.firstname : spree_current_user.first_name
+            - last_name = @s_address.present? ? @s_address.lastname : spree_current_user.last_name
+            - address1 = @s_address.present? ? @s_address.address1 : spree_current_user.address
+            - address2 = @s_address.present? ? @s_address.address2 : ""
+            - country = @s_address.present? ? @s_address.country_id : spree_current_user.country_id || Spree::Address.default().country_id
+            - state = @s_address.present? ? @s_address.state_id : spree_current_user.state_id || ""
+            - city = @s_address.present? ? @s_address.city : spree_current_user.city
+            - zipcode = @s_address.present? ? @s_address.zipcode : spree_current_user.zipcode
+            - alternative_phone = @s_address.present? ? @s_address.alternative_phone : ""
+            - phone = @s_address.present? ? @s_address.phone : spree_current_user.phone
             - address_type = 'shipping'
             - address_id = address_type.chars.first
             .row.shipping_address_form
@@ -36,42 +44,42 @@
                     = ship_form.text_field :lastname,value: last_name, class: 'form-control' ,placeholder: 'Last Name*' ,required: true, pattern: "[a-zA-Z ]{1,}", title:"Only Alphabets"
                   .col-md-6
                     %label
-                    = ship_form.text_field :address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
+                    = ship_form.text_field :address1,value: address1, class: 'form-control' ,placeholder: 'Street Address1*' ,required: true
                   .col-md-6
                     %label
-                    = ship_form.text_field :address2, class: 'form-control' ,placeholder: 'Street Address2'
+                    = ship_form.text_field :address2,value: address2, class: 'form-control' ,placeholder: 'Street Address2'
                   .col-md-6
                     %label
-                    = ship_form.collection_select :country_id, available_countries, :id, :name, {}, {:class => 'form-control',required: true}
+                    = ship_form.collection_select :country_id, available_countries, :id, :name, {selected: country}, {:class => 'form-control',required: true}
 
                   .col-md-6
                     %label
                     - if Spree::Config[:address_requires_state]
-                      = ship_form.collection_select(:state_id, address.country.states, :id, :name,
-                                                          {:include_blank => "Select State"},
+                      = ship_form.collection_select(:state_id, address.states, :id, :name,
+                                                          {selected: state},
                                                           {class: 'form-control' })
                   .col-md-6
                     %label
-                    = ship_form.text_field :city, class: 'form-control' ,placeholder: 'City*' ,required: true
+                    = ship_form.text_field :city,value:  city, class: 'form-control' ,placeholder: 'City*' ,required: true
                   .col-md-6
                     %label
-                    = ship_form.text_field :zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*',pattern: "[0-9]{6}", title:"Invalid Zip Number"
+                    = ship_form.text_field :zipcode,value:  zipcode, class: 'form-control' ,required: true ,placeholder: 'Zipcode*',pattern: "[0-9]{6}", title:"Invalid Zip Number"
                   - unless Spree::Config[:alternative_shipping_phone]
                     .col-md-6
                       %label
                       = ship_form.phone_field :phone ,value:  phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true,pattern: "[0-9]{10}", title:"Invalid Phone Number"
                     .col-md-6
                       %label
-                      = ship_form.phone_field :alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"
+                      = ship_form.phone_field :alternative_phone,value: alternative_phone, class: 'form-control' ,placeholder: "Alt Phone Number"
                   - else
                     .col-md-12
                       %label
-                      = ship_form.phone_field :phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
-                  .col-lg-12
-                    .col-md-4
-                    .col-md-4
-                      %label
-                      %button#shipping_addres_form.btn.btn-lg.btn-primary.btn-block{:type => "submit"} SAVE
+                      = ship_form.phone_field :phone,value:  phone, class: 'form-control' ,placeholder: "Phone Number*"  ,required: true
+                  .col-md-12.mtop10
+                    %label
+                    %button#shipping_addres_form.btn.btn-success.pull-right{:type => "submit"} SAVE
+                    %a{:href => "/"}
+                      %span.btn.btn-gray.pull-right.mright5{"data-dismiss" => "modal"} Cancel
                     .col-md-4
       .modal-footer
 :javascript

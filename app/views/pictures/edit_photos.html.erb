@@ -1,0 +1,102 @@
+<%#=@event.pictures.count%>
+<div class="col-md-6 event_left_block">
+  <div class="row">
+    <div class="col-md-12">
+      <%= form_for Picture.new do |f| %>
+          <%= hidden_field_tag :resource_id  %>
+          <%= hidden_field_tag :resource ,'event' %>
+          <div class="col-md-12 upload_btn">
+            <label></label>
+            <%= f.file_field :image,multiple: true, name: "picture[image]",:class => "event_file_upload_button"%>
+            <span class="glyphicon glyphicon-picture"></span>
+            <br>
+            <button class="btn btn-primary" id="btnUploadPhotos">Upload Photos</button>
+            <div id="number_of_files_chosen" style="margin: 10px;display: none;">
+              <strong>0</strong> files selected
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <button class="btn btn-lg btn-primary btn-block upload_btn_skip" type="submit">CANCEL</button>
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-lg btn-primary btn-block upload_btn_done mtop70" type="submit">DONE</button>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="col-md-6 event_right_block">
+  <div class="photos_block">
+    <h4>Event Photos</h4>
+    <div class="row nomargin nomargin_left" id="pictures">
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+  <div class="col-md-4"></div>
+</div>
+
+<script type="text/javascript">
+    $('#new_picture').fileupload({
+        dataType: "script",
+        add: function(e, data) {
+            $('.loading-indicator').show()
+            var uploadErrors = [];
+            var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
+            if(data.originalFiles[0]['type'].length && !acceptFileTypes.test(data.originalFiles[0]['type'])) {
+                uploadErrors.push('Not an accepted file type');
+            }
+            if(data.originalFiles[0]['size'].length && data.originalFiles[0]['size'] > 500000) {
+                uploadErrors.push('Filesize is too big');
+            }
+            if(uploadErrors.length > 0) {
+                $('.loading-indicator').hide()
+                bootbox.alert(uploadErrors.join("\n"));
+            } else {
+                $('#number_of_files_chosen strong').text(parseInt(parseInt($("#number_of_files_chosen strong").text()) + 1))
+                $('#number_of_files_chosen').hide().fadeIn('slow')
+                data.submit();
+            }
+        },
+        progress: function(e, data) {
+            // $('.loading-indicator').fadeIn('slow')
+        },
+        fail:function(e, data){
+            // Something has gone wrong!
+        }
+    });
+
+    // remove all uploaded pictures if user clicks on skip button if any uploaded already
+    $('.upload_btn_skip').click(function(e){
+        e.preventDefault()
+        var pic_ids = [];
+        $('.photos_block #pictures .picture').each(function(){
+            pic_ids[pic_ids.length] = $(this).data('id');
+        });
+        if(pic_ids.length == 0){
+            switchTabFromUploadToInvite()
+        }else{
+            $.ajax({
+                type: "POST",
+                url: '/pictures/remove_all',
+                data: {"_method": 'delete',ids: pic_ids},
+                beforeSend: function( ){ switchTabFromUploadToInvite() },
+                success: function(res) { }
+            });
+        }
+
+    })
+
+    $('.upload_btn_done').click(function(e){
+        e.preventDefault()
+        switchTabFromUploadToInvite()
+    })
+
+    function switchTabFromUploadToInvite(){
+        $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
+        $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
+        $("#upload_photos").css("display", "none")
+        $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
+    }
+
+</script>

@@ -4,7 +4,7 @@
         <%= hidden_field_tag :invitation_id ,@invitation.try(:id) %>
         <div class="modal fade" id="yourfriendwishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal5">
-            <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+            <div class="modal-content modal_wishlist_bg"><br>
               <div class="modal-header">
                 <div class="title_trending rec_addlist_title_top">
                   <div class="title_bg"></div>
@@ -14,11 +14,11 @@
               <div class="modal-body">
                 <div class="row wishlist_popup_header event_rec_wishlist_block no_margin">
                   <div class="col-md-2"></div>
-                  <div class="col-md-2">DESCRIPTION</div>
-                  <div class="col-md-2">REQUESTED QUANTITY</div>
-                  <div class="col-md-2">PURCHASED QUANTITY</div>
-                  <div class="col-md-2">SELECT QUANTITY</div>
-                  <div class="col-md-1">PRICE</div>
+                  <div class="col-md-2 txt_bold">DESCRIPTION</div>
+                  <div class="col-md-2 txt_bold">REQUESTED QUANTITY</div>
+                  <div class="col-md-2 txt_bold">PURCHASED QUANTITY</div>
+                  <div class="col-md-2 txt_bold">SELECT QUANTITY</div>
+                  <div class="col-md-1 txt_bold">PRICE</div>
                 </div>
                 <div class="scroll_wishlist">
                   <% req_qnty = 0 %>
@@ -50,10 +50,10 @@
                           <p><%= truncate(product.description, :length=> 100, :omission=> "...") %></p>
                         </div>
                         <div class="col-md-2">
-                          <p><%= wish.quantity %></p>
+                          <p class="text-center"><%= wish.quantity %></p>
                         </div>
                         <div class="col-md-2">
-                          <p><%= wish.quantity_purchased %></p>
+                          <p class="text-center"><%= wish.quantity_purchased %></p>
                         </div>
                         <div class="col-md-2">
                           <%= hidden_field_tag "variant_id[#{i}]", variant.id %>
@@ -68,14 +68,13 @@
                   <%end  %>
                 </div>
                 <div class="row wishlist_popup_footer">
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4"></div>
-                  <div class="col-md-4">
+                  <div class="col-md-12 mtop10">
                     <%#= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
                     <% if flag == 1 %>
-                        <%= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
+                        <%= f.submit "ADD TO CART",class: 'btn btn-success btn_addtocart pull-right' %>
+                        <a href="/" class="btn btn_addtocart btn-gray pull-right mright5" data-dismiss="modal">Cancel</a>
                     <% else  %>
-                        <br><div class="text-success pull-right">All Items are already purchased</div>
+                        <br><div class="text-success text-center btn-lg">All Items are already purchased</div>
                     <% end  %>
                   </div>
                 </div>

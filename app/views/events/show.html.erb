@@ -32,10 +32,10 @@
       <div class="col-md-12">
         <div class="title_name"><%=@event.name%>
           <% if policy(@event).leave? %>
-              <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn unjoin_btn pull-right mright5" %>
+              <%= link_to "Leave this Event", "/events/#{@event.id}/disjoin" ,method: :delete,class: "btn btn-primary pull-right mright5" %>
           <% end %>
           <% if policy(@event).join? %>
-              <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn join_btn pull-right mright5" %>
+              <%= link_to "Join", "/events/#{@event.id}/join" ,method: :post,class: "btn btn-success pull-right mright5" %>
           <% end  %>
         </div>
       </div>
@@ -173,6 +173,11 @@
               <% c_design = @handlebars.compile(@event_design.content) %>
               <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
             </div>
+        <% if policy(@event).invite? && @event.invites.count == 0 %>
+            <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
+                <span class="glyphicon glyphicon-edit"></span> Edit Design
+            <% end %>
+        <% end %>
           </div>
       <% end %>
     </div>
@@ -182,7 +187,15 @@
 
       <% if policy(@event).show_wishlist? %>
           <%= render  "show_wishlist"  %>
+  <% else %>
+      <% if policy(@event).invite? && @event.invites.count == 0 %>
+          <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
+            <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
+                <span class="glyphicon glyphicon-edit"></span> Add Wishlist
+            <% end %>
+          </div>
       <% end %>
+  <% end %>
 
       <div class="col-md-6" style="width:45%;">
         <% unless @event.pictures.blank? %>
@@ -200,7 +213,18 @@
               <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
               <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
             </div>
+        <% if policy(@event).invite? && @event.invites.count == 0 %>
+            <%= link_to edit_photos_path(@event.id), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                <span class="glyphicon glyphicon-edit"></span> Change Photos
+    <% end %>
         <% end %>
+    <% else %>
+        <% if policy(@event).invite? && @event.invites.count == 0 %>
+            <%= link_to edit_photos_path(@event.id), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                <span class="glyphicon glyphicon-edit"></span> ADD Photos
+            <% end %>
+        <% end %>
+    <% end %>
       </div>
     </div>
 
@@ -219,7 +243,7 @@
                     <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
                   </div>
                   <div class="col-md-3">
-                    <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-primary btn-block comment_btn_post ' %></div>
+                    <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-success btn-block comment_btn_post ' %></div>
                   </div>
                 </div>
             <% end %>

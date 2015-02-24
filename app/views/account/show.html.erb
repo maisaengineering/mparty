@@ -1,6 +1,6 @@
 
 
-<div class="container-fluid" style="background-color:#f1f2f7">
+<div class="container-fluid">
   <div class="container">
     <div class="row">
       <div class="title_name">My Account</div>
@@ -38,7 +38,6 @@
       <div class="col-md-5">
         <h4>Home Address <a href="/account/edit_profile" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-edit"></span> edit profile</a></h4>
         <ul class="venue_ctc_details" id="venue_afterchoose">
-          <%  %>
           <% if @user.address.present?  %>
               <li><span class="glyphicon glyphicon-map-marker"></span> <b><%=  @user.address %></b></li>
           <% end %>
@@ -47,38 +46,39 @@
               <li><%=  "#{Spree::Country.find(@user.country_id)}" "," if @user.country_id %> <%= "#{@user.zipcode}"%></li>
         </ul>
       </div>
-
-
     </div>
   </div>
 </div>
 
 
 
-<div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false"><div class="modal-backdrop fade in"></div>
-  <div class="modal-dialog modal5">
+<div class="modal fade in" id="changeProfilePic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-backdrop fade in"></div>
+  <div class="modal-dialog">
     <div class="modal-content modal_wishlist_bg">
       <div class="modal-header">
         <h3 class="txt_center">Change Profile Photo</h3>
       </div>
-      <div class="modal-body">
+      <div class="modal-body light_bg">
         <%= form_for(@user, url: account_update_avatar_path, html: {method: "post",class: 'update_avatar'}) do |f| %>
             <div class="center-block position_rel browse_width">
               <%= f.file_field :avatar,onchange: "image_preview(this);",class: "btn adbf btn-primary center-block event_file_upload_button" %>
               <button class="btn btn-primary center-block">browse photo</button>
-
+              <div class="profile_photo_icon"><span class="glyphicon glyphicon-picture"></span></div>
               <div class="picCropArea" id="img-preview" >
               </div>
             </div>
             </div>
             <div class="modal-footer">
-              <a href="/"><span class="btn btn-gray mright5" data-dismiss="modal">Cancel</span></a>
               <%= f.submit "Save",class:  "btn btn-success pull-right",id: 'image_submit' %>
+              <a href="/"><span class="btn btn-gray mright5" data-dismiss="modal">Cancel</span></a>
             </div>
         <% end %>
         </div>
   </div>
 </div>
+
+
 <script type="text/javascript">
     $('#image_submit').click(function (){
         if($('#user_avatar').val()){
@@ -94,8 +94,13 @@
         }
     })
 
+    $('.profile_photo_icon').click(function () {
+        $('#user_avatar').trigger("click")
+    })
+
     $("#user_photo").click(function(){
         $('#img-preview').empty();
+        $(".profile_photo_icon").show()
     })
 </script>
 

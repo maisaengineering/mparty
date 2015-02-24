@@ -102,6 +102,9 @@ Invitation::Application.routes.draw do
   post "account/update_profile", to: "account#update_profile"
   post "account/update_avatar", to: "account#update_avatar"
 
+  get "event/:id/edit_event_design", to: "events#edit_event_design", as: "event_design_edit"
+  post "event/:id/update_event_design", to: "events#update_event_design", as: "event_design_update"
+  get "event/:id/edit_photos", to: "pictures#edit_photos", as: "edit_photos"
 
 
   get '/events/fetch_friends'=>"events#fetch_friends"

@@ -58,9 +58,6 @@
               <option value="choose">Choose</option>
               <option value="custom">Custom</option>
             </select>
-            <%if @venue %>
-                <span id="venue_name"><i><%= @venue.name %></i></span>
-            <% end %>
             <%=f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
           </div>
 
@@ -89,55 +86,13 @@
 
 
           <% if @venue.present? %>
-              <div id="venue_afterchoose">
-                <div class="col-md-12 ptopbottom mtop20">
-                  <span class="glyphicon glyphicon-map-marker"></span> <span>Location Name</span>
-                </div>
-
-                <div class="row no_margin ptopbottom">
-                  <div class="col-md-3">
-                    Address:
-                  </div>
-                  <div class="col-md-9">
-                    <%= "#{@venue.address1} #{@venue.address2}" %>
-                  </div>
-                </div>
-
-                <div class="row no_margin ptopbottom">
-                  <div class="col-md-3">
-                    City:
-                  </div>
-                  <div class="col-md-9">
-                    <%= @venue.city  %>
-                  </div>
-                </div>
-
-                <div class="row no_margin ptopbottom">
-                  <div class="col-md-3">
-                    State:
-                  </div>
-                  <div class="col-md-9">
-                    <%= @venue.state  %>
-                  </div>
-                </div>
-
-                <div class="row no_margin ptopbottom">
-                  <div class="col-md-3">
-                    Country:
-                  </div>
-                  <div class="col-md-9">
-                    <%= @venue.country  %>
-                  </div>
-                </div>
-
-                <div class="row no_margin ptopbottom">
-                  <div class="col-md-3">
-                    Zip:
-                  </div>
-                  <div class="col-md-9">
-                    <%= @venue.zip  %>
-                  </div>
-                </div>
+              <div class="col-md-12 mtop20">
+                <ul class="venue_ctc_details" id="venue_afterchoose">
+                  <li> <span class="glyphicon glyphicon-map-marker"></span> <b><%= @venue.name %></b></li>
+                  <li> <%= "#{@venue.address1}, #{@venue.address2}" %>, </li>
+                  <li> <%= @venue.city  %>,<%= @venue.state  %>, </li>
+                  <li> <%= @venue.country  %>, <%= @venue.zip %> </li>
+                </ul>
               </div>
               <div id="venus_hidden_fields">
                 <%= f.hidden_field :location,value: "#{@venue.address1} #{@venue.address2}" %>
@@ -146,7 +101,6 @@
                 <%= f.hidden_field :country,value: @venue.country %>
                 <%= f.hidden_field :zip,value: @venue.zip %>
               </div>
-
           <% end %>
 
           <div class="col-md-12">
@@ -158,7 +112,7 @@
 
           <div class="col-md-12">
             <label></label>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">
+            <button class="btn btn-lg btn-success btn-block btn_create" type="submit">
               CREATE
             </button>
           </div>
@@ -174,26 +128,26 @@
     $("#event_template_id").change(function(){
         $("#event_custom_event_type").val("")
         $(".event_type_hide").fadeOut("slow");
-       selected=$("#event_template_id option:selected").text()
+        selected=$("#event_template_id option:selected").text()
         if((selected == "custom") || (selected == "Custom")){
             $(".event_type_hide").fadeIn("slow");
             $("#event_custom_event_type").focus();
         }
     });
 
-  $("#event_country").change(function(){
-      country=$(this).val()
-      $.ajax({
-          type: "GET",
-          url: "/country/get-states/"+country,
-          success: function(json){
-              $('#event_state').empty()
-              $.each(json, function(i, value) {
-                  $('#event_state').append($('<option>').text(value.name).attr('value', value.name));
-              });
-          }
-      });
-  });
+    $("#event_country").change(function(){
+        country=$(this).val()
+        $.ajax({
+            type: "GET",
+            url: "/country/get-states/"+country,
+            success: function(json){
+                $('#event_state').empty()
+                $.each(json, function(i, value) {
+                    $('#event_state').append($('<option>').text(value.name).attr('value', value.name));
+                });
+            }
+        });
+    });
 
 
     $("#new_event #switch_private").click(function() {
@@ -214,61 +168,111 @@
     });
 
 
+    $('#new_event #datepairExample').on('change', function () {
+        //$("#datetimepair").change(function(){
+        if($('#event_starts_at').val() && $('#event_start_time').val() && $('#event_ends_at').val() && $('#event_end_time').val()){
+            //alert("changed")
+        }
+    });
     //$('#venue_dform').hide()
 
-   $("#event_starts_at").datepicker({
-       startDate: new Date(),
-       format: 'yyyy-mm-dd',
-       autoclose: true
+    $("#event_starts_at").datepicker({
+        startDate: new Date(),
+        format: 'yyyy-mm-dd',
+        autoclose: true
     }).on('changeDate', function (selected) {
-       var startDate = new Date(selected.date.valueOf());
-       if($("#event_starts_at").val() >  $('#event_ends_at').val()) {
-           $('#event_ends_at').val("")
-           $('#event_end_time').val("")
-       }
-       $('#event_ends_at').datepicker('setStartDate', startDate);
-       var selectedDate = $('#event_starts_at').datepicker('getDate');
-       var today = new Date();
-       today.setHours(0);
-       today.setMinutes(0);
-       today.setSeconds(0);
-       if(Date.parse(today) == Date.parse(selectedDate)){
-           $('#event_start_time').timepicker({
-                'timeFormat': 'g:ia',
+        var startDate = new Date(selected.date.valueOf());
+        if($("#event_starts_at").val() >  $('#event_ends_at').val()) {
+            $('#event_ends_at').val("")
+            $('#event_end_time').val("")
+        }
+        $('#event_ends_at').datepicker('setStartDate', startDate);
+        var selectedDate = $('#event_starts_at').datepicker('getDate');
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        var today_time_in_sec = hours*3600 + minutes*60 + seconds
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        if(Date.parse(today) == Date.parse(selectedDate)){
+            $('#event_start_time').timepicker('remove');
+            hr = $('#event_start_time').val().split(":")[0]
+            min = $('#event_start_time').val().split(":")[1]
+            start_time_in_sec = hr*3600 + min*60
+            if(today_time_in_sec > start_time_in_sec){
+                var set_start_time = hours + ":" + minutes + ":" + seconds
+                $('#event_start_time').val(set_start_time)
+            }
+            $('#event_start_time').timepicker({
+                'timeFormat': 'H:i:s',
                 'minTime': new Date(),
                 'maxTime': '11:59:59pm',
-                'forceRoundTime': true
-           });
-       }else{
-        $('#event_start_time').timepicker('remove');
-        $('#event_start_time').timepicker();
-       }
+                'forceRoundTime': true,
+                'step': 1
+            });
+        }else{
+            $('#event_start_time').timepicker('remove');
+            $('#event_start_time').timepicker({
+                'timeFormat': 'H:i:s'
+            });
+        }
     });
 
 
-   $("#event_ends_at").datepicker({
-       startDate: new Date(),
-       format: 'yyyy-mm-dd',
-       autoclose: true
-   }).on('changeDate', function (selected) {
-       var startDate = new Date(selected.date.valueOf());
-       var selectedDate = $('#event_ends_at').datepicker('getDate');
-       var today = new Date();
-       today.setHours(0);
-       today.setMinutes(0);
-       today.setSeconds(0);
-       if(Date.parse(today) == Date.parse(selectedDate)){
-           $('#event_end_time').timepicker({
-                'timeFormat': 'g:ia',
-                'minTime': new Date(),
+    $("#event_ends_at").datepicker({
+        startDate: new Date(),
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    }).on('changeDate', function (selected) {
+        var startDate = new Date(selected.date.valueOf());
+        var selectedDate = $('#event_ends_at').datepicker('getDate');
+        var today = new Date();
+        var hours = today.getHours();
+        var minutes = today.getMinutes();
+        var seconds = today.getSeconds();
+        var today_time_in_sec = hours*3600 + minutes*60 + seconds
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+        if($("#event_ends_at").val() == $("#event_starts_at").val()){
+            $('#event_end_time').timepicker('remove');
+            hr = $('#event_end_time').val().split(":")[0]
+            min = $('#event_end_time').val().split(":")[1]
+            end_time_in_sec = hr*3600 + min*60
+            if(today_time_in_sec > end_time_in_sec){
+                var set_end_time = hours + ":" + minutes + ":" + seconds
+                $('#event_end_time').val($("#event_start_time").val())
+            }
+            $('#event_end_time').timepicker({
+                'timeFormat': 'H:i:s',
+                'minTime': $("#event_start_time").val(),
                 'maxTime': '11:59:59pm',
-                'forceRoundTime': true
-           });
-       }else{
-        $('#event_end_time').timepicker('remove');
-        $('#event_end_time').timepicker();
-       }
-   });
+                'forceRoundTime': true,
+                'step': 1
+            });
+        }else{
+            $("#event_end_time").timepicker('remove');
+            $('#event_end_time').timepicker({
+                'timeFormat': 'H:i:s'
+            });
+        }
+    });
+
+    $('#event_start_time').change(function() {
+        if($("#event_starts_at").val() == $("#event_ends_at").val() && $("#event_start_time").val() > $("#event_end_time").val() ){
+            $("#event_end_time").timepicker('remove');
+            $('#event_end_time').val($("#event_start_time").val())
+            $('#event_end_time').timepicker({
+                'timeFormat': 'H:i:s',
+                'minTime': $("#event_start_time").val(),
+                'maxTime': '11:59:59pm',
+                'forceRoundTime': true,
+                'step': 1
+            });
+        }
+    })
 
 
     if($('#venue_afterchoose').length){
@@ -281,16 +285,16 @@
                 ((''+month).length<2 ? '0' : '') + month + '-' +
                 ((''+day).length<2 ? '0' : '') + day;
 
-         if (event_start_date == today_date){
-             $('#event_start_time').timepicker({
-                 'timeFormat': 'g:ia',
-                 'minTime': new Date(),
-                 'maxTime': '11:59:59pm',
-                 'forceRoundTime': true
-             });
-         }else{
-             $('#event_start_time').timepicker();
-         }
+        if (event_start_date == today_date){
+            $('#event_start_time').timepicker({
+                'timeFormat': 'g:ia',
+                'minTime': new Date(),
+                'maxTime': '11:59:59pm',
+                'forceRoundTime': true
+            });
+        }else{
+            $('#event_start_time').timepicker();
+        }
         if (event_end_date == today_date){
             $('#event_end_time').timepicker({
                 'timeFormat': 'g:ia',
@@ -304,7 +308,7 @@
     }
 
 
-    $('#new_event #venue_type').bind('change', function () {
+    $('#new_event #venue_type').on('change', function () {
         if($(this).val() == 'choose'){
             selected_date=$("#event_starts_at").val()
             selected_time=$("#event_start_time").val()

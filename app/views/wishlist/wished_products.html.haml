@@ -17,8 +17,8 @@
         .col-md-2
           = form_tag update_wished_product_quantity_path(event_id: @event.id),id: 'update-wished-product-quantity-form' ,remote: true do
             = hidden_field_tag :variant_id, product.master.id
-            = number_field_tag :quantity, wish.quantity, min: 1, class: "text_6"
-            %button.btn.btn-success.btn_add_quantity.update_product_quantity Update
+            = number_field_tag :quantity, wish.quantity, min: 1, class: "w_product text_6", id: "#{product.id}"
+            %button.btn.btn-success.btn_add_quantity.update_product_quantity{:id => "button_#{product.id}"} Update
         .col-md-2
           %h5= number_to_currency(variant.price, unit: get_currency_symbol)
         .col-md-2
@@ -40,4 +40,11 @@
      $(".wishlist_modal_count").text(parseInt($(".wishlist_modal_count").text()) - 1)
      $('.wishable_products #product_'+$(this).attr('data-variant-id')+' .add_product_to_wishlist_btn').removeClass('product_added_btn').addClass('product_add_btn')
      $('.wishable_products #product_'+$(this).attr('data-variant-id')).find('span:first').removeClass('glyphicon-ok remove').addClass('glyphicon-plus add');
+  })
+
+  $(".update_product_quantity").hide()
+  $(".w_product").change(function(){
+     var clicked_id =  $(this).attr('id')
+     var show_id = "#button_" + clicked_id
+     $(show_id).fadeIn()
   })

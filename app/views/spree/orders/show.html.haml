@@ -1,7 +1,7 @@
 - wo = @order.wishlist_orders.first
 - @event = wo.wishlist.event if wo and wo.wishlist
-.container-fluid{:style => "background-color:#f1f2f7"}
-  .container
+.container-fluid
+  .container.container_stlye
     .row
       .title_name
     #OrderDetails.create_event_bg
@@ -141,5 +141,5 @@
                 .col-md-6
                   %span= adjustment.display_amount.to_html
             .row
-              .col-md-6.txt_bold #{Spree.t(:order_total)}:
-              .col-md-6.txt_bold= @order.display_total.to_html
+              .col-md-6.text-success.txt_bold #{Spree.t(:order_total)}:
+              .col-md-6.text-success.txt_bold= @order.display_total.to_html

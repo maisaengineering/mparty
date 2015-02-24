@@ -21,7 +21,12 @@ module EventsHelper
   end
 
   def event_address(event)
-    "#{event.location} #{event.city}"
+    #"#{event.location} #{event.city}"
+    if event.venue
+      "#{event.venue.name}"
+    else
+      "#{event.location} #{event.city}"
+    end
   end
 
 end

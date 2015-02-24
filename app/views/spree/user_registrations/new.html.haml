@@ -30,7 +30,7 @@
                 %br
                   .row
                     .col-md-12
-                      = f.submit "REGISTER", class: "btn btn-primary"
+                      = f.submit "REGISTER", class: "btn btn-success"
       - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
         .col-md-1
           %h3.h3_or or

@@ -54,6 +54,14 @@
                 $('#yourfriendwishlist').modal('show');
             </script>
         <% end %>
+
+        <% if policy(@event).invite? && @event.invites.count == 0 %>
+            <div class="row no_margin mbottom10">
+              <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm pull-right" do %>
+                  <span class="glyphicon glyphicon-edit"></span> Edit Wishlist
+              <% end %>
+            </div>
+        <% end %>
       </div>
 
     </div>

@@ -1,7 +1,7 @@
 <!--add to wishlist modal box-->
 <div class="modal fade" id="wishlist-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal5">
-    <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
+    <div class="modal-content modal_wishlist_bg"><br>
       <div class="modal-header">
         <div class="title_trending">
           <div class="title_bg"></div>
@@ -36,8 +36,9 @@
               <% end %>
             </a>
           </div>
-          <div class="col-md-4">
-            <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/invite-with-wishlist" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-primary btn-block addwishlist_done pull-right"%>
+          <div class="col-md-4 mtop20">
+            <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/invite-with-wishlist" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-success addwishlist_done pull-right"%>
+            <a href="/"><span class="btn btn-lg btn-gray mright10 pull-right" data-dismiss="modal">Cancel</span></a>
           </div>
         </div>
       </div>

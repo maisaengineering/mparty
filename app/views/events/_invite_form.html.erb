@@ -6,8 +6,11 @@
       <a href="<%#= spree.root_url%>contacts/gmail" class="btn btn-lg btn-danger btn-block">GMail</a>
     </div> -->
     <div class="col-md-12 mtop20">
+      <% if policy(@event).invite? && @event.invites.count == 0 %>
+          <%= link_to "EVENT PREVIEW",event_path(@event.id),class:"btn btn-primary pull-right btn-sm mright10" %>
+      <% end %>
      <!--  <a href="event_preview_v2.html" class="btn btn-primary pull-right btn-sm mright10" type="submit">EVENT PREVIEW</a> -->
-      <button id="ImportContactsBtn" class="btn pull-right btn-primary btn-sm mright5" data-toggle="popover" data-placement="top">IMPORT</button>
+      <button id="ImportContactsBtn" class="btn pull-right btn-primary btn-sm mright5" data-toggle="popover" data-placement="top"> IMPORT CONTACTS</button>
     </div>
     <div class="col-md-12 invitation_text">
       <label></label>
@@ -27,12 +30,9 @@
       <% end %>
       </ul>
     </div>
-    <div class="col-md-4">
-      <label></label>
-      <a href="<%= event_url(@event) %>" class="btn btn-lg btn-primary btn-block invite_btn_cancel" type="submit">CANCEL</a> </div>
-    <div class="col-md-4">
-      <label></label>
-      <%= submit_tag("INVITE",class: 'btn btn-lg btn-primary btn-block upload_btn_done') %>
+    <div class="col-md-12 mtop10">
+      <%= submit_tag("INVITE",class: 'btn btn-lg btn-success pull-right upload_btn_done') %>
+      <a href="<%= event_url(@event) %>" class="btn btn-lg btn-gray pull-right mright10 invite_btn_cancel" type="submit">CANCEL</a>
     </div>
 <% end %>
 

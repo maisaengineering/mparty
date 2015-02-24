@@ -35,6 +35,9 @@ class EventsController < ApplicationController
     authorize @event, :new?
     @event_templates = Spree::Admin::Template.select([:id,:name])
     @contacts = request.env['omnicontacts.contacts']
+    session.delete(:event_data) if session[:event_data]
+    session.delete(:event_edit) if session[:event_edit]
+    session.delete(:event_id) if session[:event_id]
   end
 
   def update_designs
@@ -75,6 +78,46 @@ class EventsController < ApplicationController
   end
 
 
+
+  def edit_event_design
+    session[:event_edit]= "true"
+    session[:event_id] = params[:id]
+    if(session[:event_data].present?)
+      @event=Event.new(session[:event_data])
+      @event.id= params[:id]
+    else
+      @event=Event.find(params[:id])
+    end
+    #byebug
+    @venue = Venue.find(@event[:venue_id]) if @event[:venue_id].present?
+    @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
+    @event_templates = Spree::Admin::Template.select([:id,:name])
+    @contacts = request.env['omnicontacts.contacts']
+  end
+
+  def update_event_design
+    @event=Event.find(params[:id])
+    if(session[:event_data].present?)
+      @event.is_private=session[:event_data][:is_private],@event.name=session[:event_data][:name],
+          @event.host_name=session[:event_data][:host_name],@event.host_phone=session[:event_data][:host_phone],
+          @event.template_id=session[:event_data][:template_id],@event.design_id=session[:event_data][:design_id],
+          @event.starts_at=session[:event_data][:starts_at],@event.start_time=session[:event_data][:start_time],
+          @event.ends_at=session[:event_data][:ends_at],@event.end_time=session[:event_data][:end_time],
+          @event.description=session[:event_data][:description]
+    end
+    if(params[:event][:venue_id].empty? && @event.venue_id.present?)
+      @venuecalender = VenueCalendar.find_by_venue_id(@event.venue_id)
+      @venuecalender.destroy
+    end
+    if @event.update_attributes(event_params)
+      session.delete(:event_data) if session[:event_data]
+      session.delete(:event_edit) if session[:event_edit]
+      session.delete(:event_id) if session[:event_id]
+      redirect_to event_path(params[:id])
+    else
+      redirect_to event_design_edit_path(@event.id)
+    end
+  end
 
   def view_invitation
     @invitation = Invite.find_by_token(params[:invitation_code])

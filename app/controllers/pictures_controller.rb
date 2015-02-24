@@ -19,6 +19,10 @@ class PicturesController < ApplicationController
     # end
   end
 
+  def edit_photos
+    @event=Event.find(params[:id])
+  end
+
   def remove_all
     begin
       Picture.where(id: params[:ids].split(',')).destroy_all
