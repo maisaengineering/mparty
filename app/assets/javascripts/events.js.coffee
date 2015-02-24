@@ -26,18 +26,15 @@ $(document).ready ->
     navSelector: "nav.pagination" # selector for the paged navigation (it will be hidden)
     nextSelector: "nav.pagination a[rel=next]" # selector for the NEXT link (to page 2)
     itemSelector: "#past_events div.past_event"
+ 
 
-  $(document).on 'ajax:beforeSend', '.ask_host_to_invite', ->
-    bootbox.alert 'Request Sent successfully'
-    $(this).remove()
-    return
-  $(document).on 'ajax:success', '.ask_host_to_invite', ->
-    $('.loading-indicator').hide()
-    return
-
-
-
-
+$(document).on 'ajax:beforeSend', '.ask_host_to_invite', ->
+  bootbox.alert 'Request Sent successfully'
+  $(this).remove()
+  return
+$(document).on 'ajax:success', '.ask_host_to_invite', ->
+  $('.loading-indicator').hide()
+  return
 
 $(document).ready ->
   $(".fancybox").fancybox()

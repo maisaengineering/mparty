@@ -13,9 +13,10 @@
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.top-nav.nav.navbar-nav.navbar-right
         = render 'layouts/shared/select_state'
+        %li= link_to_cart unless simple_current_order.nil? or simple_current_order.item_count.zero?# display number of cart items and price
         - if signed_in?
           %li.dropdown
-            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button",:class => 'pull-right'}
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
               - if spree_current_user.avatar.present?
                 = image_tag(spree_current_user.avatar.url(:small),class: 'img-rounded bg_img')
               - elsif spree_current_user.user_authentications.find_by_provider("facebook").present?
@@ -40,7 +41,6 @@
             %a{"data-target" => "#signup_modal", "data-toggle" => "modal", :href => "#"} Sign Up
           %li
             %a{"data-target" => "#login_modal", "data-toggle" => "modal", :href => "#"} Log In
-        %li= link_to_cart # display number of cart items and price
 
 
 .navbar-collapse.navbar-default_2.collapse
