@@ -215,11 +215,11 @@
                   <% if @venue.reviews.blank? %>
                       <div id="vote_for_venue"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
                         <p style="position:relative;text-align:left;font-size:12px;" class="firstrate">Be the First to Rate it</p>
+                        <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5" style="margin-bottom: 10px;">Write Review</button>
                       </div>
-                      <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5">Wrire Review</button>
                   <% else %>
                       <div id="vote_for_venue">
-                        <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5">Wrire Review</button>
+                        <button data-toggle="modal" data-target="#reviewItModal" class="btn btn-success pull-left mright5" style="margin-bottom: 10px;">Write Review</button>
                       </div>
                   <% end %>
                   <%= render 'reviews/form',review: @venue.reviews.build,resource_type: @venue.class,resource_id: @venue.id %>

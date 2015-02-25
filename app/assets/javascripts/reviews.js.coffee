@@ -1,12 +1,13 @@
-$ ->
-  $("#review_form").bind "ajax:beforeSend", ->
-    $("#send_comment").attr("disabled", "disabled").val "..."
+$(document).on 'ajax:beforeSend', '#new_review', ->
+  $('.loading-indicator').show()
 
-  # after message send enable send button and clear input
-  $("#review_form").bind "ajax:success", ->
-    $("#review_content").val ""
-    $("#send_comment").removeAttr("disabled").val "Post"
+# after message send enable send button and clear input
+$(document).on 'ajax:success', '#new_review', ->
+  $('.loading-indicator').hide()
 
+$(document).on 'click', '#btnSubmitReview', ->
+  $('#new_review').submit()
+  return
 
 $(document).ready ->
   $("#reviews .page").infinitescroll
