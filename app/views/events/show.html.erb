@@ -214,7 +214,7 @@
               <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
             </div>
         <% if policy(@event).invite? && @event.invites.count == 0 %>
-            <%= link_to edit_photos_path(@event.id), class:"btn btn-primary btn-sm pull-right mright5" do %>
+            <%= link_to add_photos_event_path(@event), class:"btn btn-primary btn-sm pull-right mright5" do %>
                 <span class="glyphicon glyphicon-edit"></span> Change Photos
     <% end %>
         <% end %>
