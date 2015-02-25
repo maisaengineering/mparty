@@ -2221,7 +2221,7 @@ ul.notification-list li {
 }
 
 .city_select {
-  background-color:transparent;
+  background-color:#c5333f;
 
   background-image: image-url('select-city-arrow.png');
   background-position:90% center;
@@ -2232,7 +2232,10 @@ ul.notification-list li {
   color:#ffffff;
   border:none;
 }
-
+.city_select:focus {
+  outline:none !important;
+  box-shadow:none !important; 
+}
 .request_invite {
   position:absolute;
   right:5px;
