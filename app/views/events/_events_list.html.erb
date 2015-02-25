@@ -35,7 +35,7 @@
 
                       <% if policy(e).leave? %>
                           <div class="pull-right unjoin_btn" >
-                            <%= link_to "Leave this Event", "/events/#{e.id}/disjoin" ,method: :delete%>
+                            <%= link_to "Leave Event", "/events/#{e.id}/disjoin" ,method: :delete%>
                           </div>
                       <% end %>
                       <% if policy(e).join? %>
