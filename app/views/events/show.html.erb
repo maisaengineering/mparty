@@ -210,8 +210,10 @@
               </div>
               <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
               <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
-              <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
-              <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
+              <%if @event.pictures.count > 2%>
+              <a href="#" class="jcarousel-control-prev inactive event_photo_prev btn btn-success nopaddingTotal " data-jcarouselcontrol="true">‹</a>
+              <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
+              <%end%>
             </div>
         <% if policy(@event).invite? && @event.invites.count == 0 %>
             <%= link_to edit_photos_path(@event.id), class:"btn btn-primary btn-sm pull-right mright5" do %>
