@@ -77,7 +77,11 @@
           <div class="col-md-12">
             <ul class="venue_ctc_details">
               <li><span class="glyphicon glyphicon-user"></span> <b><%= bill_address.full_name %></b></li>
-              <li><%="#{bill_address.address1}, #{bill_address.address2}" %>,</li>
+              <%if bill_address.address2.present?%>
+               <li><%="#{bill_address.address1}, #{bill_address.address2}" %>,</li>
+              <%else%>
+               <li><%=bill_address.address1 %>,</li>
+              <%end%>
               <li><%=bill_address.city %>,<%= bill_address.state.name %>,</li>
               <li><%= bill_address.country.name %>, <%= bill_address.zipcode %></li>
               <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= bill_address.phone %></li>
@@ -97,7 +101,11 @@
           <div class="col-md-12">
             <ul class="venue_ctc_details">
               <li><span class="glyphicon glyphicon-user"></span> <b><%= ship_address.full_name %></b></li>
-              <li><%="#{ship_address.address1}, #{ship_address.address2}" %>,</li>
+              <%if ship_address.address2.present?%>
+                <li><%="#{ship_address.address1}, #{ship_address.address2}" %>,</li>
+              <%else%>
+                <li><%=ship_address.address1 %>,</li>
+              <%end%>
               <li><%=ship_address.city %>,<%= ship_address.state.name %>,</li>
               <li><%= ship_address.country.name %>, <%= ship_address.zipcode %></li>
               <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= ship_address.phone %></li>

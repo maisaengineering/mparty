@@ -69,7 +69,10 @@
             %li
               %span.glyphicon.glyphicon-user
               %b #{ship_address.full_name}
-            %li #{ship_address.address1},#{ship_address.address2},
+            -if ship_address.address2.present?
+              %li #{ship_address.address1},#{ship_address.address2},
+            -else
+              %li #{ship_address.address1},
             %li #{ship_address.city}, #{ship_address.state.name},
             %li #{ship_address.country.name}, #{ship_address.zipcode}
             %li
