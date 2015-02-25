@@ -690,8 +690,9 @@ body{
 
 }
 .inv_preview_bg{
-  background: image-url("event_bg.png");
   text-align: center;
+  width: 450px;
+  margin: 0 auto;
 }
 .inv_count_btn{
   height:50px;
