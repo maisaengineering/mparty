@@ -36,6 +36,14 @@ $(document).on 'ajax:success', '.ask_host_to_invite', ->
   $('.loading-indicator').hide()
   return
 
+$(document).on 'ajax:beforeSend', '#new_event', ->
+  $('.loading-indicator').show()
+  return
+$(document).on 'ajax:success', '#new_event', ->
+  $('.loading-indicator').hide()
+  return
+
+
 $(document).ready ->
   $(".fancybox").fancybox()
   $(".fancybox-media").attr("rel", "media-gallery").fancybox
@@ -47,3 +55,5 @@ $(document).ready ->
     helpers:
       media: {}
       buttons: {}
+
+  $('#venue_reservation_info').hide().fadeIn(1000)

@@ -2,5 +2,5 @@
 <% errors = @event.errors.full_messages.to_sentence %>
 bootbox.alert("<%= j(errors.html_safe) %>")
 <% else %>
-Turbolinks.visit("<%= add_photos_event_path(@event.id) %>")
+Turbolinks.visit("<%= @event.venue_id.present? ? add_photos_event_path(@event.id,info: true) : add_photos_event_path(@event.id) %>")
 <% end %>

@@ -16,6 +16,19 @@
 
 <div class="container-fluid">
   <div class="container container_stlye">
+    <!--- Show venue reservation details if any only after create and has a venue -->
+    <% if @event.venue_id.present?  and params[:info].present? %>
+        <div class="row" id="venue_reservation_info">
+          <br>
+          <div class="col-md-12">
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <p>Congratulations you just have a create a <strong>event</strong>.</p>
+              <p>We will call you shorty to confirm <strong>venue</strong> reservation.</p>
+            </div>
+          </div>
+        </div>
+    <% end %>
     <div class="row">
       <div class="title_name"><%= @event.name %></div>
     </div>
