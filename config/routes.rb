@@ -5,7 +5,7 @@ Invitation::Application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
     namespace :admin do
       resources :templates
-      resources :venue_categories    
+      resources :venue_categories
       resources :venues do
         member do
           get 'add_photos'
@@ -104,7 +104,7 @@ Invitation::Application.routes.draw do
 
   get "event/:id/edit_event_design", to: "events#edit_event_design", as: "event_design_edit"
   post "event/:id/update_event_design", to: "events#update_event_design", as: "event_design_update"
-  get "event/:id/edit_photos", to: "pictures#edit_photos", as: "edit_photos"
+  #get "event/:id/edit_photos", to: "pictures#edit_photos", as: "edit_photos"
 
 
   get '/events/fetch_friends'=>"events#fetch_friends"
