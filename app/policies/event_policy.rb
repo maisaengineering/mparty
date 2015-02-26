@@ -23,14 +23,11 @@ class EventPolicy < Struct.new(:user, :event)
   # Public event : show wishlist for only joined users(attending)
   # Private event : show wishlist for invited/joined users
   def show_wishlist?
-    # return false if event.wishlist.nil?
-    # return true if event.is_owner?(user)
-    # if event.is_private?
-    #   event.user_invited?(user)
-    # else
-    #   event.user_invited?(user) or event.user_joined?(user)
-    # end
-    event.is_public? and event.wishlist
+     if event.is_public?
+      return true
+    else
+     user and (event.is_owner?(user) or  event.user_invited?(user) or  event.user_joined?(user))
+    end  
   end
 
   # only owner can invite others
