@@ -210,7 +210,7 @@
           </div>
 
           <div role="tabpanel" class="tab-pane fade" id="Reviews">
-            <% if @can_rate_it %>
+            <% if not @can_rate_it %>
                 <div>
                   <% if @venue.reviews.blank? %>
                       <div id="vote_for_venue"  style="width:151px;height:15px;margin-top:5px;margin-bottom:5px;color:green">
