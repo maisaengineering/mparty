@@ -100,5 +100,8 @@ class EventPolicy < Struct.new(:user, :event)
     return false unless user
     event.user_joined?(user) or  event.is_owner?(user) or event.user_invited?(user)
   end
-
+  # only owner can preview the event
+  def preview?
+    user and event.is_owner?(user)
+  end
 end

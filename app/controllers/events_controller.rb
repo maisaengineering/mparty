@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
-  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist]
-  before_filter :register_handlebars,only: [:update_designs,:show]
+  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist,:preview]
+  before_filter :register_handlebars,only: [:update_designs,:show,:preview]
   #layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
@@ -77,6 +77,15 @@ class EventsController < ApplicationController
     @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
   end
 
+  def preview
+    @event = Event.find(params[:id])
+    session[:event_id_for_import] = @event.id
+    authorize @event, :preview?
+    @invited_user = @event.invites.where("mail_sent =?",true)
+    @wishlist = @event.wishlist
+    @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+  end
 
 
   def edit_event_design

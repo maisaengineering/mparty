@@ -162,6 +162,8 @@ Invitation::Application.routes.draw do
   ## Invited Users List
   get '/event/:id/invited_users_list/', to: "events#invited_users_list", as: :invited_users_list
 
+  get "event/:id/preview", to: "events#preview",as: :event_preview
+
   # Update quantity of wished product(event is mandatory)
   post '/event/:event_id/wishlist/update-product-quantity'=>"wishlist#update_quantity",as: :update_wished_product_quantity
   ## End Wish list -------------------------------------------------------------

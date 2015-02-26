@@ -7,7 +7,7 @@
     </div> -->
     <div class="col-md-12 mtop20">
       <% if policy(@event).invite? && @event.invites.count == 0 %>
-          <%= link_to "EVENT PREVIEW",event_path(@event.id),class:"btn btn-primary pull-right btn-sm mright10" %>
+          <%= link_to "EVENT PREVIEW",event_preview_path(@event.id),class:"btn btn-primary pull-right btn-sm mright10" %>
       <% end %>
      <!--  <a href="event_preview_v2.html" class="btn btn-primary pull-right btn-sm mright10" type="submit">EVENT PREVIEW</a> -->
       <button id="ImportContactsBtn" class="btn pull-right btn-primary btn-sm mright5" data-toggle="popover" data-placement="top"> IMPORT CONTACTS</button>
