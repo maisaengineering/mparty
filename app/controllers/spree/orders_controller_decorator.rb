@@ -43,4 +43,15 @@ Spree::OrdersController.class_eval do
     end
 
   end
+
+  def empty
+    if @order = current_order
+      @order.empty!
+      @order.update_attribute(:item_count,0)
+    end
+
+    redirect_to spree.cart_path
+  end
+
+
 end
