@@ -187,14 +187,13 @@
 
       <% if policy(@event).show_wishlist? %>
           <%= render  "show_wishlist"  %>
-      <% else %>
-          <% if policy(@event).invite? && @event.invites.count == 0 %>
-              <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
-                <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
-                    <span class="glyphicon glyphicon-edit"></span> Add Wishlist
-                <% end %>
-              </div>
-          <% end %>
+      <% end %>
+      <% if policy(@event).add_wishlist? %>
+          <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
+            <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
+                <span class="glyphicon glyphicon-edit"></span> Add Wishlist
+            <% end %>
+          </div>
       <% end %>
 
       <div class="col-md-6" style="width:45%;">
