@@ -38,3 +38,19 @@
     text-transform: lowercase;
     cursor: pointer;
 }
+
+#admin-menu ul li,
+#sub-menu ul li {
+  float: left;
+  margin-right: 1em;
+  list-style: none; 
+}
+
+#admin-menu ul li a,
+#sub-menu ul li a {
+  display: block;
+  padding: 10px 20px;
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+}
