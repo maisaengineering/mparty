@@ -68,7 +68,7 @@
             <% if (params[:from_event].present? && params[:from_event]!= "false") && current_spree_user.present? %>
                 <div class="col-md-10">
                   <%#= link_to "Venues List", venues_path(:from_event => params[:from_event].present? ? params[:from_event] : "false"), {:class => "btn btn-success"}%>
-                  <%= link_to "Add this Venue to Event", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-success"}%>
+                  <%= link_to "Reserve Me", new_event_path(venue_id: @venue.id), {:class => "add_this_venue_to_event btn btn-success"}%>
                 </div>
             <% else %>
                 <div class="col-md-10">
