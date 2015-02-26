@@ -89,7 +89,7 @@
         </ul>
         <div class="tab-content venue_tab_margin">
           <div role="tabpanel" class="tab-pane fade in" id="About">
-            <div class="row no_margin">
+            <div class="row no_margin mtop5">
               <div class="col-md-12"> <b>Type of Venue:</b> &nbsp;
                 <%unless @type_of_venues.blank?%>
                     <%= @type_of_venues.join(',')%>
@@ -99,7 +99,7 @@
               </div>
             </div>
 
-            <div class="row no_margin">
+            <div class="row no_margin mtop5">
               <div class="col-md-12"> <b>Types of Events:</b> &nbsp;
                 <% if @venue.events.exists?%>
                     Birthdays, Marriages, Receptions, etc.
@@ -108,22 +108,22 @@
                 <%end%>
               </div>
             </div>
-            <div class="row no_margin">
+            <div class="row no_margin mtop5">
               <div class="col-md-12"> <b>Range:</b> &nbsp;
                 <%=number_to_currency(@venue.price_min, unit: get_currency_symbol)%> - <%= number_to_currency(@venue.price_max, unit: get_currency_symbol)%>
               </div>
             </div>
-            <div class="row no_margin">
+            <div class="row no_margin mtop5">
               <div class="col-md-12"> <b>Description:</b> &nbsp;
                 <%= @venue.description%>
               </div>
             </div>
-            <div class="row no_margin">
+            <div class="row no_margin mtop5">
               <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
               </div>
               <%unless @venue.venue_seating_types.blank?%>
                   <% @venue.venue_seating_types.each do |seating_type| %>
-                      <div class="col-md-3" align="center">
+                      <div class="col-md-3 mtop10" align="center">
                         <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
                           <img src="<%= seating_type.seating_image.url(:thumb) %>" class="img-rounded">
                         </a>
