@@ -13,7 +13,7 @@
   .col-md-3
     %a.btn.btn-success.btn-block.addwishlist_btn{"data-target" => "#wishlist-modal", "data-toggle" => "modal", :href => "#"}
       .img-rounded.search_btn_count.position_abs
-        %p#wishlist-count= @wishlist.wished_products.count
+        %p#wishlist-count= @wishlist ? @wishlist.wished_products.count : 0
       ADD TO WISHLIST
 :javascript
   $('.back_button').click(function (e){
