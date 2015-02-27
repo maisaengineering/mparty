@@ -104,4 +104,9 @@ class EventPolicy < Struct.new(:user, :event)
   def preview?
     user and event.is_owner?(user)
   end
+
+  def add_wishlist?
+    user and event.is_owner?(user) and (event.wishlist.nil? or (event.wishlist  and event.wishlist.wished_products.count == 0))
+  end
+
 end

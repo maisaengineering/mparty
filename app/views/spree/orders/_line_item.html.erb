@@ -7,7 +7,7 @@
 <% variant = line_item.variant -%>
 <% wished_product =  @wishlist ? @wishlist.wished_products.where(variant_id: variant.id ).first : nil %>
 <%= order_form.fields_for :line_items, line_item do |item_form| -%>
-    <div class="row wishlist_popup_center shopping_cart_wishlist_list border_product_shoppingcart">
+    <div class="row wishlist_popup_center shopping_cart_wishlist_list line-item border_product_shoppingcart">
       <div class="col-md-2">
         <div class="wishlist_img_block">
           <% if variant.images.length == 0 %>
