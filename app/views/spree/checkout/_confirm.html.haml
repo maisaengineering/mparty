@@ -25,7 +25,10 @@
               %li
                 %span.glyphicon.glyphicon-user
                   %b #{bill_address.full_name}
-              %li #{bill_address.address1},#{bill_address.address2},
+                -if bill_address.address2.present?
+                  %li #{bill_address.address1},#{bill_address.address2},
+                -else
+              %li #{bill_address.address1},
               %li #{bill_address.city}, #{bill_address.state.name},
               %li #{bill_address.country.name}, #{bill_address.zipcode}
               %li
@@ -44,7 +47,10 @@
               %li
                 %span.glyphicon.glyphicon-user
                   %b #{shipp_address.full_name}
-              %li #{shipp_address.address1},#{shipp_address.address2},
+                -if shipp_address.address2.present?
+                  %li #{shipp_address.address1},#{shipp_address.address2},
+                -else
+                %li #{shipp_address.address1},
               %li #{shipp_address.city}, #{shipp_address.state.name},
               %li #{shipp_address.country.name}, #{shipp_address.zipcode}
               %li
