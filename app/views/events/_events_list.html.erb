@@ -25,10 +25,14 @@
                     <div class="event_place">
                       <div class="pull-left">
                         <span class="glyphicon glyphicon-map-marker"></span>
-                        <% if e.venue %>
-                            <%= truncate(e.venue.name.camelcase ,length: 20) %>
-                        <% else %>
-                            <%= truncate(e.location.camelcase ,length: 20) %>
+                        <% if e.is_private?  %>
+                           <%= image_tag("blur.png") %>
+                        <% else  %>
+                            <% if e.venue %>
+                                <%= truncate(e.venue.name.camelcase ,length: 20) %>
+                            <% else %>
+                                <%= truncate(e.location.camelcase ,length: 20) %>
+                            <% end %>
                         <% end %>
                       </div>
                       <!-- Only public events are allowed for joining a event -->
