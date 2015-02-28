@@ -234,9 +234,7 @@
     $('#new_event #venue_type').on('change', function () {
         if($(this).val() == 'choose'){
             selected_date=$("#event_starts_at").val()
-            selected_time=$("#event_start_time").val()
             selected_end_date=$("#event_ends_at").val()
-            selected_end_time=$("#event_end_time").val()
             if(selected_date == "" ) {
                 $("#venue_type").val("Venue*")
                 bootbox.alert("please select Start Date")
@@ -330,7 +328,7 @@
         $ele = $('#event_template_designs')
         if($('#event_host_name').val() !== '') $ele.find('.eventDesignHostname').text($('#event_host_name').val())
         if($('#event_name').val() !== '') $ele.find('.eventDesignEventName').text($('#event_name').val())
-        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val() +' '+ $('#event_ends_at').val() +' '+ $('#event_end_time').val());
+        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val()  +'  '+ $('#event_ends_at').val() );
         // if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
         $("#new_event #event_host_name").keyup(function(){
             ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
@@ -344,9 +342,9 @@
         })
 
 
-        $("#new_event #event_starts_at,#new_event #event_start_time,#new_event #event_ends_at,#new_event #event_end_time").change(function() {
+        $("#new_event #event_starts_at,#new_event #event_ends_at").change(function() {
             var eventDesignEventDate = $ele.find('.eventDesignEventDate')
-            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() +' '+ $('#event_ends_at').val() +' '+ $('#event_end_time').val());
+            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_ends_at').val() );
         });
 
         /*$("#new_event #event_description").keyup(function() {
