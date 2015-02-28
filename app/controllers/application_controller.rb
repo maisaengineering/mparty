@@ -57,11 +57,11 @@ class ApplicationController < ActionController::Base
     data_points.merge!({templateName: template.name }) if template
     data_points.merge!({eventName: event.name }) if event and !event.name.nil?
     start_at = (event and !event.starts_at.nil?) ? event.starts_at : Time.now
-    start_time = (event and !event.start_time.nil?) ? event.start_time.try(:strftime, '%I-%M %p') : nil
+    #start_time = (event and !event.start_time.nil?) ? event.start_time.try(:strftime, '%I-%M %p') : nil
     end_at =   event ? event.ends_at : nil
-    end_time =  (event and !event.end_time.nil?) ? event.end_time.try(:strftime, '%I-%M %p') : nil
-    event_time =  "#{start_at.try(:strftime, '%Y-%m-%d')} #{start_time}"
-    event_time +=  " - #{end_at.try(:strftime, '%Y-%m-%d')} #{end_time}" if end_at  and end_time
+   # end_time =  (event and !event.end_time.nil?) ? event.end_time.try(:strftime, '%I-%M %p') : nil
+    event_time =  "#{start_at.try(:strftime, '%Y-%m-%d %I-%M %p')}"
+    event_time +=  " - #{end_at.try(:strftime, '%Y-%m-%d %I-%M %p')}" if end_at
     data_points.merge!({eventTime: event_time})
     data_points.merge!({eventHostName:  event.host_name }) if event and !event.host_name.nil?
     data_points.merge!({eventDescription: event.description}) if event and !event.description.nil?

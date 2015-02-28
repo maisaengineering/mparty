@@ -39,10 +39,8 @@ class Event < ActiveRecord::Base
   #scopes
   scope :public, -> { where(is_private:  false) }
   scope :private, -> { where(is_private:  true) }
-  #scope :past, -> {where.not("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
-  scope :past, -> {where.not("ends_at >= ?", Time.now()).order("starts_at ASC","start_time ASC","events.name ASC")}
-  #scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
-  scope :upcoming, -> { where("ends_at >= ?", Time.now()).order("starts_at ASC","start_time ASC","events.name ASC")}
+  scope :past, -> {where.not("ends_at >= ?", Time.now()).order("starts_at ASC","events.name ASC")}
+  scope :upcoming, -> { where("ends_at >= ?", Time.now()).order("starts_at ASC","events.name ASC")}
   scope :invited, ->(email) { where(id: Invite.where(recipient_email: email).map(&:event_id))}
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
@@ -166,9 +164,8 @@ class Event < ActiveRecord::Base
   end
 
   def fill_end_date_and_time
-    if self.ends_at.nil? && self.end_time.nil?
+    if self.ends_at.nil?
       self.ends_at = self.starts_at
-      self.end_time = "11pm"
     end  
   end  
 end

@@ -19,7 +19,7 @@ class EventsController < ApplicationController
                  spree_current_user.organizing_events
                end
     # scroll to nearest event in view
-    @nearest_event = @events.where('starts_at >=?',Date.today).select("events.id").first
+    @nearest_event = @events.where('starts_at >=?',Time.now).select("events.id").first
     respond_to do |format|
       format.js
       format.json
@@ -113,8 +113,8 @@ class EventsController < ApplicationController
       @event.is_private=session[:event_data][:is_private],@event.name=session[:event_data][:name],
           @event.host_name=session[:event_data][:host_name],@event.host_phone=session[:event_data][:host_phone],
           @event.template_id=session[:event_data][:template_id],@event.design_id=session[:event_data][:design_id],
-          @event.starts_at=session[:event_data][:starts_at],@event.start_time=session[:event_data][:start_time],
-          @event.ends_at=session[:event_data][:ends_at],@event.end_time=session[:event_data][:end_time],
+          @event.starts_at=session[:event_data][:starts_at],
+          @event.ends_at=session[:event_data][:ends_at],
           @event.description=session[:event_data][:description]
     end
     if(params[:event][:venue_id].empty? && @event.venue_id.present?)
@@ -358,7 +358,7 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:name, :host_name,:venue_id,:friend_emails,
                                   :host_phone, :location, :description, :starts_at,
-                                  :start_time, :ends_at, :end_time, :is_private,
+                                   :ends_at , :is_private,
                                   :city,:state,:country,:zip,
                                   :image, :template_id, :design_id,:custom_event_type, pictures_attributes: [:image])
   end
