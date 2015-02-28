@@ -19,7 +19,7 @@
                 %span.glyphicon.glyphicon-calendar>
                 \ #{event_start_date(event)}
               \ 
-              - if event.start_time
+              - if event.starts_at
                 %span
                   %span.glyphicon.glyphicon-time>
                   \  #{event_start_time(event)}

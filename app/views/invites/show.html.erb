@@ -1,182 +1,192 @@
 <div class="container-fluid">
-<div class="container bg_white">
-<div class="row">
-  <div class="col-md-12">
-    <div class="title_name"><%=@event.name%>
+  <div class="container bg_white">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title_name"><%=@event.name%>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
-<!--event description-->
+    <!--event description-->
 
-<div class="row">
-  <div class="col-md-6" style="width:55%;">
-    <div class="col-md-12 event_preview_right">
-      <div class="row">
-        <div class="col-md-3">
-          <h4>Description:</h4>
-        </div>
-        <div class="col-md-9">
-          <h5>
-            <p><%=simple_format(@event.description)%></p>
-          </h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h4>Date:</h4>
-        </div>
-        <div class="col-md-9">
-          <h5>
-            <p>
-              <% if @event.starts_at== Date.today %>
-                  Today <%= @event.start_time.try(:strftime, '%I:%M %p')%>
-              <% else %>
-                  <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" "#{@event.start_time.try(:strftime, '%I:%M%p')}"%>
-              <% end %>
-            </p>
-          </h5>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          <h4>Venue:</h4>
-        </div>
-        <div class="col-md-9">
-          <h5>
-            <% if @event.venue.present? %>
-                <%= @event.venue.name %>,
-            <% end %>
-            <%=  @event.full_address %></h5>
-        </div>
-      </div>
-      <div class="row" id="event_address">
-        <div class="col-md-12"> <button class="btn"> <span class="glyphicon glyphicon-map-marker"></span>Show Venue in Google Map</button></div>
-      </div>
+    <div class="row">
+      <div class="col-md-6" style="width:55%;">
+        <div class="col-md-12 event_preview_right">
+          <div class="row">
+            <div class="col-md-3">
+              <h4>Description:</h4>
+            </div>
+            <div class="col-md-9">
+              <h5>
+                <p><%=simple_format(@event.description)%></p>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <h4>Date:</h4>
+            </div>
+            <div class="col-md-9">
+              <h5>
+                <p>
+                  <% if @event.starts_at.strftime("%D") == @event.ends_at.strftime("%D")  %>
+                      <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
+                          Today <%= "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
+                      <% else %>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M%p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M%p')}" %>
+                      <% end %>
+                  <% else %>
+                      <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
+                          Today <%= @event.starts_at.try(:strftime, '%I:%M %p')%> -
+                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}" "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
+                      <% else %>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" " " "#{@event.starts_at.try(:strftime, '%I:%M %p')}"%> -
+                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}"  ' ' "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
+                      <% end %>
+                  <% end %>
+                </p>
+              </h5>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <h4>Venue:</h4>
+            </div>
+            <div class="col-md-9">
+              <h5>
+                <% if @event.venue.present? %>
+                    <%= @event.venue.name %>,
+                <% end %>
+                <%=  @event.full_address %></h5>
+            </div>
+          </div>
+          <div class="row" id="event_address">
+            <div class="col-md-12"> <button class="btn"> <span class="glyphicon glyphicon-map-marker"></span>Show Venue in Google Map</button></div>
+          </div>
 
-      <div class="row" id="hide_button">
-        <div class="col-md-12"> <button class="btn"> Hide Map</button></div>
-      </div>
+          <div class="row" id="hide_button">
+            <div class="col-md-12"> <button class="btn"> Hide Map</button></div>
+          </div>
 
-      <div class="row" id="event_address_map">
-        <div class="col-md-12">
-          <label></label>
-          <div class="location_block">
-            <% if @event.venue.present? %>
-                <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+          <div class="row" id="event_address_map">
+            <div class="col-md-12">
+              <label></label>
+              <div class="location_block">
+                <% if @event.venue.present? %>
+                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
              <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.location  %> "></iframe>
-            <%else%>
-                <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+                <%else%>
+                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
              <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
-            <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+
+          <div class="row count_btns_margin">
+            <% if @event.future_event? %>
+                <div class="col-md-2">
+                  <a class="btn btn-success" href = "<%=inv_respond_url(1,@invitation.token,params[:email])%>">ACCEPT</a>
+                </div>
+
+                <div class="col-md-2">
+                  <a class="btn btn-warning" href = "<%=inv_respond_url(3,@invitation.token,params[:email]) %>">MAY BE</a>
+                </div>
+
+                <div class="col-md-2">
+                  <a class="btn btn-danger" href = "<%=inv_respond_url(2,@invitation.token,params[:email]) %>">REJECT</a>
+                </div>
+            <% end  %>
+
           </div>
         </div>
       </div>
 
-      <div class="row count_btns_margin">
-      <% if @event.future_event? %>
-        <div class="col-md-2">
-          <a class="btn btn-success" href = "<%=inv_respond_url(1,@invitation.token,params[:email])%>">ACCEPT</a>
-        </div>
+      <% if @event_design %>
+          <div class="col-md-6" style="width:45%;">
+            <div id="eventDesignPreview">
+              <% c_design = @handlebars.compile(@event_design.content) %>
+              <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+            </div>
+          </div>
+      <% end %>
+    </div>
 
-        <div class="col-md-2">
-          <a class="btn btn-warning" href = "<%=inv_respond_url(3,@invitation.token,params[:email]) %>">MAY BE</a>
-        </div>
 
-        <div class="col-md-2">
-          <a class="btn btn-danger" href = "<%=inv_respond_url(2,@invitation.token,params[:email]) %>">REJECT</a>
-        </div>
-      <% end  %>
+    <div class="row mtop40">
 
+      <% if policy(@event).show_wishlist? %>
+          <%= render  "events/show_wishlist"  %>
+      <% end %>
+
+      <div class="col-md-6" style="width:45%;">
+        <% if @event.pictures.present? %>
+            <h4>Photos</h4>
+            <div class="gallery event_photos" id="myCarousel">
+              <div class="jcarousel event_photos_block" data-jcarousel="false">
+                <ul style="left: 0px; top: 0px;">
+                  <% @event.pictures.each do |p| %>
+                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+                  <% end%>
+                </ul>
+              </div>
+              <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
+              <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
+              <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
+              <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
+            </div>
+        <% end %>
+      </div>
+
+
+
+
+
+    </div>
+
+
+    <!--comments-->
+
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Comments</h4>
+        <% if policy(@event).allow_commenting? %>
+            <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
+                <%= hidden_field_tag :resource ,'event' %>
+                <%= hidden_field_tag :resource_id ,@event.id %>
+                <div class="row comment_block_btn">
+                  <div class="col-md-9">
+                    <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
+                  </div>
+                  <div class="col-md-3">
+                    <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-success btn-block comment_btn_post ' %></div>
+                  </div>
+                </div>
+            <% end %>
+        <% end %>
       </div>
     </div>
-  </div>
-
-  <% if @event_design %>
-      <div class="col-md-6" style="width:45%;">
-        <div id="eventDesignPreview">
-          <% c_design = @handlebars.compile(@event_design.content) %>
-          <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-        </div>
-      </div>
-  <% end %>
-</div>
-
-
-<div class="row mtop40">
-
-  <% if policy(@event).show_wishlist? %>
-      <%= render  "events/show_wishlist"  %>
-  <% end %>
-
-  <div class="col-md-6" style="width:45%;">
-    <% if @event.pictures.present? %>
-        <h4>Photos</h4>
-        <div class="gallery event_photos" id="myCarousel">
-          <div class="jcarousel event_photos_block" data-jcarousel="false">
-            <ul style="left: 0px; top: 0px;">
-              <% @event.pictures.each do |p| %>
-                  <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
-              <% end%>
-            </ul>
-          </div>
-          <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
-          <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
-          <a href="#" class="jcarousel-control-prev inactive event_photo_prev" data-jcarouselcontrol="true">‹</a>
-          <a href="#" class="jcarousel-control-next event_photo_next" data-jcarouselcontrol="true">›</a>
-        </div>
-    <% end %>
-  </div>
-
-
-
-
-
-</div>
-
-
-<!--comments-->
-
-<div class="row">
-  <div class="col-md-12">
-    <h4>Comments</h4>
-    <% if policy(@event).allow_commenting? %>
-        <%= form_tag comments_path ,remote: true,id: 'comment_form' do %>
-            <%= hidden_field_tag :resource ,'event' %>
-            <%= hidden_field_tag :resource_id ,@event.id %>
-            <div class="row comment_block_btn">
-              <div class="col-md-9">
-                <%= text_area_tag :content,'',id: 'comment_content',cols: 95,rows: 2     %>
-              </div>
-              <div class="col-md-3">
-                <div id="submit"><%= submit_tag 'Comment',class: 'btn btn-lg btn-success btn-block comment_btn_post ' %></div>
+    <br/>
+    <div class="row">
+      <div class="col-md-12">
+        <% if @comments.blank? %>
+            <div id="no_comment">No comments</div>
+        <% else%>
+            <div id="comments">
+              <div class="page">
+                <% unless @comments.blank? %>
+                    <% @comments.each do |comment| %>
+                        <%= render 'comments/comment',comment: comment %>
+                    <% end %>
+                <% end %>
               </div>
             </div>
         <% end %>
-    <% end %>
-  </div>
-</div>
-<br/>
-<div class="row">
-  <div class="col-md-12">
-    <% if @comments.blank? %>
-        <div id="no_comment">No comments</div>
-    <% else%>
-        <div id="comments">
-          <div class="page">
-            <% unless @comments.blank? %>
-                <% @comments.each do |comment| %>
-                    <%= render 'comments/comment',comment: comment %>
-                <% end %>
-            <% end %>
-          </div>
-        </div>
-    <% end %>
-  </div>
-</div>
-<!--comments end-->
+      </div>
+    </div>
+    <!--comments end-->
 
-</div>
+  </div>
 </div>
 <%#= paginate @comments %>
 

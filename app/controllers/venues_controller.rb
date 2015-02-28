@@ -1,42 +1,27 @@
 class VenuesController < ApplicationController
   def index
-    not_avlble_venus= []
-    not_available_top_venues= []
-    @top_five = Venue.top_five.to_a
-    @venues=Venue.advance_search(params[:query])
-    if params[:query].present?
-      @top_five= @top_five-@venues.to_a
+    if params[:query].present?  # when search
+      @venues = Venue.advance_search(params[:query])
+      if  @venues.blank?
+        flash.now[:error] = "No results found for '#{params[:query]}'"
+      else
+        flash.now[:notice] = "Total #{@venues.count} results found for '#{params[:query]}'"
+      end
+    elsif params[:venue_id].present? # when comes from get suggestions
+      suggestible_venue = Venue.find(params[:venue_id])
+      @venues =  Venue.where("city iLIKE ? OR state iLIKE ?", suggestible_venue.city,suggestible_venue.state)
+      if session[:event_data].present?
+        event = Event.new(session[:event_data])
+        if event.starts_at and event.ends_at
+          @venues =  @venues.joins(:venue_calendars).where('venue_calendars.status = ? AND  (venue_calendars.start_date <= ? AND venue_calendars.end_date >= ?)
+                                                    OR (venue_calendars.start_date <= ? AND venue_calendars.end_date >= ?)',
+                                                           0,event.starts_at,event.starts_at,event.ends_at,event.ends_at)
+        end
+      end
+      flash.now[:error] = "No criteria matched please choose venue or click on back to add custom address."
+    else # default top six
+      @venues = Venue.top_five
     end
-    if params[:city].present?
-      # not_avlble_venus= @top_five + not_avlble_venus
-      sd = session[:event_data][:starts_at]
-      st = Time.parse(session[:event_data][:start_time]).strftime(" %H:%m:%S")
-      start_date = sd + st
-      ed = session[:event_data][:ends_at]
-      et = Time.parse(session[:event_data][:end_time]).strftime(" %H:%m:%S")
-      end_date = ed + et
-      @venues =  Venue.where("city = ?", params[:city]).to_a
-      selected_rate__venues_array =  Venue.joins(:rating_cache).where("rating_caches.avg" => params[:rating]).to_a
-      unless selected_rate__venues_array.blank?
-        selected_rate__venues_array.each do |venue_obj|
-          @venues << venue_obj
-        end
-      end
-      unless @venues.blank?
-        @venues.each do |venue|
-          not_avlble_venus << venue if venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date).present?
-        end
-      end
-      unless @top_five.blank?
-        @top_five.each do |top_venue|
-          not_available_top_venues << top_venue if top_venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date).present?
-        end
-      end
-      @venues = @venues - not_avlble_venus
-      @top_five= @top_five - not_available_top_venues
-      flash.now[:notice] = "Please select another venue."
-    end
-    flash.now[:error] = "No results found for '#{params[:query]}'" if params[:query] and  @venues.blank?
   end
 
   def show
@@ -50,68 +35,49 @@ class VenuesController < ApplicationController
         venue_ratings.each_with_index do |rate, index|
           if rate.rater_id == current_spree_user.id
             @rating_possition = index+1
-          end  
-        end  
-      end  
+          end
+        end
+      end
     else
       @can_rate_it = false
-    end 
+    end
     @reviews = @venue.reviews.order(created_at: :desc)#.page(params[:page]).per(4)
     @contacts = @venue.venue_contacts
     if @contacts.present?
       @land_numbers = @contacts.map(&:land_number).reject(&:empty?)
       @mobile_numbers = @contacts.map(&:mobile_number).reject(&:empty?)
       @contact_emails = nil #need to add email column to venue_contacts table
-    end  
+    end
     @type_of_venues = @venue.venue_categories.map(&:venue_type).reject(&:empty?) if @venue.venue_categories.present?
     render layout: false if request.xhr?
-  end 
+  end
 
   def check_availability
     @event = Event.new(session[:event_data])
     @venue = Venue.find(params[:id])
-    #start_date = @event.starts_at
-    ed = @event.ends_at.strftime("%Y-%m-%d")
-    et = @event.end_time.strftime(" %T")
-
-    @start_date = start_date = ed + et
-
-    sd = @event.starts_at.strftime("%Y-%m-%d")
-    st = @event.start_time.strftime(" %T")
-
-    @end_date = end_date = sd + st
-    # start_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,@event.start_time.hour,@event.start_time.min,@event.start_time.sec)
-    # if @event.ends_at.present? && @event.end_time.present?
-    #   end_date = Time.zone.local(@event.ends_at.year,@event.ends_at.month,@event.ends_at.day,@event.end_time.hour,@event.end_time.min,@event.end_time.sec)
-    # else
-    #   end_date = Time.zone.local(@event.starts_at.year,@event.starts_at.month,@event.starts_at.day,23,@event.start_time.min,@event.start_time.sec)
-    # end
-    booked_venues_dates =  @venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",start_date,start_date,end_date,end_date)
-    if !booked_venues_dates.present?
-      @available = true      
-    else      
+    if @venue.venue_calendars.reserved(@event.starts_at,@event.ends_at).exists?
       @available = false
+    else
+      @available = true
     end
     render layout: false
   end
 
   def booked_slots
-    @venue = Venue.find(params[:id])  
-    if @venue.venue_calendars.present?
-     @slots = @venue.venue_calendars
-    end 
-  end 
+    @venue = Venue.find(params[:id])
+    @slots = @venue.venue_calendars.booked.includes(:event)
+  end
 
   def check_permission_for_rate_it(venue, user)
     has_events_with_venue = Event.past.where(:venue_id => venue.id, :user_id => user.id)
     past_events = Event.past.where(:venue_id => venue.id).ids
     has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
     if ( has_events_with_venue.present? || has_invitation_with_venue.present? )
-       has_ratings =  venue.reviews.where(user_id: user.id).count.zero?
-       return has_ratings ? true : false
+      has_ratings =  venue.reviews.where(user_id: user.id).count.zero?
+      return has_ratings ? true : false
     else
       return false
     end
   end
-  
+
 end

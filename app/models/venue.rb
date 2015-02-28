@@ -15,7 +15,7 @@ class Venue < ActiveRecord::Base
 
   has_many :rates, as: :rateable, dependent: :destroy
   has_one :rating_cache, as: :cacheable, dependent: :destroy
-  has_and_belongs_to_many :venue_categories 
+  has_and_belongs_to_many :venue_categories
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :asc).limit(6)}
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
@@ -26,6 +26,7 @@ class Venue < ActiveRecord::Base
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
   validate :min_max_price
   #validates_associated :venue_calendars, :venue_contacts
+
   #--------  Callbacks goes here
   # GEO
   geocoded_by :full_address, if: ->(rec){ rec.address1.present? and rec.zip.present? }
@@ -35,7 +36,7 @@ class Venue < ActiveRecord::Base
   accepts_nested_attributes_for :video_urls, allow_destroy: true,reject_if: proc { |attributes| attributes['url'].blank? }
 
   #Fuzzy search
-  fuzzily_searchable :name
+  fuzzily_searchable :name,:city,:state
   # MINIMUM PRICE - MAX PRICE
   def min_max_price
     if price_min.blank?
@@ -45,9 +46,10 @@ class Venue < ActiveRecord::Base
     end
   end
 
+
   # Venue advance search
   def self.advance_search(query)
-      where("name iLIKE ? OR city iLIKE ? OR state iLIKE ? OR zip iLIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
+    where("name iLIKE ? OR city iLIKE ? OR state iLIKE ? OR zip iLIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
   end
 
 
@@ -56,9 +58,9 @@ class Venue < ActiveRecord::Base
   #---------- Instance Methods
   def full_address
     if address2 == ""
-    "#{address1}, #{city}, #{state}, #{country}, #{zip}"
+      "#{address1}, #{city}, #{state}, #{country}, #{zip}"
     else
-    "#{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
+      "#{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
     end
   end
 
@@ -73,22 +75,22 @@ class Venue < ActiveRecord::Base
 
   def original_score_average
     self.rating_cache.avg
-  end  
+  end
 
   def can_review?(user)
     has_events_with_venue = Event.past.where(:venue_id => self.id, :user_id => user.id)
     past_events = Event.past.where(:venue_id => self.id).ids
-    has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)  
+    has_invitation_with_venue = Invite.where(joined: 1, user_id: user.id, event_id: past_events)
     if (has_events_with_venue.present? || has_invitation_with_venue.present?)
-       has_reviews = user.reviews.where(reviewable_id: self.id, reviewable_type: self.class.name).count.zero?
-       return has_reviews ? true : false 
+      has_reviews = user.reviews.where(reviewable_id: self.id, reviewable_type: self.class.name).count.zero?
+      return has_reviews ? true : false
     else
       return false
-    end  
+    end
   end
 
   def average_rating
     reviews.sum(:rating) / reviews.size
   end
-  
+
 end

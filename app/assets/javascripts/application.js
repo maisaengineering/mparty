@@ -20,8 +20,9 @@
 //= require jcarousel.min
 //= require jquery.fancybox
 //= require jquery.fancybox-media
-//= require bootstrap-datepicker
-//= require jquery.timepicker
+//= require jquery.datetimepicker
+// require bootstrap-datepicker
+// require jquery.timepicker
 //= require jquery.payment
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl

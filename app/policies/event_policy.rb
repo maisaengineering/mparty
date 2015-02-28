@@ -93,7 +93,7 @@ class EventPolicy < Struct.new(:user, :event)
   end
 
   def event_expiration?
-    invite? and  (event.end_time.strftime("%T") >= Time.now.strftime("%T") and event.ends_at == Date.today or event.ends_at > Date.today)
+    invite? and  (event.ends_at >= Time.now)
   end
 
   def post_event_on_fb?

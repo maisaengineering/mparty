@@ -23,7 +23,7 @@ class Event < ActiveRecord::Base
 
   before_validation :start_date_end_date_validate_slot_available
   # before_create :fill_end_date_and_time
-  after_create :create_venue_calander
+  after_create :create_venue_calender
 
   accepts_nested_attributes_for :pictures
 
@@ -33,16 +33,16 @@ class Event < ActiveRecord::Base
 
   #validate :validate_duplicate_event_name
 
-  validates :name,:template_id, :starts_at,:start_time,:ends_at,:end_time,:description,:city,:state,:country,:zip, presence: true
+  validates :name,:template_id, :starts_at,:ends_at,:description,:city,:state,:country,:zip, presence: true
   validates_presence_of :location, :unless => :venue_id?
 
   #scopes
   scope :public, -> { where(is_private:  false) }
   scope :private, -> { where(is_private:  true) }
-  scope :past, -> {where.not("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
-  #scope :upcoming, -> { where("starts_at >= ?", Date.today).order(starts_at: :asc)}
-  #scope :upcoming, -> { where("start_time >=? AND starts_at =? OR starts_at >?",Time.now+5.5.hour,Date.today,Date.today).order(starts_at: :asc,start_time: :asc)}
-  scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
+  #scope :past, -> {where.not("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
+  scope :past, -> {where.not("ends_at >= ?", Time.now()).order("starts_at ASC","start_time ASC","events.name ASC")}
+  #scope :upcoming, -> { where("end_time >=? AND ends_at =? OR ends_at >? ",Time.now,Date.today,Date.today).order("starts_at ASC","start_time ASC","events.name ASC")}
+  scope :upcoming, -> { where("ends_at >= ?", Time.now()).order("starts_at ASC","start_time ASC","events.name ASC")}
   scope :invited, ->(email) { where(id: Invite.where(recipient_email: email).map(&:event_id))}
 
   scope :trending,-> {  public.upcoming.order(starts_at: :asc) }
@@ -58,7 +58,7 @@ class Event < ActiveRecord::Base
   end
 
   def future_event?
-    self.end_time.strftime("%T") >= Time.now.strftime("%T") and self.ends_at == Date.today or self.ends_at > Date.today
+    self.ends_at >= Time.now()
   end
 
   def attendees(status)
@@ -145,19 +145,9 @@ class Event < ActiveRecord::Base
   end
 =end
 
-  def create_venue_calander
+  def create_venue_calender
    if self.venue_id.present?
-     venue_calendar = VenueCalendar.new
-     venue_calendar.start_date = Time.zone.local(self.starts_at.year,self.starts_at.month,self.starts_at.day,self.start_time.hour,self.start_time.min,self.start_time.sec)
-     venue_calendar.venue_id = self.venue_id
-     venue_calendar.event_id = self.id
-     venue_calendar.user_id = self.user.id
-     if self.ends_at.present? && self.end_time.present?
-      end_date = Time.zone.local(self.ends_at.year,self.ends_at.month,self.ends_at.day,self.end_time.hour,self.end_time.min,self.end_time.sec)
-     else
-      end_date = Time.zone.local(self.starts_at.year,self.starts_at.month,self.starts_at.day,23,self.start_time.min,self.start_time.sec)
-     end
-     venue_calendar.end_date = end_date
+     venue_calendar = VenueCalendar.new(start_date: starts_at,end_date: ends_at,requested_id: user_id,event_id: id,venue_id: venue_id,status: 1)
      if !venue_calendar.valid?
       errors.add(:event, "Invalid Start and End dates/time for selected Venue slot.")
      else
@@ -167,14 +157,10 @@ class Event < ActiveRecord::Base
   end
 
   def start_date_end_date_validate_slot_available
-    s_time = self.starts_at + self.start_time.hour.hours + self.start_time.min.minutes
-    e_time = self.ends_at + self.end_time.hour.hours + self.end_time.min.minutes
-
-    if s_time > e_time
+    if self.starts_at > self.ends_at
       errors.add(:start_date, "is not less than the end date")
     end
-
-    if venue and venue.venue_calendars.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",s_time,s_time,e_time,e_time).exists?
+    if venue.present? && venue.venue_calendars.reserved(self.starts_at,self.ends_at).exists?
       errors.add(:slot, "is not available for this dates")
     end
   end

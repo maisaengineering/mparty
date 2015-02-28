@@ -18,15 +18,18 @@
   - if params[:from_event]
     .row
       .col-md-12.ptop
-        =link_to('<span class="glyphicon glyphicon-chevron-left"></span> Back to create Event'.html_safe, new_event_path,class: 'btn btn-warning')         
-  - if (params[:query] || params[:city]) and !@venues.blank?
-    %hr/
-    -if params[:city]
-      %h2 Suggestions Results
-    -else
+        =link_to('<span class="glyphicon glyphicon-chevron-left"></span> Back to create Event'.html_safe, new_event_path,class: 'btn btn-warning')
+  #venues_list
+    - if params[:query].present?
       %h2 Search Results
+    - elsif params[:venue_id].present?
+      %h2 Suggested Venues
+    - else
+      %h2 Top Venues
     = render 'venues',venues: @venues
-  %hr/
-  - unless @top_five.blank?
-    %h2 Top Venues
-    = render 'venues',venues: @top_five
+
+- if params[:query].present? or params[:venue_id].present?
+  :javascript
+    $('html, body').animate({
+        scrollTop: $("#venues_list").offset().top
+    }, 1500);

@@ -4,7 +4,8 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   # GET /spree/admin/templates
   # GET /spree/admin/templates.json
   def index
-    @venues = current_spree_user.has_spree_role?(:admin) ? Venue.all : current_spree_user.venues
+   # @venues = current_spree_user.has_spree_role?(:admin) ? Venue.all : current_spree_user.venues
+    @venues =   Venue.all.order(created_at: :desc)
   end
 
   def new

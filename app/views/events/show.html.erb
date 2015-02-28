@@ -63,19 +63,19 @@
             <div class="col-md-9">
               <h5>
                 <p>
-                  <% if @event.starts_at == @event.ends_at  %>
-                      <% if @event.starts_at== Date.today %>
-                          Today <%= "#{@event.start_time.try(:strftime, '%I:%M %p')}" " - " "#{@event.end_time.try(:strftime, '%I:%M %p')}"%>
+                  <% if @event.starts_at.strftime("%D") == @event.ends_at.strftime("%D")  %>
+                      <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
+                          Today <%= "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% else %>
-                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}"  "#{@event.start_time.try(:strftime, '%I:%M%p')}" " - " "#{@event.end_time.try(:strftime, '%I:%M%p')}" %>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M%p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M%p')}" %>
                       <% end %>
                   <% else %>
-                      <% if @event.starts_at== Date.today %>
-                          Today <%= @event.start_time.try(:strftime, '%I:%M %p')%> -
-                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}" "#{@event.end_time.try(:strftime, '%I:%M %p')}"%>
+                      <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
+                          Today <%= @event.starts_at.try(:strftime, '%I:%M %p')%> -
+                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}" "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% else %>
-                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" " " "#{@event.start_time.try(:strftime, '%I:%M %p')}"%> -
-                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}"  ' ' "#{@event.end_time.try(:strftime, '%I:%M %p')}"%>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" " " "#{@event.starts_at.try(:strftime, '%I:%M %p')}"%> -
+                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}"  ' ' "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% end %>
                   <% end %>
                 </p>
@@ -150,7 +150,6 @@
             <% if policy(@event).event_expiration?  %>
                 <div class="col-md-12 mtop10">
                   <button href="" class="btn btn-success pull-left mright5" data-toggle="modal" data-target="#add_more_guests"><span class="glyphicon glyphicon-plus"></span>Add Guests</button>
-
                 </div>
             <% end %>
             <div id="invitedUsersList"></div>

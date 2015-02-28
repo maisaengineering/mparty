@@ -5,14 +5,14 @@ Turbolinks.visit("/events/new?venue_id=<%= @venue.id %>")
 bootbox.dialog({
     title: "Suggestions.",
     message:
-    '<div class="row" style="background:#cc">' +
+    '<div class="row" style="background:#ccc">' +
     '<hr>' +
         '<div class="col-md-12"> ' +
             '<form class="form-horizontal" action="/venues" method="get"> ' +
                 '<div class="form-group"> ' +
                     '<label class="col-md-12" for="name" style="color:#000">This Venue is not available for your Scheduled Date "<%=@event.starts_at%>"  </label> ' +
                     '<div class="col-md-4"> ' +
-                        '<input id="name" name="city" type="hidden" value="<%=@venue.city%>"> ' +
+                        '<input id="name" name="venue_id" type="hidden" value="<%=@venue.id%>"> ' +
                         '<input id="name" name="from_event" type="hidden" value="true"> ' +
                     '</div> ' +
                 '</div> ' +

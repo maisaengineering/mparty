@@ -1,37 +1,37 @@
 <%if @invite.invited_user_id.blank?%>
-	<title>Request Email</title>
- <%else%>
-	<title>Acceptance Email</title>
+    <title>Request Email</title>
+<%else%>
+    <title>Acceptance Email</title>
 <%end%>
 
 <body  style="width:100%; height:100%; overflow:hidden; background-color:#c72a3a;font-family:'Helvetica Neue', Helvetica, Arial, sans-serif">
 
-	<div style="width:700px; margin:20px auto; height:70px;"> 
-	 <%= image_tag asset_url('logo-2.png'), :style => 'margin:10px; margin-top:8px;' %>
-	</div>
-	<!-- content  row -->
-	<div style="width:600px;margin:0 auto; font-size:15px;color:#555; background-color:#ffffff; padding:40px 50px; ">
-		<span>Hello <%= @invited_by.full_name %>,</span> <br><br>
-		<%if @invite.invited_user_id.blank?%>
+<div style="width:700px; margin:20px auto; height:70px;">
+  <%= image_tag asset_url('logo-2.png'), :style => 'margin:10px; margin-top:8px;' %>
+</div>
+<!-- content  row -->
+<div style="width:600px;margin:0 auto; font-size:15px;color:#555; background-color:#ffffff; padding:40px 50px; ">
+  <span>Hello <%= @invited_by.full_name %>,</span> <br><br>
+  <%if @invite.invited_user_id.blank?%>
 			<span>
 				<i><b>"<%= @accepted_by %>" </b></i>
 					has shown interest in joining your event
 				<i><b> "<%= @event.name %>".</b></i>
 			</span>
-		<%else%>
+  <%else%>
 			<span>
 				Your invitation to an event
 				<i><b>"<%= @event.name %>"</b></i>
 					 is Accepted by 
 				<i><b>'<%= @accepted_by %>'</b></i>
-			<span>
-		<%end%>
-	   <br>
-	   <p>Thanks,</p>
-	   <p>The MParty Team</p>
-	</div>
-	<!-- footer -->
-	<div style="width:700px; margin:0 auto;margin-top:30px; margin-bottom:20px; text-align:center; font-size:12px; color:#eeeeee;">
-	  <p><a href="#" style="color:#ffffff;">www.mparty.io</a></p>
-	</div>
+			</span>
+  <%end%>
+  <br>
+  <p>Thanks,</p>
+  <p>The MParty Team</p>
+</div>
+<!-- footer -->
+<div style="width:700px; margin:0 auto;margin-top:30px; margin-bottom:20px; text-align:center; font-size:12px; color:#eeeeee;">
+  <p><a href="#" style="color:#ffffff;">www.mparty.io</a></p>
+</div>
 </body>

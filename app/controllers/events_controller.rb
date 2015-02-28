@@ -30,9 +30,12 @@ class EventsController < ApplicationController
 
 
   def new
-    @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
     @event = current_spree_user.events.new(session[:event_data])
     authorize @event, :new?
+    if params[:venue_id].present?
+      @venue = Venue.find(params[:venue_id])
+      flash.now[:notice] = 'Venue added to event'
+    end
     @event_templates = Spree::Admin::Template.select([:id,:name])
     @contacts = request.env['omnicontacts.contacts']
     session.delete(:event_data) if session[:event_data]
@@ -202,7 +205,7 @@ class EventsController < ApplicationController
     wish_emails = params[:friend_emails].split(",") # Is an Array
     unless params[:contacts].blank?
       params[:contacts].each_with_index do  |mails|
-       wish_emails << mails[0] if mails[1] == "1"
+        wish_emails << mails[0] if mails[1] == "1"
       end
     end
     params[:friend_emails] = wish_emails.join(",")
@@ -337,8 +340,8 @@ class EventsController < ApplicationController
     end
   end
 
-# Need to work on get friends email of fb user
-# And Autopopulate for multiple emails for normal user.
+  # Need to work on get friends email of fb user
+  # And Autopopulate for multiple emails for normal user.
   def fetch_friends
 
     @invitations = current_spree_user.invites.where("recipient_email LIKE ?", "%#{params[:term]}%").group("recipient_email").map(&:recipient_email)

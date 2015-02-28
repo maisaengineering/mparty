@@ -17,7 +17,7 @@ module EventsHelper
   end
 
   def event_start_time(event)
-    event.start_time.try(:strftime, '%I-%M %p')
+    event.starts_at.try(:strftime, '%I-%M %p')
   end
 
   def event_address(event)
