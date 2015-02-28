@@ -22,10 +22,10 @@ class Venue < ActiveRecord::Base
 
   #--------- Validations goes here
   validates :name,:address1, :state, :city, :country,:zip,presence: true
-  validates :room_dimensions,:capacity,:price_min ,:price_max, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
+  validates :room_dimensions,:capacity, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
+  validate :min_max_price
   #validates_associated :venue_calendars, :venue_contacts
-
   #--------  Callbacks goes here
   # GEO
   geocoded_by :full_address, if: ->(rec){ rec.address1.present? and rec.zip.present? }
@@ -36,7 +36,14 @@ class Venue < ActiveRecord::Base
 
   #Fuzzy search
   fuzzily_searchable :name
-
+  # MINIMUM PRICE - MAX PRICE
+  def min_max_price
+    if price_min.blank?
+      errors.add(:max_price, "Minimum Price can't be blank ")
+    elsif (price_min.present? and price_max.present?) and price_max < price_min
+      errors.add(:max_price, "can't be less than minimum price")
+    end
+  end
 
   # Venue advance search
   def self.advance_search(query)
