@@ -41,19 +41,11 @@
                     <div class="row no_margin">
                       <div class="col-md-6">
                         <label></label>
-                        <%= f.date_field :starts_at , class: 'form-control date start' ,required: true ,placeholder: 'Start Date*' %>
+                        <%= f.text_field :starts_at , class: 'form-control date start' ,required: true ,placeholder: 'Start Date*',readonly: true %>
                       </div>
                       <div class="col-md-6">
                         <label></label>
-                        <%= f.time_field :start_time,value: @event.start_time.strftime("%T"), class: 'form-control time start' ,required: true ,placeholder: 'Start Time*' %>
-                      </div>
-                      <div class="col-md-6">
-                        <label></label>
-                        <%= f.date_field :ends_at , class: 'form-control date ends' ,placeholder: 'End Date*' %>
-                      </div>
-                      <div class="col-md-6">
-                        <label></label>
-                          <%= f.time_field :end_time,value: @event.end_time.strftime("%T"), class: 'form-control time ends',placeholder: 'End Time*' %>
+                        <%= f.text_field :ends_at , class: 'form-control date end' ,placeholder: 'End Date*',readonly: true %>
                       </div>
                     </div>
                   </div>
@@ -64,10 +56,6 @@
                       <option value="choose">Choose</option>
                       <option value="custom">Custom</option>
                     </select>
-
-                    <%if @venue %>
-                        <span id="venue_name"><i><%= @venue.name %></i></span>
-                    <% end %>
                     <%=f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
                   </div>
 
@@ -98,55 +86,13 @@
 
 
                   <% if @venue.present? %>
-                      <div id="venue_afterchoose">
-                        <div class="col-md-12 ptopbottom mtop20">
-                          <span class="glyphicon glyphicon-map-marker"></span> <span>Location</span>
-                          <div class="mtop20 pull-right" id="change_venue">   Choose Another Venue </div>
-                        </div>
-                        <div class="row no_margin ptopbottom">
-                          <div class="col-md-3">
-                            Address:
-                          </div>
-                          <div class="col-md-9">
-                            <%= "#{@venue.address1} #{@venue.address2}" %>
-                          </div>
-                        </div>
-
-                        <div class="row no_margin ptopbottom">
-                          <div class="col-md-3">
-                            City:
-                          </div>
-                          <div class="col-md-9">
-                            <%= @venue.city  %>
-                          </div>
-                        </div>
-
-                        <div class="row no_margin ptopbottom">
-                          <div class="col-md-3">
-                            State:
-                          </div>
-                          <div class="col-md-9">
-                            <%= @venue.state  %>
-                          </div>
-                        </div>
-
-                        <div class="row no_margin ptopbottom">
-                          <div class="col-md-3">
-                            Country:
-                          </div>
-                          <div class="col-md-9">
-                            <%= @venue.country  %>
-                          </div>
-                        </div>
-
-                        <div class="row no_margin ptopbottom">
-                          <div class="col-md-3">
-                            Zip:
-                          </div>
-                          <div class="col-md-9">
-                            <%= @venue.zip  %>
-                          </div>
-                        </div>
+                      <div class="col-md-12 mtop20">
+                        <ul id="venue_afterchoose" class="venue_ctc_details">
+                          <li><span class="glyphicon glyphicon-map-marker"></span> <b><%= @venue.name %></b></li>
+                          <li> <%= "#{@venue.address1}, #{@venue.address2}" %> </li>
+                          <li> <%= @venue.city  %>, <%= @venue.state  %>, </li>
+                          <li> <%= @venue.country  %>, <%= @venue.zip %> </li>
+                        </ul>
                       </div>
                       <div id="venus_hidden_fields">
                         <%= f.hidden_field :location,value: "#{@venue.address1} #{@venue.address2}" %>
@@ -155,62 +101,14 @@
                         <%= f.hidden_field :country,value: @venue.country %>
                         <%= f.hidden_field :zip,value: @venue.zip %>
                       </div>
-
-
                 <% else %>
-
-                    <div id="default_venue_address">
-                      <div class="col-md-12 ptopbottom mtop20">
-                        <span class="glyphicon glyphicon-map-marker"></span> <span>Location</span>
-                      </div>
-
-                      <div class="row no_margin ptopbottom">
-                        <div class="col-md-3">
-                          Address:
-                        </div>
-                        <div class="col-md-9">
-                          <%= @event.location %>
-                        </div>
-                      </div>
-
-                      <div class="row no_margin ptopbottom">
-                        <div class="col-md-3">
-                          City:
-                        </div>
-                        <div class="col-md-9">
-                          <%= @event.city  %>
-                        </div>
-                      </div>
-
-                      <div class="row no_margin ptopbottom">
-                        <div class="col-md-3">
-                          State:
-                        </div>
-                        <div class="col-md-9">
-                          <%= @event.state  %>
-                        </div>
-                      </div>
-
-                      <div class="row no_margin ptopbottom">
-                        <div class="col-md-3">
-                          Country:
-                        </div>
-                        <div class="col-md-9">
-                          <%= @event.country  %>
-                        </div>
-                      </div>
-
-                      <div class="row no_margin ptopbottom">
-                        <div class="col-md-3">
-                          Zip:
-                        </div>
-                        <div class="col-md-9">
-                          <%= @event.zip  %>
-                        </div>
-                      </div>
-                    </div>
-
-
+                  <div class="col-md-12 mtop20">
+                    <ul id="default_venue_address" class="venue_ctc_details">
+                      <li> <span class="glyphicon glyphicon-map-marker"></span> <b> <%= @event.location %></b></li>
+                      <li> <%= @event.city  %>, <%= @event.state  %>, </li>
+                      <li> <%= @event.country  %>, <%= @event.zip %> </li>
+                    </ul>
+                  </div>
                   <% end %>
 
                   <div class="col-md-12">
@@ -242,22 +140,6 @@
 
 
 <script type="text/javascript">
-
-
-    /* $(".event_form_submit").hide()
-     $("#create_form").change(function () {
-     $(".event_form_back").hide("slow")//fadeOut("slow")
-     $(".event_form_submit").show("slow")//fadeIn("slow")
-     })*/
-
-    /*presentEventName=$("#event_name").val()
-     presentEventTpe=$("#event_template_id").val()
-     presentDesignId=$("#event_design_id").val()
-     presentHostName=$("#event_host_name").val()
-     presentHostPhone=$("#event_host_phone").val()
-     presentHostPhone=$("#event_host_phone").val()
-     alert(presentDesignId)*/
-
 
     if($("#event_custom_event_type").val() == ""){
         $(".event_type_hide").hide();
@@ -306,162 +188,133 @@
 
 
 
-
-    /* if($('#venue_afterchoose').length){
-     $('#event_start_time').attr('readonly','readonly');
-     $('#event_starts_at').attr('readonly','readonly');
-     $('#event_ends_at').attr('readonly','readonly');
-     $('#event_end_time').attr('readonly','readonly');
-     $(".btn_add_endtime").remove();
-     $(".btn_remove_endtime").remove();
-     }else {*/
-    $('#datepairExample .date').datepicker({
-        startDate: new Date(),
-        format: 'yyyy-mm-dd',
-        autoclose: true
-    }).on('changeDate', function (selected) {
-        var startDate = new Date(selected.date.valueOf());
-        $('#event_ends_at').datepicker('setStartDate', startDate);
-        var selectedDate = $('#event_starts_at').datepicker('getDate');
-        var today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-        if (Date.parse(today) == Date.parse(selectedDate)) {
-            $('#datepairExample .time').timepicker({
-                'timeFormat': 'g:ia',
-                'minTime': new Date(),
-                'maxTime': '11:59:59pm',
-                'forceRoundTime': true
-            });
-        } else {
-             $('#event_start_time').timepicker('remove');
-            $('#event_start_time').timepicker();
+      $("#venue_type").hide()
+      $('#default_venue_address').hide()
+      <% if !@event.venue  %>
+      $('#venue_dform').fadeIn('slow')
+    $('#datepairExample .start').datetimepicker({
+        onShow:function( $input ){
+            var hours = $input.getHours();
+            var minutes = $input.getMinutes();
+            var current_time = hours + ":" + minutes
+            this.setOptions({
+                minDate: '0',
+                minTime: current_time
+            })
+        },
+        onChangeDateTime:function($input){
+            $('#datepairExample .end').val('')
+            var date = $input.getDate();
+            var month = $input.getMonth() + 1;
+            var year = $input.getFullYear();
+            var choose_date = year  + "/" + month + "/" + date;
+            var today = new Date()
+            var today_date = today.getDate();
+            var today_month = today.getMonth() + 1;
+            var today_year = today.getFullYear();
+            var hours = today.getHours();
+            var minutes = today.getMinutes();
+            var current_date = today_year  + "/" + today_month + "/" + today_date;
+            var current_time = hours + ":" + minutes
+            if(choose_date == current_date){
+                this.setOptions({
+                    minTime: current_time
+                })
+            }
+            else{
+                this.setOptions({
+                    minTime: '00:00'
+                })
+            }
         }
-
-
-       if($("#event_venue_id").val()){
-           venue_id=$("#event_venue_id").val()
-           var sData = $('#edit_event_<%=@event.id%>').serialize();
-           //alert(sData)
-           $.ajax({
-               url: "/events/select_venue",
-               type: "POST",
-               data: sData,
-               success: function() {
-                   $.ajax({
-                       url:  "/venues/<%=@event.venue_id%>/check_availability",
-                       type: "GET",
-                       data: {id: venue_id}/*,
-                    success: function() {
-                        $('#event_start_time').val()
-                    }*/
-                   });
-               }
-           });
-       }
-
     });
-
-
-    $("#change_venue").click(function(){
-        if($("#event_venue_id").val()) {
-            $("#event_venue_id").val("")
-            $("#event_starts_at").val("")
-            $("#event_start_time").val("")
-        }
-        selected_date=$("#event_starts_at").val()
-        selected_time=$("#event_start_time").val()
-        if(selected_date == "" ) {
-            $("#venue_type").val("Venue*")
-            bootbox.alert("please select Start Date")
-            return false;
-        }
-        else if(selected_time == "" ) {
-            $("#venue_type").val("Venue*")
-            bootbox.alert("please select Start Time ")
-            return false;
-        }
-        $('#venue_afterchoose').empty()
-        $('#venue_afterchoose').fadeOut()
-        var sData = $('#edit_event_<%=@event.id%>').serialize();
-        $.ajax({
-            type: "POST",
-            url: "/events/select_venue",
-            data: sData,
-            success: function(res) {
-                Turbolinks.visit('/venues?from_event=true')
+    $('#datepairExample  .end').datetimepicker({
+        onShow:function( ct ){
+            var end_date_and_time = $('#datepairExample .start').val()
+            var end_date  = end_date_and_time.split(' ')
+            var ends_at = end_date[0]
+            var end_time = end_date[1]
+            this.setOptions({
+                minDate: ends_at ? ends_at : '0',
+                minTime: end_time
+            })
+        },
+        onChangeDateTime:function($input){
+            var end_date_and_time = $('#datepairExample .end').val()
+            var end_date = end_date_and_time.split(' ')
+            var ends_at = end_date[0]
+            var start_date_and_time = $('#datepairExample .start').val()
+            var start_date  = start_date_and_time.split(' ')
+            var starts_at = start_date[0]
+            var start_time = start_date[1]
+            if(ends_at == starts_at){
+                this.setOptions({
+                    minTime: start_time
+                })
             }
-        });
-
-    });
-
-
-    $('#edit_event_<%=@event.id%> #venue_type').bind('change', function () {
-        if($(this).val() == 'choose'){
-            selected_date=$("#event_starts_at").val()
-            selected_time=$("#event_start_time").val()
-            if(selected_date == "" ) {
-                $("#venue_type").val("Venue*")
-                bootbox.alert("please select Start Date")
-                return false;
+            else{
+                this.setOptions({
+                    minTime: '00:00'
+                })
             }
-            else if(selected_time == "" ) {
-                $("#venue_type").val("Venue*")
-                bootbox.alert("please select Start Time ")
-                return false;
-            }
-
-            $('#venue_dform').empty()
-            $('#venue_dform').fadeOut()
-            $('#default_venue_address').fadeOut()
-
-            var sData = $('#edit_event_<%=@event.id%>').serialize();
-            $.ajax({
-                type: "POST",
-                url: "/events/select_venue",
-                data: sData,
-                success: function(res) {
-                    Turbolinks.visit('/venues?from_event=true')
-                }
-            });
-        }else if($(this).val() == 'custom'){
-            $('#datepairExample .date').datepicker({
-                startDate: new Date(),
-                format: 'yyyy-mm-dd',
-                autoclose: true
-            });
-            $('#event_start_time').removeAttr('readonly', false);
-            $('#event_starts_at').removeAttr('readonly', false);
-            $('#event_end_time').removeAttr('readonly',false);
-            $('#event_ends_at').removeAttr('readonly',false);
-            $('#venue_afterchoose').remove()
-            $('#default_venue_address').fadeOut()
-            $('#venue_dform').fadeIn('slow')
-            $('#venue_name').remove()
-            $('#event_venue_id').val('')
-            $('#event_location').val('')
-            $('#event_city').val('')
-            $('#event_state').val('')
-            $('#event_country').val('')
-            $('#event_zip').val('')
-            $("#venus_hidden_fields").empty()
 
         }
     });
 
+      <% end %>
 
 
 
 
 
-    <%if @venue.present?%>
-    $("#venue_type").val("choose")
-    <%else%>
-    $("#venue_type").val("custom")
-    <%end%>
 
 
+
+
+                            /*
+                                $('#edit_event_<%#=@event.id%> #venue_type').on('change', function () {
+                                    if($(this).val() == 'choose'){
+                                        selected_date=$("#event_starts_at").val()
+                                        selected_end_date=$("#event_ends_at").val()
+                                        if(selected_date == "" ) {
+                                            $("#venue_type").val("Venue*")
+                                            bootbox.alert("please select Start Date")
+                                            return false;
+                                        }
+                                        // SELECT END DATE & END TIME
+                                        else if(selected_end_date == "" ) {
+                                            $("#venue_type").val("Venue*")
+                                            bootbox.alert("please select End Date ")
+                                            return false;
+                                        }
+
+
+                                        $('#venue_dform').empty()
+                                        $('#venue_dform').fadeOut()
+                                        var sData = $('#edit_event_<%#=@event.id%>').serialize();
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/events/select_venue",
+                                            data: sData,
+                                            success: function(res) {
+                                                Turbolinks.visit('/venues?from_event=true')
+                                            }
+                                        });
+                                    }else if($(this).val() == 'custom'){
+
+                                        $('#venue_afterchoose').remove()
+                                        $('#venue_dform').fadeIn('slow')
+                                        $('#venue_name').remove()
+                                        $('#event_venue_id').val('')
+                                        $('#event_location').val('')
+                                        $('#event_city').val('')
+                                        //$('#event_state').val('')
+                                        //$('#event_country').val('')
+                                        $('#event_zip').val('')
+                                        $("#venus_hidden_fields").empty()
+
+                                    }
+                                });*/
 
     /*event creation end time toggle option */
     $(".btn_add_endtime").click(function(e) {
@@ -485,10 +338,6 @@
         $(".btn_remove_endtime").fadeIn("slow");
     }
 
-    /*if($('#event_venue_id').val() != ''){
-     $('#venue_dform').show()
-     }*/
-    //$("#event_design_id").val("")
 
     function invokeDesign(template_id,design_id){
         if(template_id != ''){
@@ -516,12 +365,11 @@
 
 
     updateTemplateDesignWithData = function(){
-
         $ele = $('#event_template_designs')
         if($('#event_host_name').val() !== '') $ele.find('.eventDesignHostname').text($('#event_host_name').val())
         if($('#event_name').val() !== '') $ele.find('.eventDesignEventName').text($('#event_name').val())
-        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val() +' '+ $('#event_start_time').val());
-        if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
+        if($('#event_starts_at').val() !== '') $ele.find('.eventDesignEventDate').text($('#event_starts_at').val()  +'  '+ $('#event_ends_at').val() );
+        // if($('#event_description').val() !== '') $ele.find('.eventDesignEventText').find('td').text($('#event_description').val())
         $("#edit_event_<%=@event.id%> #event_host_name").keyup(function(){
             ($(this).val() == '') ?  $ele.find('.eventDesignHostname').text('Host Name') : $ele.find('.eventDesignHostname').text($(this).val())
         })
@@ -533,14 +381,10 @@
             ($(this).val() == '') ?  $ele.find('.eventDesignEventCustomType').text('') : $ele.find('.eventDesignEventCustomType').text($(this).val())
         })
 
-        $("#edit_event_<%=@event.id%> #event_description").keyup(function(){
-            ($(this).val() == '') ?  $ele.find('.eventDesignEventText').text('Description') : $ele.find('.eventDesignEventText').text($(this).val())
-        })
 
-
-        $("#edit_event_<%=@event.id%> #event_starts_at,#edit_event_<%=@event.id%> #event_start_time").change(function() {
+        $("#edit_event_<%=@event.id%> #event_starts_at,#edit_event_<%=@event.id%> #event_ends_at").change(function() {
             var eventDesignEventDate = $ele.find('.eventDesignEventDate')
-            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_start_time').val() );
+            eventDesignEventDate.text($('#event_starts_at').val() +' '+ $('#event_ends_at').val() );
         });
 
         /*$("#edit_event_<%#=@event.id%> #event_description").keyup(function() {
@@ -550,7 +394,4 @@
 
     }
 
-
-
-    // $('#datepairExample').datepair();
 </script>
