@@ -87,8 +87,7 @@ class EventsController < ApplicationController
     event_design = event_template.designs.where(id: @event.design_id).first if event_template
     c_design = @handlebars.compile(event_design.content)
     kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
-
-    image_path = kit.to_file( "#{Rails.root.to_s}/tmp/fb-share-#{@event.id}.png")
+    image_path = kit.to_file( "#{Rails.root.join('tmp')}/fb-share-#{@event.id}-#{Time.now.to_i}.png")
     @event.fb_image = File.open image_path
     @event.save(validate: false)
     if Rails.env.production?
