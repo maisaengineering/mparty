@@ -1,6 +1,6 @@
 class Spree::Admin::BookingsController < Spree::Admin::ResourceController
- # authorize_resource :class => false
-  
+  # authorize_resource :class => false
+
   def index
     @bookings = VenueCalendar.includes(:venue,:event,:requested_by).page(params[:page]).per(10)
   end
@@ -11,11 +11,9 @@ class Spree::Admin::BookingsController < Spree::Admin::ResourceController
 
   def update
     @venue_calendar = VenueCalendar.find(params[:id])
-    if params[:status].eql?('2')
-      @venue_calendar.update_attribute(:status, 2) # confirmed
-    elsif params[:status].eql?('3')
-      @venue_calendar.update_attribute(:status, 3) # rejected
-      end
+    @venue_calendar.update_attribute(:status, params[:status])
+    @venue_calendar.update_attribute(:user_id, spree_current_user.id) #skip callbacks
+    # Send an email to customer here
     redirect_to :back,notice: 'Updated successfully'
 
   end
