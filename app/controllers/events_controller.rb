@@ -108,7 +108,7 @@ class EventsController < ApplicationController
     kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe,height: 560, width:405, quality: 250)
     file = kit.to_file( "#{temp_path}/#{@event.id}.png")
 
-
+    puts "#################################   #{temp_path}/#{@event.id}.png"
     @image_path =  "http://mparty.herokuapp.com/#{temp_path}/#{@event.id}.png"
 
 
