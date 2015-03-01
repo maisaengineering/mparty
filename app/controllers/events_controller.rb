@@ -99,7 +99,7 @@ class EventsController < ApplicationController
     # @image_path = "https://commondatastorage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
     # @image_path = "http://storage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
    # @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
-    @image_path = ActionController::Base.helpers.asset_url('banner_2.jpg')
+    @image_path = 'http://mparty.herokuapp.com/assets/banner_2.jpg'
     render layout: false
   end
 
