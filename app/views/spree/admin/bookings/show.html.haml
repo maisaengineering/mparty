@@ -20,7 +20,7 @@
           %span.state{class: @booking.admin_css_class}=@booking.status_str
         %td.actions{:style => "width: 125px; text-align: left;"}
           %a.icon_link.with-tip.icon-capture.no-text{ :href => "/admin/booking/#{@booking.id}/update?status=2" ,title: 'Confirm booking'}
-          %a.icon_link.with-tip.icon-void.no-text{:href => "/admin/booking/#{@booking.id}/update?status=3" ,title: 'Cancel booking'}
+          %a.icon_link.with-tip.icon-void.no-text{:href => "/admin/booking/#{@booking.id}/update?status=0" ,title: 'Cancel booking'}
 #sidebar.five.columns
   %h5.sidebar-title
     %span
@@ -30,12 +30,14 @@
       %dt{"data-hook" => "", :style => "height: 42px;"} Venue:
       %dd#item_total{:style => "height: 42px;"}
         = link_to @booking.venue.name ,"/venues/#{@booking.venue.id}"
-      %dt{"data-hook" => "", :style => "height: 42px;"} Event:
-      %dd#item_total{:style => "height: 42px;"}
-        = link_to @booking.event.name ,"/events/#{@booking.event.id}"
-      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Name:
-      %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.full_name}
-      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Email:
-      %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.email}
-      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Phone:
-      %dd#order_total{:style => "height: 42px;"} #{@booking.requested_by.phone}
+      - if @booking.event
+        %dt{"data-hook" => "", :style => "height: 42px;"} Event:
+        %dd#item_total{:style => "height: 42px;"}
+          = link_to @booking.event.name ,"/events/#{@booking.event.id}"
+      - if @booking.requested_by
+        %dt{"data-hook" => "", :style => "height: 42px;"} Customer Name:
+        %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.full_name}
+        %dt{"data-hook" => "", :style => "height: 42px;"} Customer Email:
+        %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.email}
+        %dt{"data-hook" => "", :style => "height: 42px;"} Customer Phone:
+        %dd#order_total{:style => "height: 42px;"} #{@booking.requested_by.phone}
