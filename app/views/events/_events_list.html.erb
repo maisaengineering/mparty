@@ -29,9 +29,9 @@
                            <%= image_tag("blur.png") %>
                         <% else  %>
                             <% if e.venue %>
-                                <%= truncate(e.venue.name.camelcase ,length: 20) %>
+                                <%= truncate(e.venue.name ,length: 20) %>
                             <% else %>
-                                <%= truncate(e.location.camelcase ,length: 20) %>
+                                <%= truncate(e.location ,length: 20) %>
                             <% end %>
                         <% end %>
                       </div>

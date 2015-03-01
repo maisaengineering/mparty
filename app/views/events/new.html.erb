@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="container container_stlye">
     <div class="row">
-      <div class="title_name">Create Event  <a href="#" onclick="fb_publish();">Post</a></div>
+      <div class="title_name">Create Event</div>
     </div>
     <div class="row event_margin">
       <div class="col-md-2">
@@ -51,38 +51,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-    window.fbAsyncInit = function() {
-        FB.init({
-            appId      : 1496265010630437,
-            xfbml      : true,
-            version    : 'v2.2'
-        });
-    };
-
-    (function(d, s, id){
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement(s); js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
-    function fb_publish() {
-        var data=
-        {
-            method: 'stream.publish',
-            message: "Message of the event post",
-            display: 'iframe',
-            caption: "Caption of event post",
-            name: "My Event name",
-            picture: 'http://ketchumsampark.com/sites/default/files/styles/media_640w/public/event_marketing.jpg',
-            link: "http://mparty.herokuapp.com/",  // Go here if user click the picture
-            description: "Description of the event post",
-            actions: [{ name: 'action_links text!', link: 'http://mparty.herokuapp.com/events/648' }]
-        }
-        FB.ui(data, function(){});
-    }
-</script>
