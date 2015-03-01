@@ -21,7 +21,7 @@ class Event < ActiveRecord::Base
   has_many :wished_products,through: :wishlist
   has_many :purchased_products,through: :wishlist
 
-  before_validation :start_date_end_date_validate_slot_available
+  before_validation :start_date_end_date_validate_slot_available, :if => Proc.new { |event| event.venue_id_changed?}
   # before_create :fill_end_date_and_time
   after_create :create_venue_calender
 

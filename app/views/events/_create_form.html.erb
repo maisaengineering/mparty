@@ -80,8 +80,8 @@
               <div class="col-md-12 mtop20">
                 <ul class="venue_ctc_details" id="venue_afterchoose">
                   <li> <span class="glyphicon glyphicon-map-marker"></span> <b><%= @venue.name %></b></li>
-                  <li> <%= "#{@venue.address1}, #{@venue.address2}" %>, </li>
-                  <li> <%= @venue.city  %>,<%= @venue.state  %>, </li>
+                  <li> <%= "#{@venue.address1}, #{@venue.address2}" %> </li>
+                  <li> <%= @venue.city  %>, <%= @venue.state  %>, </li>
                   <li> <%= @venue.country  %>, <%= @venue.zip %> </li>
                 </ul>
               </div>
@@ -158,8 +158,9 @@
         $('#event_is_private').val(0)
     });
 
+
+      <% if !@venue  %>
         $('#datepairExample .start').datetimepicker({
-            format:'Y/m/d  H:m',
             onShow:function( $input ){
                 var hours = $input.getHours();
                 var minutes = $input.getMinutes();
@@ -196,25 +197,24 @@
             }
         });
         $('#datepairExample  .end').datetimepicker({
-            format:'Y/m/d  H:m',
             onShow:function( ct ){
                 var end_date_and_time = $('#datepairExample .start').val()
                 var end_date  = end_date_and_time.split(' ')
                 var ends_at = end_date[0]
-                var end_time = end_date[2]
+                var end_time = end_date[1]
                 this.setOptions({
                     minDate: ends_at ? ends_at : '0',
                     minTime: end_time
                 })
             },
-            onSelectDate:function($input){
+            onChangeDateTime:function($input){
                 var end_date_and_time = $('#datepairExample .end').val()
                 var end_date = end_date_and_time.split(' ')
                 var ends_at = end_date[0]
                 var start_date_and_time = $('#datepairExample .start').val()
                 var start_date  = start_date_and_time.split(' ')
                 var starts_at = start_date[0]
-                var start_time = start_date[2]
+                var start_time = start_date[1]
                 if(ends_at == starts_at){
                     this.setOptions({
                         minTime: start_time
@@ -228,6 +228,7 @@
 
             }
         });
+    <% end %>
 
 
 
