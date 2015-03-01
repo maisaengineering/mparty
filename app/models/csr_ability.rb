@@ -32,6 +32,7 @@ class CsrAbility
       #   resource.user_id == user.id
       # end
       can [:admin, :manage], Venue
+      can [:admin ,:manage], :booking
     end
   end
 end

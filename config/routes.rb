@@ -19,6 +19,9 @@ Invitation::Application.routes.draw do
           delete 'remove_venue_slot'
         end
       end
+      get '/bookings'=>"bookings#index"
+      get '/booking/show/:id'=>"bookings#show",as: :admin_booking_show
+      get '/booking/:id/update/'=>"bookings#update",as: :admin_booking_update
     end
   end
   # resources :templates
@@ -158,6 +161,7 @@ Invitation::Application.routes.draw do
 
   get '/event/:event_id/add-photos'=>"events#add_photos",as: :add_photos_event
   get '/event/:event_id/invite-friends'=>"events#invite_without_wishlist",as: :invite_without_wishlist
+  get '/event/:id/share_on_fb/', to: "events#share_on_fb", as: :share_on_fb
 
   ## Invited Users List
   get '/event/:id/invited_users_list/', to: "events#invited_users_list", as: :invited_users_list

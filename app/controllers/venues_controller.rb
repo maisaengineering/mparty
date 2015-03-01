@@ -9,7 +9,7 @@ class VenuesController < ApplicationController
       end
     elsif params[:venue_id].present? # when comes from get suggestions
       suggestible_venue = Venue.find(params[:venue_id])
-      @venues =  Venue.where("city iLIKE ? OR state iLIKE ?", suggestible_venue.city,suggestible_venue.state)
+      @venues =  Venue.where.not(id: suggestible_venue.id).where("city iLIKE ? OR state iLIKE ?", suggestible_venue.city,suggestible_venue.state)
       if session[:event_data].present?
         event = Event.new(session[:event_data])
         if event.starts_at and event.ends_at

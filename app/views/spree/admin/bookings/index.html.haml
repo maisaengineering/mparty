@@ -1,0 +1,32 @@
+- content_for :page_title do
+  Listing Bookings
+
+= paginate @bookings
+- if @bookings.any?
+  %table#listing_bookings.index.responsive
+    %colgroup
+      %col
+      %col
+      %col
+      %col
+      %col
+    %thead
+      %tr
+        %th Venue
+        %th Event
+        %th Customer
+        %th Status
+        %th
+    %tbody
+      - @bookings.each do |venue_calendar|
+        %tr{:class => "#{cycle('odd', 'even')}"}
+          %td.align-center=link_to venue_calendar.venue.name,"/venues/#{venue_calendar.venue.id}",target: '_blank'
+          %td.align-center= venue_calendar.event ? link_to(venue_calendar.event.name,"/events/#{venue_calendar.event.id}",target: '_blank') : nil
+          %td.align-center= venue_calendar.requested_by ? venue_calendar.requested_by.full_name : nil
+          %td.align-center
+            %span.state{class: venue_calendar.admin_css_class}=venue_calendar.status_str
+          %td.align-center= link_to 'Update',"/admin/booking/show/#{venue_calendar.id}"
+- else
+  .alpha.twelve.columns.no-objects-found
+    No bookings yet
+= paginate @bookings

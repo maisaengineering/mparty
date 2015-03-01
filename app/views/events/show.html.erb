@@ -156,14 +156,15 @@
           </div>
         </div>
       </div>
-      <% if policy(@event).post_event_on_fb?%>
-          <img id='my_source' src="<%= event_url(@event) %>"  style="display: none;" width="auto" height="auto" onclick="share_on_fb(this)"/>
-          <div class="fb-wrap-loginsmall mbottom10 pull-right mright20">
-            <div id="share_fb_button">
-              <div class="fb-icon-bg"></div>
-              <div class="fb-bg">Share</div>
-            </div>
-          </div>
+      <% if policy(@event).post_event_on_fb? %>
+          <%= link_to share_on_fb_path(@event.id), remote: true,id: "share_on_fb",title: 'Share on FB' do %>
+              <div class="fb-wrap-loginsmall mbottom10 pull-right mright20">
+                <div id="share_fb_button">
+                  <div class="fb-icon-bg"></div>
+                  <div class="fb-bg">Share</div>
+                </div>
+              </div>
+          <% end %>
       <%end%>
 
       <% if @event_design %>
@@ -309,14 +310,25 @@
         $("#event_address").fadeIn("slow").css("display", "block")
     });
 
-    function share_on_fb(TheImg) {
-        u=TheImg.src;
-        t="M-Party Invitation.";
-        // t=TheImg.getAttribute('alt');
-        window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;
-    }
-    $("#share_fb_button").click( function() {
-        $("#my_source").trigger("click");
-    })
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : "<%= ENV['FB_API_KEY']%>",
+            xfbml      : true,
+            version    : 'v2.2'
+        });
+    };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    $("#share_on_fb")
+            .bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
+            .bind('ajax:success', function(e,data, status, xhr) { $('.loading-indicator').hide() })
+
 
 </script>

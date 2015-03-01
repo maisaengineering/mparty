@@ -31,6 +31,8 @@ class Event < ActiveRecord::Base
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
+  mount_uploader :fb_image, EventTemplateUploader
+
   #validate :validate_duplicate_event_name
 
   validates :name,:template_id, :starts_at,:ends_at,:description,:city,:state,:country,:zip, presence: true

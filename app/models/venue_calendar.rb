@@ -5,7 +5,7 @@ class VenueCalendar < ActiveRecord::Base
 	belongs_to :requested_by, foreign_key: "requested_id", class_name: "Spree::User"
 
 	validates_presence_of :start_date, :end_date #, :event_id
-	validates_uniqueness_of :start_date, scope: :venue_id
+	#validates_uniqueness_of :start_date, scope: :venue_id
 	validate :end_date_is_after_start_date
 	#validate :valid_slots
 
@@ -16,8 +16,9 @@ class VenueCalendar < ActiveRecord::Base
   scope :available ,-> { where(status: 0) }
   scope :pending ,-> { where(status: 1) }
   scope :confirmed ,-> { where(status: 2)}
-  scope :booked ,->  { where.not(status: 0) }  # not available either in pending or confirmed status
-  scope :reserved ,->(starts_at,ends_at) {where.not(status: 0).where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
+  scope :cancelled ,-> { where(status: 3)}
+  scope :booked ,->  { where('status != ? OR status != ?' ,0,3) }  # not available either in pending or confirmed status
+  scope :reserved ,->(starts_at,ends_at) {booked.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
                                                              starts_at,starts_at,ends_at,ends_at)}
 
   def color
@@ -33,6 +34,17 @@ class VenueCalendar < ActiveRecord::Base
       when 0; 'available'
       when 1; 'pending'
       when 2; 'reserved'  # confirmed
+      when 3; 'cancelled'  # confirmed
+    end
+  end
+
+
+  def admin_css_class
+    case status
+      when 0; 'complete'
+      when 1; 'pending'
+      when 2; 'complete'  # confirmed
+      when 3; 'cancelled'
     end
   end
 
