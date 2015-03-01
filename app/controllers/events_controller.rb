@@ -99,20 +99,7 @@ class EventsController < ApplicationController
     # @image_path = "https://commondatastorage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
     # @image_path = "http://storage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
    # @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
-
-    event_template = Spree::Admin::Template.where(id: @event.template_id).first
-    event_design = event_template.designs.where(id: @event.design_id).first if event_template
-    c_design = @handlebars.compile(event_design.content)
-    temp_path = "#{Rails.root.join('tmp')}/fb-share/#{Time.now.strftime("%Y%m%d%H%M%S%L-%12N")}-#{rand.to_s[2..11]}"
-    FileUtils::mkdir_p temp_path
-    kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe,height: 560, width:405, quality: 250)
-    file = kit.to_file( "#{temp_path}/#{@event.id}.png")
-
-    puts "#################################   #{temp_path}/#{@event.id}.png"
-    @image_path =  "http://mparty.herokuapp.com/#{temp_path}/#{@event.id}.png"
-
-
-
+    @image_path = 'http://mparty.herokuapp.com/assets/banner_2.jpg'
     render layout: false
   end
 
