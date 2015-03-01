@@ -15,6 +15,7 @@ FB.ui(data, function (response){
     if (response && response.post_id){
         bootbox.alert('Event successfully published on your FB wall.');
     } else {
-        bootbox.alert('Opps some thing went wrong.');
+        cosole.log(response)
+        bootbox.alert('Opps something went wrong');
     }
 });
