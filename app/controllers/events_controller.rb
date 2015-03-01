@@ -87,11 +87,16 @@ class EventsController < ApplicationController
     event_design = event_template.designs.where(id: @event.design_id).first if event_template
     c_design = @handlebars.compile(event_design.content)
     kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
-    file = kit.to_file( "#{Rails.root.to_s}/tmp/fb-share-#{@event.id}.png")
-    @image_path = file.path.split("/")
 
+    image_path = kit.to_file( "#{Rails.root.to_s}/tmp/fb-share-#{@event.id}.png")
+    @event.fb_image = File.open image_path
+    @event.save(validate: false)
+    if Rails.env.priduction?
+      @image_path = @event.fb_image.url
+    else
+      @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
+    end
     render layout: false
-
   end
 
   def preview
