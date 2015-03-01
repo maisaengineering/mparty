@@ -1,0 +1,41 @@
+- content_for :page_title do
+  View Booking
+
+.ten.columns
+  %h5.outstanding-balance
+    Venue:
+    %strong= link_to @booking.venue.name,"/venues/#{@booking.venue.id}"
+  %table.index
+    %thead
+      %tr{"data-hook" => "payments_header"}
+        %th Start Date
+        %th End Date
+        %th Status
+        %th.actions
+    %tbody
+      %tr{:class => cycle('odd', 'even')}
+        %td= @booking.start_date
+        %td.align-center= @booking.start_date
+        %td.align-center
+          %span.state{class: @booking.admin_css_class}=@booking.status_str
+        %td.actions{:style => "width: 125px; text-align: left;"}
+          %a.icon_link.with-tip.icon-capture.no-text{ :href => "/admin/booking/#{@booking.id}/update?status=2" ,title: 'Confirm booking'}
+          %a.icon_link.with-tip.icon-void.no-text{:href => "/admin/booking/#{@booking.id}/update?status=3" ,title: 'Cancel booking'}
+#sidebar.five.columns
+  %h5.sidebar-title
+    %span
+      Booking Information
+  %header#order_tab_summary{"data-hook" => ""}
+    %dl.additional-info
+      %dt{"data-hook" => "", :style => "height: 42px;"} Venue:
+      %dd#item_total{:style => "height: 42px;"}
+        = link_to @booking.venue.name ,"/venues/#{@booking.venue.id}"
+      %dt{"data-hook" => "", :style => "height: 42px;"} Event:
+      %dd#item_total{:style => "height: 42px;"}
+        = link_to @booking.event.name ,"/events/#{@booking.event.id}"
+      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Name:
+      %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.full_name}
+      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Email:
+      %dd#item_total{:style => "height: 42px;"} #{@booking.requested_by.email}
+      %dt{"data-hook" => "", :style => "height: 42px;"} Customer Phone:
+      %dd#order_total{:style => "height: 42px;"} #{@booking.requested_by.phone}

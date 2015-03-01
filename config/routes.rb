@@ -19,6 +19,9 @@ Invitation::Application.routes.draw do
           delete 'remove_venue_slot'
         end
       end
+      get '/bookings'=>"bookings#index"
+      get '/booking/show/:id'=>"bookings#show",as: :admin_booking_show
+      get '/booking/:id/update/'=>"bookings#update",as: :admin_booking_update
     end
   end
   # resources :templates
