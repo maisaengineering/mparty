@@ -3,3 +3,12 @@ development:
   google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
   GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
   IS_HEROKU: 'yes'
+  FB_API_KEY: '1496265010630437'
+  FB_API_SECRET: '11d20cab3a436ae9c6dca57b1ea7fedf'
+production:
+  google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxx'
+  google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
+  GOOGLE_API_KEY: 'AIzaSyAG6rgVJUyd9eXKI5TAxRqCPO8ei0DuUmo'
+  IS_HEROKU: 'no'
+  FB_API_KEY: '575075849287448'
+  FB_API_SECRET: '673925a57034c41aa3986a0f09beda56'
