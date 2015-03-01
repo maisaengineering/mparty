@@ -7,15 +7,15 @@ var data=
     name: "<%= @event.name %>",
     picture: "<%= @image_path %>",
     link: "<%= event_url(@event) %>",
-    description: "abcd",
-    actions: [{ name: 'Mparty', link: 'http://mparty.herokuapp.com/' }]
+    description: "abcd"//,
+    //actions: [{ name: 'Mparty', link: 'http://mparty.herokuapp.com/' }]
 }
 FB.ui(data, function (response){
     $('.loading-indicator').hide();
     console.log(response)
     if (response){
-        bootbox.alert('Event successfully published on your FB wall.');
+        bootbox.alert('Event successfully published on your FB timeline.');
     } else {
-        bootbox.alert('Opps something went wrong');
+        bootbox.alert('Oops something went wrong');
     }
 });
