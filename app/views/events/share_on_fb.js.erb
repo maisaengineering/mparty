@@ -1,21 +1,21 @@
 var data=
 {
     method: 'stream.publish',
-    message: "Hi I create a event in mparty", // TO DO ....
+    message: "Hi I create a event in mparty",
     display: 'iframe',
-    caption: "Mparty: Celebrate your Event with Heart Likes Gifts",  // TO DO ....
+    caption: "Mparty: Celebrate your Event with Heart Likes Gifts",
     name: "<%= @event.name %>",
-    picture: "<%= @image_path %>",    //   NOW CREATED IMAGE URL
-    link: "<%= event_url(@event) %>",  // Go here if user click the picture
-    description: "<%= @event.description.gsub(/\r\n?/, " ") %>",
+    picture: "<%= @image_path %>",
+    link: "<%= event_url(@event) %>",
+    description: "abcd",
     actions: [{ name: 'Mparty', link: 'http://mparty.herokuapp.com/' }]
 }
 FB.ui(data, function (response){
     $('.loading-indicator').hide();
-    if (response && response.post_id){
+    console.log(response)
+    if (response){
         bootbox.alert('Event successfully published on your FB wall.');
     } else {
-        console.log(response)
         bootbox.alert('Opps something went wrong');
     }
 });
