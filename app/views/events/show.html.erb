@@ -312,7 +312,7 @@
 
     window.fbAsyncInit = function() {
         FB.init({
-            appId      : "1496265010630437",
+            appId      : "<%= ENV['FB_API_KEY']%>",
             xfbml      : true,
             version    : 'v2.2'
         });
