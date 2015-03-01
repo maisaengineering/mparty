@@ -93,6 +93,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
    @venue = Venue.find(params[:id])
 
    @new_venue_calendar = @venue.venue_calendars.build(venue_calendar_params)
+ #  @new_venue_calendar.status = 2
    @new_venue_calendar.user_id = current_spree_user.id
    if @new_venue_calendar.save
      #update_event = @new_venue_calendar.event

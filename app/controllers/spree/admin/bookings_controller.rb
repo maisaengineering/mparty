@@ -2,7 +2,7 @@ class Spree::Admin::BookingsController < Spree::Admin::ResourceController
   # authorize_resource :class => false
 
   def index
-    @bookings = VenueCalendar.includes(:venue,:event,:requested_by).order('created_at DESC').page(params[:page]).per(10)
+    @bookings = VenueCalendar.includes(:venue,:event,:requested_by).where.not(event_id: nil).order('created_at DESC').page(params[:page]).per(10)
   end
 
   def show
