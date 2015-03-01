@@ -99,3 +99,5 @@ gem 'omnicontacts'
 # url content and get video image in VenueUrl for venues
 gem 'hpricot'
 gem 'geoip' #https://github.com/cjheath/geoip
+
+gem 'imgkit'

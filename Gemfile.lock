@@ -207,6 +207,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
+    imgkit (1.4.1)
     ipaddress (0.8.0)
     jbuilder (1.5.3)
       activesupport (>= 3.0.0)
@@ -473,6 +474,7 @@ DEPENDENCIES
   handlebars
   heroku_rails_deflate
   hpricot
+  imgkit
   jbuilder (~> 1.2)
   jquery-fileupload-rails
   jquery-rails (= 3.1.1)

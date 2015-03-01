@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
   before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist,:preview]
-  before_filter :register_handlebars,only: [:update_designs,:show,:preview]
+  before_filter :register_handlebars,only: [:update_designs,:show,:preview,:share_on_fb]
   #layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
@@ -78,6 +78,20 @@ class EventsController < ApplicationController
     @comment = Comment.new
     @event_template = Spree::Admin::Template.where(id: @event.template_id).first
     @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+  end
+
+
+  def share_on_fb
+    @event = Event.find(params[:id])
+    event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    event_design = event_template.designs.where(id: @event.design_id).first if event_template
+    c_design = @handlebars.compile(event_design.content)
+    kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
+    file = kit.to_file( "#{Rails.root.to_s}/tmp/fb-share-#{@event.id}.png")
+    @image_path = file.path.split("/")
+
+    render layout: false
+
   end
 
   def preview
@@ -358,7 +372,7 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:name, :host_name,:venue_id,:friend_emails,
                                   :host_phone, :location, :description, :starts_at,
-                                   :ends_at , :is_private,
+                                  :ends_at , :is_private,
                                   :city,:state,:country,:zip,
                                   :image, :template_id, :design_id,:custom_event_type, pictures_attributes: [:image])
   end
