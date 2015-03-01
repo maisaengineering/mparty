@@ -91,7 +91,7 @@ class EventsController < ApplicationController
     image_path = kit.to_file( "#{Rails.root.to_s}/tmp/fb-share-#{@event.id}.png")
     @event.fb_image = File.open image_path
     @event.save(validate: false)
-    if Rails.env.priduction?
+    if Rails.env.production?
       @image_path = @event.fb_image.url
     else
       @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"

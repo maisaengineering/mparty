@@ -101,3 +101,4 @@ gem 'hpricot'
 gem 'geoip' #https://github.com/cjheath/geoip
 
 gem 'imgkit'
+gem 'wkhtmltoimage-binary'
