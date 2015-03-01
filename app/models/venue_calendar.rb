@@ -5,7 +5,7 @@ class VenueCalendar < ActiveRecord::Base
 	belongs_to :requested_by, foreign_key: "requested_id", class_name: "Spree::User"
 
 	validates_presence_of :start_date, :end_date #, :event_id
-	validates_uniqueness_of :start_date, scope: :venue_id
+	#validates_uniqueness_of :start_date, scope: :venue_id
 	validate :end_date_is_after_start_date
 	#validate :valid_slots
 
