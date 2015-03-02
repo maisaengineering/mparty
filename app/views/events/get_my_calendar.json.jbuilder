@@ -1,5 +1,5 @@
 json.prettify!
-json.array!(@events) do |event|
+json.array!(@events.uniq) do |event|
   json.extract! event, :id, :description
   json.title event.name
   json.start event.starts_at.iso8601
@@ -12,7 +12,7 @@ json.array!(@events) do |event|
         json.color '#cccccc' # gray pending inv
         json.tooltip 'Pending Invitation'
       elsif inv.joined == 1
-        json.color '#00ff7f' #green accepted/attending
+        json.color '#91e374' #green accepted/attending
         json.tooltip 'Attending Event'
       elsif inv.joined == 2
         json.color '#bc1339' # red rejected

@@ -338,7 +338,7 @@ class EventsController < ApplicationController
   end
 
   def get_my_calendar
-    @events = current_spree_user.events.includes(:invites) + current_spree_user.invites.includes(:event).map(&:event)
+    @events = current_spree_user.events.includes(:invites) + current_spree_user.event_invitations
     respond_to do |format|
       format.js
       format.json
