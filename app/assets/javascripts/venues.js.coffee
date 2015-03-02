@@ -4,3 +4,16 @@
 
 $(document).ready ->
 	$('.raty-cancel').css("display","none")
+
+$(document).on 'click', '.reserve_this_venue_to_event', (e) ->
+  e.preventDefault()
+  url = '/venues/' + $(this).data('id') + '/check_availability'
+  $.ajax
+    url: url
+    beforeSend: ->
+      $('.loading-indicator').fadeIn 'slow'
+      return
+    success: (res) ->
+      $('.loading-indicator').hide()
+      return
+  return

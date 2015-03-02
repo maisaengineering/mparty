@@ -5,14 +5,3 @@
     <% end %>
   </div>
 <% end %>
-<script type="text/javascript">
-    $(document).on('click','.reserve_this_venue_to_event',function(e){
-        e.preventDefault();
-        url = '/venues/'+$(this).data('id')+'/check_availability'
-        $.ajax({
-            url: url,
-            beforeSend: function(){  $('.loading-indicator').fadeIn('slow') },
-            success: function(res) { $('.loading-indicator').hide() }
-        });
-    })
-</script>
