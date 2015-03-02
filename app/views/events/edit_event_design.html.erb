@@ -194,13 +194,29 @@
       $('#venue_dform').fadeIn('slow')
     $('#datepairExample .start').datetimepicker({
         onShow:function( $input ){
+            var date = $input.getDate();
+            var month = $input.getMonth() + 1;
+            var year = $input.getFullYear();
+            var choose_date = year  + "/" + month + "/" + date;
             var hours = $input.getHours();
             var minutes = $input.getMinutes();
+            var today = new Date()
+            var today_date = today.getDate();
+            var today_month = today.getMonth() + 1;
+            var today_year = today.getFullYear();
+            var current_date = today_year  + "/" + today_month + "/" + today_date;
             var current_time = hours + ":" + minutes
-            this.setOptions({
-                minDate: '0',
-                minTime: current_time
-            })
+            if(choose_date == current_date) {
+                this.setOptions({
+                    minDate: '0',
+                    minTime: current_time
+                })
+            }
+            else{
+                this.setOptions({
+                    minTime: '00:00'
+                })
+            }
         },
         onChangeDateTime:function($input){
             $('#datepairExample .end').val('')
