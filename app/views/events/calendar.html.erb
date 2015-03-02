@@ -10,33 +10,10 @@
         },
         eventLimit: 3,
         showTime: true,
-       /* timezone: 'Asia/Kolkata',
-
-        defaultView: 'agendaDay',
-        minTime: 0,
-        maxTime: 24,
-        axisFormat: 'H:mm',
-        timeFormat: { agenda: 'HH:mm{ - dd/MM/yyyy HH:mm}' },
-        firstDay: 1,
-        firstHour: 8,
-        ignoreTimezone: false,
-        allDaySlot: false,
-        slotMinutes: 5,
-        editable: false,
-        theme: false,
-        lazyFetching: true,
-        handleWindowResize: true,*/
-
         events: '/get_my_calendar.json',
         eventRender: function(event, element) {
             element.attr('title', event.tooltip);
-            // render the timezone offset below the event title
-            /*if (event.start.hasZone()) {
-                element.find('.fc-title').after(
-                        $('<div class="tzo"/>').text(event.start.format('Z'))
-                );
-            }*/
-
+            element.tooltip()
         }
     });
 </script>

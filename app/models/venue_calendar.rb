@@ -32,10 +32,10 @@ class VenueCalendar < ActiveRecord::Base
 
   def status_str
     case status
-      when 0; 'available'
-      when 1; 'pending'
-      when 2; 'reserved'  # confirmed
-      when 3; 'cancelled'  # confirmed
+      when 0; 'Available'
+      when 1; 'Pending'
+      when 2; 'Reserved'  # confirmed
+      when 3; 'Cancelled'  # confirmed
     end
   end
 
