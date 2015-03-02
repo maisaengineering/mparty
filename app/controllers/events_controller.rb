@@ -82,24 +82,38 @@ class EventsController < ApplicationController
 
 
   def share_on_fb
+   #  @event = Event.find(params[:id])
+   #  # if @event.fb_image.url.present?
+   #  #   @image_path = @event.fb_image.url
+   #  # else
+   #  #   event_template = Spree::Admin::Template.where(id: @event.template_id).first
+   #  #   event_design = event_template.designs.where(id: @event.design_id).first if event_template
+   #  #   c_design = @handlebars.compile(event_design.content)
+   #  #   kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
+   #  #   image_path = kit.to_file( "#{Rails.root.join('tmp')}/fb-share-#{@event.id}-#{Time.now.to_i}.png")
+   #  #   @event.fb_image = File.open image_path
+   #  #   @event.save(validate: false)
+   #  #   @image_path = Rails.env.production? ? @event.fb_image.url : "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
+   #  # end
+   #  # @image_path = "https://00e9e64bac131f44550e999822a5edca3939ebb8fa1267bf52-apidata.googleusercontent.com/download/storage/v1_internal/b/test_mparty_pictures786/o/event%2Ffb_image%2F653%2Ffb-share-653-1425212122.png?qk=AD5uMEvkzeVZRUZVqgMeqBTUKfxdb_OWysSe4s7IfHJeoMtI7sDMiya2cWGFS5LTxTfKKT4Oeqi9xzPThJPiDlv2ntQgJGW50OutlgaZGB9BDjzC6U3UqThQmPrVIi6GNOvniiRDYlPxbvMM4AiAqvt5m3MGRKbDmHwyaBOfHMze95BC7dJw01UjbZB89sSfbfd1-rjXRHPNPmTSEr5L6uPzHPrkvdVWtW9J-WWmJXUJaK49huvwjtlD-CR1hPKkG3ismm2JdVoezRWwwW3I5ZNeELBMsQiQ39-VOO432KnEcQ9GbtzVRlppMNOvc4avjzph7lh3c_Cp4zbA2qHnSQ4OLEiKCFMnnmFFONtHw92U__Cf_ATyVB-2qf-kZgTFhKxZakMUoxJwbZDbiX3v7ppZEcOCQu2FlqTXHuGllXpoWtS_yZdyyweHNeloAwUVKFlCBosDJT9xzW2q6vy6omf0AOBW1J8EVDDa5y8T3dyzMD42Wt31_dIhQRcrLXDhxUpznu_Bs7tMTDx3y2NIXg-X2_9EAK9xlyn1tzNnRo1GBR3mB0yIog2U7w9OYg4iC7zT0DQntztW6_8br50aEqEfCD_n3Y9hn68lWr6HcyPM6TANBfEW1gLh8vCQXsG7uGJ2ZNeGGq_VpZ7w6Qi9BCavb18uhzNFbi_quwAHsXynDBehFWvXJ0DPIm6Gw_vf77NTzP-wzGf2G28GY14LEhiUHDxcrvzxVN__NoSAbnwtHmSbyHN8oWIddtBQaRFsV33XhDJ8kfpJ"
+   #  # @image_path = "https://commondatastorage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
+   #  # @image_path = "http://storage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
+   # # @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
+   #  @image_path = 'http://mparty.herokuapp.com/assets/banner_2.jpg'
+   #  render layout: false
+
     @event = Event.find(params[:id])
-    # if @event.fb_image.url.present?
-    #   @image_path = @event.fb_image.url
-    # else
-    #   event_template = Spree::Admin::Template.where(id: @event.template_id).first
-    #   event_design = event_template.designs.where(id: @event.design_id).first if event_template
-    #   c_design = @handlebars.compile(event_design.content)
-    #   kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
-    #   image_path = kit.to_file( "#{Rails.root.join('tmp')}/fb-share-#{@event.id}-#{Time.now.to_i}.png")
-    #   @event.fb_image = File.open image_path
-    #   @event.save(validate: false)
-    #   @image_path = Rails.env.production? ? @event.fb_image.url : "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
-    # end
-    # @image_path = "https://00e9e64bac131f44550e999822a5edca3939ebb8fa1267bf52-apidata.googleusercontent.com/download/storage/v1_internal/b/test_mparty_pictures786/o/event%2Ffb_image%2F653%2Ffb-share-653-1425212122.png?qk=AD5uMEvkzeVZRUZVqgMeqBTUKfxdb_OWysSe4s7IfHJeoMtI7sDMiya2cWGFS5LTxTfKKT4Oeqi9xzPThJPiDlv2ntQgJGW50OutlgaZGB9BDjzC6U3UqThQmPrVIi6GNOvniiRDYlPxbvMM4AiAqvt5m3MGRKbDmHwyaBOfHMze95BC7dJw01UjbZB89sSfbfd1-rjXRHPNPmTSEr5L6uPzHPrkvdVWtW9J-WWmJXUJaK49huvwjtlD-CR1hPKkG3ismm2JdVoezRWwwW3I5ZNeELBMsQiQ39-VOO432KnEcQ9GbtzVRlppMNOvc4avjzph7lh3c_Cp4zbA2qHnSQ4OLEiKCFMnnmFFONtHw92U__Cf_ATyVB-2qf-kZgTFhKxZakMUoxJwbZDbiX3v7ppZEcOCQu2FlqTXHuGllXpoWtS_yZdyyweHNeloAwUVKFlCBosDJT9xzW2q6vy6omf0AOBW1J8EVDDa5y8T3dyzMD42Wt31_dIhQRcrLXDhxUpznu_Bs7tMTDx3y2NIXg-X2_9EAK9xlyn1tzNnRo1GBR3mB0yIog2U7w9OYg4iC7zT0DQntztW6_8br50aEqEfCD_n3Y9hn68lWr6HcyPM6TANBfEW1gLh8vCQXsG7uGJ2ZNeGGq_VpZ7w6Qi9BCavb18uhzNFbi_quwAHsXynDBehFWvXJ0DPIm6Gw_vf77NTzP-wzGf2G28GY14LEhiUHDxcrvzxVN__NoSAbnwtHmSbyHN8oWIddtBQaRFsV33XhDJ8kfpJ"
-    # @image_path = "https://commondatastorage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
-    # @image_path = "http://storage.googleapis.com/test_mparty_pictures786/event/fb_image/653/fb-share-653-1425212122.png"
-   # @image_path = "http://www.freestockphotos.name/wallpaper-original/wallpapers/message-of-friendship-day-2220.jpg"
-    @image_path = 'http://mparty.herokuapp.com/assets/banner_2.jpg'
+    event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    event_design = event_template.designs.where(id: @event.design_id).first if event_template
+    c_design = @handlebars.compile(event_design.content)
+    kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
+    image_path = kit.to_file( "#{Rails.root.to_s}/public/fb/#{@event.id}-#{Time.now.to_i}.jpg")
+    @image_path = "/" + image_path.path.split("/").last(2).join("/")
+    # @event.fb_image = File.open image_path
+    # @event.save(validate: false)
+    # byebug
+    # @image_path = "/" + image_path.path.split("/").last(3).join("/")
+    @image_path = "/" + image_path.path.split("/").last(2).join("/")
     render layout: false
   end
 
@@ -324,7 +338,7 @@ class EventsController < ApplicationController
   end
 
   def get_my_calendar
-    @events = current_spree_user.events + current_spree_user.attending_events + current_spree_user.pending_events + current_spree_user.rejected_events + current_spree_user.maybe_events
+    @events = current_spree_user.events.includes(:invites) + current_spree_user.event_invitations
     respond_to do |format|
       format.js
       format.json

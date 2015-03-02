@@ -5,7 +5,7 @@ var data=
     display: 'iframe',
     caption: "Mparty: Celebrate your Event with Heart Likes Gifts",
     name: "<%= @event.name %>",
-    picture: "<%= @image_path %>",
+    picture: "<%=image_url(@image_path)%>",
     link: "<%= event_url(@event) %>",
     description: "<%=  @event.description.gsub(/\r\n?/, " ") %>",
     actions: [{ name: 'Mparty', link: 'http://mparty.herokuapp.com/' }]
