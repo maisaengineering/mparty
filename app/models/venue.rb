@@ -58,9 +58,9 @@ class Venue < ActiveRecord::Base
   #---------- Instance Methods
   def full_address
     if address2 == ""
-      "#{address1}, #{city}, #{state}, #{country}, #{zip}"
+      "#{name}, #{address1}, #{city}, #{state}, #{country}, #{zip}"
     else
-      "#{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
+      "#{name}, #{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
     end
   end
 
