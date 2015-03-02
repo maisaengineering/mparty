@@ -33,6 +33,7 @@ class CsrAbility
       # end
       can [:admin, :manage], Venue
       can [:admin ,:manage], :booking
+      can [:admin ,:manage], VenueCalendar
     end
   end
 end

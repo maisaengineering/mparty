@@ -17,7 +17,7 @@ class VenueCalendar < ActiveRecord::Base
   scope :pending ,-> { where(status: 1) }
   scope :confirmed ,-> { where(status: 2)}
   scope :cancelled ,-> { where(status: 3)}
-  scope :booked ,->  { where('status != ? OR status != ?' ,0,3) }  # not available either in pending or confirmed status
+  scope :booked ,->  { where(status: [1,2]) }  # not available either in pending or confirmed status
   scope :reserved ,->(starts_at,ends_at) {booked.where("(start_date <= ? AND end_date >= ?) OR (start_date <= ? AND end_date >= ?)",
                                                              starts_at,starts_at,ends_at,ends_at)}
 
@@ -26,6 +26,7 @@ class VenueCalendar < ActiveRecord::Base
       when 0; nil
       when 1; '#f0ad4e' # orange -> waiting for confirmation(pending)
       when 2; '#cccccc' #gray-> not available
+      when 3; '#cccccc' #gray-> not available
     end
   end
 
