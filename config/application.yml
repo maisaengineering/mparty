@@ -5,6 +5,9 @@ development:
   IS_HEROKU: 'yes'
   FB_API_KEY: '1496265010630437'
   FB_API_SECRET: '11d20cab3a436ae9c6dca57b1ea7fedf'
+  #Google import contacts
+  GOOGLE_CLIENT_ID: '940864621586-andmc7cafjfs56hc06mdrmqlort53osi@developer.gserviceaccount.com'
+  GOOGLE_CLIENT_SECRET: 'BX4_HKDsDvyt7C3TJuuLbQ6D'
 production:
   google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxx'
   google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
@@ -12,3 +15,6 @@ production:
   IS_HEROKU: 'no'
   FB_API_KEY: '575075849287448'
   FB_API_SECRET: '673925a57034c41aa3986a0f09beda56'
+  #Google import contacts
+  GOOGLE_CLIENT_ID: '940864621586-andmc7cafjfs56hc06mdrmqlort53osi@developer.gserviceaccount.com'
+  GOOGLE_CLIENT_SECRET: 'BX4_HKDsDvyt7C3TJuuLbQ6D'
