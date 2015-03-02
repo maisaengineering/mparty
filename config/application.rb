@@ -6,6 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+FileUtils::mkdir_p 'public/fb'
+
 module Invitation
 	class Application < Rails::Application
 		
