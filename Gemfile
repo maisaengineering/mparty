@@ -91,7 +91,8 @@ gem 'sidekiq'
 #for web view
 gem 'sinatra', require: false
 gem 'slim'
-
+#create versions in background
+gem 'carrierwave_backgrounder'
 
 # Authorization
 gem "pundit"
