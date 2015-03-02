@@ -14,7 +14,7 @@ class VenuesController < ApplicationController
         event = Event.new(session[:event_data])
         if event.starts_at and event.ends_at
           #@venues =  @venues.joins(:venue_calendars).where('(venue_calendars.status = ? OR venue_calendars.status = ?) AND  (venue_calendars.start_date >= ? AND venue_calendars.end_date <= ?)',0,3,event.starts_at,event.ends_at)
-          @venues =  @venues.joins(:venue_calendars).where('(venue_calendars.status = ? OR venue_calendars.status = ?)',0,3)
+          @venues =  @venues.joins(:venue_calendars).where('(venue_calendars.status = ? OR venue_calendars.status = ?)',0,3.group('venue_calendars.venue_id'))
         end
       end
       flash.now[:error] = "No criteria matched please choose another venue or click on back to add custom address." if  @venues.blank?
