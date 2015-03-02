@@ -148,6 +148,7 @@ class EventsController < ApplicationController
       session.delete(:event_data) if session[:event_data]
       session.delete(:event_edit) if session[:event_edit]
       session.delete(:event_id) if session[:event_id]
+      flash[:notice] = "Successfully updated"
       redirect_to event_path(params[:id])
     else
       redirect_to event_design_edit_path(@event.id)
