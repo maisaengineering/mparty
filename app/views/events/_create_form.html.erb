@@ -113,6 +113,8 @@
 </div>
 <script type="text/javascript">
 
+
+
     if($("#event_custom_event_type").val() == ""){
         $(".event_type_hide").hide();
     }
@@ -159,7 +161,8 @@
     });
 
 
-      <% if !@venue  %>
+
+   <% if !@venue  %>
         $('#datepairExample .start').datetimepicker({
             onShow:function( $input ){
                 var date = $input.getDate();
@@ -186,44 +189,84 @@
                     })
                 }
             },
-            onChangeDateTime:function($input){
+            onSelectDate:function($input){
                 $('#datepairExample .end').val('')
                 var date = $input.getDate();
+                if(date < 10)
+                {
+                    date = '0'+date
+                }
                 var month = $input.getMonth() + 1;
+                if(month < 10)
+                {
+                    month = '0'+month
+                }
                 var year = $input.getFullYear();
                 var choose_date = year  + "/" + month + "/" + date;
                 var today = new Date()
                 var today_date = today.getDate();
+                if(today_date < 10)
+                {
+                    today_date = '0'+today_date
+                }
                 var today_month = today.getMonth() + 1;
+                if(today_month < 10)
+                {
+                    today_month = '0'+today_month
+                }
                 var today_year = today.getFullYear();
                 var hours = today.getHours();
                 var minutes = today.getMinutes();
+                if(minutes < 10)
+                {
+                    minutes = '0'+minutes
+                }
                 var current_date = today_year  + "/" + today_month + "/" + today_date;
                 var current_time = hours + ":" + minutes
                 if(choose_date == current_date){
                     this.setOptions({
-                        minTime: current_time
+                        value: choose_date + ' ' + current_time,
+                        minTime: current_time,
+                        closeOnTimeSelect:true
                     })
                 }
                 else{
                     this.setOptions({
-                        minTime: '00:00'
+                        minTime: '00:00',
+                        closeOnTimeSelect:true
                     })
                 }
             }
         });
         $('#datepairExample  .end').datetimepicker({
             onShow:function( ct ){
-                var end_date_and_time = $('#datepairExample .start').val()
-                var end_date  = end_date_and_time.split(' ')
+                var end_date_and_time = $('#datepairExample .end').val()
+                var end_date = end_date_and_time.split(' ')
                 var ends_at = end_date[0]
-                var end_time = end_date[1]
-                this.setOptions({
-                    minDate: ends_at ? ends_at : '0',
-                    minTime: end_time
-                })
+                var start_date_and_time = $('#datepairExample .start').val()
+                var start_date  = start_date_and_time.split(' ')
+                var starts_at = start_date[0]
+                var start_time = start_date[1]
+                if(ends_at == '') {
+                    this.setOptions({
+                        minDate: starts_at ? starts_at : '0',
+                        minTime: start_time
+                    })
+                }
+                else if(ends_at == starts_at  ){
+                    this.setOptions({
+                        minDate: ends_at ? ends_at : '0',
+                        minTime: start_time
+                    })
+                }
+                else{
+                    this.setOptions({
+                        minDate: starts_at ? starts_at : '0',
+                        minTime: "00:00"
+                    })
+                }
             },
-            onChangeDateTime:function($input){
+            onSelectDate:function($input){
                 var end_date_and_time = $('#datepairExample .end').val()
                 var end_date = end_date_and_time.split(' ')
                 var ends_at = end_date[0]
@@ -233,15 +276,48 @@
                 var start_time = start_date[1]
                 if(ends_at == starts_at){
                     this.setOptions({
-                        minTime: start_time
+                        value: starts_at + ' ' + start_time,
+                        minTime: start_time,
+                        closeOnTimeSelect:true
                     })
                 }
                 else{
                     this.setOptions({
-                        minTime: '00:00'
+                        minTime: '00:00',
+                        closeOnTimeSelect:true
                     })
                 }
-
+            },
+            onSelectTime:function($input){
+                var date = $input.getDate();
+                var month = $input.getMonth() + 1;
+                var year = $input.getFullYear();
+                var choose_date = year  + "/" + month + "/" + date;
+                var hours = $input.getHours();
+                if(hours < 10)
+                {
+                    hours = '0'+hours
+                }
+                var minutes = $input.getMinutes();
+                if(minutes < 10)
+                {
+                    minutes = '0'+minutes
+                }
+                var today = new Date()
+                var today_date = today.getDate();
+                var today_month = today.getMonth() + 1;
+                var today_year = today.getFullYear();
+                var current_date = today_year  + "/" + today_month + "/" + today_date;
+                var current_time = hours + ":" + minutes
+                var start_date_and_time = $('#datepairExample .start').val()
+                var start_date  = start_date_and_time.split(' ')
+                var starts_at = start_date[0]
+                var start_time = start_date[1]
+                if(choose_date == current_date) {
+                    this.setOptions({
+                        value: starts_at + ' ' + hours + ':' + minutes
+                    })
+                }
             }
         });
     <% end %>
