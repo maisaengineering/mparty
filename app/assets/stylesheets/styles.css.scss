@@ -2091,6 +2091,12 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   height:240px;
   margin:10px auto;
 }
+
+.form-control[readonly], .form-control {
+  background-color:#ffffff;
+  cursor:default;
+}
+
 #eventDesignPreviewInvitee .event_photos_block img {
   width:120px;
   height:120px;
