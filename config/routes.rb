@@ -1,6 +1,9 @@
+require 'sidekiq/web'
 Invitation::Application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
   resources :reviews
+  mount Sidekiq::Web, at: "/sidekiq"
+
   Spree::Core::Engine.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
     namespace :admin do

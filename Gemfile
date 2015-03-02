@@ -87,8 +87,11 @@ group :production do
   gem 'heroku_rails_deflate'
 end
 
-gem 'delayed_job_active_record'
-gem "daemons"
+gem 'sidekiq'
+#for web view
+gem 'sinatra', require: false
+gem 'slim'
+
 
 # Authorization
 gem "pundit"
