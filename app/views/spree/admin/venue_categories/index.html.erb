@@ -5,6 +5,7 @@
   <tr>
     <th>Venue Type</th>
     <th>Edit</th>
+    <th>Delete</th>
     <!-- <th>Delete</th> -->
   </tr>
   <%unless @venue_categories.blank?%>
@@ -12,7 +13,8 @@
       <tr>
         <td><%= venue_category.venue_type %></td>
         <td><%= link_to 'Edit', edit_admin_venue_category_path(venue_category) %></td>
-        <!-- <td><%#= link_to 'Destroy',  admin_venue_category_path(ad.id) , method: :delete, data: { confirm: 'Are you sure?' } %></td>  @venue_category.DELETE -->   
+    <td><%= link_to 'Destroy',  admin_venue_category_path(venue_category.id) , method: :delete, data: { confirm: 'Are you sure?' } %></td> 
+
       </tr>
     <% end %>
   <%end%>

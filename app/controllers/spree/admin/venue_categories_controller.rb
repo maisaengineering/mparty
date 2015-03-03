@@ -36,7 +36,7 @@ class Spree::Admin::VenueCategoriesController < Spree::Admin::BaseController
 
   def destroy
     @venue_category = VenueCategory.find(params[:id])
-    @venue_category.delete
+    @venue_category.destroy
 
     respond_to do |format|
       format.html { redirect_to admin_venue_categories_path }

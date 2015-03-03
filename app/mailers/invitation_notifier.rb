@@ -9,7 +9,11 @@ class InvitationNotifier < ActionMailer::Base
       @invited_by = Spree::User.find(invite.event.user_id)
     end
     @accepted_by = invite.user ? "#{invite.user.full_name}" : invite.recipient_email
-    mail(to: @invited_by.email, subject: "#{@event.name} is Accepted")
+    if @invite.invited_user_id.blank?
+      mail(to: @invited_by.email, subject: "#{@event.name} is Joined by #{@accepted_by}")
+    else
+      mail(to: @invited_by.email, subject: "#{@event.name} is Accepted by #{@accepted_by}")
+    end
   end
 
   def email_after_purchase_to_inviter(event,order)
