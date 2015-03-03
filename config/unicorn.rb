@@ -2,7 +2,7 @@ worker_processes Integer(ENV["WEB_CONCURRENCY"] || 2)
 timeout 60
 preload_app true
 
-run_sidekiq_in_this_thread = ENV["RACK_ENV"]=="development" ? false : true
+run_sidekiq_in_this_thread = true
 @sidekiq_pid = nil
 
 before_fork do |server, worker|
