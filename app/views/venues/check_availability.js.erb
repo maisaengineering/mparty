@@ -3,27 +3,25 @@ Turbolinks.visit("/events/new?venue_id=<%= @venue.id %>")
 <%else%>
 // bootbox.alert("This Venue is not available for your Scheduled Date '<%=@event.starts_at%>'")
 bootbox.dialog({
-    title: "Suggestions.",
-    message:
-    '<div class="row" style="background:#ccc">' +
-    '<hr>' +
-        '<div class="col-md-12"> ' +
-            '<form class="form-horizontal" action="/venues" method="get"> ' +
-                '<div class="form-group"> ' +
-                    '<label class="col-md-12" for="name" style="color:#000">This Venue is not available for your Scheduled Date "<%=@event.starts_at%>"  </label> ' +
-                    '<div class="col-md-4"> ' +
-                        '<input id="name" name="venue_id" type="hidden" value="<%=@venue.id%>"> ' +
-                        '<input id="name" name="from_event" type="hidden" value="true"> ' +
-                    '</div> ' +
-                '</div> ' +
-                '<button class="btn btn-primary pull-right">Get Suggestions</button>'+
-            '</form>'+
-        '</div>'+
-    '</div>' +
-    '<style type="text/css">'+
-'.modal-title {color:#000;}'+
-'.modal-body{padding:0 15px 15px 15px;}'+
-'hr {margin-top:0px;}' +
-'</style>'
+    title: "'<%= @venue.name %>' is not available",
+    message: "<div class='alert alert-warning' role='alert'>This Venue is not available for your Scheduled Date (<%= l @event.starts_at %>)" +
+              "<p>Please click on get suggestions button to look for similar venues.</p>" +
+              "</div>",
+    buttons: {
+        warning: {
+            label: '<span class="glyphicon glyphicon-chevron-left"></span> Back to Event',
+            className: "btn-warning",
+            callback: function () {
+                Turbolinks.visit("/events/new")
+            }
+        },
+        success: {
+            label: "Get Suggestions",
+            className: "btn-success",
+            callback: function () {
+                Turbolinks.visit("/venues?from_event=true&venue_id= <%= @venue.id %>")
+            }
+        }
+    }
  });
 <%end%>	
