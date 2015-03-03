@@ -409,10 +409,8 @@ class EventsController < ApplicationController
 
   def send_invitation_emails(invitations,event)
     invitations.each do |inv|
-      if Notifier.invite_friend(inv.recipient_email, inv,event).deliver
-        inv.mail_sent = true
-        inv.save
-      end
+      Notifier.delay.invite_friend(inv.recipient_email, inv.id,event.id)
+      inv.update_column(:mail_sent, true)
     end
   end
 

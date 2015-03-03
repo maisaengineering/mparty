@@ -55,7 +55,7 @@ Spree::User.class_eval do
   end 
 
   def send_email
-    Notifier.welcome_email(email,full_name).deliver
+    Notifier.delay.welcome_email(email,full_name)
   end
 
   def wishlist

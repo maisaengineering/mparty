@@ -25,6 +25,6 @@ class Invite < ActiveRecord::Base
   end
 
   def send_notification_to_owner
-    InvitationNotifier.notify_accepted_inv(self).deliver if (self.joined_changed? && self.joined == 1)
+    InvitationNotifier.delay.notify_accepted_inv(self.id)  if (self.joined_changed? && self.joined == 1)
   end
 end
