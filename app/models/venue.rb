@@ -37,6 +37,29 @@ class Venue < ActiveRecord::Base
 
   #Fuzzy search
   fuzzily_searchable :name,:city,:state
+
+
+  #---------  Class Methods goes here
+  # Venue advance search
+  def self.advance_search(query)
+    query = "%#{query}%"
+    name_match = arel_table[:name].matches(query)
+    city_match = arel_table[:city].matches(query)
+    state_match = arel_table[:state].matches(query)
+    zip_match = arel_table[:zip].matches(query)
+    where(name_match.or(city_match).or(state_match).or(zip_match))
+  end
+
+  # TO Avoid iLike
+  def self.basic_search(city,state)
+    city_match = arel_table[:city].matches("%#{city}%")
+    state_match = arel_table[:state].matches("%#{state}%")
+    where(city_match.or(state_match))
+  end
+
+
+  #---------- Instance Methods
+
   # MINIMUM PRICE - MAX PRICE
   def min_max_price
     if price_min.blank?
@@ -46,16 +69,6 @@ class Venue < ActiveRecord::Base
     end
   end
 
-
-  # Venue advance search
-  def self.advance_search(query)
-    where("name iLIKE ? OR city iLIKE ? OR state iLIKE ? OR zip iLIKE ? ", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%")
-  end
-
-
-  #---------  Class Methods goes here
-
-  #---------- Instance Methods
   def full_address
     if address2 == ""
       "#{name}, #{address1}, #{city}, #{state}, #{country}, #{zip}"
