@@ -8,7 +8,7 @@
   <div class="alpha eight columns">
     <%= f.field_container :venue_type do %>
       <%= f.label :venue_type, Spree.t(:venue_type) %> <span class="required">*</span><br />
-      <%= f.text_field :venue_type, :class => 'fullwidth' %>
+      <%= f.text_field :venue_type, :class => 'fullwidth',:autofocus => true%>
       <%= f.error_message_on :venue_type %>
     <% end %>
   </div>
