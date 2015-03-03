@@ -6,8 +6,8 @@ development:
   FB_API_KEY: '1496265010630437'
   FB_API_SECRET: '11d20cab3a436ae9c6dca57b1ea7fedf'
   #Google import contacts
-  GOOGLE_CLIENT_ID: '940864621586-andmc7cafjfs56hc06mdrmqlort53osi@developer.gserviceaccount.com'
-  GOOGLE_CLIENT_SECRET: 'BX4_HKDsDvyt7C3TJuuLbQ6D'
+  GOOGLE_CLIENT_ID: '631481746333-1fua4ap1i5n9s7eou136md679detnkqr.apps.googleusercontent.com'
+  GOOGLE_CLIENT_SECRET: 'BO5rZFOmHuICcIKw0JnuGi4P'
 production:
   google_storage_access_key: 'xxxxxxxxxxxxxxxxxxxx'
   google_storage_access_secret: 'xxxxxxxxxxxxxxxxxxxxx'
