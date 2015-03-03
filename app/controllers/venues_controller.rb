@@ -2,14 +2,10 @@ class VenuesController < ApplicationController
   def index
     if params[:query].present?  # when search
       @venues = Venue.advance_search(params[:query])
-      if  @venues.blank?
-        flash.now[:error] = "No results found for '#{params[:query]}'"
-      else
-        flash.now[:notice] = "Total #{@venues.count} results found for '#{params[:query]}'"
-      end
+      flash.now[:notice] =  @venues.blank? ? "No results found for '#{params[:query]}'"  : "Total #{@venues.count} results found for '#{params[:query]}'"
     elsif params[:venue_id].present? # when comes from get suggestions
       suggestible_venue = Venue.find(params[:venue_id])
-      @venues =  Venue.where.not(id: suggestible_venue.id).where("city iLIKE ? OR state iLIKE ?", suggestible_venue.city,suggestible_venue.state)
+      @venues =  Venue.where.not(id: suggestible_venue.id).basic_search(suggestible_venue.city,suggestible_venue.state)
       if session[:event_data].present?
         event = Event.new(session[:event_data])
         if event.starts_at and event.ends_at
@@ -17,7 +13,8 @@ class VenuesController < ApplicationController
           @venues =  @venues.where.not(id: VenueCalendar.where.not(venue_id: suggestible_venue.id).reserved(event.starts_at,event.ends_at).map(&:venue_id))
         end
       end
-      flash.now[:error] = "No criteria matched please choose another venue or click on back to add custom address." if  @venues.blank?
+      flash.now[:notice] =  @venues.blank? ? "No criteria matched please choose another venue or click on back to add custom address."  :
+          "Total #{@venues.count} similar venues found and available on requested date"
     else # default top six
       @venues = Venue.top_five
     end
