@@ -125,8 +125,12 @@
             <div class="gallery event_photos" id="myCarousel">
               <div class="jcarousel event_photos_block" data-jcarousel="false">
                 <ul style="left: 0px; top: 0px;">
-                  <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+                  <% @event.pictures.each do |picture| %>
+                      <li>
+                        <a class="fancybox" href="<%=picture.image.url %>" rel="gallery1">
+                          <%= picture_image_tag(picture,:slide_show) %>
+                        </a>
+                      </li>
                   <% end%>
                 </ul>
               </div>

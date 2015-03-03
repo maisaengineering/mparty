@@ -2,7 +2,7 @@ module EventsHelper
 
   def event_cover_photo_url(event,version=nil)
     if event.event_photo
-     event.event_photo.image_url(version)
+      event.event_photo.image_url(version)
     else # default
       asset_path('event_3.jpg')
     end
@@ -27,6 +27,23 @@ module EventsHelper
     else
       "#{event.location} #{event.city}"
     end
+  end
+
+  def picture_image_tag(picture,version=nil)
+    if picture.image_processing?
+      height_width = []
+      case version
+        when :thumb; height_width [90,90]
+        when :slide_show
+          height_width =  picture.imageable_type.eql?('Event') ? [190, 190] : [195, 195]
+        when :preview
+          height_width =  picture.imageable_type.eql?('Event') ? [293,296] : [270,360]
+      end
+      image_tag picture.image.url ,height: height_width.first,width: height_width.last
+    else
+      image_tag picture.image.url(version)
+    end
+
   end
 
 end

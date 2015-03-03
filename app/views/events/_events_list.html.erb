@@ -5,10 +5,10 @@
             <div class="col-md-3 event">
               <div class=" row nomargin event_margin">
                 <div class="event_img">
-                  <% if e.pictures.present? %>
-                      <%=link_to(image_tag(e.pictures.first.image.url(:preview)), "events/#{e.id}", class: "thumbnail") %>
+                  <% if e.pictures.any? %>
+                      <%=link_to(picture_image_tag(e.pictures.first,:preview), "/events/#{e.id}", class: "thumbnail") %>
                   <% else %>
-                      <%=link_to(image_tag("event_2.jpg"), "events/#{e.id}", class: "thumbnail") %>
+                      <%=link_to(image_tag("event_2.jpg"), "/events/#{e.id}", class: "thumbnail") %>
                   <% end %>
                   <div class="event_name">
                     <p><%= truncate(e.name,:length => 20)%></p>

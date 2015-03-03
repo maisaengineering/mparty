@@ -39,7 +39,7 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files:
    version :thumb  do
-     process :resize_to_fill=> [90, 90]
+     process :resize_to_fill=> [90, 90] #**imp if height and width changed here be sure to change in helper(picture_image_tag)
    end
 
    version :slide_show  do
