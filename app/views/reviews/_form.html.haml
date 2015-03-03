@@ -24,7 +24,7 @@
           .form-group
             %label.col-xs-3.control-label Your review
             .col-xs-7
-              = f.text_area :description,rows: 5 ,cols: 10,class: 'form-control'
+              = f.text_area :description,rows: 5 ,cols: 10,class: 'form-control',:style => 'resize:none'
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
         %button.btn.btn-primary#btnSubmitReview{:type => "button"} Send
