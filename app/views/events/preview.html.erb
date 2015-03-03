@@ -173,7 +173,7 @@
             <% end %>
         <% else %>
             <% if policy(@event).invite? && @event.invites.count == 0 %>
-                <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm mright5" do %>
                     <span class="glyphicon glyphicon-edit"></span> ADD Photos
                 <% end %>
             <% end %>
