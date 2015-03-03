@@ -27,6 +27,8 @@ class Event < ActiveRecord::Base
 
   accepts_nested_attributes_for :pictures
 
+  after_save :enqueue_fb_image # create design template in background
+
 
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
@@ -59,6 +61,12 @@ class Event < ActiveRecord::Base
 
   def future_event?
     self.ends_at >= Time.now()
+  end
+
+  def enqueue_fb_image
+    #TODO check any values changed or not related to in desing
+    # self.update_column(:design_created,false) if self.design_created?
+    EventDesignWorker.perform_async(self.id)
   end
 
   def attendees(status)
