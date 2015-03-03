@@ -21,6 +21,12 @@
 
 en:
   hello: "Hello world"
+  date:
+    formats:
+      default: "%d/%m/%Y"
+  time:
+    formats:
+      default: "%d/%m/%Y %H:%M %p"
   # https://github.com/spree/spree/blob/master/core/config/locales/en.yml
   spree:
     logged_in_succesfully:  'Welcome to Mparty'
