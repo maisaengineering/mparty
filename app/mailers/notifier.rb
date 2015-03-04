@@ -5,7 +5,7 @@ class Notifier < ActionMailer::Base
   def invite_friend(email, inv_id,event_id)
    # from = invite.invited_by.email # for socail login users email is not mandatory
     @event = Event.find(event_id)
-    invite = Invitation.find(inv_id)
+    invite = Invite.find(inv_id)
     @invite_email = invite.recipient_email
     @token = invite.token
     @template = @event.template
