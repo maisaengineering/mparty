@@ -66,6 +66,9 @@
 
 <script type="text/javascript">
     $('#picture_image').on('change',function(){
+        err = [];
+        file_count = 0
+        upload_files_count = $('#new_picture input[type=file]').get(0).files.length
         $('.number_of_files strong').text(0)
         $('.upload').remove()
     })
@@ -77,21 +80,31 @@
             var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
             types = /(\.|\/)(gif|jpe?g|png)$/i
             file = data.files[0]
+            file_count = file_count + 1
             if(!types.test(file.type) || !types.test(file.name)){
                 uploadErrors.push(file.name+"- is not a gif, jpeg, or png image file");
+                err.push(file.name+"- is not a gif, jpeg, or png image file")
             }
             if (file.size && file.size >  5000000) { //5mb
                 uploadErrors.push(file.name+"- filesize is too big");
+                err.push(file.name+"- filesize is too big")
             }
-
+            // alert(uploadErrors.length)
             if(uploadErrors.length > 0) {
+                $('.loading-indicator').hide()
                 $('#number_of_files_failed strong').text(parseInt(parseInt($("#number_of_files_failed strong").text()) + 1))
-                bootbox.alert(uploadErrors.join("\n"))
+                // bootbox.alert(uploadErrors.join("\n"))
+                if ((upload_files_count == file_count) ) {
+                bootbox.alert(err.join("<br>"))
+                };
             } else {
                 $('.loading-indicator').show()
                 data.context = $(tmpl("template-upload", file))
                 $('.upload-progress-bars').append(data.context)
                 data.submit()
+                if (upload_files_count == file_count) {
+                bootbox.alert(err.join("<br>"))
+                };
             }
         },
         progress: function(e, data) {
@@ -104,7 +117,7 @@
         send: function(e,data){
             if( parseInt(parseInt($("#number_of_files_failed strong").text())) >=1){
                 $('.loading-indicator').hide()
-                return false;
+                // return false;
             }
         },
         done: function(e,data){
