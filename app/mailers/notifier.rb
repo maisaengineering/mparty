@@ -12,7 +12,7 @@ class Notifier < ActionMailer::Base
     @design = @template.designs.where(id: @event.design_id).first if @template
     @sender = @event.owner
     @url =  "#{view_invitation_url(:invitation_code => invite.token,email: email)}"
-    mail(to: email, subject: "Invitation to join Mparty", from: "#{@sender.full_name} <#{ENV['SENDER']}>")
+    mail(to: email, subject: "Invitation to join #{@event.name}", from: "#{@sender.full_name} <#{ENV['SENDER']}>")
   end
 
   def welcome_email(email,full_name)
