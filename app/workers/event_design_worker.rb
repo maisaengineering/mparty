@@ -17,8 +17,8 @@ class EventDesignWorker
     data_points.merge!({eventName: event.name }) if event and !event.name.nil?
     start_at = (event and !event.starts_at.nil?) ? event.starts_at : Time.now
     end_at =   event ? event.ends_at : nil
-    event_time =  "#{start_at.try(:strftime, '%Y-%m-%d %I-%M %p')}"
-    event_time +=  " - #{end_at.try(:strftime, '%Y-%m-%d %I-%M %p')}" if end_at
+    event_time =  I18n.l(start_at)
+    event_time +=  " - #{ I18n.l(end_at)  }" if end_at
     data_points.merge!({eventTime: event_time})
     data_points.merge!({eventHostName:  event.host_name }) if event and !event.host_name.nil?
     data_points.merge!({eventDescription: event.description}) if event and !event.description.nil?
@@ -28,7 +28,6 @@ class EventDesignWorker
     file.write(kit.to_png)
     file.flush
     event.fb_image = file
-    event.design_created = true
     event.save(validate: false)
 
   end
