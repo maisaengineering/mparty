@@ -10,7 +10,7 @@
               .fb-icon-bg
               .fb-bg Login
         %h3.modal-title.pull-left Login
-      .modal-body
+      .modal-body.mtop20
         = form_for(Spree::User.new, as: :spree_user, url: spree.spree_user_session_path,html: {class: 'form-signin'})  do |f|
           %label
           - email_value = @order ? @order.email : nil # if checked out as guest
