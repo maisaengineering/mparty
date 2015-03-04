@@ -7,6 +7,6 @@ class InvRequest < ActiveRecord::Base
 
   private
   def send_notification
-    Notifier.ask_host_to_invite(user_id,event_id).deliver
+    Notifier.delay.ask_host_to_invite(user_id,event_id)
   end
 end
