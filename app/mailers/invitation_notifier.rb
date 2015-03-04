@@ -32,10 +32,10 @@ class InvitationNotifier < ActionMailer::Base
     invite = Invite.find(invite_id)
 
     if invite.user_id.present?
-      @invitee = Spree::User.find_by_email(invite.user_id)
+      @invitee = Spree::User.find(invite.user_id)
       @invitee_name = @invitee.full_name
     else
-      @invitee_name = invitee.recipient_email
+      @invitee_name = invite.recipient_email
     end
 
     if @order.user_id.nil?
