@@ -167,19 +167,23 @@
           <% end %>
       <%end%>
 
-      <% if @event_design %>
-          <div class="col-md-6" style="width:45%;">
-            <div id="eventDesignPreview">
+
+      <div class="col-md-6" style="width:45%;">
+        <div id="eventDesignPreview">
+          <% if @event.fb_image.url.present? %>
+              <%= image_tag @event.fb_image.url  %>
+          <% else %>
               <% c_design = @handlebars.compile(@event_design.content) %>
               <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-            </div>
-            <% if policy(@event).invite? && @event.invites.count == 0 %>
-                <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
-                    <span class="glyphicon glyphicon-edit"></span> Edit Design
-                <% end %>
+          <% end %>
+        </div>
+        <% if policy(@event).invite? && @event.invites.count == 0 %>
+            <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
+                <span class="glyphicon glyphicon-edit"></span> Edit Design
             <% end %>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
+
     </div>
 
 
@@ -202,8 +206,12 @@
             <div class="gallery event_photos" id="myCarousel">
               <div class="jcarousel event_photos_block" data-jcarousel="false">
                 <ul style="left: 0px; top: 0px;">
-                  <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
+                  <% @event.pictures.each do |picture| %>
+                      <li>
+                        <a class="fancybox" href="<%=picture.image.url %>" rel="gallery1">
+                          <%= picture_image_tag(picture,:slide_show) %>
+                        </a>
+                      </li>
                   <% end%>
                 </ul>
               </div>

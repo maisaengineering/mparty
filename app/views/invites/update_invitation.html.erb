@@ -3,16 +3,20 @@
   <div class="container container_stlye" >
     <!--event description-->
     <div class="row response_inv">
-      <% if @event_design %>
-          <div class="col-md-12">
-            <div class="inv_preview_bg mtop20">
-              <div id="eventDesignPreview">
+
+      <div class="col-md-12">
+        <div class="inv_preview_bg mtop20">
+          <div id="eventDesignPreview">
+            <% if @event.fb_image.url.present? %>
+                <%= image_tag @event.fb_image.url  %>
+            <% else %>
                 <% c_design = @handlebars.compile(@event_design.content) %>
                 <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-              </div>
-            </div>
+            <% end %>
           </div>
-      <% end %>
+        </div>
+      </div>
+
       <div class="row nomargin">
         <div class="col-md-12"><h2>Thanks for your response.</h2></div>
       </div>

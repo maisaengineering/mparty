@@ -28,6 +28,11 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :pictures
 
 
+  after_create :enqueue_event_design
+
+  after_update :enqueue_event_design,if: Proc.new {|r| r.host_name_changed? or r.starts_at_changed?  or r.ends_at_changed? or r.description_changed?}
+
+
   alias_attribute :shipping_address, :ship_address
   accepts_nested_attributes_for :ship_address
 
@@ -59,6 +64,10 @@ class Event < ActiveRecord::Base
 
   def future_event?
     self.ends_at >= Time.now()
+  end
+
+  def enqueue_event_design
+    EventDesignWorker.perform_async(self.id)
   end
 
   def attendees(status)

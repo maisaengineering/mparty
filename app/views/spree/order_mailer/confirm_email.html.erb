@@ -16,7 +16,7 @@
 <br>
 <div>
 <% if @order.user %>
-  <span style="color:#555;">Dear <i><b><%= @order.user.full_name %>,</i></b></span>
+  <span style="color:#555;">Dear <i><b><%= @order.user.full_name %>,</b></i></span>
 <% else %>
 <span style="color:#555;"><%= Spree.t('order_mailer.confirm_email.dear_customer') %></span>
 <% end %>

@@ -3,7 +3,6 @@
       <%= link_to picture , confirm: 'Are you sure?', method: :delete ,class: 'remove_btn',remote: true do %>
           <span class="glyphicon glyphicon-remove-circle"></span>
       <% end  %>
-      <%#= link_to image_tag(picture.image_url(:thumb)), picture  %>
-      <%= image_tag(picture.image_url(:thumb) ) %>
+      <%= picture_image_tag(picture,:thumb) %>
     </div>
 <% end %>

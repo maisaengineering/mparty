@@ -83,10 +83,10 @@ Spree::CheckoutController.class_eval do
   private
   def send_order_info_to_users(order)
     event = Event.find(order.event_id)
-    InvitationNotifier.email_after_purchase_to_inviter(event,order).deliver
-    @invites_list = event.invites.where.not("joined =? OR recipient_email =? ",2,order.email)
-    @invites_list.each do |invitee|
-      InvitationNotifier.email_after_purchase_to_invitees(event,order,invitee).deliver
+    InvitationNotifier.delay.email_after_purchase_to_inviter(event.id,order.id)
+    invites_list = event.invites.where.not("joined =? OR recipient_email =? ",2,order.email)
+    invites_list.each do |invite|
+      InvitationNotifier.delay.email_after_purchase_to_invitees(event.id,order.id,invite.id)
     end
   end
 

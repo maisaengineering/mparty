@@ -36,11 +36,12 @@ body{
   border-top:4px solid #ef5323;
 }
 
-.thumbnail{
+.event_img .thumbnail{
   padding:0px;
   border:none;
   border-radius:0px;
   margin-bottom:0px;
+  min-height: 260px;
 }
 
 .event_name{

@@ -118,19 +118,23 @@
         </div>
       </div>
 
-      <% if @event_design %>
-          <div class="col-md-6" style="width:45%;">
-            <div id="eventDesignPreview">
+
+      <div class="col-md-6" style="width:45%;">
+        <div id="eventDesignPreview">
+          <% if @event.fb_image.url.present? %>
+              <%= image_tag @event.fb_image.url  %>
+          <% else %>
               <% c_design = @handlebars.compile(@event_design.content) %>
               <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-            </div>
-            <% if policy(@event).invite?  %>
-                <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
-                    <span class="glyphicon glyphicon-edit"></span> Edit Design
-                <% end %>
+          <% end %>
+        </div>
+        <% if policy(@event).invite?  %>
+            <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
+                <span class="glyphicon glyphicon-edit"></span> Edit Design
             <% end %>
-          </div>
-      <% end %>
+        <% end %>
+      </div>
+
     </div>
 
 

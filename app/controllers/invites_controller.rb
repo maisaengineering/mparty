@@ -28,8 +28,10 @@ class InvitesController < ApplicationController
     @invitation = Invite.find_by_token(params[:invitation_code])
     if @invitation
       @event = @invitation.event
-      @event_template = Spree::Admin::Template.where(id: @event.template_id).first
-      @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+      unless @event.fb_image.url.present?
+        @event_template = Spree::Admin::Template.where(id: @event.template_id).first
+        @event_design = @event_template.designs.where(id: @event.design_id).first if @event_template
+      end
     else
       render(text: 'We are sorry,Invitation not found with given token') and return
     end
