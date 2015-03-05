@@ -18,7 +18,8 @@
                         .pull-right
                           %span.glyphicon.glyphicon-calendar
                           #{l(wishlist.created_at.to_date)}
-                  .panel-collapse.collapse{class: "#{index ==0 ? 'in' : nil}","aria-labelledby" => "headingOne", :role => "tabpanel",id: "collapse#{index}"}
+                  -#.panel-collapse.collapse{class: "#{index ==0 ? 'in' : nil}","aria-labelledby" => "headingOne", :role => "tabpanel",id: "collapse#{index}"}
+                  .panel-collapse.collapse{"aria-labelledby" => "headingOne", :role => "tabpanel",id: "collapse#{index}"}
                     .panel-body
                       .col-md-12
                         %a.color_success{:href => "#"}
