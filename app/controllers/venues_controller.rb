@@ -20,6 +20,12 @@ class VenuesController < ApplicationController
     end
   end
 
+  def map
+    @venue = Venue.find(params[:id])
+    @apikey = ENV['GOOGLE_API_KEY']
+     render layout: false
+  end
+
   def show
     @venue = Venue.find(params[:id])
     @pictures = @venue.pictures

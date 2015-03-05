@@ -17,9 +17,6 @@
     .fix_image_size{height: 180px}
     .hide-class{display: none;}
 </style>
-<div id="map" class="hide-class">
-  <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=<%= ENV['GOOGLE_API_KEY'] %>&q=<%= @venue.full_address  %> "></iframe>
-</div>
 <div id="wrapper">
   <div class="container-fluid">
     <div class="container container_stlye" id="venue">
@@ -85,7 +82,7 @@
           <li role="presentation" class="active"><a href="#Locations" role="tab" data-toggle="tab">Gallery</a></li>
           <li role="presentation"><a href="#Reviews" role="tab" data-toggle="tab">Reviews</a></li>
           <li role="presentation"><a href="#About" role="tab" data-toggle="tab">About</a></li>
-          <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab"  onclick="show_map()">Contact Details</a></li>
+          <li role="presentation"><a href="#ContactDetails" role="tab" data-toggle="tab" class="venue_map_request">Contact Details</a></li>
         </ul>
         <div class="tab-content venue_tab_margin">
           <div role="tabpanel" class="tab-pane fade in" id="About">
@@ -175,8 +172,8 @@
                   <% end %>
                 </ul>
               </div>
-              <div class="col-md-8" id="insert_google_map">
-                <!-- GOOGLE MAP -->
+              <div class="col-md-8" id="map">
+                <!-- MAP -->
               </div>
             </div>
           </div>
@@ -307,8 +304,17 @@
             interval: 2000
         });
     });
-    function show_map (){
-        document.getElementById('insert_google_map').innerHTML = document.getElementById('map').innerHTML
-    }
-
+  var map_present = false 
+  $(".venue_map_request").click(function () {
+  if (map_present == false) {
+    $.ajax({
+      url: "/venues/<%=@venue.id%>/map",
+      type: "get",
+      success:function (e) { 
+        $("#map").html(e);
+        map_present = true
+      }
+    })
+  };
+  });
 </script>
