@@ -47,4 +47,9 @@ module EventsHelper
 
   end
 
+  def move_custom_to_last(args = [])
+    custom = args - args.reject{|x| x[0]== 'custom' || x[0] == 'Custom'}
+    return ((args - custom) + custom)
+  end
+
 end

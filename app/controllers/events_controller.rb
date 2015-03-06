@@ -36,7 +36,7 @@ class EventsController < ApplicationController
       @venue = Venue.find(params[:venue_id])
       flash.now[:notice] = 'Venue added to event'
     end
-    @event_templates = Spree::Admin::Template.select([:id,:name])
+    @event_templates = Spree::Admin::Template.select([:id,:name]).order('name')
     @contacts = request.env['omnicontacts.contacts']
     session.delete(:event_data) if session[:event_data]
     session.delete(:event_edit) if session[:event_edit]
@@ -145,7 +145,7 @@ class EventsController < ApplicationController
     #byebug
     @venue = Venue.find(@event[:venue_id]) if @event[:venue_id].present?
     @venue = Venue.find(params[:venue_id]) if params[:venue_id].present?
-    @event_templates = Spree::Admin::Template.select([:id,:name])
+    @event_templates = Spree::Admin::Template.select([:id,:name]).order('name')
     @contacts = request.env['omnicontacts.contacts']
   end
 

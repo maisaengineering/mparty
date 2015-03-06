@@ -1,6 +1,6 @@
 <div class="row">
   <div class="container container_stlye">
-  <div class="row">
+    <div class="row">
       <div class="title_name">Edit Design</div>
     </div>
     <div class="create_event_bg">
@@ -20,7 +20,7 @@
                     <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
                   </div>
                   <div class="col-md-6">
-                    <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Type*'} ,class: 'form-control' ,required: true%>
+                    <%= f.select :template_id, move_custom_to_last(@event_templates.map{|wl| [wl.name, wl.id]}), {:include_blank => 'Choose Type*'} ,class: 'form-control' ,required: true%>
                     <%= f.hidden_field :design_id %>
                   </div>
                   <div class="col-md-6 event_type_hide"  >
@@ -52,7 +52,7 @@
                   <div class="col-md-12">
                     <label></label>
                     <select id="venue_type" class="form-control"  required>
-                      <option>Venue*</option>
+                      <option>Choose Venue*</option>
                       <option value="choose">Choose</option>
                       <option value="custom">Custom</option>
                     </select>
@@ -75,7 +75,7 @@
                     <div class="col-md-6">
                       <label></label>
                       <% if @event.country.present? %>
-                        <%= f.collection_select :state, Spree::Country.find_by_name(@event.country).states || [], :name, :name, {:include_blank => 'Please select the Country'}, {class: 'form-control'}  %>
+                          <%= f.collection_select :state, Spree::Country.find_by_name(@event.country).states || [], :name, :name, {:include_blank => 'Please select the Country'}, {class: 'form-control'}  %>
                       <% end %>
                     </div>
                     <div class="col-md-6">
@@ -101,19 +101,19 @@
                         <%= f.hidden_field :country,value: @venue.country %>
                         <%= f.hidden_field :zip,value: @venue.zip %>
                       </div>
-                <% else %>
-                  <div class="col-md-12 mtop20">
-                    <ul id="default_venue_address" class="venue_ctc_details">
-                      <li> <span class="glyphicon glyphicon-map-marker"></span> <b> <%= @event.location %></b></li>
-                      <li> <%= @event.city  %>, <%= @event.state  %>, </li>
-                      <li> <%= @event.country  %>, <%= @event.zip %> </li>
-                    </ul>
-                  </div>
+                  <% else %>
+                      <div class="col-md-12 mtop20">
+                        <ul id="default_venue_address" class="venue_ctc_details">
+                          <li> <span class="glyphicon glyphicon-map-marker"></span> <b> <%= @event.location %></b></li>
+                          <li> <%= @event.city  %>, <%= @event.state  %>, </li>
+                          <li> <%= @event.country  %>, <%= @event.zip %> </li>
+                        </ul>
+                      </div>
                   <% end %>
 
                   <div class="col-md-12">
                     <label></label>
-                    <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2 ,required: true %>
+                    <%= f.text_area :description, class: 'form-control event_description_placeholder',placeholder: 'Additional Details',rows: 2 ,required: true %>
                   </div>
 
 
@@ -188,149 +188,261 @@
 
 
 
-      $("#venue_type").hide()
-      $('#default_venue_address').hide()
-      <% if !@event.venue  %>
-      $('#venue_dform').fadeIn('slow')
+    $("#venue_type").hide()
+    $('#default_venue_address').hide()
+    <% if !@event.venue  %>
+    $('#venue_dform').fadeIn('slow')
     $('#datepairExample .start').datetimepicker({
+        defaultDate: $('#datepairExample  .start').val().split(' ')[0].split('-')[0] + '/'+ $('#datepairExample  .start').val().split(' ')[0].split('-')[1] + '/' + $('#datepairExample  .start').val().split(' ')[0].split('-')[2],
         onShow:function( $input ){
-            var date = $input.getDate();
-            var month = $input.getMonth() + 1;
-            var year = $input.getFullYear();
-            var choose_date = year  + "/" + month + "/" + date;
-            var hours = $input.getHours();
-            var minutes = $input.getMinutes();
+            var start_date_and_time = $("#datepairExample .start").val()
+            var split_start_date_and_time = start_date_and_time.split(' ')
+            var starts_at = split_start_date_and_time[0]
+            var start_time = split_start_date_and_time[1]
             var today = new Date()
             var today_date = today.getDate();
+            if(today_date < 10){
+                today_date = '0'+today_date
+            }
             var today_month = today.getMonth() + 1;
+            if(today_month < 10){
+                today_month = '0'+today_month
+            }
             var today_year = today.getFullYear();
-            var current_date = today_year  + "/" + today_month + "/" + today_date;
-            var current_time = hours + ":" + minutes
-            if(choose_date == current_date) {
+            var current_date = today_year  + "-" + today_month + "-" + today_date;
+            var current_time = today.getHours() + ":" + today.getMinutes()
+            if(starts_at == current_date) {
                 this.setOptions({
                     minDate: '0',
-                    minTime: current_time
+                    minTime: current_time,
+                    format:'Y-m-d H:i'
                 })
             }
             else{
                 this.setOptions({
-                    minTime: '00:00'
+                    minDate: '0',
+                    minTime: '00:00',
+                    format:'Y-m-d H:i',
+                    defaultDate: starts_at
+
                 })
             }
         },
-        onChangeDateTime:function($input){
-            $('#datepairExample .end').val('')
+        onSelectDate:function($input){
+            // $('#datepairExample .end').val('')
             var date = $input.getDate();
+            if(date < 10)
+            {
+                date = '0'+date
+            }
             var month = $input.getMonth() + 1;
+            if(month < 10)
+            {
+                month = '0'+month
+            }
             var year = $input.getFullYear();
-            var choose_date = year  + "/" + month + "/" + date;
+            var choose_date = year  + "-" + month + "-" + date;
+            var end_date = $('#datepairExample  .end').val().split(' ')[0]
+            if(choose_date > end_date )
+            {
+                $('#datepairExample  .end').val(' ')
+            }
             var today = new Date()
             var today_date = today.getDate();
+            if(today_date < 10)
+            {
+                today_date = '0'+today_date
+            }
             var today_month = today.getMonth() + 1;
+            if(today_month < 10)
+            {
+                today_month = '0'+today_month
+            }
             var today_year = today.getFullYear();
             var hours = today.getHours();
             var minutes = today.getMinutes();
-            var current_date = today_year  + "/" + today_month + "/" + today_date;
+            if(minutes < 10)
+            {
+                minutes = '0'+minutes
+            }
+            var current_date = today_year  + "-" + today_month + "-" + today_date;
             var current_time = hours + ":" + minutes
             if(choose_date == current_date){
                 this.setOptions({
-                    minTime: current_time
+                    value: choose_date + ' ' + current_time,
+                    minTime: current_time,
+                    format:'Y-m-d H:i',
+                    closeOnTimeSelect:true
                 })
             }
             else{
                 this.setOptions({
-                    minTime: '00:00'
+                    minTime: '00:00',
+                    format:'Y-m-d H:i',
+                    closeOnTimeSelect:true
                 })
             }
-        }
-    });
-    $('#datepairExample  .end').datetimepicker({
-        onShow:function( ct ){
-            var end_date_and_time = $('#datepairExample .start').val()
-            var end_date  = end_date_and_time.split(' ')
-            var ends_at = end_date[0]
-            var end_time = end_date[1]
-            this.setOptions({
-                minDate: ends_at ? ends_at : '0',
-                minTime: end_time
-            })
         },
-        onChangeDateTime:function($input){
-            var end_date_and_time = $('#datepairExample .end').val()
-            var end_date = end_date_and_time.split(' ')
-            var ends_at = end_date[0]
-            var start_date_and_time = $('#datepairExample .start').val()
-            var start_date  = start_date_and_time.split(' ')
-            var starts_at = start_date[0]
-            var start_time = start_date[1]
-            if(ends_at == starts_at){
+        onSelectTime:function($input){
+            var date = $input.getDate();
+            if(date < 10)
+            {
+                date = '0'+date
+            }
+            var month = $input.getMonth() + 1;
+            if(month < 10)
+            {
+                month = '0'+month
+            }
+            var year = $input.getFullYear();
+            var choose_date = year  + "-" + month + "-" + date;
+            var c_hours = $input.getHours();
+            if(c_hours < 10)
+            {
+                c_hours = '0'+c_hours
+            }
+            var end_date = $('#datepairExample  .end').val().split(' ')[0]
+            var end_time = $('#datepairExample  .end').val().split(' ')[1].split(':')[0]
+            if(choose_date == end_date && c_hours >  end_time)
+            {
+                $('#datepairExample  .end').val(' ')
+            }
+        }
+    });
+
+
+
+
+    $('#datepairExample  .end').datetimepicker({
+        //defaultDate: $('#datepairExample  .end').val().split(' ')[0].split('-')[0] + '/'+ $('#datepairExample  .end').val().split(' ')[0].split('-')[1] + '/' + $('#datepairExample  .end').val().split(' ')[0].split('-')[2],
+        //defaultTime: $('#datepairExample  .end').val().split(' ')[1],
+        onShow:function( $input ){
+            var start_date_and_time = $('#datepairExample  .start').val()
+            var split = start_date_and_time.split(' ')
+            var start_date = split[0]
+            var start_time = split[1]
+            var split_start_time = start_time.split(':')
+            var st_time = split_start_time[0] + ':' + split_start_time[1]
+            var split_start_date = start_date.split('-')
+            var st_date_val = split_start_date[0] + '/' + split_start_date[1] + '/' + split_start_date[2]
+            var date = $input.getDate();
+            if(date < 10)
+            {
+                date = '0'+date
+            }
+            var month = $input.getMonth() + 1;
+            if(month < 10)
+            {
+                month = '0'+month
+            }
+            var year = $input.getFullYear();
+            var choose_date = year  + "-" + month + "-" + date;
+            if(choose_date == start_date){
                 this.setOptions({
-                    minTime: start_time
+                    minTime: st_time ? st_time : '0',
+                    minDate: st_date_val ? st_date_val : '0',
+                    format:'Y-m-d H:i'
+                })
+            }
+            else{
+            this.setOptions({
+                format:'Y-m-d H:i',
+                minDate:  st_date_val ? st_date_val : '0',
+                minTime: "00:00"
+            })
+            }
+        },
+        onSelectDate:function($input){
+            var date = $input.getDate();
+            if(date < 10)
+            {
+                date = '0'+date
+            }
+            var month = $input.getMonth() + 1;
+            if(month < 10)
+            {
+                month = '0'+month
+            }
+            var year = $input.getFullYear();
+            var choose_date = year  + "-" + month + "-" + date;
+            var start_date_and_time = $('#datepairExample  .start').val()
+            var split = start_date_and_time.split(' ')
+            var start_date = split[0]
+            var start_time = split[1]
+            var split_start_time = start_time.split(':')
+            var st_time = split_start_time[0] + ':' + split_start_time[1]
+            if(choose_date == start_date){
+                this.setOptions({
+                    value: choose_date + ' ' + start_time,
+                    minTime: st_time ? st_time : '0',
+                    format:'Y-m-d H:i'
                 })
             }
             else{
                 this.setOptions({
-                    minTime: '00:00'
+                    format:'Y-m-d H:i',
+                    minTime: "00:00"
                 })
             }
-
         }
-    });
-
-      <% end %>
 
 
+    })
 
-
+    <% end %>
 
 
 
 
 
-                            /*
-                                $('#edit_event_<%#=@event.id%> #venue_type').on('change', function () {
-                                    if($(this).val() == 'choose'){
-                                        selected_date=$("#event_starts_at").val()
-                                        selected_end_date=$("#event_ends_at").val()
-                                        if(selected_date == "" ) {
-                                            $("#venue_type").val("Venue*")
-                                            bootbox.alert("please select Start Date")
-                                            return false;
-                                        }
-                                        // SELECT END DATE & END TIME
-                                        else if(selected_end_date == "" ) {
-                                            $("#venue_type").val("Venue*")
-                                            bootbox.alert("please select End Date ")
-                                            return false;
-                                        }
 
 
-                                        $('#venue_dform').empty()
-                                        $('#venue_dform').fadeOut()
-                                        var sData = $('#edit_event_<%#=@event.id%>').serialize();
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/events/select_venue",
-                                            data: sData,
-                                            success: function(res) {
-                                                Turbolinks.visit('/venues?from_event=true')
-                                            }
-                                        });
-                                    }else if($(this).val() == 'custom'){
 
-                                        $('#venue_afterchoose').remove()
-                                        $('#venue_dform').fadeIn('slow')
-                                        $('#venue_name').remove()
-                                        $('#event_venue_id').val('')
-                                        $('#event_location').val('')
-                                        $('#event_city').val('')
-                                        //$('#event_state').val('')
-                                        //$('#event_country').val('')
-                                        $('#event_zip').val('')
-                                        $("#venus_hidden_fields").empty()
 
-                                    }
-                                });*/
+    /*
+     $('#edit_event_<%#=@event.id%> #venue_type').on('change', function () {
+     if($(this).val() == 'choose'){
+     selected_date=$("#event_starts_at").val()
+     selected_end_date=$("#event_ends_at").val()
+     if(selected_date == "" ) {
+     $("#venue_type").val("Venue*")
+     bootbox.alert("please select Start Date")
+     return false;
+     }
+     // SELECT END DATE & END TIME
+     else if(selected_end_date == "" ) {
+     $("#venue_type").val("Venue*")
+     bootbox.alert("please select End Date ")
+     return false;
+     }
+
+
+     $('#venue_dform').empty()
+     $('#venue_dform').fadeOut()
+     var sData = $('#edit_event_<%#=@event.id%>').serialize();
+     $.ajax({
+     type: "POST",
+     url: "/events/select_venue",
+     data: sData,
+     success: function(res) {
+     Turbolinks.visit('/venues?from_event=true')
+     }
+     });
+     }else if($(this).val() == 'custom'){
+
+     $('#venue_afterchoose').remove()
+     $('#venue_dform').fadeIn('slow')
+     $('#venue_name').remove()
+     $('#event_venue_id').val('')
+     $('#event_location').val('')
+     $('#event_city').val('')
+     //$('#event_state').val('')
+     //$('#event_country').val('')
+     $('#event_zip').val('')
+     $("#venus_hidden_fields").empty()
+
+     }
+     });*/
 
     /*event creation end time toggle option */
     $(".btn_add_endtime").click(function(e) {

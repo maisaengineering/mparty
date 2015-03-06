@@ -40,7 +40,7 @@ class Event < ActiveRecord::Base
 
   #validate :validate_duplicate_event_name
 
-  validates :name,:template_id, :starts_at,:ends_at,:description,:city,:state,:country,:zip, presence: true
+  validates :name,:template_id, :starts_at,:ends_at,:city,:state,:country,:zip, presence: true
   validates_presence_of :location, :unless => :venue_id?
 
   #scopes

@@ -13,7 +13,7 @@
             <%= f.text_field :name, class: 'form-control',placeholder: 'Event Name*' ,required: true,autofocus: true%>
           </div>
           <div class="col-md-6">
-            <%= f.select :template_id, @event_templates.map{|wl| [wl.name, wl.id]}, {:include_blank => 'Type*'} ,class: 'form-control' ,required: true%>
+            <%= f.select :template_id, move_custom_to_last(@event_templates.map{|wl| [wl.name, wl.id]}), {:include_blank => 'Choose Type*'} ,class: 'form-control' ,required: true%>
             <%= f.hidden_field :design_id %>
           </div>
           <div class="col-md-6 event_type_hide"  >
@@ -45,7 +45,7 @@
           <div class="col-md-12">
             <label></label>
             <select id="venue_type" class="form-control"  required>
-              <option>Venue*</option>
+              <option>Choose Venue*</option>
               <option value="choose">Choose</option>
               <option value="custom">Custom</option>
             </select>
@@ -96,7 +96,7 @@
 
           <div class="col-md-12">
             <label></label>
-            <%= f.text_area :description, class: 'form-control',placeholder: 'Event Description*',rows: 2 ,required: true %>
+            <%= f.text_area :description, class: 'form-control event_description_placeholder',placeholder: 'Additional Details',rows: 2  %>
           </div>
 
 
@@ -353,7 +353,6 @@
                 }
             });
         }else if($(this).val() == 'custom'){
-
             $('#venue_afterchoose').remove()
             $('#venue_dform').fadeIn('slow')
             $('#venue_name').remove()
@@ -364,7 +363,6 @@
             //$('#event_country').val('')
             $('#event_zip').val('')
             $("#venus_hidden_fields").empty()
-
         }
     });
 
