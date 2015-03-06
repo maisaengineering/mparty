@@ -5,7 +5,7 @@
   <div class="container container_stlye" >
     <div class="title_trending">
       <div class="title_bg"></div>
-      <div class="title_name"><%= Spree.t(:shopping_cart) %> <%= " (#{@event.name})" if @event %></div>
+      <div class="title_name"><%= Spree.t(:shopping_cart) %> <%= " (#{@event.name})" if @event && !@order.line_items.empty? %></div>
     </div>
     <div class="row">
       <div class="col-md-1"></div>
