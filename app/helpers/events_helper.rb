@@ -48,8 +48,9 @@ module EventsHelper
   end
 
   def move_custom_to_last(args = [])
-    custom = args - args.reject{|x| x[0]== 'custom' || x[0] == 'Custom'}
-    return ((args - custom) + custom)
+    a = args.pluck(:name,:id)
+    c = a.select{|x| x[0] == 'custom' || x[0] == 'Custom'}
+    return last = (a-c) + c
   end
 
 end
