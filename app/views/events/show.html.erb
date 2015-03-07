@@ -94,26 +94,26 @@
                 <%=  @event.full_address %>
               </h5>
             </div>
+            <div class="col-md-12"> 
+              <button class="btn event_map"> 
+                <span class="glyphicon glyphicon-map-marker"> </span>
+                  Show Venue in Google Map
+                </button>
+            </div>
           </div>
-          <div class="row" id="event_address">
+<!--           <div class="row" id="event_address">
             <div class="col-md-12"> <button class="btn"> <span class="glyphicon glyphicon-map-marker"></span>Show Venue in Google Map</button></div>
           </div>
 
           <div class="row" id="hide_button">
             <div class="col-md-12"> <button class="btn"> Hide Map</button></div>
-          </div>
+          </div> -->
 
           <div class="row" id="event_address_map">
             <div class="col-md-12">
               <label></label>
               <div class="location_block">
-                <% if @event.venue.present? %>
-                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.full_address  %> "></iframe>
-                <%else%>
-                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
-                <% end %>
+                <!-- GOOGLE MAP -->
               </div>
             </div>
           </div>
@@ -338,5 +338,17 @@
             .bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
             .bind('ajax:success', function(e,data, status, xhr) { $('.loading-indicator').hide() })
 
-
+var map_present = false 
+$(".event_map").click(function () {
+if (map_present == false) {
+  $.ajax({
+    url: "/events/<%=@event.id%>/event_map",
+    type: "get",
+    success:function (e) { 
+      $(".location_block").html(e);
+      map_present = true
+    }
+  })
+};
+});
 </script>

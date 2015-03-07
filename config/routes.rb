@@ -180,6 +180,7 @@ Invitation::Application.routes.draw do
   post '/events/:event_id/join'=>"rsvps#join",as: :join_into_event
   delete '/events/:event_id/disjoin'=>"rsvps#disjoin",as: :disjoin_from_event
 
+  get '/events/:event_id/event_map' => 'events#event_map',as: :event_map
   #Select state by country
   get '/country/get-states/:country'=>"country#get_states", as: :get_country_states
 

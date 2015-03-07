@@ -83,6 +83,12 @@ class EventsController < ApplicationController
 
   end
 
+def event_map
+  logger.info"#{params}sssssssssssss"
+  @event = Event.find(params[:event_id])
+  @apikey = ENV['GOOGLE_API_KEY']
+  render layout: false
+end
 
   def share_on_fb
     #  @event = Event.find(params[:id])

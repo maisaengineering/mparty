@@ -1,0 +1,7 @@
+<% if @event.venue.present? %>
+    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+<%= @apikey %>&q=<%= @event.venue.name + @event.full_address  %> "></iframe>
+<%else%>
+    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
+<%= @apikey %>&q=<%= @event.location + @event.city  %> "></iframe>
+<% end %>
