@@ -4,10 +4,14 @@
 <script>
     $('#calendar').fullCalendar({
         header: {
-            left: 'prev,next,today',
+            // left: 'prev,next,today',
+            left: '',
             center: 'title',
-            right: 'month,agendaWeek,agendaDay'
+            right: 'prev,next',
+            // right: 'month,agendaWeek,agendaDay',
         },
+        height: "auto",
+        fixedWeekCount: false,
         eventLimit: 3,
         showTime: true,
         events: '/get_my_calendar.json',
