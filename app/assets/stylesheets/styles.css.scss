@@ -95,6 +95,7 @@ body{
   display:block;
   text-transform:uppercase;
   outline:none;
+  cursor:pointer;
 }
 .btn-createevent:hover {
   background-color: #449d44;
@@ -176,8 +177,7 @@ body{
 
 }*/
 .modal_darktheme {
-  background-color:rgba(0,0,0,.9);
-  opacity:0.9;
+  background-color:#ffffff;
 }
 .main-nav > li > a {
   border-bottom:2px solid transparent;
@@ -198,7 +198,6 @@ body{
   color: #bc3804 !important;
   border-bottom:2px solid #bc3804;
 }
-
 .top-nav > li > a {
   transition:border-bottom ease-in 1s;
 }
@@ -225,6 +224,9 @@ body{
 .login_and_signup_modal .modal-header{
   border-bottom:none;
 }
+.modal-header{
+  overflow: hidden;
+}
 #wrapper .modal-footer{
   border-top:none;
 }
@@ -245,6 +247,7 @@ body{
   border-radius:15px;
   -moz-border-radius:15px;
   -webkit-border-radius:15px;
+
 }
 .btn:focus {
   outline:none!important
@@ -282,16 +285,19 @@ body{
   -webkit-border-radius:15px;
   color:#000000;
 }
+.form-control{
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
+}
 .modal_wishlist_bg .form-control {
-  background-color:#FFFFFF;border:1px solid #bbbbbb;
- border-radius:15px;
- -moz-border-radius:15px;
- -webkit-border-radius:15px;
+  background-color:#FFFFFF;
+  border:1px solid #bbbbbb;
+  border-radius:15px;
+  -moz-border-radius:15px;
+  -webkit-border-radius:15px;
   color:#000000;}
 
-.form-control{
-  border-radius: 15px;
-}
 .reset_modal{
   width:324px;
   margin:0 auto;
@@ -559,7 +565,7 @@ body{
   position: relative;
   padding: 3px 7px;
   text-align: center;
-  top: -22px;
+  top: -7px;
   margin: 0 auto;
   width: 225px;
 }
@@ -695,8 +701,8 @@ body{
 }
 .inv_preview_bg{
   text-align: center;
-  width: 450px;
-  margin: 0 auto;
+  width:450px;
+  margin:0 auto;
 }
 .inv_count_btn{
   height:50px;
@@ -744,6 +750,8 @@ body{
 }
 .count_btns_margin{
   margin-top:20px;
+  min-height:145px;
+  overflow:hidden;
 }
 .location_block{
   border:10px solid #fff;
@@ -780,7 +788,6 @@ body{
   color:#555;
 }
 .comment_block_btn{
-  padding-top:20px;
 }
 .comment_block_btn textarea{
   border:1px solid #cfcfcf;
@@ -825,7 +832,6 @@ body{
   top:20px;
 }
 .shopping_cart_wishlist{
-  margin-top:40px;
 }
 .shopping_cart_footer{
   border-top: 1px solid #bbbbbb;
@@ -1096,6 +1102,7 @@ body{
 .whatsup_search{
   position:absolute;
   margin-top: 120px;
+
 }
 .whatsup_src_icon{
   position: absolute;
@@ -1227,7 +1234,7 @@ font-size: 24px;
 }
 
 .edit_event_btn h4{
-  margin-top:6px;
+	margin-top:6px;
 }
 .event_photos{
 width: 100%;
@@ -1584,6 +1591,9 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 .nopleft{
   padding-left:0px;
 }
+.nopright{
+  padding-right:0px;
+}
 .nopadding {
   padding-left:0px;
   padding-right:0px;
@@ -1824,7 +1834,7 @@ li.ui-timepicker-selected .ui-timepicker-duration,
 #timeline_tabs .fade_upcoming {
   position:absolute;
   width:98.5%;
-  height:225px;
+  height:222px;
   top:228px;
   z-index:100;
   background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(181,181,181,1) 100%); /* FF3.6+ */
@@ -1971,8 +1981,8 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   width: 41px;
   float:left;
   border-radius:15px 0 0 15px;
- -moz-border-radius:15px 0 0 15px;
- -webkit-border-radius:15px 0 0 15px;
+  -moz-border-radius:15px 0 0 15px;
+  -webkit-border-radius:15px 0 0 15px;
 }
 
 .fb-icon-bg:after {
@@ -1992,12 +2002,12 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   color: #fff;
   float:left;
   border-radius: 0 15px 15px 0;
- -moz-border-radius: 0 15px 15px 0;
- -webkit-border-radius: 0 15px 15px 0;
+  -moz-border-radius: 0 15px 15px 0;
+  -webkit-border-radius: 0 15px 15px 0;
 }
 
 .fb-wrap {
-  width: 222px;
+  width:222px;
   margin:20px auto;
   height:auto;
   overflow:hidden;
@@ -2092,7 +2102,6 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   height:240px;
   margin:10px auto;
 }
-
 .event_description_placeholder {
   font-style: italic;
 }
@@ -2100,7 +2109,6 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   text-align:center;
   color: #0572ff;
 }
-
 #eventDesignPreviewInvitee .event_photos_block img {
   width:120px;
   height:120px;
@@ -2234,7 +2242,7 @@ ul.notification-list li {
 }
 
 .city_select {
-  background-color:#c5333f;
+  background-color:#f7838e;
 
   background-image: image-url('select-city-arrow.png');
   background-position:90% center;
@@ -2244,11 +2252,13 @@ ul.notification-list li {
   padding-right:30px;
   color:#ffffff;
   border:none;
+  margin-top:9px;
 }
 .city_select:focus {
   outline:none !important;
-  box-shadow:none !important; 
+  box-shadow:none !important;
 }
+
 .request_invite {
   position:absolute;
   right:5px;
@@ -2290,7 +2300,7 @@ ul.notification-list li {
 .homepage_title {
   margin:0px; text-align:center; padding:60px 0; color:#ffffff;
   text-shadow:1px 1px 2px #111111;
-  padding: 80px 0px;
+  padding: 80px 0;
 }
 .light_bg {
   background-color:#f1f1f1;
@@ -2305,7 +2315,7 @@ ul.notification-list li {
 }
 .progress {
   height:12px;
-  margin-bottom: 5px;
+  margin-bottom:5px;
 }
 .progress-box {
   min-height:150px;
@@ -2314,7 +2324,6 @@ ul.notification-list li {
 .upload {
   font-size:13px;
 }
-
 .modal1{
   width:324px;
   margin:30px auto;
@@ -2327,6 +2336,10 @@ ul.notification-list li {
   width:595px;
   margin:30px auto;
 }
+.modal4{
+  width:800px;
+  margin:30px auto;
+}
 .modal5{
   width:1170px;
   margin:30px auto;
@@ -2334,8 +2347,8 @@ ul.notification-list li {
 .slider_image_fix{
   height: 90px;
 }
-/**************start esponsive css****************/
 
+/**************start responsive css****************/
 body.unresponsive {
   min-width: 1200px;
 }
@@ -2557,32 +2570,87 @@ body.unresponsive .navbar .navbar-nav .open .dropdown-menu > .disabled > a:focus
 
 /**************end unresponsive css****************/
 
+
 .btn-createevent:focus{
-    outline:none!important
+  outline:none!important
 }
 a:focus{
-    outline:none!important;
- text-decoration:none!important
+  outline:none!important;
+  text-decoration:none!important
 }
 #venue_calendar_style .fc-day-grid {
- height:330px !important;
+  height:330px !important;
 }
 #venue_calendar_style .fc-view-container table {
- overflow:hidden;
- }
+  overflow:hidden;
+}
 #venue_calendar_style .fc-toolbar .fc-left {
- padding: 8px 10px;
+  padding: 8px 10px;
 }
 #venue_calendar_style .fc-toolbar .fc-right {
- padding:8px 0;
-}   
-
-#venue_calendar_style .venue_right button {
- width:60px !important;
- 
+  padding:8px 0;
 }
 
+#venue_calendar_style .venue_right button {
+  width:60px !important;
+}
 .form-control[readonly]{
   background-color:#ffffff;
   cursor:default;
 }
+
+/*improvments*/
+
+.box {
+  background-color:#ffffff;
+  -moz-box-shadow:0px 0px 10px #888888;
+  -webkit-box-shadow:0px 0px 10px #888888;
+  box-shadow:0px 0px 10px #888888;
+  padding-top:10px;
+  padding-bottom:20px;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}
+
+.scroll_wishlist_table table tr td {
+  vertical-align:middle;
+}
+.top-nav > li {
+  margin-top:7px;
+}
+.home-createevent {
+  padding-top:150px;
+  padding-top:175px;
+}
+.cart-count {
+  display:inline-block;
+  width:20px;
+  height:20px;
+  border-radius:20px;
+  -moz-border-radius:20px;
+  -webkit-border-radius:20px;
+  background-color:#ffffff;
+  color:#f7838e;
+  font-weight:bold;
+}
+.glyphicon-flip {
+  transform: scaleX(-1);
+  -moz-transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
+  -ms-transform: scaleX(-1);
+}
+.btn-cart {
+  margin-top:8px;
+}
+.scroll_timeline h4 {
+  margin:6px;
+}
+.scart-price-table td {
+  text-align:right;
+}
+.billing-steps .event_divider {
+  height:30px;
+}
+
+
