@@ -657,6 +657,13 @@ body{
   margin-top: 12px;
   border:1px solid #ccc;
 }
+.product_view_thumb li {
+ margin-left:5px;
+ margin-right:5px;
+}
+.product_view_thumb .jcarousel-control-next {
+ right:-7px;
+}
 .product_details h4{
   color:#bc3804;
 }
