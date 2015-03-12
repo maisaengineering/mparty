@@ -1605,6 +1605,10 @@ li.ui-timepicker-selected .ui-timepicker-duration,
   color:#FFFFFF !important;
 }
 
+.icon-big {
+  font-size:26px;
+}
+
 #endtime {
   display:none
 }
@@ -2603,7 +2607,7 @@ a:focus{
   -moz-box-shadow:0px 0px 10px #888888;
   -webkit-box-shadow:0px 0px 10px #888888;
   box-shadow:0px 0px 10px #888888;
-  padding-top:10px;
+  padding-top:20px;
   padding-bottom:20px;
   border-radius:10px;
   -moz-border-radius:10px;
@@ -2650,4 +2654,10 @@ a:focus{
   height:30px;
 }
 
+.wishlist-placeholder {
+  width: 99%;
+  height: 245px;
+  background-color: #f1f1f1;
+  border: 1px dashed #cccccc;
+}
 
