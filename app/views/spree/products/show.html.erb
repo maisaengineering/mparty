@@ -1,19 +1,52 @@
 <%# cache [current_currency, @product] do %>
     <% @body_id = 'product-details' %>
     <div class="container-fluid">
-      <div class="container" >
+      <div class="container">
         <div class="row event_margin">
-          <div class="col-md-5">
-            <div class="product_view_big" id="product-images" data-hook="product_images">
+          <div class="col-md-5" id="productView">
+<!--        <div class="product_view_big" id="product-images" data-hook="product_images">
               <div id="main-image" data-hook>
-                <%= render 'image' %>
+                <%#= render 'image' %>
               </div>
             </div>
             <div class="product_view_thumb">
               <div id="thumbnails" class="row" data-hook>
-                <%= render 'thumbnails' %>
+                <%#= render 'thumbnails' %>
               </div>
-            </div>
+            </div> -->
+            <div class="product_view_big" id="large-product">  </div>
+              <div class="product_view_thumb">
+                <div class="row">
+                  <div class="col-md-12">
+                   <div class="gallery jcarousel-wrapper">
+                    <div class="jcarousel" data-jcarousel="true">
+                      <ul style="left: 0px; top: 0px;">
+                        <%# no need for thumbnails unless there is more than one image %>
+                        <% if (@product.images + @product.variant_images).uniq.count > 1 %>
+                          <% @product.images.each do |i| %>
+                            <li class="design_template">
+                              <%= image_tag(i.attachment.url(:product)) %>
+                            </li>
+                        <% end %>
+
+                        <% if @product.has_variants? %>
+                          <% @product.variant_images.each do |i| %>
+                            <% next if @product.images.include?(i) %>
+                              <li class="design_template">
+                                <%= image_tag(i.attachment.url(:product)) %>
+                              </li>
+                            <% end %>
+                          <% end  %>
+                        <%end %>
+                      </ul>
+                    </div>
+                    <a class="btn btn-success jcarousel-control-prev nopaddingTotal inactive" data-jcarouselcontrol="true" data-no-turbolink="true" href="#">‹</a>
+                    <a class="btn btn-success jcarousel-control-next nopaddingTotal" data-jcarouselcontrol="true" data-no-turbolink="true" href="#">›</a>
+                   </div>
+                   </div>
+                </div>
+              </div>
+
           </div>
           <div class="col-md-7">
             <div class="product_details">
@@ -56,3 +89,21 @@
       </div>
     </div>
 <%# end %>
+ <script>
+$(document).ready(function(e) {
+  $("#productView #large-product").html($("#productView .jcarousel ul li").eq(0).html().replace('slider_image_fix', ''));
+   $("#productView .jcarousel ul li").mouseover(function(e){
+    // alert($(this).html().replace('slider_image_fix', ''))
+  $("#productView #large-product").html($(this).html().replace('slider_image_fix', ''));
+  $("#large-product img").removeClass("slider_image_fix")
+
+  /*$("#large-image .contentplace")*/
+  // return false; // prevent default click action from happening!
+     e.preventDefault(); // same thing as above
+  });
+  $('#myCarousel').carousel({
+  interval: 1000
+  })
+});
+$(".design_template img").addClass("slider_image_fix")
+</script>
