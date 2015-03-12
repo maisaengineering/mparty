@@ -2,10 +2,8 @@
   <!-- banner image -->
   <div class="position_rel">
     <div class="banner-image">
-      <h1 class="homepage_title">Celebrate your Event with Heart Likes Gifts</h1>
-      <%#= image_tag('banner_2.jpg' ,class: 'img-responsive') %>
     <div class="whatsup_src_block">
-        <div class="create_event">
+        <div class="create_event home-createevent">
           <% if spree_current_user  %>
             <%= link_to 'Create Event','/events/new',class: "btn-createevent" %>
           <% else %>
@@ -14,7 +12,7 @@
         </div>
         <div class="form-group whatsup_search">
           <%= form_tag("/",method: :get) do%>
-            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find Events by name or city' %>
+            <%= text_field_tag :query, params[:query], class: "event_search ", placeholder:'Find events by name or city' %>
               <button class="whatsup_src_icon"><span class="glyphicon glyphicon-search pull-left"></span></button>
           <% end %>
         </div>
