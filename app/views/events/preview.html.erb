@@ -1,65 +1,64 @@
-<div class="container-fluid">
-  <div class="container container_stlye">
-<% if policy(@event).preview?%>
-    <% if policy(@event).invite? %>
-        <div class="modal fade" id="add_more_guests" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal2">
-            <div class="modal-content modal_wishlist_bg"> <a href="/"><span class="glyphicon glyphicon-remove pull-right modal_wishlist_x" data-dismiss="modal"></span></a> <br>
-              <div class="modal-header">
-                <div class="title_trending">
-                  <div class="title_bg"></div>
-                  <div class="model_box_name">Add Guests</div>
-                </div>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <%= render 'invite_form' %>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer"> </div>
-            </div>
-          </div>
-        </div>
-    <% end %>
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="title_name"><%=@event.name%>
-           <div class="mbottom10 pull-right mright20">
-              <%= link_to "/event/#{@event.id}/invite-friends", class:"btn btn-success btn-large pull-right" do %>
-               <span class="glyphicon"></span> INVITE NOW
-              <%end%>
-          </div>
+<div class="modal fade in" id="viewVenueLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-backdrop fade in"></div>
+  <div class="modal-dialog modal4">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4 class="txt_center">Venue Location  </h4>
+        <div class="location_block">
         </div>
       </div>
     </div>
-    <!--event description-->
+  </div>
+</div>
+
+<div class="container-fluid" style="background-color:#daf5fe;">
+  <div class="row">
+    <div class="col-md-12">
+      <div  style="width:490px; margin:0 auto;">
+        <div id="eventDesignPreview">
+          <% if @event.fb_image.url.present? %>
+              <%= image_tag @event.fb_image.url  %>
+          <% else %>
+              <% c_design = @handlebars.compile(@event_design.content) %>
+              <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid" style="background-color:#444444;">
+  <div class="row">
+    <div class="col-md-12 mtop10 mbottom10">
+      <div class="col-md-4"></div>
+      <div class="col-md-4" style="text-align:center;">
+        <%= link_to "/event/#{@event.id}/invite-friends", class:"btn btn-success btn-large" do %>
+            <span class="glyphicon"></span> INVITE NOW
+        <% end  %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="container">
+
     <div class="row">
-      <div class="col-md-6" style="width:55%;">
-        <div class="col-md-12 event_preview_right">
-          <div class="row">
-            <div class="col-md-3">
-              <h4>Description:</h4>
-            </div>
-            <div class="col-md-9">
-              <h5>
-                <p><%=simple_format(@event.description)%></p>
-              </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <h4>Date:</h4>
-            </div>
-            <div class="col-md-9">
-              <h5>
-                <p>
+      <div class="col-md-12 mtop20">
+        <div class="col-md-12 box">
+
+          <div class="col-md-12">
+            <table class="table table-bordered nomargin-bottom">
+              <h4>Event Details:</h4>
+              <tr>
+                <td width="500">Additional details:</td>
+                <td><i><%=simple_format(@event.description)%></i></td>
+              </tr>
+              <tr>
+                <td>Date:</td>
+                <td>
                   <% if @event.starts_at.strftime("%D") == @event.ends_at.strftime("%D")  %>
                       <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
                           Today <%= "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
@@ -75,164 +74,99 @@
                           <%= "#{@event.ends_at.strftime('%d/%m/%y ')}"  ' ' "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% end %>
                   <% end %>
-                </p>
-              </h5>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3">
-              <h4>Venue:</h4>
-            </div>
-            <div class="col-md-9">
-              <h5>
-                <% if @event.venue.present? %>
-                    <%= @event.venue.name %>,
-                <% end %>
-                <%=  @event.full_address %>
-              </h5>
-            </div>
-          </div>
-          <div class="row" id="event_address">
-            <div class="col-md-12"> <button class="btn"> <span class="glyphicon glyphicon-map-marker"></span>Show Venue in Google Map</button></div>
-          </div>
-
-          <div class="row" id="hide_button">
-            <div class="col-md-12"> <button class="btn"> Hide Map</button></div>
-          </div>
-
-          <div class="row" id="event_address_map">
-            <div class="col-md-12">
-              <label></label>
-              <div class="location_block">
-                <% if @event.venue.present? %>
-                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.venue.name + @event.full_address  %> "></iframe>
-                <%else%>
-                    <iframe frameborder="0" height="165" width = 100% src="https://www.google.com/maps/embed/v1/place?key=
-             <%= ENV['GOOGLE_API_KEY'] %>&q=<%= @event.location + @event.city  %> "></iframe>
-                <% end %>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-
-      <div class="col-md-6" style="width:45%;">
-        <div id="eventDesignPreview">
-          <% if @event.fb_image.url.present? %>
-              <%= image_tag @event.fb_image.url  %>
-          <% else %>
-              <% c_design = @handlebars.compile(@event_design.content) %>
-              <%= c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe %>
-          <% end %>
-        </div>
-        <% if policy(@event).invite?  %>
-            <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary pull-right mtop5 mright5" do %>
+                </td>
+              </tr>
+              <tr>
+                <td>Venue:</td>
+                <td>
+                  <div class="col-md-11 nopadding">
+                    <% if @event.venue.present? %>
+                        <%= @event.venue.name %>,
+                    <% end %>
+                    <%=  @event.full_address %>
+                  </div>
+                  <a data-target="#viewVenueLocation" data-toggle="modal" href="#" class="pull-right event_map" title="show in google map"><img src="/assets/icon-gmap.png" width="30" height="30" alt=""/></a></td>
+              </tr>
+            </table>
+            <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary btn-sm pull-right mtop10 mright5" do %>
                 <span class="glyphicon glyphicon-edit"></span> Edit Design
             <% end %>
-        <% end %>
-      </div>
-
-    </div>
-
-
-    <div class="row mtop40">
-
-      <% if policy(@event).show_wishlist? %>
-          <%= render  "show_wishlist"  %>
-      <% end %>
-      <% if policy(@event).add_wishlist? %>
-          <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
-            <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
-                <span class="glyphicon glyphicon-edit"></span> Add Wishlist
-            <% end %>
           </div>
-      <% end %>
+        </div>
 
-      <div class="col-md-6" style="width:45%;">
-        <% unless @event.pictures.blank? %>
-            <h4>Photos</h4>
-            <div class="gallery event_photos" id="myCarousel">
-              <div class="jcarousel event_photos_block" data-jcarousel="false">
-                <ul style="left: 0px; top: 0px;">
-                  <% @event.pictures.each do |p| %>
-                      <li><a class="fancybox" href="<%=p.image.url %>" rel="gallery1"><img src="<%=p.image.url(:slide_show)%>" alt="Image 1"></a></li>
-                  <% end%>
-                </ul>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-12 box mtop20">
+              <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
+                <% if policy(@event).show_wishlist? %>
+                    <%= render  "show_wishlist"  %>
+                <% end %>
+                <% if policy(@event).add_wishlist? %>
+                    <h4>Wishlist:</h4>
+                    <div class="wishlist-placeholder">
+                      <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-gift icon-big"></span> <br>
+                        <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
+                            <span class="glyphicon glyphicon-edit"></span> Add Wishlist
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
               </div>
-              <%#= link_to "","#",class:"jcarousel-control-prev inactive event_photo_prev", "data-jcarouselcontrol" => "true" %>
-              <%#= link_to "","#",class:"jcarousel-control-next event_photo_next", "data-jcarouselcontrol" => "true" %>
-              <%if @event.pictures.count > 2%>
-                  <a href="#" class="jcarousel-control-prev inactive event_photo_prev btn btn-success nopaddingTotal " data-jcarouselcontrol="true">‹</a>
-                  <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
-              <%end%>
+
+              <div class="col-md-6" style="width:45%;">
+                <% unless @event.pictures.blank? %>
+                    <h4>Photos:</h4>
+                    <div class="gallery event_photos" id="myCarousel">
+                      <div class="jcarousel event_photos_block" data-jcarousel="false">
+                        <ul style="left: 0px; top: 0px;">
+                          <% @event.pictures.each do |picture| %>
+                              <li>
+                                <a class="fancybox" href="<%=picture.image.url %>" rel="gallery1">
+                                  <%= picture_image_tag(picture,:slide_show) %>
+                                </a>
+                              </li>
+                          <% end%>
+                        </ul>
+                      </div>
+                      <%if @event.pictures.count > 2%>
+                          <a href="#" class="jcarousel-control-prev inactive event_photo_prev btn btn-success nopaddingTotal " data-jcarouselcontrol="true">‹</a>
+                          <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
+                      <%end%>
+                    </div>
+                    <%= link_to add_photos_event_path(@event), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                        <span class="glyphicon glyphicon-edit"></span> Change Photos
+                    <% end %>
+                <% else %>
+                    <h4>Photos:</h4>
+                    <div class="wishlist-placeholder">
+                      <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-picture icon-big"></span> <br>
+                        <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm  mright5" do %>
+                            <span class="glyphicon glyphicon-edit"></span> Add Photos
+                        <% end %>
+                      </div>
+                    </div>
+                <% end %>
+              </div>
             </div>
-            <% if policy(@event).invite? && @event.invites.count == 0 %>
-                <%= link_to add_photos_event_path(@event), class:"btn btn-primary pull-right btn-sm mright5" do %>
-                    <span class="glyphicon glyphicon-edit"></span> Change Photos
-                <% end %>
-            <% end %>
-        <% else %>
-            <% if policy(@event).invite? && @event.invites.count == 0 %>
-                <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary pull-right btn-sm mright5" do %>
-                    <span class="glyphicon glyphicon-edit"></span> ADD Photos
-                <% end %>
-            <% end %>
-        <% end %>
+          </div>
+        </div>
       </div>
     </div>
-
-
   </div>
 </div>
 
-<%end%>
-
-
-<script type="text/javascript">
-
-    $(".invited_users_list")
-            .bind('ajax:beforeSend', function() { $('.loading-indicator').fadeIn('slow') })
-            .bind('ajax:success', function(e,data, status, xhr) {
-                $('#invitedUsersList').html(xhr.responseText)
-                $('#invitedUsersListModal').modal('show');
-                $('.loading-indicator').hide();
+<script>
+    var map_present = false
+    $(".event_map").click(function () {
+        if (map_present == false) {
+            $.ajax({
+                url: "/events/<%=@event.id%>/event_map",
+                type: "get",
+                success:function (e) {
+                    $(".location_block").html(e);
+                    map_present = true
+                }
             })
-
-    <% if @event.pictures.count == 1 %>
-    $(".jcarousel-control-prev").remove()
-    $(".jcarousel-control-next").remove()
-    <% end %>
-
-    <% if @comments.blank? %>
-    $(".row .comment_block").removeClass("comment_block")
-    <% end%>
-    $("#submit").click(function(){
-        $("#no_comment").empty().addClass("comment_block")
+        };
     });
-    $("#event_address").hide()
-    //$("#event_address_map").css("display", "none")
-    $("#event_address").click(function(){
-        $("#event_address_map").fadeIn("slow").css("display", "block");
-        $("#event_address").fadeOut("slow").css("display", "none")
-        $("#hide_button").show()
-    });
-    $("#hide_button").click(function() {
-        $("#hide_button").hide()
-        $("#event_address_map").fadeOut("slow").css("display", "none")
-        $("#event_address").fadeIn("slow").css("display", "block")
-    });
-
-    function share_on_fb(TheImg) {
-        u=TheImg.src;
-        t="M-Party Invitation.";
-        // t=TheImg.getAttribute('alt');
-        window.open('http://www.facebook.com/sharer.php?u='+encodeURIComponent(u)+'&t='+encodeURIComponent(t),'sharer','toolbar=0,status=0,width=626,height=436');return false;
-    }
-    $("#share_fb_button").click( function() {
-        $("#my_source").trigger("click");
-    })
-
 </script>

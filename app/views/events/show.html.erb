@@ -94,10 +94,12 @@
           <div class="col-md-7">
             <table class="table table-bordered">
               <h4>Event Details:</h4>
-              <tr>
-                <td width="180">Additional details:</td>
-                <td><i><%=simple_format(@event.description)%></i></td>
-              </tr>
+              <% if @event.description.present?  %>
+                  <tr>
+                    <td width="180">Additional details:</td>
+                    <td><i><%=simple_format(@event.description)%></i></td>
+                  </tr>
+              <% end  %>
               <tr>
                 <td>Date:</td>
                 <td>
@@ -230,18 +232,18 @@
                           <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
                       <%end%>
                     </div>
-                    <% if policy(@event).invite? && @event.invites.count == 0 %>
+                    <% if policy(@event).invite? %>
                         <%= link_to add_photos_event_path(@event), class:"btn btn-primary btn-sm pull-right mright5" do %>
                             <span class="glyphicon glyphicon-edit"></span> Change Photos
                         <% end %>
                     <% end %>
                 <% else %>
-                    <% if policy(@event).invite? && @event.invites.count == 0 %>
+                    <% if policy(@event).invite? %>
                         <h4>Photos:</h4>
                         <div class="wishlist-placeholder">
                           <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-picture icon-big"></span> <br>
                             <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm  mright5" do %>
-                                <span class="glyphicon glyphicon-edit"></span> ADD Photos
+                                <span class="glyphicon glyphicon-edit"></span> Add Photos
                             <% end %>
                           </div>
                         </div>
@@ -316,10 +318,6 @@
                 $('.loading-indicator').hide(1)
             })
 
-    <% if @event.pictures.count == 1 %>
-    $(".jcarousel-control-prev").remove()
-    $(".jcarousel-control-next").remove()
-    <% end %>
 
     <% if @comments.blank? %>
     $(".row .comment_block").removeClass("comment_block")
@@ -327,18 +325,7 @@
     $("#submit").click(function(){
         $("#no_comment").empty().addClass("comment_block")
     });
-    $("#event_address").hide()
-    //$("#event_address_map").css("display", "none")
-    $("#event_address").click(function(){
-        $("#event_address_map").fadeIn("slow").css("display", "block");
-        $("#event_address").fadeOut("slow").css("display", "none")
-        $("#hide_button").show()
-    });
-    $("#hide_button").click(function() {
-        $("#hide_button").hide()
-        $("#event_address_map").fadeOut("slow").css("display", "none")
-        $("#event_address").fadeIn("slow").css("display", "block")
-    });
+
 
     window.fbAsyncInit = function() {
         FB.init({
