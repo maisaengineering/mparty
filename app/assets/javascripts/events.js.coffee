@@ -29,7 +29,7 @@ $(document).ready ->
 
 
 $(document).on 'ajax:beforeSend', '.ask_host_to_invite', ->
-  bootbox.alert 'Request Sent successfully'
+  bootbox.alert 'Request sent successfully'
   $(this).remove()
   return
 $(document).on 'ajax:success', '.ask_host_to_invite', ->
