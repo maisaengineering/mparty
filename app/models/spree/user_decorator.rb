@@ -10,6 +10,7 @@ Spree::User.class_eval do
   has_many :reviews
 
   mount_uploader :avatar, AvatarUploader
+  process_in_background :avatar
 
 
   after_create :send_email

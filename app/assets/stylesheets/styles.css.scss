@@ -846,6 +846,11 @@ body{
 }
 .coupon_input{
   width:auto;
+  margin-top: 0px;
+  height: 42px;
+  border-radius: 30px;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
 }
 .btn_checkout{
 }
@@ -1128,6 +1133,12 @@ body{
 .nomargin {
   margin-left:0px;
   margin-right:0px;
+}
+.nomargin-bottom {
+  margin-bottom:0px;
+}
+.nomargin-top {
+  margin-top:0px;
 }
 .nomargin_left  {
   margin-left:-15px;
@@ -2672,4 +2683,7 @@ a:focus{
 }
 .top-nav>li.dropdown {
  margin-top:4px;
+}
+.table p {
+  margin:0px;
 }

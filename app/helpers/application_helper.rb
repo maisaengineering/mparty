@@ -78,7 +78,11 @@ module ApplicationHelper
   def mini_avatar_image_tag(user=nil,width=80,height=80)
     return image_tag('default-avatar-small.png',class: 'img-circle',width: width,height: height) if user.nil?
     if user.avatar.present?
-      image_tag(user.avatar.url(:mini),class: 'img-circle',width: width,height: height)
+      if user.avatar_processing?
+        image_tag user.avatar.url ,height: height,width: width,class: 'img-circle'
+      else
+        image_tag(user.avatar.url(:mini),class: 'img-circle',width: width,height: height)
+      end
     elsif user.user_authentications.find_by_provider("facebook").present?
       uid = user.user_authentications.find_by_provider("facebook").uid
       image_tag "http://graph.facebook.com/#{uid}/picture?type=small",class: 'img-circle',width: width,height: height
@@ -94,6 +98,25 @@ module ApplicationHelper
 
   def rating_for(rating)
     "<div class='rateit' data-rateit-value='#{rating}' data-rateit-ispreset='true' data-rateit-readonly='true'></div>".html_safe
+  end
+
+
+
+  def avatar_image_tag(user,version=nil,rounded=true)
+    if user.avatar_processing?
+      height_width = []
+      case version
+        when :small
+          height_width = [30,30]
+        when :mini
+          height_width = [80,80]
+        when :preview
+          height_width =  [240,240]
+      end
+      image_tag user.avatar.url ,height: height_width.first,width: height_width.last,class: rounded ? 'img-rounded bg_img' : nil
+    else
+      image_tag user.avatar.url(version),class: rounded ? 'img-rounded bg_img' : nil
+    end
   end
 
 end

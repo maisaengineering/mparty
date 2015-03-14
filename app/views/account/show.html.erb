@@ -11,7 +11,7 @@
         <!--<div><img src="images/event_1.jpg" width="240" height="240"alt=""/>
         </div>-->
         <% if @user.avatar.present? %>
-            <%=  image_tag(@user.avatar.url(:preview)) %>
+            <%= avatar_image_tag(@user,:preview,false) %>
             <a href="#" class="btn btn-primary btn-sm mtop10" data-toggle="modal" data-target="#changeProfilePic" data-dismiss="modal" id="user_photo">Change photo</a>
         <% elsif spree_current_user.user_authentications.find_by_provider("facebook").present?%>
             <% uid = spree_current_user.user_authentications.find_by_provider("facebook").uid%>

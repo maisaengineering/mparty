@@ -10,22 +10,22 @@
       <div class="col-md-2">
         <div class="row">
           <div class="<%= @order.state.eql?('address') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-list-alt"></span></div>
-          <div class="event_tab_title">BILLING ADDRESS</div>
+          <div class="event_tab_title">Billing Address</div>
           <div class="event_divider"></div>
         </div>
         <div class="row">
           <div class="<%= @order.state.eql?('delivery') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-shopping-cart"></span></div>
-          <div class="event_tab_title">DELIVERY</div>
+          <div class="event_tab_title">Delivery</div>
           <div class="event_divider"></div>
         </div>
         <div class="row">
           <div class="<%= @order.state.eql?('payment') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-credit-card"></span></div>
-          <div class="event_tab_title">PAYMENT</div>
+          <div class="event_tab_title">Payment</div>
           <div class="event_divider"></div>
         </div>
         <div class="row">
           <div class="<%= @order.state.eql?('confirm') ? 'billing_tab_active' : 'billing_tab' %>"><span class="glyphicon glyphicon-gift"></span></div>
-          <div class="event_tab_title">COMPLETE</div>
+          <div class="event_tab_title">Complete</div>
           <div></div>
         </div>
       </div>

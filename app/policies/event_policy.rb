@@ -113,4 +113,12 @@ class EventPolicy < Struct.new(:user, :event)
     user and event.is_owner?(user) and event.future_event? and event.invites.count == 0 and  !event.wishlist.nil?
   end
 
+  def empty_wishlist?
+    !event.is_owner?(user) and (event.wishlist.nil? or (event.wishlist  and event.wishlist.wished_products.count == 0))
+  end
+
+  def empty_photos?
+    !event.is_owner?(user) and event.pictures.count == 0
+  end
+
 end

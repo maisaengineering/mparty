@@ -11,8 +11,11 @@
     - if @event_design
       .col-md-12
         #eventDesignPreview
-          - c_design = @handlebars.compile(@event_design.content)
-          = c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe
+          - if @event.fb_image.url.present?
+            = image_tag @event.fb_image.url
+          - else
+            - c_design = @handlebars.compile(@event_design.content)
+            = c_design.call(MPARTY: event_data_points(@event,@event_template)).html_safe
     .col-md-12
       - if @order.bill_address
         - bill_address = @order.bill_address
