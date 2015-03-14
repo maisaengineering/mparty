@@ -1,7 +1,7 @@
 <div class="row text-right">
-  <div class="col-md-8"></div>
+  <div class="col-md-7"></div>
   <div class="col-md-3"><h5><%= type %>: <%= label %></h5></div>
-  <div class="col-md-1">
+  <div class="col-md-2">
 	<h5><%= Spree::Money.new(adjustments.sum(&:amount), :currency => @order.currency) %></h5>
   </div>
   <hr>
