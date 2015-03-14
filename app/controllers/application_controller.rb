@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def auth_user
+    store_location
     if request.xhr?
       render js: "window.location = '/login'"  unless signed_in?
     else
@@ -68,4 +69,26 @@ class ApplicationController < ActionController::Base
     data_points.merge!({eventCustomType: event.custom_event_type}) if event and !event.custom_event_type.nil?
     return data_points
   end
+
+  def store_location
+    # store last url - this is needed for post-login redirect to whatever the user last visited.
+
+    unless spree_current_user
+      if (request.path != "/users/sign_in" &&
+          request.path != "/users/sign_up" &&
+          request.path != "/users/password/new" &&
+          request.path != "/users/password/edit" &&
+          request.path != "/users/confirmation" &&
+          request.path != "/users/sign_out" &&
+          !request.xhr?) # don't store ajax calls
+        session[:spree_user_return_to] = request.fullpath
+      end
+    end
+
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:spree_user_return_to] || root_path
+  end
+
 end

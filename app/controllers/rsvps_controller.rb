@@ -5,6 +5,7 @@ class RsvpsController < ApplicationController
   # POST /events/:event_id/join
   def join
     # create self invitation(i.e invited_by/invited_user_id is blank)
+   authorize @event, :join?
    invite = @event.invites.find_or_create_by(user: spree_current_user ,recipient_email: spree_current_user.email)
    invite.update_attribute(:joined,1)
     respond_to do |format|
@@ -17,6 +18,7 @@ class RsvpsController < ApplicationController
 
   # DELETE /events/:event_id/disjoin
   def disjoin
+    authorize @event, :leave?
     invite = @event.invites.where('user_id=? OR recipient_email=?', spree_current_user.id, spree_current_user.email).first
     # self invitation
     if invite and invite.invited_user_id.nil?
