@@ -9,16 +9,16 @@ json.array!(@events.uniq) do |event|
     inv = event.invites.where(user_id: current_spree_user.id).first
     if inv.present?
       if inv.joined == 0
-        json.color '#cccccc' # gray pending inv
+        json.color '#555555' # gray pending inv
         json.tooltip 'Pending Invitation'
       elsif inv.joined == 1
-        json.color '#91e374' #green accepted/attending
+        json.color '#8bd92f' #green accepted/attending
         json.tooltip 'Attending Event'
       elsif inv.joined == 2
         json.color '#bc1339' # red rejected
         json.tooltip 'Rejected Invitation'
       elsif inv.joined == 3
-        json.color '#fce17e' #yellow maybe
+        json.color '#f0ad4e' #yellow maybe
         json.tooltip 'May be Attending Event'
       end
     end

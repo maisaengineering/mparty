@@ -11,9 +11,9 @@
 
 <% @order.shipments.each do |shipment| %>
     <div class="row">
-      <div class="col-md-9"></div>
-      <div class="col-md-2"><h5><%= Spree.t(:shipping) %>: <%= shipment.shipping_method.name %></h5></div>
-      <div class="col-md-1"><h5><%= shipment.display_discounted_cost %></h5></div>
+      <div class="col-md-7"></div>
+      <div class="col-md-3"><h5><%= Spree.t(:shipping) %>: <%= shipment.shipping_method.name %></h5></div>
+      <div class="col-md-2"><h5><%= shipment.display_discounted_cost %></h5></div>
     </div>
 <% end %>
 

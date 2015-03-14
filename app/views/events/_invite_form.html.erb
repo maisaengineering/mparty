@@ -23,7 +23,9 @@
       <% unless @contacts.blank? %>
         <% @contacts.each do |contact| %>
         <li>
+          <% unless contact[:email].blank?%>
           <%= check_box("contacts", contact[:email],{checked: false}) %> <%=contact[:name]%> => <%=contact[:email]%>
+          <% end %>
           <br>
            </li>
         <% end %>
