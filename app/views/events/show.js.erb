@@ -1,1 +1,7 @@
-$("#comments").append("<div class='page'><%= escape_javascript(render('comments/comment',comment: @comments)) %></div>");
+$('#comments').append('<%= j(render 'comments/list',comments: @comments )   %>');
+<% if @comments.next_page %>
+$('.pagination').replaceWith('<%= j(paginate @comments) %>');
+<% else %>
+$('.pagination').remove();
+<% end %>
+

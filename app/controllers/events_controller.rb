@@ -77,7 +77,7 @@ class EventsController < ApplicationController
     @invited_user = @event.invites.where("mail_sent =?",true)
     @wishlist = @event.wishlist
     @commentable = @event
-    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
+    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(5)
     @comment = Comment.new
     unless @event.fb_image.url.present?
       @event_template = Spree::Admin::Template.where(id: @event.template_id).first
@@ -86,12 +86,11 @@ class EventsController < ApplicationController
 
   end
 
-def event_map
-  logger.info"#{params}sssssssssssss"
-  @event = Event.find(params[:event_id])
-  @apikey = ENV['GOOGLE_API_KEY']
-  render layout: false
-end
+  def event_map
+    @event = Event.find(params[:event_id])
+    @apikey = ENV['GOOGLE_API_KEY']
+    render layout: false
+  end
 
   def share_on_fb
     #  @event = Event.find(params[:id])
