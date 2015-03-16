@@ -1,0 +1,23 @@
+<% reviews.each do |review| %>
+    <div class="review">
+      <div class="row review_block">
+        <div class="col-md-1">
+          <%=gravatar_image_tag("#{review.author.email}", :alt => 'reviewer image',:class => 'img-circle',
+             # :gravatar =>{ :default => 'https://assets.github.com/images/gravatars/gravatar-140.png' }
+             )%>
+        </div>
+        <div class="col-md-11">
+          <h5>
+            <strong><%= (current_spree_user.present? and review.author == current_spree_user) ? '(you)' : review.author.full_name %></strong>
+          </h5>
+          <p>
+            <%= rating_for(review.rating) %>
+          </p>
+          <p class="review_time pull-right"><%= distance_of_time_in_words_to_now(review.created_at)%></p>
+          <p><strong><%= simple_format(review.heading) %></strong></p>
+          <p><%= simple_format(review.description) %></p>
+        </div>
+      </div>
+    </div>
+    <hr>
+<% end %>

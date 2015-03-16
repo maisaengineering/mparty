@@ -230,19 +230,15 @@
                 <div class="col-md-12">
                   <div class="review_block">
                     <div id="reviews">
-                      <div class="page">
                         <% if @reviews.blank? %>
                             <div id="no_reviews">No Reviews yet</div>
                         <% else %>
-                            <% @reviews.each_with_index do |review, index| %>
-                                <% index = @reviews.count - index %>
-                                <%= render 'reviews/review',review: review, index: index %>
-                            <% end %>
+                          <%= render 'reviews/list',reviews: @reviews %>
                         <% end %>
-                      </div>
                     </div>
+                    <%= paginate @reviews %>
                   </div>
-                  <%#= paginate @reviews %>
+
                 </div>
               </div>
             </div>

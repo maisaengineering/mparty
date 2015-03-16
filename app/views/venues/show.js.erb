@@ -1,1 +1,7 @@
+ $('#reviews').append('<%= j(render 'reviews/list',reviews: @reviews)   %>');
+<% if @reviews.next_page %>
+$('.pagination').replaceWith('<%= j(paginate @reviews) %>');
+<% else %>
+$('.pagination').remove();
+<% end %>
 $('div.rateit').rateit();

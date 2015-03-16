@@ -9,10 +9,5 @@ $(document).on 'click', '#btnSubmitReview', ->
   $('#new_review').submit()
   return
 
-$(document).ready ->
-  $("#reviews .page").infinitescroll
-    navSelector: "nav.pagination" # selector for the paged navigation (it will be hidden)
-    nextSelector: "nav.pagination a[rel=next]" # selector for the NEXT link (to page 2)
-    itemSelector: "#reviews div.review"
 
 

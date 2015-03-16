@@ -45,7 +45,7 @@ class VenuesController < ApplicationController
     else
       @can_rate_it = false
     end
-    @reviews = @venue.reviews.order(created_at: :desc)#.page(params[:page]).per(4)
+    @reviews = @venue.reviews.order(created_at: :desc).page(params[:page]).per(4)
     @contacts = @venue.venue_contacts
     if @contacts.present?
       @land_numbers = @contacts.map(&:land_number).reject(&:empty?)
