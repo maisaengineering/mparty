@@ -25,8 +25,7 @@
 // require jquery.timepicker
 //= require jquery.payment
 //= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
-//= require jquery.infinitescroll
+//= require jquery-fileupload/vendor/tmpl 
 //= require moment
 //= require fullcalendar
 //= require jquery.rateit
