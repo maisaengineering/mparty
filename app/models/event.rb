@@ -41,9 +41,10 @@ class Event < ActiveRecord::Base
 
   #validate :validate_duplicate_event_name
 
-  validates :name,:template_id, :starts_at,:ends_at,:city,:state,:country, presence: true
-  validates :zip, numericality: true, presence: true
-  validates_presence_of :location, :unless => :venue_id?
+  validates :name,:template_id, :starts_at,:ends_at, presence: true
+  validates_presence_of :location,:city,:state,:country, :if => Proc.new { |event| event.venue_type != 'virtual'}
+  validates_presence_of :zip, numericality: true, :if => Proc.new { |event| event.venue_type != 'virtual'}
+  #validates_presence_of :location, :unless => :venue_id?
 
   #scopes
   scope :public, -> { where(is_private:  false) }

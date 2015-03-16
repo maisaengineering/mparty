@@ -25,7 +25,7 @@
     </div>
 <% end %>
 
-
+<% if @event.venue_type != "virtual"  %>
 <div class="modal fade in" id="viewVenueLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
   <div class="modal-backdrop fade in"></div>
   <div class="modal-dialog modal4">
@@ -38,7 +38,7 @@
     </div>
   </div>
 </div>
-
+<% end  %>
 
 
 <div class="container-fluid" style="background-color:#daf5fe;">
@@ -99,19 +99,19 @@
                     <td width="180">Additional details:</td>
                     <!-- <td><i><%#=simple_format(@event.description)%></i></td> -->
                     <% if @event.description.length > 120 %>
-                      <td id="hide_when_read_more">
-                        <%= simple_format(truncate(@event.description, length: 115)) %>
-                        <%= link_to '+ more.', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
-                      </td>
-                      <td id="hide_when_read_more" class="td_hide">
-                        <div id="example" class="show_more">
-                          <%= simple_format(@event.description)%>
+                        <td id="hide_when_read_more">
+                          <%= simple_format(truncate(@event.description, length: 115)) %>
+                          <%= link_to '+ more.', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
+                        </td>
+                        <td id="hide_when_read_more" class="td_hide">
+                          <div id="example" class="show_more">
+                            <%= simple_format(@event.description)%>
                             <%= link_to '- less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
-                        </div>
-                      </td>
+                          </div>
+                        </td>
                     <% else %>
-                    <td>
-                      <%= simple_format(@event.description) %>
+                        <td>
+                          <%= simple_format(@event.description) %>
                     <% end %>
                     </td>
                   </tr>
@@ -136,17 +136,19 @@
                   <% end %>
                 </td>
               </tr>
-              <tr>
-                <td>Venue:</td>
-                <td>
-                  <div class="col-md-11 nopadding">
-                    <% if @event.venue.present? %>
-                        <%= @event.venue.name %>,
-                    <% end %>
-                    <%=  @event.full_address %>
-                  </div>
-                  <a data-target="#viewVenueLocation" data-toggle="modal" href="#" class="pull-right event_map" title="show in google map"><img src="/assets/icon-gmap.png" width="30" height="30" alt=""/></a></td>
-              </tr>
+              <% if @event.venue_type != "virtual"  %>
+                  <tr>
+                    <td>Venue:</td>
+                    <td>
+                      <div class="col-md-11 nopadding">
+                        <% if @event.venue.present? %>
+                            <%= @event.venue.name %>,
+                        <% end %>
+                        <%=  @event.full_address %>
+                      </div>
+                      <a data-target="#viewVenueLocation" data-toggle="modal" href="#" class="pull-right event_map" title="show in google map"><img src="/assets/icon-gmap.png" width="30" height="30" alt=""/></a></td>
+                  </tr>
+              <% end  %>
             </table>
           </div>
 
@@ -306,9 +308,9 @@
                 <div id="no_comment">No comments</div>
             <% else%>
                 <div id="comments">
-                    <% unless @comments.blank? %>
+                  <% unless @comments.blank? %>
                       <%= render 'comments/list',comments: @comments %>
-                    <% end %>
+                  <% end %>
                 </div>
                 <%= paginate @comments %>
             <% end %>
