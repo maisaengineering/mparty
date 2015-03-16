@@ -107,7 +107,7 @@
         %label Zip
         %span.required *
         %br/
-        = f.text_field :zip, class: 'fullwidth'
+        = f.text_field :zip, class: 'fullwidth',pattern: "[0-9]{6}", title:"Invalid zip code"
         = f.error_message_on :zip
     .align-center.row
       .alpha.eight.columns
