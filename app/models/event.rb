@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   has_many :purchased_products,through: :wishlist
 
   before_validation :start_date_end_date_validate_slot_available, :if => Proc.new { |event| event.venue_id_changed?}
+  before_validation :starts_at_greater_then_ends_at
   # before_create :fill_end_date_and_time
   after_create :create_venue_calender
 
@@ -40,7 +41,8 @@ class Event < ActiveRecord::Base
 
   #validate :validate_duplicate_event_name
 
-  validates :name,:template_id, :starts_at,:ends_at,:city,:state,:country,:zip, presence: true
+  validates :name,:template_id, :starts_at,:ends_at,:city,:state,:country, presence: true
+  validates :zip, numericality: true, presence: true
   validates_presence_of :location, :unless => :venue_id?
 
   #scopes
@@ -166,11 +168,14 @@ class Event < ActiveRecord::Base
   end
 
   def start_date_end_date_validate_slot_available
-    if self.starts_at > self.ends_at
-      errors.add(:start_date, "is not less than the end date")
-    end
     if venue.present? && venue.venue_calendars.reserved(self.starts_at,self.ends_at).exists?
       errors.add(:slot, "is not available for this dates")
+    end
+  end
+
+  def starts_at_greater_then_ends_at
+    if self.starts_at >= self.ends_at
+      errors.add(:end_date, "has to be greater then start date")
     end
   end
 

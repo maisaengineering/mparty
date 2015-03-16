@@ -21,7 +21,8 @@ class Venue < ActiveRecord::Base
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here
-  validates :name,:address1, :state, :city, :country,:zip,presence: true
+  validates :name,:address1, :state, :city, :country,presence: true
+  validates :zip, numericality: true, presence: true
   validates :room_dimensions,:capacity, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
   validate :min_max_price

@@ -177,7 +177,7 @@ Invitation::Application.routes.draw do
   ## End Wish list -------------------------------------------------------------
 
   # Join/Un-join Event(RSVP)
-  post '/events/:event_id/join'=>"rsvps#join",as: :join_into_event
+  match '/events/:event_id/join'=>"rsvps#join",as: :join_into_event, via:[:get, :post]
   delete '/events/:event_id/disjoin'=>"rsvps#disjoin",as: :disjoin_from_event
 
   get '/events/:event_id/event_map' => 'events#event_map',as: :event_map

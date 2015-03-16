@@ -58,11 +58,25 @@ class ApplicationController < ActionController::Base
     data_points.merge!({templateName: template.name }) if template
     data_points.merge!({eventName: event.name }) if event and !event.name.nil?
     start_at = (event and !event.starts_at.nil?) ? event.starts_at : Time.now
-    #start_time = (event and !event.start_time.nil?) ? event.start_time.try(:strftime, '%I-%M %p') : nil
     end_at =   event ? event.ends_at : nil
-   # end_time =  (event and !event.end_time.nil?) ? event.end_time.try(:strftime, '%I-%M %p') : nil
-    event_time =  I18n.l(start_at)
-    event_time +=  " - #{I18n.l(end_at)}" if end_at
+    if event
+      if I18n.l(start_at.to_date) == I18n.l(end_at.to_date)
+        if I18n.l(start_at.to_date) == I18n.l(Date.today)
+          event_time = "Today #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at,format: :pick_time}"
+        else
+          event_time = "#{I18n.l start_at.to_date}  #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at,format: :pick_time}"
+        end
+      else
+        if I18n.l(start_at.to_date) == I18n.l(Date.today)
+          event_time = "Today #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at}"
+        else
+          event_time = " #{I18n.l start_at} - #{I18n.l end_at}"
+        end
+      end
+    else
+      event_time =  I18n.l(start_at)
+      event_time +=  " - #{I18n.l(end_at)}" if end_at
+    end
     data_points.merge!({eventTime: event_time})
     data_points.merge!({eventHostName:  event.host_name }) if event and !event.host_name.nil?
     data_points.merge!({eventDescription: event.description}) if event and !event.description.nil?
