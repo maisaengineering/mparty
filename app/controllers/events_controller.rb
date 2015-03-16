@@ -407,7 +407,7 @@ class EventsController < ApplicationController
 
   private
   def event_params
-    params.require(:event).permit(:name, :host_name,:venue_id,:friend_emails,
+    params.require(:event).permit(:name, :host_name,:venue_id,:friend_emails,:venue_type,
                                   :host_phone, :location, :description, :starts_at,
                                   :ends_at , :is_private,
                                   :city,:state,:country,:zip,

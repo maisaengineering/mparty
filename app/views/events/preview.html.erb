@@ -1,15 +1,17 @@
-<div class="modal fade in" id="viewVenueLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-  <div class="modal-backdrop fade in"></div>
-  <div class="modal-dialog modal4">
-    <div class="modal-content">
-      <div class="modal-body">
-        <h4 class="txt_center">Venue Location  </h4>
-        <div class="location_block">
+<% if @event.venue_type != "virtual"  %>
+    <div class="modal fade in" id="viewVenueLocation" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+      <div class="modal-backdrop fade in"></div>
+      <div class="modal-dialog modal4">
+        <div class="modal-content">
+          <div class="modal-body">
+            <h4 class="txt_center">Venue Location  </h4>
+            <div class="location_block">
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+<% end  %>
 
 <div class="container-fluid" style="background-color:#daf5fe;">
   <div class="row">
@@ -76,17 +78,19 @@
                   <% end %>
                 </td>
               </tr>
-              <tr>
-                <td>Venue:</td>
-                <td>
-                  <div class="col-md-11 nopadding">
-                    <% if @event.venue.present? %>
-                        <%= @event.venue.name %>,
-                    <% end %>
-                    <%=  @event.full_address %>
-                  </div>
-                  <a data-target="#viewVenueLocation" data-toggle="modal" href="#" class="pull-right event_map" title="show in google map"><img src="/assets/icon-gmap.png" width="30" height="30" alt=""/></a></td>
-              </tr>
+              <% if @event.venue_type != "virtual"  %>
+                  <tr>
+                    <td>Venue:</td>
+                    <td>
+                      <div class="col-md-11 nopadding">
+                        <% if @event.venue.present? %>
+                            <%= @event.venue.name %>,
+                        <% end %>
+                        <%=  @event.full_address %>
+                      </div>
+                      <a data-target="#viewVenueLocation" data-toggle="modal" href="#" class="pull-right event_map" title="show in google map"><img src="/assets/icon-gmap.png" width="30" height="30" alt=""/></a></td>
+                  </tr>
+              <% end  %>
             </table>
             <%= link_to event_design_edit_path(@event.id), class:"btn btn-primary btn-sm pull-right mtop10 mright5" do %>
                 <span class="glyphicon glyphicon-edit"></span> Edit Design
