@@ -1,1 +1,6 @@
-$("#trending_events .page").html("<%= j(render 'events/events_list',events: @trending_events,query: params[:query],type: 'trending') %>");
+$('#trending_events').append('<%= j(render 'events/events_list',events: @trending_events,query: params[:query],type: 'trending')   %>');
+<% if @trending_events.next_page %>
+$('.pagination').replaceWith('<%= j(paginate @trending_events,params: {query: params[:query] }) %>');
+<% else %>
+$('.pagination').remove();
+<% end %>

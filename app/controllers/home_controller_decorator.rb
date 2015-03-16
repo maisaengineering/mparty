@@ -27,7 +27,7 @@ Spree::HomeController.class_eval do
       @trending_events = Event.includes(:pictures).upcoming.search(params[:query])
       flash.now[:notice] = "Total #{ActionController::Base.helpers.pluralize(@trending_events.count,'result')} results found for your search"
     end
-    @trending_events = @trending_events.page(params[:page]).per(8)
+    @trending_events = @trending_events.page(params[:page]).per(4)
     render layout: false if request.xhr?
   end
 end
