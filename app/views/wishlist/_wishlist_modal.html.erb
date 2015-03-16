@@ -37,7 +37,14 @@
             </a>
           </div>
           <div class="col-md-4 mtop20">
-            <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/invite-with-wishlist" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-success addwishlist_done pull-right"%>
+            <% if session[:from_wishlist].eql?('edit') %>
+                <%= link_to 'Done','#',data: {url: "/events/#{@event.id}" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-success addwishlist_done pull-right"%>
+             <% elsif session[:from_wishlist].eql?('preview') %>
+                <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/preview" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-success addwishlist_done pull-right"%>
+            <% else %>
+                <%= link_to 'Done','#',data: {url: "/event/#{@event.id}/invite-with-wishlist" ,ship_add_exists: @event.ship_address ? 'yes' : 'no'},class:  "btn btn-lg btn-success addwishlist_done pull-right"%>
+            <% end %>
+
             <a href="/"><span class="btn btn-lg btn-gray mright10 pull-right" data-dismiss="modal">Cancel</span></a>
           </div>
         </div>

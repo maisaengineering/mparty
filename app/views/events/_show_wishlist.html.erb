@@ -49,7 +49,7 @@
 
     <% if policy(@event).edit_wishlist? %>
         <div class="mright5 no_margin mbottom10 mtop5">
-          <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm pull-right" do %>
+          <%= link_to event_wishlist_path(event_id: @event.id,from: from), class:"btn btn-primary btn-sm pull-right" do %>
               <span class="glyphicon glyphicon-edit"></span> Edit Wishlist
           <% end %>
         </div>

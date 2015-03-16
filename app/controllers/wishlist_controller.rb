@@ -25,6 +25,12 @@ class WishlistController < ApplicationController
     @products = @searcher.retrieve_products
     @taxon = Spree::Taxon.find(params[:taxon]) if params[:taxon].present?
     @taxonomies = Spree::Taxonomy.includes(root: :children)
+    if params[:from].eql?('edit')
+      session[:from_wishlist] = 'edit'
+    elsif params[:from].eql?('preview')
+      session[:from_wishlist] = 'preview'
+    end
+
   end
 
 
