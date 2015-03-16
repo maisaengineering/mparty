@@ -64,6 +64,9 @@ class EventsController < ApplicationController
     if @event.save
       session.delete(:event_data) if session[:event_data]
       session[:event_id_for_import] = @event.id # for importing contancts
+      if @event.venue_id.nil?
+        flash[:notice] = "You have successfully created your event continue by uploading photos."
+      end
     end
   end
 
@@ -174,7 +177,7 @@ end
       session.delete(:event_edit) if session[:event_edit]
       session.delete(:event_id) if session[:event_id]
       flash[:notice] = "Successfully updated"
-      redirect_to event_path(params[:id])
+      redirect_to event_preview_path(params[:id])
     else
       redirect_to event_design_edit_path(@event.id)
     end
