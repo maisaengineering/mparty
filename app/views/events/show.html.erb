@@ -309,14 +309,11 @@
                 <div id="no_comment">No comments</div>
             <% else%>
                 <div id="comments">
-                  <div class="page">
                     <% unless @comments.blank? %>
-                        <% @comments.each do |comment| %>
-                            <%= render 'comments/comment',comment: comment %>
-                        <% end %>
+                      <%= render 'comments/list',comments: @comments %>
                     <% end %>
-                  </div>
                 </div>
+                <%= paginate @comments %>
             <% end %>
           </div>
         </div>

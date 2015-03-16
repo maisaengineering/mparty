@@ -77,7 +77,7 @@ class EventsController < ApplicationController
     @invited_user = @event.invites.where("mail_sent =?",true)
     @wishlist = @event.wishlist
     @commentable = @event
-    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(8)
+    @comments = @commentable.comments.order(created_at: :desc).page(params[:page]).per(2)
     @comment = Comment.new
     unless @event.fb_image.url.present?
       @event_template = Spree::Admin::Template.where(id: @event.template_id).first
