@@ -9,8 +9,9 @@
           %li.design_template{id: "design_#{ design.id }",data:{'design-id'=> design.id}}
             - c_design = @handlebars.compile(design.content)
             = c_design.call(MPARTY: event_data_points(@event,@template)).html_safe
-    %a.jcarousel-control-prev{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true' ,:class => "btn btn-success nopaddingTotal"} &lsaquo;
-    %a.jcarousel-control-next{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true',:class => "btn btn-success nopaddingTotal"} &rsaquo;
+    - if @designs.size > 3
+      %a.jcarousel-control-prev{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true' ,:class => "btn btn-success nopaddingTotal"} &lsaquo;
+      %a.jcarousel-control-next{"data-jcarouselcontrol" => "true", :href => "#",'data-no-turbolink' => 'true',:class => "btn btn-success nopaddingTotal"} &rsaquo;
 
 :javascript
     applyJcarousel()
