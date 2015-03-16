@@ -31,9 +31,11 @@
           </div>
 
           <div class="col-md-12 mtop20">
-            <% if params[:edit].present? %>
+            <% if params[:from].eql?('edit') %>
                 <%= link_to 'DONE',event_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
                 <%#= link_to 'SKIP','#',class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip',data: {url: event_path(@event.id)} %>
+            <% elsif params[:from].eql?('preview') %>
+                <%= link_to 'DONE',event_preview_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
             <% else %>
                 <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
                 <%= link_to 'SKIP','#',class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip',data: {url: invite_without_wishlist_path(@event.id)} %>

@@ -99,13 +99,13 @@
             <div class="col-md-12 box mtop20">
               <div class="col-md-6 wishlist_eventpreview" style="width:55%;">
                 <% if policy(@event).show_wishlist? %>
-                    <%= render  "show_wishlist"  %>
+                    <%= render  "show_wishlist",from: 'preview'  %>
                 <% end %>
                 <% if policy(@event).add_wishlist? %>
                     <h4>Wishlist:</h4>
                     <div class="wishlist-placeholder">
                       <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-gift icon-big"></span> <br>
-                        <%= link_to event_wishlist_path(event_id: @event.id), class:"btn btn-primary btn-sm" do %>
+                        <%= link_to event_wishlist_path(event_id: @event.id,from: 'preview'), class:"btn btn-primary btn-sm" do %>
                             <span class="glyphicon glyphicon-edit"></span> Add Wishlist
                         <% end %>
                       </div>
@@ -133,14 +133,14 @@
                           <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
                       <%end%>
                     </div>
-                    <%= link_to add_photos_event_path(@event), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                    <%= link_to add_photos_event_path(@event,from: 'preview'), class:"btn btn-primary btn-sm pull-right mright5" do %>
                         <span class="glyphicon glyphicon-edit"></span> Change Photos
                     <% end %>
                 <% else %>
                     <h4>Photos:</h4>
                     <div class="wishlist-placeholder">
                       <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-picture icon-big"></span> <br>
-                        <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm  mright5" do %>
+                        <%= link_to add_photos_event_path(@event.id,from: 'preview'), class:"btn btn-primary btn-sm  mright5" do %>
                             <span class="glyphicon glyphicon-edit"></span> Add Photos
                         <% end %>
                       </div>

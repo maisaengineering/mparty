@@ -5,7 +5,13 @@
 = render 'wishlist/shipping_address_form'
 .row.wishlist_header
   .col-md-3
-    = link_to "/event/#{@event.id}/invite-with-wishlist", class:"btn btn-gray back_button" do
+    - if session[:from_wishlist].eql?('edit')
+      - back_path = "/events/#{@event.id}"
+    - elsif session[:from_wishlist].eql?('preview')
+      - back_path = "/event/#{@event.id}/preview"
+    - else
+      - back_path = "/event/#{@event.id}/invite-with-wishlist"
+    = link_to back_path, class:"btn btn-gray back_button" do
       %span.glyphicon.glyphicon-chevron-left
       Back
   .col-md-6.position_rel
