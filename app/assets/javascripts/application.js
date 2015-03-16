@@ -94,3 +94,23 @@ jQuery(function() {
     }
     return $(window).scroll();
 });
+
+$(document).ready(function () {
+  $(".td_hide").hide()
+})
+function showHide(shID) {
+  if (document.getElementById(shID)) {
+    $(".td_hide").show()
+    document.getElementById('hide_when_read_more').style.display = 'none'
+    if (document.getElementById(shID+'-show').style.display != 'none') {
+      document.getElementById(shID+'-show').style.display = 'none';
+      document.getElementById(shID).style.display = 'block';
+    }
+    else {
+      document.getElementById(shID+'-show').style.display = 'inline';
+      document.getElementById('hide_when_read_more').style.display = '';
+      $(".td_hide").hide()
+      document.getElementById(shID).style.display = 'none';
+    }
+  }
+}

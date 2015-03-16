@@ -39,21 +39,6 @@
   </div>
 </div>
 
-<% if @event.description.length > 100  %>
-<div class="modal fade" id="description_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal2">
-    <div class="modal-content modal_darktheme"> <a href=""><span class="glyphicon glyphicon-remove pull-right modal_box_x" data-dismiss="modal"></span></a>
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Additional details:</h5>
-      </div>
-      <div class="modal-body">
-        <%= simple_format(@event.description) %>
-      </div>
-      <div class="modal-footer"></div>
-    </div>
-  </div>
-</div>
-<% end  %>
 
 
 <div class="container-fluid" style="background-color:#daf5fe;">
@@ -112,10 +97,22 @@
               <% if @event.description.present?  %>
                   <tr>
                     <td width="180">Additional details:</td>
-                    <td><i><%= simple_format(truncate(@event.description,length: 100))%></i>
-                      <% if @event.description.length > 100  %>
-                        <%= link_to "Read more" ,'#', "data-target" => "#description_modal", "data-toggle" => "modal"  %>
-                      <% end  %>
+                    <!-- <td><i><%#=simple_format(@event.description)%></i></td> -->
+                    <% if @event.description.length > 120 %>
+                      <td id="hide_when_read_more">
+                        <%= simple_format(truncate(@event.description, length: 115)) %>
+                        <%= link_to '+ more.', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
+                      </td>
+                      <td id="hide_when_read_more" class="td_hide">
+                        <div id="example" class="show_more">
+                          <%= simple_format(@event.description)%>
+                            <%= link_to '- less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
+                        </div>
+                      </td>
+                    <% else %>
+                    <td>
+                      <%= simple_format(@event.description) %>
+                    <% end %>
                     </td>
                   </tr>
               <% end  %>
