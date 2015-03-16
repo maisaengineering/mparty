@@ -26,7 +26,8 @@ en:
       default: "%d/%m/%Y"
   time:
     formats:
-      default: "%d/%m/%Y %H:%M %p"
+      default: "%d/%m/%Y %I:%M %p"
+      pick_time: "%I:%M %p"
   # https://github.com/spree/spree/blob/master/core/config/locales/en.yml
   spree:
     logged_in_succesfully:  'Welcome to Mparty'
