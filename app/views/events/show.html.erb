@@ -249,7 +249,7 @@
                       <%end%>
                     </div>
                     <% if policy(@event).invite? %>
-                        <%= link_to add_photos_event_path(@event), class:"btn btn-primary btn-sm pull-right mright5" do %>
+                        <%= link_to add_photos_event_path(@event,edit: true), class:"btn btn-primary btn-sm pull-right mright5" do %>
                             <span class="glyphicon glyphicon-edit"></span> Change Photos
                         <% end %>
                     <% end %>
@@ -258,7 +258,7 @@
                         <h4>Photos:</h4>
                         <div class="wishlist-placeholder">
                           <div class="col-md-12 mtop70 text-center"><span class="glyphicon glyphicon-picture icon-big"></span> <br>
-                            <%= link_to add_photos_event_path(@event.id), class:"btn btn-primary btn-sm  mright5" do %>
+                            <%= link_to add_photos_event_path(@event.id,edit: true), class:"btn btn-primary btn-sm  mright5" do %>
                                 <span class="glyphicon glyphicon-edit"></span> Add Photos
                             <% end %>
                           </div>

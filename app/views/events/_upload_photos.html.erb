@@ -31,8 +31,13 @@
           </div>
 
           <div class="col-md-12 mtop20">
-            <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
-            <%= link_to 'SKIP',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip' %>
+            <% if params[:edit].present? %>
+                <%= link_to 'DONE',event_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
+                <%#= link_to 'SKIP','#',class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip',data: {url: event_path(@event.id)} %>
+            <% else %>
+                <%= link_to 'DONE',invite_without_wishlist_path(@event.id),class: 'btn btn-lg btn-success pull-right upload_btn_done' %>
+                <%= link_to 'SKIP','#',class: 'btn btn-lg btn-gray pull-right mright10 upload_btn_skip',data: {url: invite_without_wishlist_path(@event.id)} %>
+            <% end %>
           </div>
       <% end %>
     </div>
@@ -93,7 +98,7 @@
                 $('#number_of_files_failed strong').text(parseInt(parseInt($("#number_of_files_failed strong").text()) + 1))
                 // bootbox.alert(uploadErrors.join("\n"))
                 if ((upload_files_count == file_count) ) {
-                bootbox.alert(err.join("<br>"))
+                    bootbox.alert(err.join("<br>"))
                 };
             } else {
                 $('.loading-indicator').show()
@@ -101,7 +106,7 @@
                 $('.upload-progress-bars').append(data.context)
                 data.submit()
                 if (upload_files_count == file_count) {
-                bootbox.alert(err.join("<br>"))
+                    bootbox.alert(err.join("<br>"))
                 };
             }
         },
@@ -138,7 +143,7 @@
             pic_ids[pic_ids.length] = $(this).data('id');
         });
         if(pic_ids.length == 0){
-            Turbolinks.visit('<%= invite_without_wishlist_path(@event.id) %>')
+            Turbolinks.visit($(this).data('url'))
         }else{
             $.ajax({
                 type: "POST",
@@ -147,22 +152,22 @@
                 beforeSend: function( ){  $('.loading-indicator').show() },
                 success: function(res) { }
             });
-            Turbolinks.visit('<%= invite_without_wishlist_path(@event.id) %>')
+            Turbolinks.visit($(this).data('url'))
         }
 
     })
 
-   /* $('.upload_btn_done').click(function(e){
-        e.preventDefault()
-        switchTabFromUploadToInvite()
-    })*/
+    /* $('.upload_btn_done').click(function(e){
+     e.preventDefault()
+     switchTabFromUploadToInvite()
+     })*/
 
     /*function switchTabFromUploadToInvite(){
-        $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
-        $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
-        $("#upload_photos").css("display", "none")
-        $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
-    }*/
+     $('#upload_photos_tab').removeClass('event_tab_active').addClass('event_tab')
+     $('#send_invitations_tab').removeClass('event_tab').addClass('event_tab_active')
+     $("#upload_photos").css("display", "none")
+     $("#invitation_without_wishlist").css("display", "block").hide().fadeIn('slow')
+     }*/
 
     // jquery file upload callbacks
     $('#new_picture')
