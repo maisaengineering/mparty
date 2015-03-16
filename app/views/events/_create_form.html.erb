@@ -44,11 +44,7 @@
           </div>
           <div class="col-md-12">
             <label></label>
-            <select id="venue_type" class="form-control"  required>
-              <option>Choose Venue*</option>
-              <option value="choose">Choose</option>
-              <option value="custom">Custom</option>
-            </select>
+            <%= f.select :venue_type, options_for_select([["Choose","choose"], ["Custom","custom"],["Virtual","virtual"]],@event.venue_type),{:include_blank => 'Choose Venue*'},id:"venue_type",class:"form-control",required: true  %>
             <%=f.hidden_field :venue_id ,value: @venue ? @venue.id : '' %>
           </div>
 
@@ -71,7 +67,7 @@
             </div>
             <div class="col-md-6">
               <label></label>
-              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*',pattern: "[0-9]{6}", title:"Invalid zip code" %>
+              <%= f.text_field :zip, class: 'form-control',placeholder: 'Zip*' %>
             </div>
           </div>
 
@@ -363,6 +359,14 @@
             //$('#event_country').val('')
             $('#event_zip').val('')
             $("#venus_hidden_fields").empty()
+        }
+        else if($(this).val() == 'virtual'){
+            $('#venue_dform').hide()
+            $('#event_location').val(' ')
+            $('#event_city').val(' ')
+            $('#event_country').val(' ')
+            $('#event_state').val(' ')
+            $('#event_zip').val(' ')
         }
     });
 

@@ -69,51 +69,53 @@
                   <% end %>
                 </td>
               </tr>
-              <tr>
-                <td>Venue:</td>
-                <td>
-                  <div class="col-md-11 nopadding">
-                    <% if @event.venue.present? %>
-                        <%= @event.venue.name %>,
-                    <% end %>
-                    <%=  @event.full_address %>
-                  </div>
-                </td>
-              </tr>
+              <% if @event.venue_type != "virtual"  %>
+                  <tr>
+                    <td>Venue:</td>
+                    <td>
+                      <div class="col-md-11 nopadding">
+                        <% if @event.venue.present? %>
+                            <%= @event.venue.name %>,
+                        <% end %>
+                        <%=  @event.full_address %>
+                      </div>
+                    </td>
+                  </tr>
+              <% end  %>
             </table>
           </div>
         </div>
         <% if @event.pictures.count > 0  %>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-12 box mtop20">
-              <div class="col-md-3"></div>
-              <div class="col-md-6" style="width: 45%">
-                <% unless @event.pictures.blank? %>
-                    <h4>Photos:</h4>
-                    <div class="gallery event_photos" id="myCarousel">
-                      <div class="jcarousel event_photos_block" data-jcarousel="false">
-                        <ul style="left: 0px; top: 0px;">
-                          <% @event.pictures.each do |picture| %>
-                              <li>
-                                <a class="fancybox" href="<%=picture.image.url %>" rel="gallery1">
-                                  <%= picture_image_tag(picture,:slide_show) %>
-                                </a>
-                              </li>
-                          <% end%>
-                        </ul>
-                      </div>
-                      <%if @event.pictures.count > 2%>
-                          <a href="#" class="jcarousel-control-prev inactive event_photo_prev btn btn-success nopaddingTotal " data-jcarouselcontrol="true">‹</a>
-                          <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
-                      <%end%>
-                    </div>
-                <% end %>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="col-md-12 box mtop20">
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6" style="width: 45%">
+                    <% unless @event.pictures.blank? %>
+                        <h4>Photos:</h4>
+                        <div class="gallery event_photos" id="myCarousel">
+                          <div class="jcarousel event_photos_block" data-jcarousel="false">
+                            <ul style="left: 0px; top: 0px;">
+                              <% @event.pictures.each do |picture| %>
+                                  <li>
+                                    <a class="fancybox" href="<%=picture.image.url %>" rel="gallery1">
+                                      <%= picture_image_tag(picture,:slide_show) %>
+                                    </a>
+                                  </li>
+                              <% end%>
+                            </ul>
+                          </div>
+                          <%if @event.pictures.count > 2%>
+                              <a href="#" class="jcarousel-control-prev inactive event_photo_prev btn btn-success nopaddingTotal " data-jcarouselcontrol="true">‹</a>
+                              <a href="#" class="jcarousel-control-next event_photo_next btn btn-success nopaddingTotal" data-jcarouselcontrol="true">›</a>
+                          <%end%>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-            <% end  %>
+        <% end  %>
       </div>
     </div>
   </div>
