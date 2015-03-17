@@ -26,6 +26,7 @@ class Venue < ActiveRecord::Base
   validates :room_dimensions,:capacity, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
   validate :min_max_price
+  validate :special_notes_not_to_allow_ifames
   #validates_associated :venue_calendars, :venue_contacts
 
   #--------  Callbacks goes here
@@ -67,6 +68,12 @@ class Venue < ActiveRecord::Base
       errors.add(:max_price, "Minimum Price can't be blank ")
     elsif (price_min.present? and price_max.present?) and price_max < price_min
       errors.add(:max_price, "can't be less than minimum price")
+    end
+  end
+
+  def special_notes_not_to_allow_ifames
+    if self.special_notes.include?("<iframe>")
+      errors.add(:special_notes, "Should not consisting of iframes")
     end
   end
 

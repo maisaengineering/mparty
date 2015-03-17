@@ -118,10 +118,10 @@
                 <%= @venue.description%>
               </div>
             </div>
+            <%unless @venue.venue_seating_types.blank?%>
             <div class="row no_margin mtop5">
               <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
               </div>
-              <%unless @venue.venue_seating_types.blank?%>
                   <% @venue.venue_seating_types.each do |seating_type| %>
                       <div class="col-md-3 mtop10" align="center">
                         <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
@@ -142,7 +142,12 @@
                         </h4>
                       </div>
                   <%end%>
-              <%end%>
+            </div>
+            <%end%>
+            <div class="row no_margin mtop5">
+              <div class="col-md-12"> <b>Special Notes:</b> &nbsp;
+                <%= raw @venue.special_notes %>
+              </div>
             </div>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="ContactDetails">
