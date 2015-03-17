@@ -169,7 +169,11 @@
                           <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
                       <% end %>
                       <% if @mobile_numbers.present? %>
-                          <li><span class="glyphicon glyphicon-phone"></span> &nbsp; <%= @mobile_numbers.join(",") %></li>
+                          <li><span class="glyphicon glyphicon-phone"></span> &nbsp;<span class="web"> <%= @mobile_numbers.join(",") %> </span>
+                            <% @mobile_numbers.each do |m|  %>
+                            <a href="tel:<%= m %>" class="mobile"><%= m + ',' %> </a>
+                            <% end  %>
+                          </li>
                       <% end %>
                       <% if @contact_emails.present? %>
                           <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%= @contact_emails.join(",") %></li>
@@ -254,6 +258,46 @@
   </div>
 </div>
 <script type="text/javascript">
+
+  $(".mobile").hide()
+    var BrowserDetect = function() {
+        var nav = window.navigator,
+                ua = window.navigator.userAgent.toLowerCase();
+        // detect browsers (only the ones that have some kind of quirk we need to work around)
+        if (ua.match(/ipad/i) !== null)
+            return "iPod";
+        if (ua.match(/iphone/i) !== null)
+            return "iPhone";
+        if (ua.match(/android/i) !== null)
+            return "Android";
+        if (ua.match(/iemobile/i) !== null)
+            return "IEMobile";
+        if (ua.match(/blackberry/i) !== null)
+            return "BlackBerry";
+        if ((nav.appName.toLowerCase().indexOf("microsoft") != -1 || nav.appName.toLowerCase().match(/trident/gi) !== null))
+            return "IE";
+        if (ua.match(/chrome/gi) !== null)
+            return "Chrome";
+        if (ua.match(/firefox/gi) !== null)
+            return "Firefox";
+        if (ua.match(/webkit/gi) !== null)
+            return "Webkit";
+        if (ua.match(/gecko/gi) !== null)
+            return "Gecko";
+        if (ua.match(/opera/gi) !== null)
+            return "Opera";
+        //If any case miss we will return null
+        return null
+    }
+    //document.write(BrowserDetect());
+    if( (BrowserDetect() == "iPhone") || (BrowserDetect() == "Android") || (BrowserDetect() == "IEMobile") || (BrowserDetect() == "BlackBerry"))
+    {
+        $(".web").hide()
+        $(".mobile").show()
+    }
+
+
+
     $(".carousel-inner div:first-child").addClass("active");
     $(".carousel-indicators li:first-child").addClass("active");
     $("#large-image").html("<img src="+$(".jcarousel ul li ").eq(0).find('img').attr('src')+">");
@@ -305,13 +349,13 @@
             interval: 2000
         });
     });
-  var map_present = false 
+  var map_present = false
   $(".venue_map_request").click(function () {
   if (map_present == false) {
     $.ajax({
       url: "/venues/<%=@venue.id%>/map",
       type: "get",
-      success:function (e) { 
+      success:function (e) {
         $("#map").html(e);
         map_present = true
       }
