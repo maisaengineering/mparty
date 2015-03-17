@@ -36,7 +36,7 @@
       <% end %>
 
       <div style="width:240px; margin:0 auto;">
-        <%= link_to "PURCHASE NOW", "#{spree.root_url + "events/#{@event.id}"}?show_wishlist=true", style: "background-color:#8bd92f; padding:10px 15px; width:210px; margin:30 auto;  border:none; color:#ffffff; text-decoration:none; cursor:pointer; outline:none; margin-top:30px; font-size:16px; border-radius:30px;" %>
+        <%= link_to "PURCHASE NOW", "#{spree.root_url}events/#{@event.id}?show_wishlist=true&email=#{@send_to}" , style: "background-color:#8bd92f; padding:10px 15px; width:210px; margin:30 auto;  border:none; color:#ffffff; text-decoration:none; cursor:pointer; outline:none; margin-top:30px; font-size:16px; border-radius:30px;" %>
       </div>
     </div>
 

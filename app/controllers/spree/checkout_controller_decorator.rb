@@ -16,7 +16,7 @@ Spree::CheckoutController.class_eval do
           logged_in_user = spree_current_user
           if logged_in_user.nil? # no user => logged in as guest
             # try to fetch user from invitation if came here via invitation link
-            if session[:invitation_id]
+            if session[:invitation_id].present?
               invitation = Invite.find(session[:invitation_id])
               logged_in_user = Spree::User.find_by_email(invitation.try(:recipient_email)) if invitation
             end
@@ -41,14 +41,13 @@ Spree::CheckoutController.class_eval do
             @order.user_id = logged_in_user.id
             @order.save
             logged_in_user.update_attribute(:bill_address_id,@order.bill_address.id)
-            send_order_info_to_users(@order)
             flash[:success] = Spree.t(:order_processed_successfully)
           else
-            send_order_info_to_users(@order)
-            session.delete(:invitee_email)
             # flash[:success] = "Thank you for placing order(#{@order.number}), to track your order sign up or login with your account."
           end
+          send_order_info_to_users(@order)
           session[:order_id] = nil
+          session.delete(:invitee_email)
           session.delete(:invitation_id)
           redirect_to  completion_route and return
         else

@@ -37,13 +37,13 @@ class InvitationNotifier < ActionMailer::Base
     else
       @invitee_name = invite.recipient_email
     end
-
+    @send_to = invite.recipient_email
     if @order.user_id.nil?
       @purchaser_name = @order.email
     else
       @purchaser_name = Spree::User.find(@order.user_id).full_name
     end
-    mail(to: invite.recipient_email, subject: "Products Purchased")
+    mail(to: @send_to , subject: "Products Purchased")
   end
 
   def send_remainder_mail(event_id,invite_id)
