@@ -3,7 +3,7 @@
   .container
     .row
       .col-md-12
-        .title_name.t_left Create New Account
+        .title_name.t_left Create new account
     .row
       = render :partial => 'spree/shared/error_messages', :locals => { :target => @user }
       = form_for resource, :as => :spree_user, :url => spree.registration_path(@user) ,html: {class: "form-signin"} do |f|
@@ -30,7 +30,7 @@
                 %br
                   .row
                     .col-md-12
-                      = f.submit "REGISTER", class: "btn btn-success"
+                      = f.submit "Register", class: "btn btn-success pull-right"
       - if Spree::AuthenticationMethod.available_for(@spree_user).map(&:provider).include?('facebook')
         .col-md-1
           %h3.h3_or or
@@ -38,4 +38,4 @@
           .fb_img.fb-wrap
             = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
               .fb-icon-bg
-              .fb-bg Sign up with facebook
+              .fb-bg Signup
