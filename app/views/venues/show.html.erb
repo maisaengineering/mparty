@@ -166,7 +166,11 @@
                   <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
                   <% if @contacts.present? %>
                       <% if @land_numbers.present? %>
-                          <li><span class="glyphicon glyphicon-earphone"></span> &nbsp; <%= @land_numbers.join(",") %></li>
+                          <li><span class="glyphicon glyphicon-earphone"></span> &nbsp;<span class="web"> <%= @land_numbers.join(",") %></span>
+                            <% @land_numbers.each do |l|  %>
+                                <a href="tel:<%= l %>" class="mobile"><%= l + ',' %> </a>
+                            <% end  %>
+                          </li>
                       <% end %>
                       <% if @mobile_numbers.present? %>
                           <li><span class="glyphicon glyphicon-phone"></span> &nbsp;<span class="web"> <%= @mobile_numbers.join(",") %> </span>
@@ -290,7 +294,7 @@
         return null
     }
     //document.write(BrowserDetect());
-    if( (BrowserDetect() == "iPhone") || (BrowserDetect() == "Android") || (BrowserDetect() == "IEMobile") || (BrowserDetect() == "BlackBerry"))
+    if((BrowserDetect() == "Chrome") || (BrowserDetect() == "iPhone") || (BrowserDetect() == "Android") || (BrowserDetect() == "IEMobile") || (BrowserDetect() == "BlackBerry"))
     {
         $(".web").hide()
         $(".mobile").show()
