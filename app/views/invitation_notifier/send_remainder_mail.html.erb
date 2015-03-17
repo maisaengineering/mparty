@@ -18,7 +18,9 @@
   <br>
   <!-- invitation -->
   <p><strong>Event :</strong> <%= @event.name %></p>
-  <p><strong>Location :</strong> <%= @event.full_address %></p>
+  <% if @event.venue_type != "virtual"  %>
+      <p><strong>Location :</strong> <%= @event.full_address %></p>
+  <% end  %>
   <p><strong>Date :</strong> <%= @event.starts_at.strftime('%d-%b-%Y')  %></p>
   <br>
   <br>
