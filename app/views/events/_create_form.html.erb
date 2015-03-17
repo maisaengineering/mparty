@@ -110,6 +110,17 @@
 <script type="text/javascript">
 
 
+    $('.btn_create').click(function(){
+        if($('#event_zip').val().length > 1 ){
+            var zip = $('#event_zip').val()
+            var reg = /(^\d{6}$)/;
+            if(!reg.test(zip))
+            {
+                alert("Invalid zip code.");
+                return false;
+            }
+        }
+    })
 
     if($("#event_custom_event_type").val() == ""){
         $(".event_type_hide").hide();
