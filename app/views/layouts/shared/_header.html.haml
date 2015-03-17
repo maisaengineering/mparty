@@ -13,7 +13,7 @@
     #bs-example-navbar-collapse-1.collapse.navbar-collapse
       %ul.top-nav.nav.navbar-nav.navbar-right
         = render 'layouts/shared/select_state'
-        %li= link_to_cart unless simple_current_order.nil? or simple_current_order.item_count.zero?# display number of cart items and price
+        %li= link_to_cart unless simple_current_order.nil? or simple_current_order.item_count.zero? or (controller_name.eql? 'orders' and action_name.eql? 'show' )
         - if signed_in?
           %li.dropdown
             %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
