@@ -16,11 +16,6 @@ class InvitesController < ApplicationController
     @invitation.save
     @wishlist = @event.wishlist
     session[:invitee_email] = params[:email].strip if  params[:email].present? and @wishlist
-    #session[:event_id] = @event.id
-    #session[:invitation_id] = @invitation.id
-    #msg = "Thanks for your response."
-    #msg << "Event has wishlist,Do you want checkout? please click on 'checkout' below" if @wishlist and not @wishlist.wished_products.blank?
-    #flash.now[:success] = msg
   end
 
   private
@@ -36,15 +31,5 @@ class InvitesController < ApplicationController
       render(text: 'We are sorry,Invitation not found with given token') and return
     end
   end
-=begin
-  def validate_invite
-    email = params[:invite_email]
-    existing_user = Spree::User.find_by_email(email)
-    if existing_user.present?
-      true
-    else
-      redirect_to spree.signup_path(:invite_email => email)
-    end  
-  end
-=end
+
 end

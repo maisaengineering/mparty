@@ -8,10 +8,10 @@
           .fb-wrap
             = link_to spree.spree_user_omniauth_authorize_url(provider: 'facebook') do
               .fb-icon-bg
-              .fb-bg Sign up with facebook
+              .fb-bg Signup with facebook
           .txt_center.color_white
-            %h4 Or
-        %h3#myModalLabel.modal-title Create New Account
+            %h4{:style => "color:#666"} Or
+        %h3#myModalLabel.modal-title Create new account
       .modal-body
         - user = Spree::User.new
         - if @order and @order.bill_address# if checked out as guest
@@ -45,6 +45,6 @@
           .row
             .col-md-3
             .col-md-6
-              %button.btn.btn-lg.btn-success.btn-block{:type => "submit"} REGISTER
+              %button.btn.btn-lg.btn-success.btn-block{:type => "submit"} Register
             .col-md-3
       .modal-footer

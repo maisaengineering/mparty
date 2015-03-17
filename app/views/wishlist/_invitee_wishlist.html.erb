@@ -2,6 +2,7 @@
     <%= form_for :order, :url => "/orders/populate",remote: true,html: {class: 'form_margin',id: 'wishlist-add-to-cart-form'} do |f| %>
         <%= hidden_field_tag :event_id ,@event.try(:id) %>
         <%= hidden_field_tag :invitation_id ,@invitation.try(:id) %>
+        <%= hidden_field_tag(:email ,params[:email]) if params[:email].present? %>
         <div class="modal fade" id="yourfriendwishlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog modal5">
             <div class="modal-content modal_wishlist_bg"><br>
@@ -71,7 +72,7 @@
                   <div class="col-md-12 mtop10">
                     <%#= f.submit "ADD TO CART",class: 'btn btn-lg btn-primary btn-block btn_addtocart pull-right' %>
                     <% if flag == 1 %>
-                        <%= f.submit "ADD TO CART",class: 'btn btn-success btn_addtocart pull-right' %>
+                        <%= f.submit "Add To Cart",class: 'btn btn-success btn_addtocart pull-right' %>
                         <a href="/" class="btn btn_addtocart btn-gray pull-right mright5" data-dismiss="modal">Cancel</a>
                     <% else  %>
                         <br><div class="text-success text-center btn-lg">All Items are already purchased</div>

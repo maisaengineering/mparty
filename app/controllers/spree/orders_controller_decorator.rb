@@ -26,6 +26,8 @@ Spree::OrdersController.class_eval do
     if @flag
       # Save event id in session for further reference(shipping address etc)
       session[:invitation_id] = params[:invitation_id]
+      # save email in session if use came from purchase mail(same as invitation mail)  to use in checkout as guest
+      session[:invitee_email] = params[:email].strip if  params[:email].present?
       flash[:success] = 'Items added to cart please checkout'
     else
       flash.now[:error] = 'Please select quantity'  #populator.errors.full_messages.join(" ")
