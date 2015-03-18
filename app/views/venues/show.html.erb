@@ -163,7 +163,7 @@
                     <%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
                   <li><%=@venue.zip%></li>
-                  <li><span class="glyphicon glyphicon-envelope"></span> &nbsp; <%=@venue.email%></li>
+                  <li><span class="glyphicon glyphicon-envelope"></span> &nbsp;<a href="mailto:<%=@venue.email%>"> <%=@venue.email%></a> </li>
                   <% if @contacts.present? %>
                       <% if @land_numbers.present? %>
                           <li><span class="glyphicon glyphicon-earphone"></span> &nbsp;<span class="web"> <%= @land_numbers.join(",") %></span>
