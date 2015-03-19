@@ -101,12 +101,12 @@
                     <% if @event.description.length > 120 %>
                         <td id="hide_when_read_more">
                           <%= simple_format(truncate(@event.description, length: 115)) %>
-                          <%= link_to '+ more.', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
+                          <%= link_to 'more', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
                         </td>
                         <td id="hide_when_read_more" class="td_hide">
                           <div id="example" class="show_more">
                             <%= simple_format(@event.description)%>
-                            <%= link_to '- less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
+                            <%= link_to 'less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
                           </div>
                         </td>
                     <% else %>
