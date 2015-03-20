@@ -6,7 +6,7 @@
           = Spree.t(:package_from)
           %strong.stock-location-name{"data-hook" => "stock-location-name"}= ship_form.object.stock_location.name
       .row
-        .col-md-12.txt_bold
+        .col-md-12.txt_bold.mleft10
           .col-md-3 Item
           .col-md-3
           .col-md-3 Quantity
@@ -79,5 +79,29 @@
               %li
                 %span.glyphicon.glyphicon-phone
                 \&nbsp; #{ship_address.alternative_phone}
+    %h4
+      Billing Address
+      \#{link_to "(#{Spree.t(:edit)})", checkout_state_path(:address) unless @order.completed?}
+    - if @event and @order.bill_address
+      - bill_address = @order.bill_address
+      .row
+        .col-md-12
+          %ul.venue_ctc_details
+            %li
+              %span.glyphicon.glyphicon-user
+              %b #{bill_address.full_name}
+            -if bill_address.address2.present?
+              %li #{bill_address.address1},#{bill_address.address2},
+            -else
+              %li #{bill_address.address1},
+            %li #{bill_address.city}, #{bill_address.state.name},
+            %li #{bill_address.country.name}, #{bill_address.zipcode}
+            %li
+              %span.glyphicon.glyphicon-earphone
+              \&nbsp; #{bill_address.phone}
+            - unless bill_address.alternative_phone.blank?
+              %li
+                %span.glyphicon.glyphicon-phone
+                \&nbsp; #{bill_address.alternative_phone}
     %h4 Order Summary
     = render 'summary',order: @order
