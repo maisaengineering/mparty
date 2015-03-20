@@ -9,14 +9,15 @@
   <% options_hash = Rails.env.production? ? {:autocomplete => 'off'} : {} %>
   <%= text_field_tag "#{param_prefix}[number]", '',
                      options_hash.merge(:id => 'card_number',
-                                        class: 'form-control required cardNumber',
-                                        size: 19, maxlength: 19, autocomplete: "off",placeholder: "enter card number 4111 xxxxxxx44455") %>
+                                        class: 'form-control required cardNumber',placeholder: 'Card number',
+                                        size: 19, maxlength: 19, autocomplete: "off") %>
   &nbsp;
   <span id="card_type" style="display:none;">
     ( <span id="looks_like" ><%= Spree.t(:card_type_is) %> <span id="type"></span></span>
       <span id="unrecognized"><%= Spree.t(:unrecognized_card_type) %></span>
     )
   </span>
+
 
 </div>
 <div class="col-md-5" data-hook="card_expiration">
@@ -31,7 +32,7 @@
 </div>
 
 <div class="col-md-12">
-  <%= text_field_tag "#{param_prefix}[name]", "",
+  <%= text_field_tag "#{param_prefix}[name]", "#{@order.billing_firstname} #{@order.billing_lastname}",
                      { id: "name_on_card_#{payment_method.id}",class: 'form-control',placeholder: "Name On Card"} %>
   <label></label>
 </div>
