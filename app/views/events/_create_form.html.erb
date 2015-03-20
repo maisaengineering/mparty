@@ -379,12 +379,16 @@
             $("#venus_hidden_fields").empty()
         }
         else if($(this).val() == 'virtual'){
+            $('#venue_afterchoose').remove()
+            $('#venus_hidden_fields').remove()
             $('#venue_dform').hide()
-            $('#event_location').val(' ')
-            $('#event_city').val(' ')
-            $('#event_country').val(' ')
-            $('#event_state').val(' ')
-            $('#event_zip').val(' ')
+            $('#venue_name').remove()
+            $('#event_venue_id').val('')
+            $('#event_location').val('')
+            $('#event_city').val('')
+            $('#event_country').val('')
+            $('#event_state').val('')
+            $('#event_zip').val('')
         }
     });
 
