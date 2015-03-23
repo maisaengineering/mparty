@@ -5,12 +5,11 @@
           <%= cover_photo(venue,:preview) %>
           <div class="caption">
             <div class="row">
-              <h3 class="col-md-6" style="text-align: left;" data-toggle="tooltip" data-original-title="<%=venue.name%>">
-                <%= truncate(venue.name,:length => 11) %>
-              </h3>
+              <h4 class="col-md-6" style="text-align: left;" data-toggle="tooltip" data-original-title="<%=venue.name%>">
+                <%= truncate(venue.name,:length => 18) %>
+              </h4>
               <div class="col-md-6">
                 <div id="rated_members_count" class="pull-right">
-                  <br>
                   <%= overall_rating(venue.average_rating,venue.reviews.count)%>
                 </div>
               </div>
