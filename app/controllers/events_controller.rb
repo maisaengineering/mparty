@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
-  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist,:preview]
+  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist,:preview, :event_map]
   before_filter :register_handlebars,only: [:update_designs,:show,:preview,:share_on_fb]
   #layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
