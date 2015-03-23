@@ -119,9 +119,9 @@
               </div>
             </div>
             <%unless @venue.venue_seating_types.blank?%>
-            <div class="row no_margin mtop5">
-              <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
-              </div>
+                <div class="row no_margin mtop5">
+                  <div class="col-md-12 pull-left"><b >Seating Type and Capacity:</b> &nbsp;
+                  </div>
                   <% @venue.venue_seating_types.each do |seating_type| %>
                       <div class="col-md-3 mtop10" align="center">
                         <a class="fancybox" href="<%= seating_type.seating_image.url%>" rel="Seating" title="<%=seating_type.name%>">
@@ -142,13 +142,15 @@
                         </h4>
                       </div>
                   <%end%>
-            </div>
+                </div>
             <%end%>
-            <div class="row no_margin mtop5">
-              <div class="col-md-12"> <b>Special Notes:</b> &nbsp;
-                <%= raw @venue.special_notes %>
-              </div>
-            </div>
+            <% if @venue.special_notes.present?  %>
+                <div class="row no_margin mtop5">
+                  <div class="col-md-12"> <b>Special Notes:</b> &nbsp;
+                    <%= raw @venue.special_notes %>
+                  </div>
+                </div>
+            <% end  %>
           </div>
           <div role="tabpanel" class="tab-pane fade" id="ContactDetails">
             <div class="row no_margin">
@@ -175,7 +177,7 @@
                       <% if @mobile_numbers.present? %>
                           <li><span class="glyphicon glyphicon-phone"></span> &nbsp;<span class="web"> <%= @mobile_numbers.join(",") %> </span>
                             <% @mobile_numbers.each do |m|  %>
-                            <a href="tel:<%= m %>" class="mobile"><%= m + ',' %> </a>
+                                <a href="tel:<%= m %>" class="mobile"><%= m + ',' %> </a>
                             <% end  %>
                           </li>
                       <% end %>
@@ -243,11 +245,11 @@
                 <div class="col-md-12">
                   <div class="review_block">
                     <div id="reviews">
-                        <% if @reviews.blank? %>
-                            <div id="no_reviews">No Reviews yet</div>
-                        <% else %>
+                      <% if @reviews.blank? %>
+                          <div id="no_reviews">No Reviews yet</div>
+                      <% else %>
                           <%= render 'reviews/list',reviews: @reviews %>
-                        <% end %>
+                      <% end %>
                     </div>
                     <%= paginate @reviews %>
                   </div>
@@ -263,7 +265,7 @@
 </div>
 <script type="text/javascript">
 
-  $(".mobile").hide()
+    $(".mobile").hide()
     var BrowserDetect = function() {
         var nav = window.navigator,
                 ua = window.navigator.userAgent.toLowerCase();
@@ -353,17 +355,17 @@
             interval: 2000
         });
     });
-  var map_present = false
-  $(".venue_map_request").click(function () {
-  if (map_present == false) {
-    $.ajax({
-      url: "/venues/<%=@venue.id%>/map",
-      type: "get",
-      success:function (e) {
-        $("#map").html(e);
-        map_present = true
-      }
-    })
-  };
-  });
+    var map_present = false
+    $(".venue_map_request").click(function () {
+        if (map_present == false) {
+            $.ajax({
+                url: "/venues/<%=@venue.id%>/map",
+                type: "get",
+                success:function (e) {
+                    $("#map").html(e);
+                    map_present = true
+                }
+            })
+        };
+    });
 </script>
