@@ -34,7 +34,7 @@
               <% if wished_product.quantity_purchased >= wished_product.quantity %>
                   <p>Already Purchased</p>
               <% else %>
-                  <%= item_form.number_field :quantity, :min => 1,max: wished_product.quantity - wished_product.quantity_purchased , :class => "line_item_quantity text_6"  %>
+                  <%= item_form.number_field :quantity,style: "margin-top: -6px", :min => 1,max: wished_product.quantity - wished_product.quantity_purchased , :class => "line_item_quantity text_6"  %>
               <% end %>
 
           <% else %>
@@ -46,7 +46,7 @@
       <div class="col-md-1">
         <%#- if !session[:event_id].present? %>
         <%= link_to '#',id:  "delete_#{dom_id(line_item)}",title: 'remove' ,class: 'delete' do -%>
-            <span class="glyphicon glyphicon-trash"></span>
+            <span class="glyphicon glyphicon-trash" style="top: -7px"></span>
         <% end %>
         <%# end %>
       </div>
