@@ -102,8 +102,8 @@
                         <%= f.hidden_field :zip,value: @venue.zip %>
                       </div>
                   <% else %>
-                      <div class="col-md-12 mtop20">
-                        <ul id="default_venue_address" class="venue_ctc_details">
+                      <div id="default_venue_address" class="col-md-12 mtop20">
+                        <ul class="venue_ctc_details">
                           <li> <span class="glyphicon glyphicon-map-marker"></span> <b> <%= @event.location %></b></li>
                           <li> <%= @event.city  %>, <%= @event.state  %>, </li>
                           <li> <%= @event.country  %>, <%= @event.zip %> </li>
@@ -203,8 +203,11 @@
 
     $("#venue_type").hide()
     $('#default_venue_address').hide()
+    $('#venue_dform').show()
+    <% if (@event.venue_type == "virtual") || (@event.venue_type == "choose") %>
+    $('#venue_dform').hide()
+    <% end  %>
     <% if !@event.venue  %>
-    $('#venue_dform').fadeIn('slow')
     $('#datepairExample .start').datetimepicker({
         defaultDate: $('#datepairExample  .start').val().split(' ')[0].split('-')[0] + '/'+ $('#datepairExample  .start').val().split(' ')[0].split('-')[1] + '/' + $('#datepairExample  .start').val().split(' ')[0].split('-')[2],
         onShow:function( $input ){
@@ -364,11 +367,11 @@
                 })
             }
             else{
-            this.setOptions({
-                format:'Y-m-d H:i',
-                minDate:  st_date_val ? st_date_val : '0',
-                minTime: "00:00"
-            })
+                this.setOptions({
+                    format:'Y-m-d H:i',
+                    minDate:  st_date_val ? st_date_val : '0',
+                    minTime: "00:00"
+                })
             }
         },
         onSelectDate:function($input){
