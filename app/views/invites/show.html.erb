@@ -46,7 +46,20 @@
               <% if @event.description.present?  %>
                   <tr>
                     <td width="500">Additional details:</td>
-                    <td><i><%=simple_format(@event.description)%></i></td>
+                    <% if @event.description.length > 120 %>
+                        <td id="hide_when_read_more">
+                          <%= simple_format(truncate(@event.description, length: 115)) %>
+                          <%= link_to 'more', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
+                        </td>
+                        <td id="hide_when_read_more" class="td_hide">
+                          <div id="example" class="show_more">
+                            <%= simple_format(@event.description)%>
+                            <%= link_to 'less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
+                          </div>
+                        </td>
+                    <% else %>
+                        <td> <%= simple_format(@event.description) %></td>
+                    <% end %>
                   </tr>
               <% end  %>
               <tr>
@@ -89,8 +102,7 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="col-md-12 box mtop20">
-                  <div class="col-md-3"></div>
-                  <div class="col-md-6" style="width: 45%">
+                  <div class="col-md-12 photos_in_invite_email">
                     <% unless @event.pictures.blank? %>
                         <h4>Photos:</h4>
                         <div class="gallery event_photos" id="myCarousel">
