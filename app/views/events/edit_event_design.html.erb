@@ -141,6 +141,19 @@
 
 <script type="text/javascript">
 
+
+    $('.event_form_submit').click(function(){
+        if($('#event_zip').val().length > 0 ){
+            var zip = $('#event_zip').val()
+            var reg = /(^\d{6}$)/;
+            if(!reg.test(zip))
+            {
+                bootbox.alert("Invalid zip code.");
+                return false;
+            }
+        }
+    })
+
     if($("#event_custom_event_type").val() == ""){
         $(".event_type_hide").hide();
     }
