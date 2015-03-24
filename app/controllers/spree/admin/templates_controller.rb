@@ -57,7 +57,7 @@ class Spree::Admin::TemplatesController < Spree::Admin::BaseController
   def destroy
     @spree_admin_template.destroy
     respond_to do |format|
-      format.html { redirect_to spree_admin_templates_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end

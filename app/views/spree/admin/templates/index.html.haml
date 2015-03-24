@@ -5,14 +5,14 @@
     %th Name
     %th
     %th
-    %th
 
   - @spree_admin_templates.each do |spree_admin_template|
     %tr
       %td= spree_admin_template.name
-      %td= link_to 'Show', spree_admin_template
-      %td= link_to 'Edit', edit_admin_template_path(spree_admin_template)
-      %td= link_to 'Destroy', spree_admin_template, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td.actions{:style => "border-bottom: 1px solid #cee1f4 !important; border-right: 1px solid #cee1f4 !important; "}
+        = link_to '', edit_admin_template_path(spree_admin_template), class: 'icon-edit no-text'
+      %td.actions{:style => "border-bottom: 1px solid #cee1f4 !important; border-right: 1px solid #cee1f4 !important; "}
+        = link_to '', spree_admin_template, class: 'icon-trash no-text', :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
