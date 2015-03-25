@@ -158,9 +158,9 @@
                 <br>
                 <ul class="venue_ctc_details">
                   <li><b><%=@venue.name.titleize%></b></li>
-                  <li><%=@venue.address1%>,
-                    <%unless @venue.address2.blank?%>
-                        <%= @venue.address2 %>,
+                  <li><%=@venue.address%>,
+                    <%unless @venue.location.blank?%>
+                        <%= @venue.location %>,
                     <%end%>
                     <%=@venue.city%></li>
                   <li><%=@venue.state%>,<%=@venue.country%></li>
