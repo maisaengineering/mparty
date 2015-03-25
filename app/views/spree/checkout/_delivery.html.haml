@@ -24,7 +24,7 @@
           .col-md-12.txt_bold.mbottom10= Spree.t(:shipping_method)
           - ship_form.object.shipping_rates.each do |rate|
             .col-md-12
-              = ship_form.radio_button :selected_shipping_rate_id, rate.id
+              %span{:onclick => "shippingcharges('#{rate.display_cost}')"}= ship_form.radio_button :selected_shipping_rate_id, rate.id
               %span.rate-name= rate.name
               %span.rate-cost= rate.display_cost
       - if Spree::Config[:shipping_instructions]
@@ -105,3 +105,25 @@
                 \&nbsp; #{bill_address.alternative_phone}
     %h4 Order Summary
     = render 'summary',order: @order
+
+:javascript
+  shippingcharges = function(input){
+  var subtotal = parseFloat($(".subtotal").text().match(/\d+\.?\d*/))
+  if($(".promotion").text().length > 0){
+    var promotion = parseFloat($(".promotion").text().match(/\d+\.?\d*/))
+  }
+  else{
+    promotion = 0
+  }
+  if($(".adjustment").text().length>0){
+    var adjustment = parseFloat($(".adjustment").text().match(/\d+\.?\d*/))
+  }
+  else{
+    adjustment = 0
+  }
+  var tax = parseFloat($(".tax").text().match(/\d+\.?\d*/))
+  var shipping_amount = parseFloat(input.match(/\d+\.?\d*/))
+  var total = (subtotal + adjustment + promotion + tax + shipping_amount).toFixed(2)
+  $(".shipping_amount").text(input)
+  $(".order_total").text(total)
+  }
