@@ -108,6 +108,7 @@
 
 :javascript
   shippingcharges = function(input){
+  symbol = $(".subtotal").text().charAt(0)
   if($(".subtotal").text().length > 0){
      var subtotal = parseFloat($(".subtotal").text().match(/\d+\.?\d*/))
   }
@@ -140,5 +141,5 @@
   }
   var total = (subtotal + adjustment + promotion + tax + shipping_amount).toFixed(2)
   $(".shipping_amount").text(input)
-  $(".order_total").text(total)
+  $(".order_total").text(symbol + total)
   }
