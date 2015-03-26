@@ -1,4 +1,8 @@
-= button_link_to 'Back to venues', admin_venues_url, icon: 'icon-arrow-left'
+- content_for :page_title do
+  = 'New Venue'
+- content_for :page_actions do
+  %li
+    = button_link_to 'Back to venues', spree.admin_venues_url, icon: 'icon-arrow-left'
 = nested_form_for [:admin, @venue] do |f|
   = render 'form',f: f,heading: 'New Venue',button_name: 'Create'
 = link_to 'Back', spree.admin_venues_path

@@ -3,7 +3,6 @@ class CreateVenueCategoriesVenues < ActiveRecord::Migration
     create_table :venue_categories_venues ,:id => false do |t|
       t.integer :venue_id
       t.integer :venue_category_id
-
     end
   end
 end

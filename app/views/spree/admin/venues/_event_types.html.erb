@@ -1,0 +1,14 @@
+<ul>
+  <% unless Spree::Admin::Template.all.blank? %>
+      <%for template in Spree::Admin::Template.all %>
+          <li>
+            <%= check_box_tag "venue[template_ids][]",template.id,@venue.templates.map(&:id).include?(template.id)%>
+            <%= template.name%>
+          </li>
+      <%end%>
+  <%else%>
+      <li>
+        <a href="/admin/templates/new">Create Template.</a>
+      </li>
+  <%end%>
+</ul>

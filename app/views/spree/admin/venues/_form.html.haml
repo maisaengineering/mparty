@@ -1,190 +1,198 @@
+:css
+  .row {
+    margin-bottom: 0px;
+  }
 = render :partial => 'spree/shared/error_messages', :locals => { :target => @venue }
-%fieldset
-  %legend{:align => "center"} #{heading}
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label Name
-        %span.required *
-        %br/
-        = f.text_field :name,:autofocus => true,class: 'fullwidth'
-        = f.error_message_on :name
-    .omega.eight.columns
-      .field
-        %label Venue type
-        %span.required
-        %br/
-        = render :partial => 'venue_types'
-        =# f.select :venue_type, Venue::VENUE_TYPES, {:include_blank => 'Select venue type'} ,class: 'fullwidth'
-        = f.error_message_on :venue_type
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label Room Dimensions
-        %span.required
-        %br/
-        = f.number_field :room_dimensions ,placeholder: 'in sq feet',min: '1', class: 'fullwidth'
-        = f.error_message_on :room_dimensions
-    .omega.eight.columns
-      .field
-        %label Capacity
-        %span.required
-        %br/
-        = f.number_field :capacity, class: 'fullwidth',min: '1',placeholder: 'members'
-        = f.error_message_on :capacity
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label Price min
-        %span.required
-        %br/
-        = f.number_field :price_min, min: '1',class: 'fullwidth'
-        = f.error_message_on :price_min
-    .omega.eight.columns
-      .field
-        %label Price max
-        %span.required
-        %br/
-        = f.number_field :price_max, min: '1', class: 'fullwidth'
-        = f.error_message_on :price_max
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label Priority
-        %span.required
-        %br/
-        = f.number_field :priority ,min: '0', class: 'fullwidth'
-        = f.error_message_on :priority
-    .omega.eight.columns
-      .field
-        %label Promote
-        %span.required
-        %br/
-        = f.check_box :promote
-        = f.error_message_on :promote
-  // Address
-  %legend{:align => "center",class: 'no-border-bottom'} Address
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label Address1
-        %span.required *
-        %br/
-        = f.text_field :address1  , class: 'fullwidth'
-        = f.error_message_on :address1
-    .omega.eight.columns
-      .field
-        %label Address2
-        %span.required
-        %br/
-        = f.text_field :address2, class: 'fullwidth'
-        = f.error_message_on :address2
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label City
-        %span.required
-        %br/
-        = f.text_field :city  , class: 'fullwidth'
-        = f.error_message_on :city
-    .omega.eight.columns
-      .field
-        %label Country
-        %span.required
-        %br/
-        = f.collection_select :country, Spree::Country.order(:name), :name,:name, {selected: (@venue.country ? @venue.country : Spree::Address.default().country.name)}, {class: 'fullwidth'}
-        = f.error_message_on :country
-  .align-center.row
-    .alpha.eight.columns
-      .field
-        %label State
-        %span.required
-        %br/
-        =f.collection_select :state, (@venue.country ? Spree::Country.find_by_name(@venue.country).states : Spree::Address.default().country.states), :name, :name, {}, {class: 'fullwidth'}
-        = f.error_message_on :state
-    .omega.eight.columns
-      .field
-        %label Zip
-        %span.required *
-        %br/
-        = f.text_field :zip, class: 'fullwidth',pattern: "[0-9]{6}", title:"Invalid zip code"
-        = f.error_message_on :zip
-    .align-center.row
-      .alpha.eight.columns
+.row
+  .alpha.six.columns
+    .field
+      %label Name
+      %span.required *
+      = f.text_field :name,:autofocus => true,class: 'fullwidth'
+      = f.error_message_on :name
+  .omega.six.columns
+    .field
+      %label Email
+      %span.required
+      = f.email_field :email,class: 'fullwidth'
+      = f.error_message_on :email
+.row
+  .alpha.six.columns
+    .field
+      %label Room Dimensions
+      %span.required
+      %br/
+      = f.number_field :room_dimensions ,placeholder: 'in sq feet',min: '1', class: 'fullwidth'
+      = f.error_message_on :room_dimensions
+  .omega.six.columns
+    .field
+      %label Capacity
+      %span.required
+      %br/
+      = f.number_field :capacity, class: 'fullwidth',min: '1',placeholder: 'members'
+      = f.error_message_on :capacity
+.row
+  .alpha.six.columns
+    .field
+      %label Price min
+      %span.required
+      = f.number_field :price_min, min: '1',class: 'fullwidth'
+      = f.error_message_on :price_min
+  .omega.six.columns
+    .field
+      %label Price max
+      %span.required
+      = f.number_field :price_max, min: '1', class: 'fullwidth'
+      = f.error_message_on :price_max
+.row
+  .alpha.six.columns
+    .field
+      %label Priority
+      %span.required
+      = f.number_field :priority ,min: '0', class: 'fullwidth'
+      = f.error_message_on :priority
+  .omega.six.columns
+    .field
+      %label Promote
+      %span.required
+      %br
+      = f.check_box :promote
+      = f.error_message_on :promote
+.row
+  .alpha.twelve.columns
+    .field
+      %label Venue types
+      %span.required
+      = render :partial => 'venue_types'
+      = f.error_message_on :venue_type
+.row
+  .alpha.twelve.columns
+    .field
+      %label Event types
+      %span.required
+      = render :partial => 'event_types'
+.row
+  .alpha.twelve.columns
+    %fieldset.no-border-bottom
+      %legend{:align => "center"} Address
+.row
+  .alpha.six.columns
+    .field
+      %label Address (H.no/Street number)
+      %span.required *
+      = f.text_field :address  , class: 'fullwidth'
+      = f.error_message_on :address
+  .omega.six.columns
+    .field
+      %label Location (Ameerpet etc)
+      %span.required
+      = f.text_field :location, class: 'fullwidth'
+      = f.error_message_on :location
+.row
+  .alpha.six.columns
+    .field
+      %label City
+      %span.required
+      = f.text_field :city  , class: 'fullwidth'
+      = f.error_message_on :city
+  .omega.six.columns
+    .field
+      %label Country
+      %span.required
+      = f.collection_select :country, Spree::Country.order(:name), :name,:name, {selected: (@venue.country ? @venue.country : Spree::Address.default().country.name)}, {class: 'fullwidth'}
+      = f.error_message_on :country
+.row
+  .alpha.six.columns
+    .field
+      %label State
+      %span.required
+      = f.collection_select :state, (@venue.country ? Spree::Country.find_by_name(@venue.country).states : Spree::Address.default().country.states), :name, :name, {}, {class: 'fullwidth'}
+      = f.error_message_on :state
+  .omega.six.columns
+    .field
+      %label Zip
+      %span.required *
+      = f.text_field :zip, class: 'fullwidth',pattern: "[0-9]{6}", title:"Invalid zip code"
+      = f.error_message_on :zip
+.row
+  .alpha.twelve.columns
+    %fieldset.no-border-bottom
+      %legend{:align => "center"} About
+.row
+  .alpha.twelve.columns
+    .field
+      %label Description
+      %span.required
+      = f.text_area :description ,placeholder: 'About venue'  ,class: 'fullwidth'
+      = f.error_message_on :description
+  .alpha.twelve.columns
+    .field
+      %label Special Notes
+      %span.required
+      = f.text_area :special_notes ,placeholder: 'Allows html formatted data' ,class: 'fullwidth'
+      = f.error_message_on :special_notes
+// Contact Details
+.row
+  .alpha.twelve.columns
+    %fieldset.no-border-bottom
+      %legend{:align => "center"}  Contact Information
+#venue_contacts
+  = f.fields_for :venue_contacts do |contact_form|
+    .row
+      .alpha.five.columns
         .field
-          %label Email
+          %label Full name
+          %span.required *
+          %br/
+          = contact_form.text_field :full_name,class: 'fullwidth'
+      .three.columns
+        .field
+          %label Mobile
           %span.required
           %br/
-          = f.email_field :email  , class: 'fullwidth'
-          = f.error_message_on :email
-  .field
-    %label About
-    %span.required
-    %br/
-    = f.text_area :description ,placeholder: 'About venue'  ,class: 'fullwidth'
-    = f.error_message_on :description
-  .field
-    %label Special Notes
-    %span.required
-    %br/
-    = f.text_area :special_notes ,placeholder: 'Allows html formatted data',rows: 7  ,class: 'fullwidth'
-    = f.error_message_on :special_notes
-  // Contact Details
-  %legend Contact Information
-  #venue_contacts
-    = f.fields_for :venue_contacts do |contact_form|
-      .row
-        .alpha.five.columns
-          .field
-            %label Full name
-            %span.required *
-            %br/
-            = contact_form.text_field :full_name,class: 'fullwidth'
-        .three.columns
-          .field
-            %label Mobile
-            %span.required
-            %br/
-            = contact_form.text_field :mobile_number
-        .three.columns
-          .field
-            %label Land line number
-            %span.required
-            %br/
-            = contact_form.text_field :land_number
-        .three.columns
-          .field
-            %label
-            %span.required
-            %br/
-            = contact_form.link_to_remove "Remove(-)"
-  %div{style: 'text-align: right;margin: 5px;'}
-    = f.link_to_add "Add new contact(+)", :venue_contacts, "data-target" => "#venue_contacts"
-
-  %legend Video Urls
-  #video_urls
-    = f.fields_for :video_urls do |video_form|
-      .row
-        .alpha.five.columns
-          .field
-            %label Url link
-            %span.required * 
-            %sup{style: 'color:#a1c820'} (Youtube & Vimeo videos only)
-            %br/
-            = video_form.text_field :url,class: 'fullwidth',:type=>"url"
-        .three.columns
-          .field
-            %label
-            %span.required
-            %br/
-            = video_form.link_to_remove "Remove(-)"
+          = contact_form.text_field :mobile_number
+      .three.columns
+        .field
+          %label Land line number
+          %span.required
+          %br/
+          = contact_form.text_field :land_number
+      .three.columns
+        .field
+          %label
+          %span.required
+          %br/
+          = contact_form.link_to_remove "Remove(-)"
+%div{style: 'text-align: right;margin: 5px;'}
+  = f.link_to_add "Add new contact(+)", :venue_contacts, "data-target" => "#venue_contacts"
+// Contact Details
+.row
+  .alpha.twelve.columns
+    %fieldset.no-border-bottom
+      %legend{:align => "center"}  Video Urls
+#video_urls
+  = f.fields_for :video_urls do |video_form|
+    .row
+      .alpha.five.columns
+        .field
+          %label Url link
+          %span.required *
+          %sup{style: 'color:#a1c820'} (Youtube & Vimeo videos only)
+          %br/
+          = video_form.text_field :url,class: 'fullwidth',:type=>"url"
+      .three.columns
+        .field
+          %label
+          %span.required
+          %br/
+          = video_form.link_to_remove "Remove(-)"
   %div{style: 'text-align: right;margin: 5px;'}
     = f.link_to_add "Add new Video(+)", :video_urls, "data-target" => "#video_urls"
-  .form-buttons.filter-actions.actions{"data-hook" => "buttons"}
-    %button.icon-ok.button{:name => "button", :type => "submit"} #{button_name}
-    %span.or or
-    %a.button.icon_link.with-tip.icon-remove{:href => "#{admin_venues_path}"}
-      %span.text Cancel
+.form-buttons.filter-actions.actions{"data-hook" => "buttons"}
+  %button.icon-ok.button{:name => "button", :type => "submit"} #{button_name}
+  %span.or or
+  %a.button.icon_link.with-tip.icon-remove{:href => "#{admin_venues_path}"}
+    %span.text Cancel
 :javascript
   $("#venue_country").change(function(){
         country=$(this).val()

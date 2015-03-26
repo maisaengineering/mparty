@@ -16,12 +16,13 @@ class Venue < ActiveRecord::Base
   has_many :rates, as: :rateable, dependent: :destroy
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories
+  has_and_belongs_to_many :templates, :join_table => 'templates_venues',class_name: 'Spree::Admin::Template'
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :asc).limit(6)}
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
 
   #--------- Validations goes here
-  validates :name,:address1, :state, :city, :country,presence: true
+  validates :name,:address,:location,:state, :city, :country,presence: true
   validates :zip, numericality: true, presence: true
   validates :room_dimensions,:capacity, :allow_blank => true, numericality: { greater_than_or_equal_to: 1 }
   validates :priority,numericality: { greater_than_or_equal_to: 0 }
@@ -31,8 +32,10 @@ class Venue < ActiveRecord::Base
 
   #--------  Callbacks goes here
   # GEO
-  geocoded_by :full_address, if: ->(rec){ rec.address1.present? and rec.zip.present? }
+  geocoded_by :full_address, if: ->(rec){ rec.address.present? and rec.zip.present? }
   after_validation :geocode          # auto-fetch coordinates
+
+  before_save :titleize_attrs
 
   accepts_nested_attributes_for :venue_contacts, allow_destroy: true,reject_if: proc { |attributes| attributes['full_name'].blank? }
   accepts_nested_attributes_for :video_urls, allow_destroy: true,reject_if: proc { |attributes| attributes['url'].blank? }
@@ -62,6 +65,11 @@ class Venue < ActiveRecord::Base
 
   #---------- Instance Methods
 
+  def titleize_attrs
+    self.name = self.name.titleize if name.present?
+    self.location = self.location.titleize if location.present?
+  end
+
   # MINIMUM PRICE - MAX PRICE
   def min_max_price
     if price_min.blank?
@@ -78,11 +86,7 @@ class Venue < ActiveRecord::Base
   end
 
   def full_address
-    if address2 == ""
-      "#{name}, #{address1}, #{city}, #{state}, #{country}, #{zip}"
-    else
-      "#{name}, #{address1}, #{address2}, #{city}, #{state}, #{country}, #{zip}"
-    end
+    "#{address}, #{location}, #{city}, #{state}, #{country}, #{zip}"
   end
 
   # cover photo

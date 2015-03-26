@@ -17,7 +17,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   def create
     @venue = spree_current_user.venues.build(venue_params)
     if @venue.save
-      @venue.venue_category_ids = params[:venue][:venue_type]      
+      @venue.venue_category_ids = params[:venue][:venue_type]
       redirect_to add_photos_admin_venue_url(@venue), notice: 'Venue was successfully created.Upload photos'
       # render 'add_photos', notice: 'Venue was successfully created now add venue photos'
     else
@@ -31,7 +31,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
 
   def update
     @venue = Venue.find(params[:id])
-    @venue.venue_category_ids = params[:venue][:venue_type]   
+    @venue.venue_category_ids = params[:venue][:venue_type]
     respond_to do |format|
       if @venue.update(venue_params)
         format.html { redirect_to edit_admin_venue_url(@venue), notice: 'Venue was successfully updated.' }
@@ -123,9 +123,9 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
   private
   def venue_params
     params.require(:venue).permit(:name, :description,:venue_type,:room_dimensions,:capacity,:price_min,
-                                  :price_max,:address1,:address2 ,:city,:state,:country,:zip,:email,
+                                  :price_max,:address,:location ,:city,:state,:country,:zip,:email,
                                   :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id],
-                                  video_urls_attributes: [:url, :image_url,:_destroy, :id])
+                                  video_urls_attributes: [:url, :image_url,:_destroy, :id],template_ids: [])
   end
 
   def picture_params
