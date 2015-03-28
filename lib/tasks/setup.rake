@@ -1,4 +1,3 @@
-
 namespace :db do
   task setup_with_zero: :environment do
     #Spree::User.where.not(email: 'admin@mparty.com').delete_all

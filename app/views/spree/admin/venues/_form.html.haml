@@ -71,6 +71,37 @@
       %label Event types
       %span.required
       = render :partial => 'event_types'
+      = f.error_message_on :template_ids
+.row
+  .alpha.twelve.columns
+    .field
+      %label Features
+      %span.required
+      %ul
+        - unless VenueFeature.all.blank?
+          -  VenueFeature.all.each do |feature|
+            %li
+              = check_box_tag "venue[feature_ids][]",feature.id,@venue.features.map(&:id).include?(feature.id)
+              = feature.name
+        - else
+          %li
+            %a{:href => "/admin/features/new"} Create Feature.
+      = f.error_message_on :feature_ids
+.row
+  .alpha.twelve.columns
+    .field
+      %label Facilities
+      %span.required
+      %ul
+        - unless VenueFacility.all.blank?
+          - VenueFacility.all.each do |facility|
+            %li
+              = check_box_tag "venue[facility_ids][]",facility.id,@venue.facilities.map(&:id).include?(facility.id)
+              = facility.name
+        - else
+          %li
+            %a{:href => "/admin/facilities/new"} Create Facility.
+      = f.error_message_on :facility_ids
 .row
   .alpha.twelve.columns
     %fieldset.no-border-bottom

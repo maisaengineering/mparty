@@ -125,7 +125,7 @@ class Spree::Admin::VenuesController < Spree::Admin::ResourceController
     params.require(:venue).permit(:name, :description,:venue_type,:room_dimensions,:capacity,:price_min,
                                   :price_max,:address,:location ,:city,:state,:country,:zip,:email,
                                   :promote,:priority,:special_notes,venue_contacts_attributes: [:full_name,:mobile_number,:land_number, :_destroy, :id],
-                                  video_urls_attributes: [:url, :image_url,:_destroy, :id],template_ids: [])
+                                  video_urls_attributes: [:url, :image_url,:_destroy, :id],template_ids: [],feature_ids: [],facility_ids: [])
   end
 
   def picture_params

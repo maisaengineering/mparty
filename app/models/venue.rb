@@ -17,6 +17,8 @@ class Venue < ActiveRecord::Base
   has_one :rating_cache, as: :cacheable, dependent: :destroy
   has_and_belongs_to_many :venue_categories
   has_and_belongs_to_many :templates, :join_table => 'templates_venues',class_name: 'Spree::Admin::Template'
+  has_and_belongs_to_many :features, :join_table => 'features_venues',class_name: 'VenueFeature'
+  has_and_belongs_to_many :facilities, :join_table => 'facilities_venues',class_name: 'VenueFacility'
   #Scopes ------------------
   scope :top_five,-> {where(promote: true).order(priority: :asc).limit(6)}
   scope :top_rated,-> {joins(:rating_cache).order("rating_caches.avg desc").limit(5)}
