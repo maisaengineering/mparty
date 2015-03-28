@@ -108,22 +108,38 @@
 
 :javascript
   shippingcharges = function(input){
-  var subtotal = parseFloat($(".subtotal").text().match(/\d+\.?\d*/))
-  if($(".promotion").text().length > 0){
-    var promotion = parseFloat($(".promotion").text().match(/\d+\.?\d*/))
+  symbol = $(".subtotal").text().charAt(0)
+  if($(".subtotal").text().length > 0){
+     var subtotal = parseFloat($(".subtotal").text().match(/\d+\.?\d*/))
   }
   else{
-    promotion = 0
+     var subtotal = 0
+  }
+  if($(".promotion").text().length > 0){
+     var promotion = parseFloat($(".promotion").text().match(/\d+\.?\d*/))
+  }
+  else{
+     var promotion = 0
   }
   if($(".adjustment").text().length>0){
-    var adjustment = parseFloat($(".adjustment").text().match(/\d+\.?\d*/))
+     var adjustment = parseFloat($(".adjustment").text().match(/\d+\.?\d*/))
   }
   else{
-    adjustment = 0
+     var adjustment = 0
   }
-  var tax = parseFloat($(".tax").text().match(/\d+\.?\d*/))
-  var shipping_amount = parseFloat(input.match(/\d+\.?\d*/))
+  if($(".tax").text().length > 0){
+     var tax = parseFloat($(".tax").text().match(/\d+\.?\d*/))
+  }
+  else{
+     var tax = 0
+  }
+  if($(".shipping_amount").text().length > 0){
+     var shipping_amount = parseFloat(input.match(/\d+\.?\d*/))
+  }
+  else{
+     var shipping_amount = 0
+  }
   var total = (subtotal + adjustment + promotion + tax + shipping_amount).toFixed(2)
   $(".shipping_amount").text(input)
-  $(".order_total").text(total)
+  $(".order_total").text(symbol + total)
   }
