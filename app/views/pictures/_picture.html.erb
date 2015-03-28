@@ -1,8 +1,6 @@
 <% if picture.image? %>
     <div class="col-md-3 picture" id="picture_<%= picture.id %>" data-id="<%= picture.id %>">
-      <%= link_to picture , confirm: 'Are you sure?', method: :delete ,class: 'remove_btn',remote: true do %>
-          <span class="glyphicon glyphicon-remove-circle"></span>
-      <% end  %>
+      <div class="remove_btn" ><span class="glyphicon glyphicon-remove-circle" onclick="remove_photo(<%= picture.id %>)"></span></div>
       <%= picture_image_tag(picture,:thumb) %>
     </div>
 <% end %>

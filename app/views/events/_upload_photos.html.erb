@@ -70,72 +70,93 @@
 </div>
 
 <script type="text/javascript">
-    $('#picture_image').on('change',function(){
+
+    p_count = $("#pictures").children('div').length
+
+    $('.event_file_upload_button').click(function(){
+        if(p_count >=9)
+        {
+            bootbox.alert("photos(9) maximum upload limit reached")
+            return false;
+        }
+    })
+    $('#picture_image').on('change', function () {
         err = [];
         file_count = 0
         upload_files_count = $('#new_picture input[type=file]').get(0).files.length
         $('.number_of_files strong').text(0)
         $('.upload').remove()
     })
+
     $('#new_picture').fileupload({
         dataType: "script",
-        add: function(e, data) {
+        add: function (e, data) {
             $('.loading-indicator').show()
             var uploadErrors = [];
             var acceptFileTypes = /^image\/(gif|jpe?g|png)$/i;
             types = /(\.|\/)(gif|jpe?g|png)$/i
             file = data.files[0]
             file_count = file_count + 1
-            if(!types.test(file.type) || !types.test(file.name)){
-                uploadErrors.push(file.name+"- is not a gif, jpeg, or png image file");
-                err.push(file.name+"- is not a gif, jpeg, or png image file")
+            if (p_count >= 9) {
+                uploadErrors[0] = " photos(9) limit exceeded and"
+                err[0] = " photos(9) limit exceeded"
+                uploadErrors.push(file.name + "- upload failed");
+                err.push(file.name + "- upload failed")
             }
-            if (file.size && file.size >  5000000) { //5mb
-                uploadErrors.push(file.name+"- filesize is too big");
-                err.push(file.name+"- filesize is too big")
+            if (!types.test(file.type) || !types.test(file.name)) {
+                uploadErrors.push(file.name + "- is not a gif, jpeg, or png image file");
+                err.push(file.name + "- is not a gif, jpeg, or png image file")
+            }
+            if (file.size && file.size > 5000000) { //5mb
+                uploadErrors.push(file.name + "- filesize is too big");
+                err.push(file.name + "- filesize is too big")
             }
             // alert(uploadErrors.length)
-            if(uploadErrors.length > 0) {
+            if (uploadErrors.length > 0) {
                 $('.loading-indicator').hide()
                 $('#number_of_files_failed strong').text(parseInt(parseInt($("#number_of_files_failed strong").text()) + 1))
                 // bootbox.alert(uploadErrors.join("\n"))
-                if ((upload_files_count == file_count) ) {
+                if ((upload_files_count == file_count)) {
                     bootbox.alert(err.join("<br>"))
-                };
+                }
+                ;
             } else {
+                p_count = p_count + 1
                 $('.loading-indicator').show()
                 data.context = $(tmpl("template-upload", file))
                 $('.upload-progress-bars').append(data.context)
                 data.submit()
                 if (upload_files_count == file_count) {
                     bootbox.alert(err.join("<br>"))
-                };
+                }
+                ;
             }
         },
-        progress: function(e, data) {
-            if(data.context){
+        progress: function (e, data) {
+            if (data.context) {
                 $('.loading-indicator').show()
                 progress = parseInt(data.loaded / data.total * 100, 10)
                 data.context.find('.progress-bar').css('width', progress + '%')
             }
         },
-        send: function(e,data){
-            if( parseInt(parseInt($("#number_of_files_failed strong").text())) >=1){
+        send: function (e, data) {
+            if (parseInt(parseInt($("#number_of_files_failed strong").text())) >= 1) {
                 $('.loading-indicator').hide()
                 // return false;
             }
         },
-        done: function(e,data){
+        done: function (e, data) {
             $('#number_of_files_uploaded strong').text(parseInt(parseInt($("#number_of_files_uploaded strong").text()) + 1))
             $('#number_of_files_uploaded').show()
             $('#number_of_files_progress strong').text(parseInt(parseInt($("#number_of_files_progress strong").text()) - 1))
         },
-        fail: function(e,data){
+        fail: function (e, data) {
             // data.errorThrown
             // data.textStatus;
             // data.jqXHR;
         }
     });
+
 
     // remove all uploaded pictures if user clicks on skip button if any uploaded already
     $('.upload_btn_skip').click(function(e){
