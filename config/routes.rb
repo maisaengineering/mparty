@@ -9,6 +9,8 @@ Invitation::Application.routes.draw do
     namespace :admin do
       resources :templates
       resources :venue_categories
+      resources :venue_facilities
+      resources :venue_features
       resources :venues do
         member do
           get 'add_photos'

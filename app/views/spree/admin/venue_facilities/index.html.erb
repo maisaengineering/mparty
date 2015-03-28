@@ -1,0 +1,24 @@
+<h5>Listing Venue Facilities</h5>
+<br>
+
+<table>
+  <tr>
+    <th>Venue Facility</th>
+    <th>Edit</th>
+    <th>Delete</th>
+    <!-- <th>Delete</th> -->
+  </tr>
+  <%unless @venue_facilities.blank?%>
+      <% @venue_facilities.each do |venue_facility| %>
+          <tr>
+            <td><%= venue_facility.name %></td>
+            <td><%= link_to 'Edit', edit_admin_venue_facility_path(venue_facility.id) %></td>
+            <td><%= link_to 'Destroy',  admin_venue_facility_path(venue_facility.id) , method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+      <% end %>
+  <%end%>
+</table>
+
+<br />
+
+<%= link_to 'New Venue Facility', new_admin_venue_facility_path %>
