@@ -16,7 +16,7 @@
           .col-md-12
             .col-md-4
               Total
-              %span.txt_bold 8
+              %span.txt_bold{id: 'venues_result_count'} #{@venues.size}
               Venues matching
             .col-md-3.pull-right
               %select.form-control
@@ -27,7 +27,7 @@
         .row.mtop5.mbottom10
           .col-md-12
             .col-md-12
-              .filter-label-panel
+              -#.filter-label-panel
                 %span.label.label-default
                   abids
                   %span.glyphicon.glyphicon-remove
@@ -64,6 +64,4 @@
         beforeSend: function(e){  $('.loading-indicator').fadeIn('slow') },
         success:function (e) {  $('.loading-indicator').hide()  }
      })
-
-
   })

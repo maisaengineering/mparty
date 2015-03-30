@@ -1,5 +1,6 @@
 <% if params[:query].present? %>
 $('#venue_filter_results').html('<%= j(render 'venues',venues: @venues)   %>');
+$('#venues_result_count').text('<%= @venues.size %>')
 <% else %>
     $('#all_venues').append('<%= j(render 'venues',venues: @venues)   %>');
     <% if @venues.next_page %>
