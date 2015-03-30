@@ -38,6 +38,7 @@
 //= require venues
 //= require account
 //= require wishlist_cart
+//= require venue_adv_search
 
 
 Turbolinks.pagesCached(0);

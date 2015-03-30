@@ -61,8 +61,15 @@ class Venue < ActiveRecord::Base
       result = result.where(:capacity.gte=> params[:number_of_people].split('-').first ,:capacity.lte=> params[:number_of_people].split('-').last)
     end
     result = result.joins(:facilities).where(:facilities=>{:id.in=>params[:facilities]}) unless params[:facilities].blank?
-    result
+     if params[:relevance].present?
+       result = result.order(params[:relevance]) if params[:relevance].include?('price_min')
+       result = result.includes(:reviews).group('venues.id,pictures.id,reviews.id').order("sum(reviews.rating) #{params[:relevance].split('-').last}") if params[:relevance].include?('rating')
+     else
+       result = result.order('price_min asc')
+     end
 
+    #result = result.includes(:reviews).group('venues.id,pictures.id,reviews.id').order("sum(reviews.rating) asc")
+    result
   end
 
   # TO Avoid iLike
