@@ -20,24 +20,19 @@
               Venues matching
             .col-md-3.pull-right
               = select_tag :relevance, options_for_select([['Price(Low to High)','price_min asc'],['Price(High to Low)','price_min desc'],
-                                                            ['Rating(Low to High)','rating-desc'],['Rating(High to Low)','rating-asc']]),class: 'form-control'
-              -#%select.form-control
-                %option Price (Low to High)
-                %option Price (High to Low)
-                %option Discount
-                %option Best Venues
+                                                            ['Rating(Low to High)','rating-desc'],['Rating(High to Low)','rating-asc']]),id: 'venues_by_relevance',class: 'form-control'
         .row.mtop5.mbottom10
           .col-md-12
             .col-md-12
-              -#.filter-label-panel
-                %span.label.label-default
+              .filter-label-panel
+                -#%span.label.label-default
                   abids
                   %span.glyphicon.glyphicon-remove
-                %span.label.label-default
+                -#%span.label.label-default
                   alwal
                   %span.glyphicon.glyphicon-remove
                 %span.pull-right
-                  %a{:href => "#"} clear all
+                  = link_to 'clear all',venues_path(query: params[:query])
         #venue_filter_results
           - unless @venues.blank?
             = render 'venues',venues: @venues

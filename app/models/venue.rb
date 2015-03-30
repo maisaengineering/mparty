@@ -67,8 +67,6 @@ class Venue < ActiveRecord::Base
      else
        result = result.order('price_min asc')
      end
-
-    #result = result.includes(:reviews).group('venues.id,pictures.id,reviews.id').order("sum(reviews.rating) asc")
     result
   end
 

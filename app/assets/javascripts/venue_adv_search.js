@@ -12,7 +12,7 @@ function searchByFilters(){
         return this.value;
     }).get();
     var search_query =  $('#search_query').val()
-    var relevance = $('#relevance').val()
+    var relevance = $('#venues_by_relevance').val()
     var number_of_people = $('input[name=number_of_people]:checked').val();
     $.ajax({
         url: '/venues',
@@ -29,6 +29,17 @@ $(document).on('click', '#EventType .event_types,#VenueType .venue_types,#NoOfPe
     searchByFilters()
 })
 
-$(document).on('change', '#relevance', function(e) {
+$(document).on('change', '#venues_by_relevance', function(e) {
     searchByFilters()
+})
+
+$(document).on('click', '#venueFilter h4 span', function(e) {
+    if( $(this).hasClass("glyphicon-plus")) {
+        $(this).removeClass("glyphicon-plus");
+        $(this).addClass("glyphicon-minus");
+    }
+    else {
+        $(this).removeClass("glyphicon-minus");
+        $(this).addClass("glyphicon-plus");
+    }
 })
