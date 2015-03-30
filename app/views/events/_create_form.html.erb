@@ -76,13 +76,13 @@
               <div class="col-md-12 mtop20">
                 <ul class="venue_ctc_details" id="venue_afterchoose">
                   <li> <span class="glyphicon glyphicon-map-marker"></span> <b><%= @venue.name %></b></li>
-                  <li> <%= "#{@venue.address1}, #{@venue.address2}" %> </li>
+                  <li> <%= "#{@venue.address}, #{@venue.location}" %> </li>
                   <li> <%= @venue.city  %>, <%= @venue.state  %>, </li>
                   <li> <%= @venue.country  %>, <%= @venue.zip %> </li>
                 </ul>
               </div>
               <div id="venus_hidden_fields">
-                <%= f.hidden_field :location,value: "#{@venue.address1} #{@venue.address2}" %>
+                <%= f.hidden_field :location,value: "#{@venue.address} #{@venue.location}" %>
                 <%= f.hidden_field :city,value: @venue.city %>
                 <%= f.hidden_field :state,value: @venue.state %>
                 <%= f.hidden_field :country,value: @venue.country %>

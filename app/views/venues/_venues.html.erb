@@ -1,20 +1,20 @@
 <% unless @venues.blank? %>
     <% @venues.each do |venue| %>
-        <div class="col-md-3">
+        <div class="col-md-3 venue">
           <div class="thumbnail">
             <%= cover_photo(venue,:preview) %>
             <div class="caption">
               <table class="venue-thumb-details-table">
                 <tr>
                   <td colspan="2">
-                    <h4>
-                      <%= truncate(venue.name,length: 20) %>
+                    <h4 data-toggle="tooltip" data-original-title="<%=venue.name%>">
+                      <%= truncate(venue.name,length: 18) %>
                     </h4>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <div class="venue_rating">
+                    <div class="venue_rating" id="rated_members_count">
                       <%= overall_rating(venue.average_rating,venue.reviews.count) %>
                     </div>
                   </td>
@@ -22,21 +22,27 @@
                 <tr>
                   <td class="t_left" colspan="2">
                     <span class="glyphicon glyphicon-map-marker"></span>
-                    \: #{venue.location}
+                    <%= venue.location  %>
                   </td>
                 </tr>
                 <tr>
+                  <td class="t_left">City:</td>
+                    <td><%= venue.city %></td>
+                </tr>
+                <tr>
                   <td class="t_left">Capacity:</td>
-                  <td class="t_left">#{venue.capacity} Max</td>
+                  <td class="t_left"> <%= venue.capacity %> Max</td>
                 </tr>
                 <tr>
                   <td class="t_left">Appx Price:</td>
-                  <td class="t_left icon-warning">Rs #{venue.price_min}-#{venue.price_max} Per Head</td>
+                  <td class="t_left icon-warning"><%= " Rs #{venue.price_min.to_i}-#{venue.price_max.to_i} Per Head" %></td>
                 </tr>
                 <tr>
-                  <td class="text-center" colspan="2">
-                    <a class="btn btn-primary btn-sm mtop10" href="#" role="button">view details</a>
-                    <a class="btn btn-success btn-sm mtop10 pull-right" href="#" role="button">reserve</a>
+                  <td colspan="2">
+                    <%= link_to 'View More', venue_path(venue.id, :from_event => params[:from_event].present? ? params[:from_event] : "false"),class: 'btn btn-primary btn-sm mtop10' %>
+                    <%if params[:from_event]%>
+                        <%= link_to('Reserve Me','#',data: {id: venue.id}, class: 'btn btn-success btn-sm reserve_this_venue_to_event mtop10 pull-right')  %>
+                    <%end%>
                   </td>
                 </tr>
               </table>
