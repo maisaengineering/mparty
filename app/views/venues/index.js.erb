@@ -1,14 +1,13 @@
 <% if params[:query].present? %>
-
+$('#venue_filter_results').html('<%= j(render 'venues',venues: @venues)   %>');
 <% else %>
-$('#all_venues').append('<%= j(render 'venues',venues: @venues)   %>');
-<% if @venues.next_page %>
-$('.pagination').replaceWith('<%= j(paginate @venues ,params: {query: params[:query] ,venue_id: params[:venue_id],from_event: params[:from_event]}) %>');
-<% else %>
-$('.pagination').remove();
-<% end %>
+    $('#all_venues').append('<%= j(render 'venues',venues: @venues)   %>');
+    <% if @venues.next_page %>
+        $('.pagination').replaceWith('<%= j(paginate @venues ,params: {query: params[:query] ,venue_id: params[:venue_id],from_event: params[:from_event]}) %>');
+        <% else %>
+        $('.pagination').remove();
+    <% end %>
 <% end  %>
-
 
 $('div.rateit').rateit();
 $('[data-toggle="tooltip"]').tooltip()

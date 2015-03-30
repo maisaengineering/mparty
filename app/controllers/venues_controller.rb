@@ -1,10 +1,10 @@
 class VenuesController < ApplicationController
   def index
     if params[:query].present?  # when search
-      @venues = Venue.advance_search(params[:query])
+      @venues = Venue.advance_search(params)
       flash.now[:notice] =  @venues.blank? ? "No results found for '#{params[:query]}'"  : "Total #{@venues.count} results found for '#{params[:query]}'"
       if request.xhr?
-        render layout: false
+        render layout: false and return
       else
         render 'filter_results' and return
       end

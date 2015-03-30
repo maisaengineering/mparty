@@ -48,13 +48,21 @@ class Venue < ActiveRecord::Base
 
   #---------  Class Methods goes here
   # Venue advance search
-  def self.advance_search(query)
-    query = "%#{query}%"
+  def self.advance_search(params)
+    query = "%#{params[:query]}%"
     name_match = arel_table[:name].matches(query)
     city_match = arel_table[:city].matches(query)
     state_match = arel_table[:state].matches(query)
     zip_match = arel_table[:zip].matches(query)
-    where(name_match.or(city_match).or(state_match).or(zip_match))
+    result = includes(:pictures,:reviews).where(name_match.or(city_match).or(state_match).or(zip_match))
+    result = result.joins(:templates).where(:templates=>{:id.in=>params[:event_types]}) unless params[:event_types].blank?
+    result = result.joins(:venue_categories).where(:venue_categories=>{:id.in=>params[:venue_types]}) unless params[:venue_types].blank?
+    if params[:number_of_people].present?
+      result = result.where(:capacity.gte=> params[:number_of_people].split('-').first ,:capacity.lte=> params[:number_of_people].split('-').last)
+    end
+    result = result.joins(:facilities).where(:facilities=>{:id.in=>params[:facilities]}) unless params[:facilities].blank?
+    result
+
   end
 
   # TO Avoid iLike
