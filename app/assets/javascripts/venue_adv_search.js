@@ -14,11 +14,12 @@ function searchByFilters(){
     var search_query =  $('#search_query').val()
     var relevance = $('#venues_by_relevance').val()
     var number_of_people = $('input[name=number_of_people]:checked').val();
+    var from_event = $('#from_event').val();
     $.ajax({
         url: '/venues',
         type: "get",
         data: {query: search_query,event_types: event_types,venue_types: venue_types,number_of_people: number_of_people,facilities: facilities,
-            relevance: relevance},
+            relevance: relevance,from_event: from_event},
         dataType : 'script',
         beforeSend: function(e){  $('.loading-indicator').fadeIn('slow') },
         success:function (e) {  $('.loading-indicator').hide()  }
