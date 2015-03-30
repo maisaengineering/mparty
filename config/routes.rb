@@ -34,6 +34,7 @@ Invitation::Application.routes.draw do
     get 'check_availability',on: :member
     get 'booked_slots',on: :member
     get "map",on: :member
+
   end  
   resources :pictures do
     delete 'remove_all' ,on: :collection

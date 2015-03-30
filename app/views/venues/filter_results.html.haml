@@ -1,0 +1,66 @@
+.container-fluid
+  .container-fluid.container_stlye
+    .row.mtop30
+      .col-md-3
+        #venueFilter.col-md-12.well
+          = form_tag venues_path,method: :get do
+            .input-group
+              %input.form-control{:placeholder => params[:query] || 'Find by city or name', :type => "text",name: 'query'}/
+              = hidden_field_tag(:from_event,true)  if params[:from_event].present?
+              %span.input-group-btn
+                %button.btn.btn-default{:type => "button"}
+                  %span.glyphicon.glyphicon-search
+          = render 'left_filters'
+      #venueResult.col-md-9
+        .row
+          .col-md-12
+            .col-md-4
+              Total
+              %span.txt_bold 8
+              Venues matching
+            .col-md-3.pull-right
+              %select.form-control
+                %option Price (Low to High)
+                %option Price (High to Low)
+                %option Discount
+                %option Best Venues
+        .row.mtop5.mbottom10
+          .col-md-12
+            .col-md-12
+              .filter-label-panel
+                %span.label.label-default
+                  abids
+                  %span.glyphicon.glyphicon-remove
+                %span.label.label-default
+                  alwal
+                  %span.glyphicon.glyphicon-remove
+                %span.pull-right
+                  %a{:href => "#"} clear all
+        - unless @venues.blank?
+          - @venues.each do |venue|
+            .col-md-3
+              .thumbnail
+                = cover_photo(venue,:preview)
+                .caption
+                  %table.venue-thumb-details-table
+                    %tr
+                      %td{:colspan => "2"}
+                        %h4= truncate(venue.name,length: 20)
+                    %tr
+                      %td{:colspan => "2"}
+                        .venue_rating
+                          = overall_rating(venue.average_rating,venue.reviews.count)
+                    %tr
+                      %td.t_left{:colspan => "2"}
+                        %span.glyphicon.glyphicon-map-marker
+                        \: #{venue.location}
+                    %tr
+                      %td.t_left Capacity:
+                      %td.t_left #{venue.capacity} Max
+                    %tr
+                      %td.t_left Appx Price:
+                      %td.t_left.icon-warning Rs #{venue.price_min}-#{venue.price_max} Per Head
+                    %tr
+                      %td.text-center{:colspan => "2"}
+                        %a.btn.btn-primary.btn-sm.mtop10{:href => "#", :role => "button"} view details
+                        %a.btn.btn-success.btn-sm.mtop10.pull-right{:href => "#", :role => "button"} reserve

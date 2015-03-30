@@ -1,0 +1,67 @@
+-#%h4 Location
+-#%ul.list-group.clearfix
+  %li.list-group-item
+    %input{:checked => "checked", :type => "checkbox"}/
+    Abids
+    %a{:href => "#"}
+  %li.list-group-item
+    %input{:checked => "checked", :type => "checkbox"}/
+    Alwal
+    %a{:href => "#"}
+  %li.list-group-item
+    %input{:type => "checkbox"}/
+    Amberpet
+    %a{:href => "#"}
+  %li.list-group-item
+    %input{:type => "checkbox"}/
+    Ameerpet
+    %a{:href => "#"}
+.mtop20
+  %h4
+    Event Type
+    %span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#EventType", "data-toggle" => "collapse"}
+  #EventType
+    %ul.list-group.clearfix
+      - Spree::Admin::Template.where.not(name: 'custom').each  do |etype|
+        %li.list-group-item
+          %input{:type => "checkbox"}/
+          #{etype.name}
+.mtop20
+  %h4
+    Price Range
+    %span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#priceRange", "data-toggle" => "collapse"}
+  #priceRange.collapse
+    %ul.list-group.clearfix
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        Rs135 - Rs500
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        Rs135 - Rs500
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        Rs135 - Rs500
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        Rs135 - Rs500
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        Rs135 - Rs500
+.mtop20
+  %h4
+    Number of People
+    %span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#numberofPeople", "data-toggle" => "collapse"}
+  #numberofPeople.collapse
+    %ul.list-group.clearfix
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        0-50
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        51-100
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        101-200
+      %li.list-group-item
+        %input{:type => "checkbox"}/
+        201-500

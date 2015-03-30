@@ -3,6 +3,7 @@ class VenuesController < ApplicationController
     if params[:query].present?  # when search
       @venues = Venue.advance_search(params[:query])
       flash.now[:notice] =  @venues.blank? ? "No results found for '#{params[:query]}'"  : "Total #{@venues.count} results found for '#{params[:query]}'"
+      render 'filter_results' and return
     elsif params[:venue_id].present? # when comes from get suggestions
       suggestible_venue = Venue.find(params[:venue_id])
       @venues =  Venue.where.not(id: suggestible_venue.id).basic_search(suggestible_venue.city,suggestible_venue.state)
