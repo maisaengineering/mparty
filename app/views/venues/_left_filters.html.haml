@@ -24,7 +24,7 @@
     %ul.list-group.clearfix
       - Spree::Admin::Template.where.not(name: 'custom').each  do |etype|
         %li.list-group-item
-          %input{:type => "checkbox"}/
+          %input{:type => "checkbox",name: 'event_type',value: etype.id,class: 'event_types'}/
           #{etype.name}
 .mtop20
   %h4
@@ -65,3 +65,4 @@
       %li.list-group-item
         %input{:type => "checkbox"}/
         201-500
+

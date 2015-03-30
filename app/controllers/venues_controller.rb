@@ -3,7 +3,11 @@ class VenuesController < ApplicationController
     if params[:query].present?  # when search
       @venues = Venue.advance_search(params[:query])
       flash.now[:notice] =  @venues.blank? ? "No results found for '#{params[:query]}'"  : "Total #{@venues.count} results found for '#{params[:query]}'"
-      render 'filter_results' and return
+      if request.xhr?
+        render layout: false
+      else
+        render 'filter_results' and return
+      end
     elsif params[:venue_id].present? # when comes from get suggestions
       suggestible_venue = Venue.find(params[:venue_id])
       @venues =  Venue.where.not(id: suggestible_venue.id).basic_search(suggestible_venue.city,suggestible_venue.state)
@@ -19,7 +23,7 @@ class VenuesController < ApplicationController
     else # default top six
       @venues = Venue.top_five
     end
-    @venues = @venues.page(params[:page]).per(6)
+    @venues = @venues.page(params[:page]).per(4)
     render layout: false if request.xhr?
   end
 

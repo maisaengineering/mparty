@@ -5,7 +5,7 @@
         #venueFilter.col-md-12.well
           = form_tag venues_path,method: :get do
             .input-group
-              %input.form-control{:placeholder => params[:query] || 'Find by city or name', :type => "text",name: 'query'}/
+              %input.form-control{value: params[:query],placeholder: params[:query] || 'Find by city or name', type: "text",name: 'query',id: 'search_query'}/
               = hidden_field_tag(:from_event,true)  if params[:from_event].present?
               %span.input-group-btn
                 %button.btn.btn-default{:type => "button"}
@@ -64,3 +64,23 @@
                       %td.text-center{:colspan => "2"}
                         %a.btn.btn-primary.btn-sm.mtop10{:href => "#", :role => "button"} view details
                         %a.btn.btn-success.btn-sm.mtop10.pull-right{:href => "#", :role => "button"} reserve
+
+:javascript
+  $(document).on('click', '#venueFilter .event_types', function(e) {
+     var event_types = $('input:checkbox:checked.event_types').map(function () {
+                        return this.value;
+                    }).get();
+     var search_query =  $('#search_query').val()
+
+     $.ajax({
+                url: '/venues',
+                type: "get",
+                data: {event_types: event_types,query: search_query},
+                beforeSend: function(e){
+                },
+                success:function (e) {
+                }
+            })
+
+
+  })
