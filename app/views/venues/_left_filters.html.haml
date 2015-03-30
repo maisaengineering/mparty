@@ -1,6 +1,7 @@
 .mtop20
   %h4
     Venue Types
+    %span.pull-right= link_to 'clear all',venues_path(query: params[:query]),class: 'icon-warning'
     -#%span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#VenueType", "data-toggle" => "collapse"}
   #VenueType
     %ul.list-group.clearfix

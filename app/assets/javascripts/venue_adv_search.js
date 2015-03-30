@@ -33,7 +33,7 @@ $(document).on('change', '#venues_by_relevance', function(e) {
     searchByFilters()
 })
 
-$(document).on('click', '#venueFilter h4 span', function(e) {
+$(document).on('click', '#venueFilter h4 span.glyphicon', function(e) {
     if( $(this).hasClass("glyphicon-plus")) {
         $(this).removeClass("glyphicon-plus");
         $(this).addClass("glyphicon-minus");

@@ -57,16 +57,18 @@ class Venue < ActiveRecord::Base
     result = includes(:pictures,:reviews).where(name_match.or(city_match).or(state_match).or(zip_match))
     result = result.joins(:templates).where(:templates=>{:id.in=>params[:event_types]}) unless params[:event_types].blank?
     result = result.joins(:venue_categories).where(:venue_categories=>{:id.in=>params[:venue_types]}) unless params[:venue_types].blank?
-    if params[:number_of_people].present?
-      result = result.where(:capacity.gte=> params[:number_of_people].split('-').first ,:capacity.lte=> params[:number_of_people].split('-').last)
-    end
     result = result.joins(:facilities).where(:facilities=>{:id.in=>params[:facilities]}) unless params[:facilities].blank?
-     if params[:relevance].present?
-       result = result.order(params[:relevance]) if params[:relevance].include?('price_min')
-       result = result.includes(:reviews).group('venues.id,pictures.id,reviews.id').order("sum(reviews.rating) #{params[:relevance].split('-').last}") if params[:relevance].include?('rating')
-     else
-       result = result.order('price_min asc')
-     end
+    result = result.group('venues.id,pictures.id,reviews.id')
+    if params[:number_of_people].present?
+      result =  params[:number_of_people].eql?('500') ? result.where(:capacity.gte=> params[:number_of_people]) :
+          result.where(:capacity.gte=> params[:number_of_people].split('-').first ,:capacity.lte=> params[:number_of_people].split('-').last)
+    end 
+    if params[:relevance].present?
+      result = result.order(params[:relevance]) if params[:relevance].include?('price_min')
+      result = result.order("sum(reviews.rating) #{params[:relevance].split('-').last}")  if params[:relevance].include?('rating')
+    else
+      result = result.order('price_min asc')
+    end
     result
   end
 

@@ -24,15 +24,15 @@
         .row.mtop5.mbottom10
           .col-md-12
             .col-md-12
-              .filter-label-panel
-                -#%span.label.label-default
+              -#.filter-label-panel
+                %span.label.label-default
                   abids
                   %span.glyphicon.glyphicon-remove
-                -#%span.label.label-default
+                %span.label.label-default
                   alwal
                   %span.glyphicon.glyphicon-remove
                 %span.pull-right
-                  = link_to 'clear all',venues_path(query: params[:query])
+                  %a{:href => "#"} clear all
         #venue_filter_results
           - unless @venues.blank?
             = render 'venues',venues: @venues
