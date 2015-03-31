@@ -11,7 +11,7 @@ class EventDesignWorker
     template = Spree::Admin::Template.where(id: event.template_id).first
     event_design = template.designs.where(id: event.design_id).first if template
     c_design = handlebars.compile(event_design.content)
-    file = Tempfile.new(["#{event.name}-#{Time.now.to_i}", '.png'], 'tmp', encoding: 'ascii-8bit')
+    file = Tempfile.new(["#{event.name}-#{Time.now.to_i}", '.jpg'], 'tmp', encoding: 'ascii-8bit')
     data_points = {}
     data_points.merge!({templateName: template.name }) if template
     data_points.merge!({eventName: event.name }) if event and !event.name.nil?
