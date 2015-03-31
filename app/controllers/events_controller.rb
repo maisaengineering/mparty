@@ -114,17 +114,16 @@ class EventsController < ApplicationController
     #  render layout: false
 
     @event = Event.find(params[:id])
-    event_template = Spree::Admin::Template.where(id: @event.template_id).first
-    event_design = event_template.designs.where(id: @event.design_id).first if event_template
-    c_design = @handlebars.compile(event_design.content)
-    kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
-    image_path = kit.to_file( "#{Rails.root.to_s}/public/fb/#{@event.id}-#{Time.now.to_i}.jpg")
-    @image_path = "/" + image_path.path.split("/").last(2).join("/")
-    # @event.fb_image = File.open image_path
-    # @event.save(validate: false)
-    # byebug
-    # @image_path = "/" + image_path.path.split("/").last(3).join("/")
-    @image_path = "/" + image_path.path.split("/").last(2).join("/")
+    if @event.fb_image.url.present?
+      @image_path = @event.fb_image.url
+    else
+      event_template = Spree::Admin::Template.where(id: @event.template_id).first
+      event_design = event_template.designs.where(id: @event.design_id).first if event_template
+      c_design = @handlebars.compile(event_design.content)
+      kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
+      image_path = kit.to_file( "#{Rails.root.to_s}/public/fb/#{@event.id}-#{Time.now.to_i}.jpg")
+      @image_path = "/" + image_path.path.split("/").last(2).join("/")
+    end
     render layout: false
   end
 
