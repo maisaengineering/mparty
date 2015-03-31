@@ -1,7 +1,8 @@
 .mtop20
   %h4
     Venue Types
-    %span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#VenueType", "data-toggle" => "collapse"}
+    %span.pull-right= link_to 'clear all',venues_path(query: params[:query]),class: 'icon-warning'
+    -#%span.glyphicon.glyphicon-plus.pull-right{"aria-controls" => "collapseExample", "aria-expanded" => "false", "data-target" => "#VenueType", "data-toggle" => "collapse"}
   #VenueType
     %ul.list-group.clearfix
       - VenueCategory.all.each  do |vtype|
@@ -36,7 +37,7 @@
         100-500
       %li.list-group-item
         %input{:type => "radio",name: 'number_of_people',value: '500',class: 'number_of_people'}/
-        morethan 500
+        more than 500
 .mtop20
   %h4
     Facilities
