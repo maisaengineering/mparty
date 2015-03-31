@@ -20,7 +20,7 @@
       %h2 Suggested Venues
     - else
       %h2 Top Venues
-    #all_venues
+    #all_venues.row
       - unless @venues.blank?
         = render 'venues',venues: @venues
     = paginate @venues ,params: {query: params[:query] ,venue_id: params[:venue_id],from_event: params[:from_event]}

@@ -23,7 +23,7 @@ class VenuesController < ApplicationController
     else # default top six
       @venues = Venue.top_five
     end
-    @venues = @venues.page(params[:page]).per(4)
+    @venues = @venues.page(params[:page]).per(3)
     render layout: false if request.xhr?
   end
 
