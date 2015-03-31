@@ -65,13 +65,13 @@
         <% end %>
       </div>
       <div class="row">
-        <div class="col-md-6" data-hook="coupon_code">
-          <%= form.text_field :coupon_code ,class: 'form-control',placeholder: 'Coupon Code if any'%>
+        <div class="col-md-12" data-hook="coupon_code">
+          <%= form.text_field :coupon_code ,class: 'form-control',placeholder: 'Coupon Code if any' ,style: 'width: 50%'%>
         </div>
       </div>
       <div class="col-md-12">
         <label></label>
-        <%= submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block pay_now_btn' ,disable_with: 'Please wait...'%>
+        <%= submit_tag Spree.t(:save_and_continue), :class => 'btn btn-lg btn-primary btn-block pay_now_btn'  %>
       </div>
     </div>
   </div>
@@ -167,22 +167,27 @@
                 return event.preventDefault();
             });
             ($('input[type="radio"]:checked')).click();
-            return $('#checkout_form_payment').submit(function() {
+            return $('#checkout_form_payment').submit(function(e) {
                 var coupon_code, coupon_code_field, coupon_status, url;
                 coupon_code_field = $('#order_coupon_code');
                 coupon_code = $.trim(coupon_code_field.val());
                 if (coupon_code !== '') {
+
                     if ($('#coupon_status').length === 0) {
                         coupon_status = $("<div id='coupon_status'></div>");
                         coupon_code_field.parent().append(coupon_status);
                     } else {
                         coupon_status = $("#coupon_status");
                     }
-                    url = Spree.url(Spree.routes.apply_coupon_code(Spree.current_order_id), {
+                    //PUT https://monster-store-2864.spree.mx/api/orders/R902340098/apply_coupon_code?order_token=SbOuCVpyaIyDYbYb9b4PgQ&coupon_code=ssssssssss
+
+                    /*url = Spree.url(Spree.routes.apply_coupon_code(Spree.current_order_id), {
                         order_token: Spree.current_order_token,
                         coupon_code: coupon_code
-                    });
+                    });*/
+                    url = '/api/orders/<%= @order.number %>/apply_coupon_code?order_token=<%= @order.token %>&coupon_code='+coupon_code
                     coupon_status.removeClass();
+                    //return false;
                     return $.ajax({
                         async: false,
                         method: "PUT",
@@ -196,8 +201,9 @@
                             var handler;
                             handler = JSON.parse(xhr.responseText);
                             coupon_status.addClass("error").html(handler["error"]);
-                            $('.continue').attr('disabled', false);
-                            return false;
+                            coupon_status.hide().fadeIn('slow')
+                            // $('.continue').attr('disabled', false);
+                            e.preventDefault();
                         }
                     });
                 }

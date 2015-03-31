@@ -2751,3 +2751,12 @@ a:focus{
   padding-bottom:3px;
   vertical-align:top;
 }
+
+
+#coupon_status.error{
+  color: red;
+}
+#coupon_status.success{
+  color: green;
+}
+
