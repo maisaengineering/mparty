@@ -23,14 +23,16 @@
                 </div>
                 <div class="event_place">
                   <div class="pull-left">
-                    <span class="glyphicon glyphicon-map-marker"></span>
-                    <% if e.is_private?  %>
-                        <%= image_tag("blur.png") %>
-                    <% else  %>
-                        <% if e.venue %>
-                            <%= truncate(e.venue.name ,length: 20) %>
-                        <% else %>
-                            <%= truncate(e.location ,length: 20) %>
+                    <% if e.venue_type != "virtual"  %>
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <% if e.is_private?  %>
+                            <%= image_tag("blur.png") %>
+                        <% else  %>
+                            <% if e.venue %>
+                                <%= truncate(e.venue.name ,length: 20) %>
+                            <% else %>
+                                <%= truncate(e.location ,length: 20) %>
+                            <% end %>
                         <% end %>
                     <% end %>
                   </div>
