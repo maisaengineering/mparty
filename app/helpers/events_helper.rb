@@ -53,4 +53,23 @@ module EventsHelper
     return last = (a-c) + c
   end
 
+  def event_desc_count(desc = nil)
+    event_desc = desc.squeeze(' ')
+    length = event_desc.length
+    count=0
+    m=0
+    for i in 0..length
+      if((event_desc[i] != "\n") || (event_desc[i] == "\r"))
+        count +=1
+      elsif(event_desc[i] == "\n")
+        count +=1
+        m = m+1
+        if(m >= 3)
+          break
+        end
+      end
+    end
+    return count + 3
+  end
+
 end
