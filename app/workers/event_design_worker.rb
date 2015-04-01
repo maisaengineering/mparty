@@ -19,17 +19,9 @@ class EventDesignWorker
     end_at =   event ? event.ends_at : nil
     if event
       if I18n.l(start_at.to_date) == I18n.l(end_at.to_date)
-        if I18n.l(start_at.to_date) == I18n.l(Date.today)
-          event_time = "Today #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at,format: :pick_time}"
-        else
           event_time = "#{I18n.l start_at.to_date}  #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at,format: :pick_time}"
-        end
       else
-        if I18n.l(start_at.to_date) == I18n.l(Date.today)
-          event_time = "Today #{I18n.l start_at,format: :pick_time} - #{I18n.l end_at}"
-        else
           event_time = " #{I18n.l start_at} - #{I18n.l end_at}"
-        end
       end
     else
       event_time =  I18n.l(start_at)

@@ -134,7 +134,7 @@
                       <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
                           Today <%= "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% else %>
-                          <%= "#{@event.starts_at.strftime('%d/%m/%Y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M%p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M%p')}" %>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%Y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}" %>
                       <% end %>
                   <% else %>
                       <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
