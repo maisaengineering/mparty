@@ -110,31 +110,31 @@
   shippingcharges = function(input){
   symbol = $(".subtotal").text().charAt(0)
   if($(".subtotal").text().length > 0){
-     var subtotal = parseFloat($(".subtotal").text().match(/\d+\.?\d*/))
+     var subtotal = parseFloat($(".subtotal").text().replace(',', '').match(/\d+\.?\d*/))
   }
   else{
      var subtotal = 0
   }
   if($(".promotion").text().length > 0){
-     var promotion = parseFloat($(".promotion").text().match(/\d+\.?\d*/))
+     var promotion = parseFloat($(".promotion").text().replace(',', '').match(/\d+\.?\d*/))
   }
   else{
      var promotion = 0
   }
   if($(".adjustment").text().length>0){
-     var adjustment = parseFloat($(".adjustment").text().match(/\d+\.?\d*/))
+     var adjustment = parseFloat($(".adjustment").text().replace(',', '').match(/\d+\.?\d*/))
   }
   else{
      var adjustment = 0
   }
   if($(".tax").text().length > 0){
-     var tax = parseFloat($(".tax").text().match(/\d+\.?\d*/))
+     var tax = parseFloat($(".tax").text().replace(',', '').match(/\d+\.?\d*/))
   }
   else{
      var tax = 0
   }
   if($(".shipping_amount").text().length > 0){
-     var shipping_amount = parseFloat(input.match(/\d+\.?\d*/))
+     var shipping_amount = parseFloat(input.replace(',','').match(/\d+\.?\d*/))
   }
   else{
      var shipping_amount = 0
