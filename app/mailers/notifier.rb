@@ -23,7 +23,7 @@ class Notifier < ActionMailer::Base
   def ask_host_to_invite(user_id,event_id)
     @user = Spree::User.find(user_id)
     @event = Event.find(event_id)
-    mail(to:  @event.user.email, subject: "asking Request to join #{@event.name}", from: "#{@user.full_name} <#{ENV['SENDER']}>")
+    mail(to:  @event.user.email, subject: "Request to join your event '#{@event.name}'", from: "#{@user.full_name} <#{ENV['SENDER']}>")
   end
 
 end

@@ -60,8 +60,20 @@
               <h4>Event Details:</h4>
               <% if @event.description.present?  %>
                   <tr>
-                    <td width="500">Additional details:</td>
-                    <% if @event.description.length > 120 %>
+                    <td width="180">Additional details:</td>
+                    <!-- <td><i><%#=simple_format(@event.description)%></i></td> -->
+                    <% if @event.description.lines.count > 3 %>
+                        <td id="hide_when_read_more">
+                          <%= simple_format(truncate(@event.description, length: event_desc_count(@event.description) )) %>
+                          <%= link_to 'more', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
+                        </td>
+                        <td id="hide_when_read_more" class="td_hide">
+                          <div id="example" class="show_more">
+                            <%= simple_format(@event.description)%>
+                            <%= link_to 'less', '#',class: "hideLink",:id => 'example-hide',:onclick => "showHide('example');return false;"%>
+                          </div>
+                        </td>
+                    <% elsif @event.description.length > 120 %>
                         <td id="hide_when_read_more">
                           <%= simple_format(truncate(@event.description, length: 115)) %>
                           <%= link_to 'more', '#',class: "showLink",:id => 'example-show',:onclick => "showHide('example');return false;"%>
@@ -73,7 +85,9 @@
                           </div>
                         </td>
                     <% else %>
-                        <td> <%= simple_format(@event.description) %></td>
+                        <td>
+                          <%= simple_format(@event.description) %>
+                        </td>
                     <% end %>
                   </tr>
               <% end  %>
@@ -84,15 +98,15 @@
                       <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
                           Today <%= "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% else %>
-                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M%p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M%p')}" %>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%Y ')}"  "#{@event.starts_at.try(:strftime, '%I:%M %p')}" " - " "#{@event.ends_at.try(:strftime, '%I:%M %p')}" %>
                       <% end %>
                   <% else %>
                       <% if @event.starts_at.strftime("%D") == Date.today.strftime("%D") %>
                           Today <%= @event.starts_at.try(:strftime, '%I:%M %p')%> -
-                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}" "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
+                          <%= "#{@event.ends_at.strftime('%d/%m/%Y ')}" "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% else %>
-                          <%= "#{@event.starts_at.strftime('%d/%m/%y ')}" " " "#{@event.starts_at.try(:strftime, '%I:%M %p')}"%> -
-                          <%= "#{@event.ends_at.strftime('%d/%m/%y ')}"  ' ' "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
+                          <%= "#{@event.starts_at.strftime('%d/%m/%Y ')}" " " "#{@event.starts_at.try(:strftime, '%I:%M %p')}"%> -
+                          <%= "#{@event.ends_at.strftime('%d/%m/%Y ')}"  ' ' "#{@event.ends_at.try(:strftime, '%I:%M %p')}"%>
                       <% end %>
                   <% end %>
                 </td>
