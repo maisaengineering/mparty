@@ -69,7 +69,11 @@ module EventsHelper
         end
       end
     end
-    return count + 3
+    if( count < 120)
+      return count + 3
+    else
+      return 115
+    end
   end
 
 end
