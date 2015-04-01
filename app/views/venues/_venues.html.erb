@@ -32,7 +32,9 @@
                 </tr>
                 <tr>
                   <td class="t_left">Price (per head):</td>
-                  <td class="t_left icon-warning"><%= " Rs #{venue.price_min.to_i}-#{venue.price_max.to_i}" %></td>
+                  <td class="t_left icon-warning"><%= " Rs #{venue.price_min.to_i}"%>
+                  <%= "- #{venue.price_max.to_i}" if venue.price_max.present? %>
+                  </td>
                 </tr>
                 <tr>
                   <td colspan="2">
