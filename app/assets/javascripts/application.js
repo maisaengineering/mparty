@@ -84,12 +84,15 @@ $(function () {
 // End less scroll from railscasts
 jQuery(function() {
     if ($('.pagination').length) {
+        $('.pagination').hide()
         $(window).scroll(function() {
             var url;
             url = $('.pagination .next a').attr('href');
             if (url && $(window).scrollTop() > $(document).height() - $(window).height() - 50) {
                 $('.pagination').text('Fetching more...');
+                $('.pagination').show()
                 return $.getScript(url);
+
             }
         });
     }
