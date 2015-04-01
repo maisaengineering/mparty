@@ -52,7 +52,7 @@
             return false;
         }
     }
-
+  var $email_value ='';
   $('#invite_friends_form  #tags input').on('focusout',function(){
     var txt= this.value.replace(/^[\s]+|,|("[\s]+")$/g,''); // // space need to remove at the end allowed characters
     if(txt) {
@@ -60,7 +60,8 @@
             $(this).before('<span class="tag">'+ txt.toLowerCase() +'</span>');
             this.value="";
         }else{
-            bootbox.alert(txt+' is not valid email')
+            bootbox.alert(txt+' is not a valid email')
+            $email_value = txt
             this.value="";
         }
     }
@@ -80,12 +81,18 @@
          $('#tags input').focus();
   })
 
-  $("#invite_friends_form").submit(function(e) {  
+  $("#invite_friends_form").submit(function(e) {
     emails = []
     $('#tags').children('.tag').each(function () {
      emails.push($(this).text()); // "this" is the current element in the loop
     });
-    $('#friend_emails').val(emails.join()) 
+      if($email_value !=''){
+          $email_value = ''
+          e.preventDefault()
+      }else{
+          $('#friend_emails').val(emails.join())
+      }
+
   })
 
 var temp = '<a class="btn btn-default btn-block" href="<%= spree.root_url%>contacts/gmail"><img src="/assets/import/logo_gmail.png" width="100" height="35" alt=""/></a>';

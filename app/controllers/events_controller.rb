@@ -290,11 +290,6 @@ class EventsController < ApplicationController
           failed_emails << email
         end
       end
-
-      #if params[:add_wishlist]== "1" && !@event.ship_address.present?
-      #	flash[:notice] = "Please provide Shipping Address for your Wishlist."
-      #	render "/events/shipping_address"
-      #else
       if invitations.size > 0
         send_invitation_emails(invitations,@event)
         flash[:notice] = "Successfully sent Invitation mail."
@@ -308,21 +303,15 @@ class EventsController < ApplicationController
       end
       if failed_emails.size > 0
         if flash[:notice].nil?
-          flash[:notice] = "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
+          flash[:notice] = "You have already sent invitation to '#{failed_emails.join(',')}'"
         else
-          flash[:notice] << "You have already sent #{@event.name} Invitaion to #{ failed_emails.join(',') }"
+          flash[:notice] << "You have already sent invitation to '#{failed_emails.join(',')}'"
         end
       end
-
-
-      redirect_to event_path(@event)
-      #end
-
     else
-      flash[:notice] = "Atleast one email is required to Invite."
-      redirect_to invite_with_wishlist_url(event_id: @event.id)
+      flash[:notice] = "At least one email is required to Invite."
     end
-
+    redirect_to event_url(@event)
   end
 
   def add_guests
