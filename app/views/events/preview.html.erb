@@ -36,7 +36,8 @@
     <div class="col-md-12 mtop10 mbottom10">
       <div class="col-md-4"></div>
       <div class="col-md-4" style="text-align:center;">
-        <%= link_to "/event/#{@event.id}/invite-friends", class:"btn btn-success btn-large" do %>
+        <% eurl = @event.has_wishlist_with_products? ?  "/event/#{@event.id}/invite-with-wishlist" : "/event/#{@event.id}/invite-friends"  %>
+        <%= link_to eurl, class:"btn btn-success btn-large" do %>
             <span class="glyphicon"></span> INVITE NOW
         <% end  %>
       </div>

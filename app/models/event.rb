@@ -147,6 +147,10 @@ class Event < ActiveRecord::Base
     "#{location},#{city},#{state},#{country},#{zip}"
   end
 
+  def has_wishlist_with_products?
+    wishlist and wishlist.wished_products.count > 0
+  end
+
   private
 
 =begin
