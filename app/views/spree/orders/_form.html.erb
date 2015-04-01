@@ -11,20 +11,28 @@
   <%= render partial: 'line_item', collection: order_form.object.line_items, locals: {order_form: order_form} %>
 </div>
 <div class="row">
-  <% if @order.adjustments.exists? || @order.line_item_adjustments.exists? || @order.shipment_adjustments.exists? %>
-      <div class="row text-right">
+  <% if false %> <!-- multiline comment -->
+      <% if @order.adjustments.exists? || @order.line_item_adjustments.exists? || @order.shipment_adjustments.exists? %>
+          <div class="row text-right">
 
-        <div class="col-md-7"></div>
-        <div class="col-md-3"><h5><%= Spree.t(:cart_subtotal, :count => @order.line_items.sum(:quantity)) %></h5></div>
-        <div class="col-md-2"><h5><%= order_form.object.display_item_total %></h5></div>
-      </div>
-      <%= render "spree/orders/adjustments" %>
+            <div class="col-md-7"></div>
+            <div class="col-md-3"><h5><%= Spree.t(:cart_subtotal, :count => @order.line_items.sum(:quantity)) %></h5></div>
+            <div class="col-md-2"><h5><%= order_form.object.display_item_total %></h5></div>
+          </div>
+          <%= render "spree/orders/adjustments" %>
+      <% end %>
   <% end %>
 
   <div class="row text-right">
 
     <div class="col-md-7"></div>
     <div class="col-md-3 text-success"><h4><b>Total</b></h4></div>
-    <div class="col-md-2 text-success"><h4 style="font-size:15px"><b><%= order_form.object.display_total %></b></h4></div>
+    <div class="col-md-2 text-success"><h4 style="font-size:15px">
+      <b>
+        <%#= order_form.object.display_total %>
+        <%= order_form.object.display_item_total %>
+      </b>
+    </h4>
+    </div>
   </div>
 </div>
