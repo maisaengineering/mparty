@@ -18,7 +18,7 @@
                 = small_image(item.variant)
               .col-md-3.mtop30= item.variant.name
               .col-md-3.mtop30= item.quantity
-              .col-md-3.mtop30= display_price(item.variant)
+              .col-md-3.mtop30= item.line_item.display_amount.to_html
       .row.mtop20
         .col-md-12
           .col-md-12.txt_bold.mbottom10= Spree.t(:shipping_method)
@@ -53,7 +53,7 @@
                 = small_image(variant)
               .col-md-3.mtop30= variant.name
               .col-md-3.mtop30= quantity
-              .col-md-3.mtop30= display_price(variant)
+              .col-md-3.mtop30= variant.line_item.display_amount.to_html
 
   .col-md-6.event_right_block
     - @event = @order.event
