@@ -1,6 +1,7 @@
 Spree::Wishlist.class_eval do
 	belongs_to :event
 	validates :event_id, :uniqueness => true
+  has_many :wished_products,dependent: :destroy
 
 
 	has_many :wishlist_orders
