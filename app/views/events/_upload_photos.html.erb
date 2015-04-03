@@ -86,9 +86,9 @@
         err = [];
         file_count = 0
         upload_files_count = $('#new_picture input[type=file]').get(0).files.length
-        upload_files_count = upload_files_count + p_count
+        up_files_count = upload_files_count + p_count
         remanimg_photos = photo_limit - p_count
-        if(upload_files_count > photo_limit)
+        if(up_files_count > photo_limit)
         {
             bootbox.alert("limit exceded, you can add only " + remanimg_photos + " photos")
             $('.loading-indicator').hide()
