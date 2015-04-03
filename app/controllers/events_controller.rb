@@ -1,33 +1,60 @@
 class EventsController < ApplicationController
   before_filter :check_for_cancel, :only => [:create, :send_invitation]
-  before_filter :auth_user, except: [:view_invitation, :show, :event_wishlist,:preview, :event_map]
+  before_filter :auth_user, except: [:index,:view_invitation, :show, :event_wishlist,:preview, :event_map]
   before_filter :register_handlebars,only: [:update_designs,:show,:preview,:share_on_fb]
   #layout 'spree_application',except: [:inv_request,:index,:new,:create,:add_guests,:add_products,:show,:edit_event_design,:edit_photos,:view_invitation,:show_invitation,:invite_with_wishlist, :calendar,:import_and_invite]
 
   helper 'spree/taxons'
 
   def index
-    @events =  if params[:scope].eql?('attending')
-                 spree_current_user.attending_events
-               elsif  params[:scope].eql?('display_only_maybe')
-                 spree_current_user.maybe_events
-               elsif params[:scope].eql?('display_only_rejected')
-                 spree_current_user.rejected_events
-               elsif params[:scope].eql?('display_both_maybe_rejected')
-                 spree_current_user.maybe_events_or_rejected_events
-               else
-                 spree_current_user.organizing_events
-               end
-    # scroll to nearest event in view
-    @nearest_event = @events.where('starts_at >=?',Time.now).select("events.id").first
-    respond_to do |format|
-      format.js
-      format.json
-      format.html
+    if current_spree_user
+      @events =  if params[:scope].eql?('attending')
+                   spree_current_user.attending_events
+                 elsif  params[:scope].eql?('display_only_maybe')
+                   spree_current_user.maybe_events
+                 elsif params[:scope].eql?('display_only_rejected')
+                   spree_current_user.rejected_events
+                 elsif params[:scope].eql?('display_both_maybe_rejected')
+                   spree_current_user.maybe_events_or_rejected_events
+                 else
+                   spree_current_user.organizing_events
+                 end
+      # scroll to nearest event in view
+      @nearest_event = @events.where('starts_at >=?',Time.now).select("events.id").first
+    else
+      if Rails.env == "development"
+        @city = "ALL"
+      end
+
+      if Rails.env == "production"
+        ip = request.remote_ip
+        ip_info = GEOIP.city(ip)
+        @city = ip_info.city_name if ip_info
+      end
+
+      available_cities = ['Hyderabad','Bangalore','Mumbai','Chennai']
+      #session[:current_city] = params[:user_city] if params[:user_city]
+
+      #@city = session[:current_city] if session[:current_city]
+      if available_cities.include?(@city) and (@city != 'ALL')
+        @trending_events = Event.includes(:pictures).upcoming.where(city: @city)
+      else
+        @city = "ALL"
+        @trending_events = Event.upcoming
+      end
+      # @trending_events = Event.includes(:pictures).upcoming
+      if params[:query].present?
+        @trending_events = Event.includes(:pictures).upcoming.search(params[:query])
+        flash.now[:notice] = "Total #{ActionController::Base.helpers.pluralize(@trending_events.count,'result')} results found for your search"
+      end
+      @trending_events = @trending_events.page(params[:page]).per(4)
+      if request.xhr?
+        render layout: false
+      else
+        render 'events_before_login'
+      end
     end
   end
-
-
 
   def new
     @event = current_spree_user.events.new(session[:event_data])
@@ -117,12 +144,12 @@ class EventsController < ApplicationController
     # if @event.fb_image.url.present?
     #   @image_path = @event.fb_image.url
     # else
-      event_template = Spree::Admin::Template.where(id: @event.template_id).first
-      event_design = event_template.designs.where(id: @event.design_id).first if event_template
-      c_design = @handlebars.compile(event_design.content)
-      kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
-      image_path = kit.to_file( "#{Rails.root.to_s}/public/fb/#{@event.id}-#{Time.now.to_i}.jpg")
-      @image_path = "/" + image_path.path.split("/").last(2).join("/")
+    event_template = Spree::Admin::Template.where(id: @event.template_id).first
+    event_design = event_template.designs.where(id: @event.design_id).first if event_template
+    c_design = @handlebars.compile(event_design.content)
+    kit = IMGKit.new(c_design.call(MPARTY: event_data_points(@event,event_template)).html_safe,height: 560, width:405, quality: 250)
+    image_path = kit.to_file( "#{Rails.root.to_s}/public/fb/#{@event.id}-#{Time.now.to_i}.jpg")
+    @image_path = "/" + image_path.path.split("/").last(2).join("/")
     #end
 
     render layout: false
@@ -226,9 +253,22 @@ class EventsController < ApplicationController
 
   def inv_request
     @event = Event.find(params[:id])
-    authorize @event, :allow_inv_request?
-    InvRequest.create(user_id: current_spree_user.id,event_id: @event.id)
-    render nothing: true
+    if @event.user.id == current_spree_user.id
+      flash[:error] = "You can't send request to yourself"
+    elsif !@event.inv_requested?(current_spree_user)
+      authorize @event, :allow_inv_request?
+      InvRequest.create(user_id: current_spree_user.id,event_id: @event.id)
+      unless request.xhr?
+        flash[:notice] = "Request sent successfully"
+      end
+    else
+      flash[:error] = "You have already sent request"
+    end
+    if request.xhr?
+      render nothing: true
+    else
+      redirect_to spree.root_path
+    end
   end
 
   def invited_users_list

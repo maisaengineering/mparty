@@ -1,1 +1,10 @@
-$("#listing_events").html("<%= j(render 'events/my_events',events: @events ) %> ")
+<% if current_spree_user  %>
+   $("#listing_events").html("<%= j(render 'events/my_events',events: @events ) %> ")
+<% else  %>
+   $('#trending_events').append('<%= j(render 'events/events_list',events: @trending_events,query: params[:query],type: 'trending')   %>');
+     <% if @trending_events.next_page %>
+        $('.pagination').replaceWith('<%= j(paginate @trending_events,params: {query: params[:query] }) %>');
+     <% else %>
+        $('.pagination').remove();
+     <% end %>
+<% end %>
