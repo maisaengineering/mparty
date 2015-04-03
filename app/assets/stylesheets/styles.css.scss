@@ -224,7 +224,7 @@ body{
   border-bottom:none;
 }
 .modal-header {
-  toverflow:hidden;
+  overflow:hidden;
 }
 #wrapper .modal-footer{
   border-top:none;
@@ -2758,5 +2758,11 @@ a:focus{
 }
 #coupon_status.success{
   color: green;
+}
+.modal .glyphicon-remove {
+  font-size: 16px;
+  position: relative;
+  right: 15px;
+  top: 15px;
 }
 
