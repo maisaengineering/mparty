@@ -13,7 +13,11 @@ Spree::HomeController.class_eval do
     end
 
     available_cities = ['Hyderabad','Bangalore','Mumbai','Chennai']
-    session[:current_city] = params[:user_city] if params[:user_city]
+    if params[:user_city]
+      session[:current_city] = params[:user_city]
+    else
+      session.delete(:current_city)
+    end
 
     @city = session[:current_city] if session[:current_city]
     if available_cities.include?(@city) and (@city != 'ALL')
